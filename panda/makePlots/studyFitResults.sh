@@ -64,6 +64,25 @@ rm -f studyFitResults*.txt;
 rm -f histoDatacard_?.root
 
 elif [ $NSEL == 'ssww' ]; then
+echo "***************SSWW All*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2016_124.root", "ana_ssww/fitDiagnosticsssww_2016_wwwz_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_15.root histoDatacard_ssww_all_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2017_124.root", "ana_ssww/fitDiagnosticsssww_2017_wwwz_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_15.root histoDatacard_ssww_all_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2018_124.root", "ana_ssww/fitDiagnosticsssww_2018_wwwz_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_15.root histoDatacard_ssww_all_2018.root
+
+hadd -f histoDatacard_ssww_all_2019.root histoDatacard_ssww_all_201[6-8].root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_*.root
+
 echo "***************SSWW WW SR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(10, "done_ana/histossww_2016_0.root", "ana_ssww/fitDiagnosticsssww_comb_wwwz_obs.root", "SSWW_2016")';
 mv studyFitResults.txt studyFitResults_2016.txt;

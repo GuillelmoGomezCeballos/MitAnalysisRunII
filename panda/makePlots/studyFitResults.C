@@ -85,6 +85,9 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
     for(int i=0; i<44; i++) excludeBins[i] = i+1;
     binToCount = kPlotWZ;
   }
+  else if(nsel == 15){ // all regions
+    binToCount = kPlotWZ;
+  }
   else if(nsel == 21){ // ZH SR 0j
     excludeBins[0] =  1;
     binToCount = kPlotEM;
