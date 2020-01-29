@@ -1170,7 +1170,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
   if(whichBSMName == ""){
     // Filling datacards txt file
-    char outputLimitsCard[200];=
+    char outputLimitsCard[200];
     sprintf(outputLimitsCard,"datacard_zh%s_%d_%dj.txt",whichBSMName.Data(),year,jetValue);
     ofstream newcardShape;
     newcardShape.open(outputLimitsCard);
