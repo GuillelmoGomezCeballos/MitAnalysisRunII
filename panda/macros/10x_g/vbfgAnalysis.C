@@ -811,7 +811,7 @@ int year, int triggerCat, int mH = 125
 
       double photonSFUnc[3] = {1.0, 1.0, 1.0};
       double totalWeight = 1.0; double puWeight = 1.0; double puWeightUp = 1.0; double puWeightDown = 1.0; double sf_l1PrefireE = 1.0;
-      double triggerWeights[2] = {1.0, 0.0};
+      double triggerWeights[2] = {1.0, 0.0}; double nloKfactor = 1;
       double photonSF = 1.0, effSFLoose = 1.0, effSFTight = 1.0;
       if(theCategory != kPlotData){
 	puWeight     = nPUScaleFactor(fhDPU,    thePandaFlat.pu);
@@ -835,9 +835,10 @@ int year, int triggerCat, int mH = 125
         }
 
         // NLO QCD K-factors
-	if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * (1.166790*TMath::Exp(-0.001606*thePandaFlat.trueGenBosonPt)+0.466154);
-	else if(infileCat_[ifile] == kPlotDY)  totalWeight = totalWeight * (1.539043*TMath::Exp(-0.001721*thePandaFlat.trueGenBosonPt)+0.391421);
-	else if(infileCat_[ifile] == kPlotGJ0) totalWeight = totalWeight * (1.7169-0.001221*thePandaFlat.trueGenBosonPt);
+	if     (infileCat_[ifile] == kPlotWJ0) nloKfactor = (1.166790*TMath::Exp(-0.001606*thePandaFlat.trueGenBosonPt)+0.466154);
+	else if(infileCat_[ifile] == kPlotDY)  nloKfactor = (1.539043*TMath::Exp(-0.001721*thePandaFlat.trueGenBosonPt)+0.391421);
+	else if(infileCat_[ifile] == kPlotGJ0) nloKfactor = (1.7169-0.001221*thePandaFlat.trueGenBosonPt);
+	totalWeight = totalWeight * nloKfactor;
 
         // EWK K-factors
 	//if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
@@ -968,7 +969,7 @@ int year, int triggerCat, int mH = 125
       if(dataCardSel >= 0) histo[ 90+theMinSelType][theCategory]->Fill(vMet.Phi(),totalWeight);
 
       if(theMinSelType != LLGSEL){ // Begin datacard making
-        if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight);
+        if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight,nloKfactor);
         double MVAVar     = TMath::Min(mTGMET    ,999.999);
         double MVAVarUp   = TMath::Min(mTGMETUp  ,999.999);
         double MVAVarDown = TMath::Min(mTGMETDown,999.999);
