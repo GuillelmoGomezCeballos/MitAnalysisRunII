@@ -32,10 +32,12 @@ elif [ $NSEL == 5 ]; then
   root -q -l -b MitAnalysisRunII/panda/macros/9x/wzAnalysis.C+
   root -q -l -b MitAnalysisRunII/panda/macros/9x/zzAnalysis.C+
   root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+
+  if [ $# == 3 ] && [ $3 == 0 ]; then
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/wzAnalysis.C+'('${YEAR}')'     >& log_wz_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zzAnalysis.C+'('${YEAR}')'     >& log_zz_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}',0)'   >& log_zh_${YEAR}_0j &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}',1)'   >& log_zh_${YEAR}_1j &
+  fi
   if [ $# == 3 ] && [ $3 == 1 ]; then
     for jetValue in 0 1; do
       nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}','${jetValue}',"NoBSM")' >& log_zhNoBSM_${YEAR}_${jetValue}j &

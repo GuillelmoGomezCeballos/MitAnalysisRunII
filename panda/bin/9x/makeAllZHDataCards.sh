@@ -1,7 +1,6 @@
 #!/bin/sh
 
 cat > list_of_zh_samples.txt <<EOF
-
 Unpart_ZToLL_SU-0_dU-1p01
 Unpart_ZToLL_SU-0_dU-1p02
 Unpart_ZToLL_SU-0_dU-1p04
@@ -46,3 +45,5 @@ for sampleName in `cat list_of_zh_samples.txt`; do
     done
   done
 done
+
+rm -f list_of_zh_samples.txt;
