@@ -558,8 +558,8 @@ elif [ $NSEL == 'ssww' ]; then
   hadd -f done_ana/histossww_${YEAR}_686970.root done_ana/histossww_${YEAR}_68.root  done_ana/histossww_${YEAR}_69.root	done_ana/histossww_${YEAR}_70.root
   hadd -f done_ana/histossww_${YEAR}_717273.root done_ana/histossww_${YEAR}_71.root  done_ana/histossww_${YEAR}_72.root	done_ana/histossww_${YEAR}_73.root
   hadd -f done_ana/histossww_${YEAR}_747576.root done_ana/histossww_${YEAR}_74.root  done_ana/histossww_${YEAR}_75.root	done_ana/histossww_${YEAR}_76.root
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,10,"p_{T}^{leading}","GeV","done_ana/histossww_'${YEAR}'_686970.root","ssww_wwsel_ptl1",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,10,"p_{T}^{trailing}","GeV","done_ana/histossww_'${YEAR}'_717273.root","ssww_wwsel_ptl2",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"p_{T}^{leading}","GeV","done_ana/histossww_'${YEAR}'_686970.root","ssww_wwsel_ptl1",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"p_{T}^{trailing}","GeV","done_ana/histossww_'${YEAR}'_717273.root","ssww_wwsel_ptl2",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,10,"m_{ll}","GeV","done_ana/histossww_'${YEAR}'_747576.root","ssww_zsel_mll",0,'${YEAR}',"H_{125}",1.0,0,"",1,'${APPLYSCALING}')';
 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"BDT score","BIN","done_ana/histossww_'${YEAR}'_77.root","ssww_wzsel_bdt",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
