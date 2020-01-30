@@ -90,6 +90,7 @@ elif [ $NSEL == 6 ]; then
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',4)' >& log_ssww_fid4_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',5)' >& log_ssww_fid5_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',6)' >& log_ssww_fid6_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',7)' >& log_ssww_fid7_${YEAR} &
   fi
 
 elif [ $NSEL == 7 ]; then
