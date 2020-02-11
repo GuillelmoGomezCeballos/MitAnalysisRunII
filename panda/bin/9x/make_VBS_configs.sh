@@ -40,4 +40,13 @@ gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLj
 gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLjj_dim8_ewk_Fall17/panda   |grep root|awk '($5>200000){print"WZjj_dim8_ewk_ext_Fall17      MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WLLjj_dim8_ewk_Fall17/panda/"$9}'    > WLLjj_dim8_ewk_ext_Fall17.cfg
 gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLjj_dim8_ewk_Autumn18/panda |grep root|awk '($5>200000){print"WZjj_dim8_ewk_ext_Autumn18    MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WLLjj_dim8_ewk_Autumn18/panda/"$9}'  > WLLjj_dim8_ewk_ext_Autumn18.cfg
 
+elif [ $# == 1 ] && [ $1 == 4 ]; then
+
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WWjj_SS_interference_Summer16/panda|grep root|awk '($5>200000){print"WWjj_SS_interference_Summer16 MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WWjj_SS_interference_Summer16/panda/"$9}' > WWjj_SS_interference_Summer16.cfg
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WWjj_SS_interference_Fall17/panda  |grep root|awk '($5>200000){print"WWjj_SS_interference_Fall17   MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WWjj_SS_interference_Fall17/panda/"$9}'   > WWjj_SS_interference_Fall17.cfg
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WWjj_SS_interference_Autumn18/panda|grep root|awk '($5>200000){print"WWjj_SS_interference_Autumn18 MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WWjj_SS_interference_Autumn18/panda/"$9}' > WWjj_SS_interference_Autumn18.cfg
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLJJ_interference_Summer16/panda  |grep root|awk '($5>200000){print"WZJJ_interference_Summer16    MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WLLJJ_interference_Summer16/panda/"$9}'   > WZJJ_interference_Summer16.cfg
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLJJ_interference_Fall17/panda    |grep root|awk '($5>200000){print"WZJJ_interference_Fall17      MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WLLJJ_interference_Fall17/panda/"$9}'     > WZJJ_interference_Fall17.cfg
+gfal-ls -l gsiftp://se01.cmsaf.mit.edu:2811/cms/store/user/bmaier/gridpanda/WLLJJ_interference_Autumn18/panda  |grep root|awk '($5>200000){print"WZJJ_interference_Autumn18    MC 1 root://xrootd.cmsaf.mit.edu//store/user/bmaier/gridpanda/WLLJJ_interference_Autumn18/panda/"$9}'   > WZJJ_interference_Autumn18.cfg
+
 fi

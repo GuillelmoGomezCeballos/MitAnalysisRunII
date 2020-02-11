@@ -80,6 +80,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 		TString mlfitResult = "", TString channelName = "", bool applyBBBBSF = false,
 		TString plotExtraName = "", TString higgs2Label = "", bool applySmoothing = false) {
 
+  bool isVBS[2] = {false, false};
   if(isBlind) show2D = false;
 
   bool isSignalStack = false;
@@ -118,8 +119,17 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   TH1F* hBck = 0;
   for(int ic=0; ic<nPlotCategories; ic++){
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
+  }
+
+  if(_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = true;
+  if(_hist[kPlotEWKWZ]   && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = true;
+
+  for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
-    if(isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
+    if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
+    else if(isVBS[0] && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[1] && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));
     // begin btaging study
     //_hist[ic]->SetBinContent(1,0);

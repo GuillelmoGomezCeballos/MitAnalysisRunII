@@ -558,6 +558,10 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       passZMass   && passNjets     && passMET     && passPTFrac     && passDPhiZMET     &&  passBtagVeto     && passPTLL && passDPhiJetMET     && passTauVeto && passDRLL
                                     };
 
+      if(isDEBUG && passAllCuts[ZHTIGHTSEL] && theCategory == kPlotData) {
+        printf("DATA: %d %llu %d %d %f %f %f\n",thePandaFlat.runNumber,thePandaFlat.eventNumber,lepType,thePandaFlat.nJot,dPhiDiLepMET,dPhiJetMET,vMet.Pt());
+      }
+
       double totalWeight = 1.0; double puWeight = 1.0; double puWeightUp = 1.0; double puWeightDown = 1.0; double sf_l1PrefireE = 1.0;
       double sf_EWKZH = 1.0; double sf_EWKZHUp = 1.0; double sf_EWKZHDown = 1.0;
       double triggerWeights[2] = {1.0, 0.0};

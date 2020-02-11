@@ -139,6 +139,8 @@ void skimmingAnalysis(int year, int specialMC = 0)
     infileName_.push_back(Form("WZjj_dim8_ewk_ext.root"));
     infileName_.push_back(Form("WWjj_SS_lttt.root"));
     infileName_.push_back(Form("WWjj_SS_long.root"));
+    infileName_.push_back(Form("WWjj_SS_interference.root"));
+    infileName_.push_back(Form("WZJJ_interference.root"));
   }
 
   for(UInt_t ifile=0; ifile<infileName_.size(); ifile++) {

@@ -191,7 +191,7 @@ std::map<int, TString> plotNames={
     { kPlotggWW        , "gg #rightarrow WW"},
     { kPlotTop         , "Top quark"},
     { kPlotDY	       , "Drell-Yan"},
-    { kPlotEWKSSWW     , "EWK W^{#pm}W^{#pm}"},
+    { kPlotEWKSSWW     , "W^{#pm}W^{#pm}"},
     { kPlotQCDSSWW     , "QCD W^{#pm}W^{#pm}"},
     { kPlotEWKWZ       , "EWK WZ"},
     { kPlotWZ	       , "WZ"},

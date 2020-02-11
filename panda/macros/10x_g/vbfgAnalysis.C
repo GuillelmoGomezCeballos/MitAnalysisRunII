@@ -336,7 +336,8 @@ int year, int triggerCat, int mH = 125
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
     bool is1DMT = false;
-    if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
+    //if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
+    if     (thePlot >=   0 && thePlot <=   9) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1000;}
     else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 50;  xminPlot =  0.0; xmaxPlot = 500;}
     else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 6;   xminPlot = -0.5; xmaxPlot = 5.5;}
     else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
