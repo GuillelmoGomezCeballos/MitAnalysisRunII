@@ -342,6 +342,11 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if (jentry%1000000 == 0) printf("--- reading event %8lld (%8lld) of %8lld\n",jentry,ientry,nentries);
       if (infileCat_[ifile] != 0 && jentry%(int)theMCPrescale != 0) continue;
 
+/*bool thePass =
+(thePandaFlat.runNumber==315322&&thePandaFlat.eventNumber==668325413)||
+(thePandaFlat.runNumber==325099&&thePandaFlat.eventNumber==135000474)||
+(thePandaFlat.runNumber==325170&&thePandaFlat.eventNumber==2030648124);
+      if(thePass == false) continue;*/
       bool passTrigger = (thePandaFlat.trigger & (1<<kEMuTrig)) != 0       || (thePandaFlat.trigger & (1<<kDoubleMuTrig)) != 0  ||
                          (thePandaFlat.trigger & (1<<kSingleMuTrig)) != 0  || (thePandaFlat.trigger & (1<<kDoubleEleTrig)) != 0 ||
                          (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0;
@@ -558,8 +563,10 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       passZMass   && passNjets     && passMET     && passPTFrac     && passDPhiZMET     &&  passBtagVeto     && passPTLL && passDPhiJetMET     && passTauVeto && passDRLL
                                     };
 
-      if(isDEBUG && passAllCuts[ZHTIGHTSEL] && theCategory == kPlotData) {
-        printf("DATA: %d %llu %d %d %f %f %f\n",thePandaFlat.runNumber,thePandaFlat.eventNumber,lepType,thePandaFlat.nJot,dPhiDiLepMET,dPhiJetMET,vMet.Pt());
+      if(isDEBUG && theCategory == kPlotData) {
+        printf("DATA: %d %llu %d | %f %d %f %f %f %f %f | %d %d %d %d %d %d %d %d %d %d\n",thePandaFlat.runNumber,thePandaFlat.eventNumber,lepType,
+        TMath::Abs(mllZ-91.1876),thePandaFlat.nJot,dPhiDiLepMET,vMet.Pt(),drll,dPhiJetMET,ptFrac,
+        passZMass,passPTLL,passNjets,passBtagVeto,passDPhiZMETTight,passMETTight,passDRLL,passDPhiJetMET,passPTFrac,passTauVeto);
       }
 
       double totalWeight = 1.0; double puWeight = 1.0; double puWeightUp = 1.0; double puWeightDown = 1.0; double sf_l1PrefireE = 1.0;
