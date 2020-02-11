@@ -34,6 +34,10 @@ PandaAnalysis/T3/merging/merge_Leptonic.py DYJetsToEE_POWHEG
 #PandaAnalysis/T3/merging/merge_Leptonic.py ZtoNuNu_pt650toinf
 PandaAnalysis/T3/merging/merge_Leptonic.py WJets
 PandaAnalysis/T3/merging/merge_Leptonic.py WpWp_EWK
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_long
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_lttt
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_interference
+PandaAnalysis/T3/merging/merge_Leptonic.py WZJJ_interference
 PandaAnalysis/T3/merging/merge_Leptonic.py WpWp_QCD
 PandaAnalysis/T3/merging/merge_Leptonic.py WZ3l_MG_EWK
 PandaAnalysis/T3/merging/merge_Leptonic.py WZ3l_0Jets_MG_QCD
