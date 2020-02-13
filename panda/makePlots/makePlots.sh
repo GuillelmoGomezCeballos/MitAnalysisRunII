@@ -460,7 +460,7 @@ elif [ $NSEL == 'ssww' ]; then
     export channelName="ch1"; 
   fi
 
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Output fit","BIN","done_ana/histossww_'${YEAR}'_124.root","ssww_datacard",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Output fit","BIN","done_ana/histossww_'${YEAR}'_125.root","ssww_datacard",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,5,"m_{jj}","GeV","done_ana/histossww_'${YEAR}'_97.root","ssww_mm_presel_mjj",0,'${YEAR}',"H_{125}",1.0,0,"",1,'${APPLYSCALING}')';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,5,"#Delta#eta_{jj}","","done_ana/histossww_'${YEAR}'_100.root","ssww_mm_presel_detajj",0,'${YEAR}',"H_{125}",1.0,0,"",1,'${APPLYSCALING}')';
@@ -585,6 +585,8 @@ elif [ $NSEL == 'ssww' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,2,"WZ z^{*}","","done_ana/histossww_'${YEAR}'_94.root","ssww_wzsel_wzzep",0,  '${YEAR}',"H_{125}",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,2,"#Delta R_{j1Z}","","done_ana/histossww_'${YEAR}'_95.root","ssww_wzsel_drj1z",0,  '${YEAR}',"H_{125}",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,2,"Sum p^{vectorial}_{T} / p^{scalar}_{T}","","done_ana/histossww_'${YEAR}'_96.root","ssww_wzsel_ptotrel",0,  '${YEAR}',"H_{125}",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeV","done_ana/histossww_'${YEAR}'_124.root","ssww_wzsel_fullmtwz",0,'${YEAR}',"H_{125}",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
 elif [ $NSEL == 'zlg' ]; then
   export sf_dy=1.0;

@@ -353,7 +353,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 125;
+  const int allPlots = 126;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     if     (thePlot >=   0 && thePlot <=   4) {nBinPlot =2500; xminPlot = 500.0; xmaxPlot = 3000.0;}
@@ -382,7 +382,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >=  68 && thePlot <=  73) {nBinPlot =  80; xminPlot = 20.0; xmaxPlot = 420;}
     else if(thePlot >=  74 && thePlot <=  76) {nBinPlot = 100; xminPlot = 20.0; xmaxPlot = 220;}
     else if(thePlot >=  77 && thePlot <=  77) {nBinPlot = 200; xminPlot = -1.0; xmaxPlot = 1.0;}
-    else if(thePlot >=  78 && thePlot <=  78) {nBinPlot = 10; xminPlot =  0.0; xmaxPlot = 500;}
+    else if(thePlot >=  78 && thePlot <=  78) {nBinPlot = 20; xminPlot =  0.0; xmaxPlot = 500;}
     else if(thePlot >=  79 && thePlot <=  83) {nBinPlot = 12; xminPlot = 200; xmaxPlot = 500.0;}
     else if(thePlot >=  84 && thePlot <=  88) {nBinPlot =  22; xminPlot =  2.5; xmaxPlot = 8.0;}
     else if(thePlot >=  89 && thePlot <=  90) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
@@ -401,6 +401,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >= 115 && thePlot <= 117) {nBinPlot =  50; xminPlot =  0.0; xmaxPlot = 2.5;}
     else if(thePlot >= 118 && thePlot <= 120) {nBinPlot =2500; xminPlot = 500.0; xmaxPlot = 3000.0;}
     else if(thePlot >= 121 && thePlot <= 123) {nBinPlot = 500; xminPlot =  0.0; xmaxPlot = 500.0;}
+    else if(thePlot >= 124 && thePlot <= 124) {nBinPlot = 20; xminPlot =  0.0; xmaxPlot = 1000;}
     if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(thePlot >=   0 && thePlot <=   4) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
     else if(thePlot >=  66 && thePlot <=  67) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMLL, xbinsMLL);
@@ -1816,6 +1817,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         if(qTot<0) histo[122][theCategory]->Fill(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.0001),totalWeight);
                    histo[123][theCategory]->Fill(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.0001),totalWeight*(double)qTot/TMath::Abs(qTot));
       }
+      if(passEWKWZSel) histo[124][theCategory]->Fill(TMath::Min((alllep+vMet).Mt(),999.999),totalWeight);
 
       if((theCategory == kPlotData && passEWKWZSel && debug == 1) || debug == 2){
         printf("DATA %d %d %llu | %d %d | %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",

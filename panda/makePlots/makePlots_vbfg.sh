@@ -9,9 +9,11 @@ export USEPOSTFIT=$5;
 if [ $NSEL == 'vbfg' ]; then
   export mlfitResult="";
   export channelName=""; 
-  if [ $# == 5 ] && [ $USEPOSTFIT == 1 ]; then
+  if [ $# == 5 ] && [ $USEPOSTFIT == 1 ] && [ $YEAR != 2019 ]; then
   export mlfitResult="done_vbfg/fitDiagnosticsvbfg125_obs.root";
   export channelName=VBFG_${YEAR}_trigger${TRIG};
+  elif [ $# == 5 ] && [ $USEPOSTFIT == 1 ]; then
+  export APPLYSCALING=1;
   fi
 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"card","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_95.root","vbfg_trigger'${TRIG}'_sel_card",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
@@ -26,7 +28,7 @@ if [ $NSEL == 'vbfg' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_7.root","vbfg_trigger'${TRIG}'_sel7_mtg",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_8.root","vbfg_trigger'${TRIG}'_sel8_mtg",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_9.root","vbfg_trigger'${TRIG}'_sel9_mtg",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-
+exit;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"p_{T}^{miss}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_10.root","vbfg_trigger'${TRIG}'_sel0_met",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"p_{T}^{miss}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_11.root","vbfg_trigger'${TRIG}'_sel1_met",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"p_{T}^{miss}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_12.root","vbfg_trigger'${TRIG}'_sel2_met",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';

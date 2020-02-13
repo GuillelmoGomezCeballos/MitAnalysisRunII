@@ -30,9 +30,17 @@ elif [ $# == 1 ] && [ $1 == "vbfg" ]; then
 
 for i in `seq 0 110`;
 do
-  ls done_vbfg/histoVBFG_mH125_2016_${i}.root done_vbfg/histoVBFG_mH125_2017_${i}.root done_vbfg/histoVBFG_mH125_2018_${i}.root >& /dev/null
+  ls done_vbfg/histoVBFG_2016_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger0_mH125_${i}.root >& /dev/null
   if [ $? -eq 0 ]; then
-    hadd -f done_vbfg/histoVBFG_mH125_2019_${i}.root done_vbfg/histoVBFG_mH125_2016_${i}.root done_vbfg/histoVBFG_mH125_2017_${i}.root done_vbfg/histoVBFG_mH125_2018_${i}.root
+    hadd -f done_vbfg/histoVBFG_2019_trigger0_mH125_${i}.root  done_vbfg/histoVBFG_2016_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger0_mH125_${i}.root
+  fi
+done
+
+for i in `seq 0 110`;
+do
+  ls done_vbfg/histoVBFG_2017_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger1_mH125_${i}.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_vbfg/histoVBFG_2019_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger1_mH125_${i}.root
   fi
 done
 
@@ -43,6 +51,24 @@ do
   ls done_ana/histossww_2016_${i}.root done_ana/histossww_2017_${i}.root done_ana/histossww_2018_${i}.root >& /dev/null
   if [ $? -eq 0 ]; then
     hadd -f done_ana/histossww_2019_${i}.root done_ana/histossww_2016_${i}.root done_ana/histossww_2017_${i}.root done_ana/histossww_2018_${i}.root
+  fi
+done
+
+elif [ $# == 1 ] && [ $1 == "vbfg" ]; then
+
+for i in `seq 0 150`;
+do
+  ls done_ana/histoVBFG_trigger0_2016_${i}.root done_ana/histoVBFG_trigger0_2017_${i}.root done_ana/histoVBFG_trigger0_2018_${i}.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_ana/histoVBFG_trigger0_2019_${i}.root done_ana/histoVBFG_trigger0_2016_${i}.root done_ana/histoVBFG_trigger0_2017_${i}.root done_ana/histoVBFG_trigger0_2018_${i}.root
+  fi
+done
+
+for i in `seq 0 150`;
+do
+  ls done_ana/histoVBFG_trigger1_2017_${i}.root done_ana/histoVBFG_trigger1_2018_${i}.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_ana/histoVBFG_trigger1_2016_${i}.root done_ana/histoVBFG_trigger1_2017_${i}.root done_ana/histoVBFG_trigger1_2018_${i}.root
   fi
 done
 

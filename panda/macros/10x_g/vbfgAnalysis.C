@@ -295,7 +295,7 @@ int year, int triggerCat, int mH = 125
   delete ftrgSF;
 
   // (mjj<=X/>=X) 0: SR , 1: passLGSel, 2: passLSel, 3: passGJSel, 4: passLLGSel
-  const int nBinMVA1DTrigger0 = 7; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   65,   100,  200,  350,  550, 1000};
+  const int nBinMVA1DTrigger0 = 5; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   65,   100,  200,  1000};//400,  600, 1000};
   const int nBinMVA1DTrigger1 = 5; Double_t xbins1DTrigger1[nBinMVA1DTrigger1+1] = {0,   30,   65,   100,  200,  1000};
   const int nBinMVA1DAddTrigger0 = 10; Double_t xbins1DAddTrigger0[nBinMVA1DAddTrigger0+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,2000+mtgSplit0,2000+mtgSplit1,3000,3000+mtgSplit0,3000+mtgSplit1,4000,5000};
   const int nBinMVA1DAddTrigger1 =  6; Double_t xbins1DAddTrigger1[nBinMVA1DAddTrigger1+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,3000,4000,5000};
@@ -336,8 +336,8 @@ int year, int triggerCat, int mH = 125
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
     bool is1DMT = false;
-    //if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
-    if     (thePlot >=   0 && thePlot <=   9) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1000;}
+    if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
+    //if     (thePlot >=   0 && thePlot <=   9) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1000;}
     else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 50;  xminPlot =  0.0; xmaxPlot = 500;}
     else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 6;   xminPlot = -0.5; xmaxPlot = 5.5;}
     else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
