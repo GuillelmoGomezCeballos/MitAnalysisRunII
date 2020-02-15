@@ -17,7 +17,7 @@
 void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna = 0){
 
   TString fidAnaName = "";
-  if(fidAna == 1) fidAnaName = "_fiducial";
+  if(fidAna > 0) fidAnaName = Form("_fiducial%d",fidAna);
 
   double qcdScaleTotal[2] = {0.035, 0.231};
   double pdfTotal[2] = {0.016, 0.051};

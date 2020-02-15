@@ -54,6 +54,14 @@ do
   fi
 done
 
+for i in `seq 0 150`;
+do
+  ls done_ana/histossww_2016_${i}_fiducial5.root done_ana/histossww_2017_${i}_fiducial5.root done_ana/histossww_2018_${i}_fiducial5.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_ana/histossww_2019_${i}_fiducial5.root done_ana/histossww_2016_${i}_fiducial5.root done_ana/histossww_2017_${i}_fiducial5.root done_ana/histossww_2018_${i}_fiducial5.root
+  fi
+done
+
 elif [ $# == 1 ] && [ $1 == "vbfg" ]; then
 
 for i in `seq 0 150`;

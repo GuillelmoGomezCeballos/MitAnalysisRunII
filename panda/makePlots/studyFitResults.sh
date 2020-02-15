@@ -65,19 +65,19 @@ rm -f histoDatacard_?.root
 
 elif [ $NSEL == 'ssww' ]; then
 echo "***************SSWW All*****"
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2016_124.root", "ana_ssww/fitDiagnosticsssww_2016_wwwz_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2016_136.root", "ana_ssww/fitDiagnosticsssww_2016_wwwz_obs.root", "ch1")';
 mv studyFitResults.txt studyFitResults_2016.txt;
 mv histoDatacard_15.root histoDatacard_ssww_all_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2017_124.root", "ana_ssww/fitDiagnosticsssww_2017_wwwz_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2017_136.root", "ana_ssww/fitDiagnosticsssww_2017_wwwz_obs.root", "ch1")';
 mv studyFitResults.txt studyFitResults_2017.txt;
 mv histoDatacard_15.root histoDatacard_ssww_all_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2018_124.root", "ana_ssww/fitDiagnosticsssww_2018_wwwz_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2018_136.root", "ana_ssww/fitDiagnosticsssww_2018_wwwz_obs.root", "ch1")';
 mv studyFitResults.txt studyFitResults_2018.txt;
 mv histoDatacard_15.root histoDatacard_ssww_all_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2019_124.root", "comb/fitDiagnosticsssww_comb_wwwz_obs.root", "SSWW_2019")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(15, "done_ana/histossww_2019_136.root", "comb/fitDiagnosticsssww_comb_wwwz_obs.root", "SSWW_2019")';
 mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_15.root histoDatacard_ssww_all_2019.root
 
@@ -183,6 +183,132 @@ mv histoDatacard_14.root histoDatacard_ssww_wz_2018.root
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(14, "done_ana/histossww_2019_77.root", "comb/fitDiagnosticsssww_comb_wwwz_obs.root", "SSWW_2019")';
 mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_14.root histoDatacard_ssww_wz_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+
+
+elif [ $NSEL == 'long' ]; then
+echo "***************LONG All*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2016_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2016_fiducial5_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_35.root histoDatacard_long_all_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2017_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2017_fiducial5_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_35.root histoDatacard_long_all_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2018_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2018_fiducial5_obs.root", "ch1")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_35.root histoDatacard_long_all_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2019_136_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_35.root histoDatacard_long_all_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_*.root
+
+echo "***************LONG WW SR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(30, "done_ana/histossww_2016_0_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2016")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_30.root histoDatacard_long_wwsr_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(30, "done_ana/histossww_2017_0_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2017")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_30.root histoDatacard_long_wwsr_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(30, "done_ana/histossww_2018_0_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2018")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_30.root histoDatacard_long_wwsr_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(30, "done_ana/histossww_2019_0_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_30.root histoDatacard_long_wwsr_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_*.root
+
+echo "***************LONG BTAG CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(31, "done_ana/histossww_2016_1_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2016")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_31.root histoDatacard_long_btag_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(31, "done_ana/histossww_2017_1_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2017")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_31.root histoDatacard_long_btag_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(31, "done_ana/histossww_2018_1_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2018")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_31.root histoDatacard_long_btag_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(31, "done_ana/histossww_2019_1_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_31.root histoDatacard_long_btag_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_*.root
+
+echo "***************LONG ZZ CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(32, "done_ana/histossww_2016_2_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2016")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_32.root histoDatacard_long_zz_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(32, "done_ana/histossww_2017_2_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2017")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_32.root histoDatacard_long_zz_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(32, "done_ana/histossww_2018_2_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2018")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_32.root histoDatacard_long_zz_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(32, "done_ana/histossww_2019_2_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_32.root histoDatacard_long_zz_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************LONG WZb CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(33, "done_ana/histossww_2016_3_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2016")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_33.root histoDatacard_long_wzb_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(33, "done_ana/histossww_2017_3_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2017")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_33.root histoDatacard_long_wzb_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(33, "done_ana/histossww_2018_3_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2018")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_33.root histoDatacard_long_wzb_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(33, "done_ana/histossww_2019_3_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_33.root histoDatacard_long_wzb_2019.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************LONG WZ CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(34, "done_ana/histossww_2016_77_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2016")';
+mv studyFitResults.txt studyFitResults_2016.txt;
+mv histoDatacard_34.root histoDatacard_long_wz_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(34, "done_ana/histossww_2017_77_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2017")';
+mv studyFitResults.txt studyFitResults_2017.txt;
+mv histoDatacard_34.root histoDatacard_long_wz_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(34, "done_ana/histossww_2018_77_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2018")';
+mv studyFitResults.txt studyFitResults_2018.txt;
+mv histoDatacard_34.root histoDatacard_long_wz_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(34, "done_ana/histossww_2019_77_fiducial5.root", "comb/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+mv studyFitResults.txt studyFitResults_2019.txt;
+mv histoDatacard_34.root histoDatacard_long_wz_2019.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
