@@ -31,7 +31,7 @@ void ewkvbsMVA(
   factory = new TMVA::Factory("bdt", output_file, "!V:!Silent:DrawProgressBar:Transformations=I;D;P;G,D:AnalysisType=Multiclass");
   TString factoryOptions="!V:!Silent:DrawProgressBar";
   //TString factoryOptions="!V:!Silent:!DrawProgressBar";
-  factoryOptions+=":AnalysisType=Classification";
+  if(nsel != 2)factoryOptions+=":AnalysisType=Classification";
   if(useGaussDeco)  factoryOptions += ":Transformations=G,D";
   //else              factoryOptions += ":Transformations=I";
   factory = new TMVA::Factory("bdt", output_file, factoryOptions);
@@ -39,8 +39,10 @@ void ewkvbsMVA(
 
   TCut cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",trainTreeEventSplitStr.Data(),kPlotEWKWZ);
   TCut cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",trainTreeEventSplitStr.Data(),kPlotWZ);
+  TCut cutTrainBkg2   = "";
   TCut cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",testTreeEventSplitStr.Data(), kPlotEWKWZ);
   TCut cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",testTreeEventSplitStr.Data(), kPlotWZ);
+  TCut cutTestBkg2    = "";
   if     (nsel == 1){
     cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotSignal2);
     cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotSignal1);
@@ -49,16 +51,23 @@ void ewkvbsMVA(
   }
   else if(nsel == 2){
     cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotSignal2);
-    cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d||category==%d||category==%d||category==%d)",trainTreeEventSplitStr.Data(),kPlotSignal1,kPlotWS,kPlotEWKWZ,kPlotWZ);
+    cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotSignal1);
+    cutTrainBkg2   = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotWS);
     cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",testTreeEventSplitStr.Data(), kPlotSignal2);
-    cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d||category==%d||category==%d||category==%d)",testTreeEventSplitStr.Data(), kPlotSignal1,kPlotWS,kPlotEWKWZ,kPlotWZ);
+    cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",testTreeEventSplitStr.Data(), kPlotSignal1);
+    cutTestBkg2    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",testTreeEventSplitStr.Data(), kPlotWS);
   }
-  dataloader->AddTree(mvaTree, "Background", 1.0, cutTrainBkg	, "train");
   dataloader->AddTree(mvaTree, "Signal"    , 1.0, cutTrainSignal, "train");
-  dataloader->AddTree(mvaTree, "Background", 1.0, cutTestBkg    , "test");
+  dataloader->AddTree(mvaTree, "Background", 1.0, cutTrainBkg	, "train");
   dataloader->AddTree(mvaTree, "Signal"    , 1.0, cutTestSignal , "test");
+  dataloader->AddTree(mvaTree, "Background", 1.0, cutTestBkg    , "test");
   dataloader->SetWeightExpression("abs(weight)", "Signal");
   dataloader->SetWeightExpression("abs(weight)", "Background");
+  if(nsel == 2){
+    dataloader->AddTree(mvaTree, "Background2", 1.0, cutTrainBkg2 , "train");
+    dataloader->AddTree(mvaTree, "Background2", 1.0, cutTestBkg2  , "test");
+    dataloader->SetWeightExpression("abs(weight)", "Background2");
+  }
   
   if(nsel == 1 || nsel == 2){
     //dataloader->AddVariable("mvamjj"	 , "mvamjj"	, "", 'F');
