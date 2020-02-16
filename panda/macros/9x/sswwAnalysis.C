@@ -547,7 +547,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   }
 
   // Begin MVA-weigths initialization
-  int category;
+  int category, mvanlep;
   unsigned long long int  eventNum;
   double weight;
   float mvamjj, mvadetajj, mvadphijj, mvajetpt1, mvajetpt2, mvajeteta1, mvajeteta2, mvanjets;
@@ -671,6 +671,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     mvatree->Branch("mvadphill",  &mvadphill,   "mvadphill/F");
     mvatree->Branch("mvadrll",    &mvadrll,     "mvadrll/F");
     mvatree->Branch("mvamll",     &mvamll,      "mvamll/F");    
+    mvatree->Branch("mvanlep",    &mvanlep,     "mvanlep/I");
     // Begin MVA-ntuple initialization
 
     pandaFlat thePandaFlat(the_input_tree,infileName_[ifile].Contains("dim8"));
@@ -1408,8 +1409,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvalepeta2  = (float)vZ1l2.Eta();
 	mvadphill   = (float)dphill;
 	mvadrll     = (float)drll;
-	mvamll      = (float)(vZ1l1+vZ1l2).M();
-        
+        mvamll      = (float)(vZ1l1+vZ1l2).M();
+        mvanlep     = (int)vLoose.size();
+
         mvatree->Fill();
       }
 
