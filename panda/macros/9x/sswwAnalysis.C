@@ -1445,9 +1445,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[24] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1.Pt()*vJot2.Pt());
         bdtWWValue[0] = TMath::Min(theReaderWW->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWW->EvaluateMulticlass("BDT");
-	//bdtWWValue[0] = TMath::Min(mvaV[2],0.999);
-	//bdtWWValue[1] = TMath::Min(mvaV[1],0.999);
-	//bdtWWValue[2] = TMath::Min(mvaV[0],0.999);
+	//bdtWWValue[0] = TMath::Min(mvaV[0],0.999f);
+	//bdtWWValue[1] = TMath::Min(mvaV[1],0.999f);
+	//bdtWWValue[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJESUp || passBtagSelJESUp){
         //mvaWWInputs[ 0] = (float)massJJJESUp;
@@ -1478,9 +1478,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[24] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESUp.Pt()*vJot2JESUp.Pt()); 
         bdtWWValueJESUp[0] = TMath::Min(theReaderWW->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWW->EvaluateMulticlass("BDT");
-	//bdtWWValueJESUp[0] = TMath::Min(mvaV[2],0.999);
-	//bdtWWValueJESUp[1] = TMath::Min(mvaV[1],0.999);
-	//bdtWWValueJESUp[2] = TMath::Min(mvaV[0],0.999);
+	//bdtWWValueJESUp[0] = TMath::Min(mvaV[0],0.999f);
+	//bdtWWValueJESUp[1] = TMath::Min(mvaV[1],0.999f);
+	//bdtWWValueJESUp[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJESDown || passBtagSelJESDown){
         //mvaWWInputs[ 0] = (float)massJJJESDown;
@@ -1511,9 +1511,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[24] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESDown.Pt()*vJot2JESDown.Pt()); 
         bdtWWValueJESDown[0] = TMath::Min(theReaderWW->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWW->EvaluateMulticlass("BDT");
-	//bdtWWValueJESDown[0] = TMath::Min(mvaV[2],0.999);
-	//bdtWWValueJESDown[1] = TMath::Min(mvaV[1],0.999);
-	//bdtWWValueJESDown[2] = TMath::Min(mvaV[0],0.999);
+	//bdtWWValueJESDown[0] = TMath::Min(mvaV[0],0.999f);
+	//bdtWWValueJESDown[1] = TMath::Min(mvaV[1],0.999f);
+	//bdtWWValueJESDown[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJERUp || passBtagSelJERUp){
         //mvaWWInputs[ 0] = (float)massJJJERUp;
@@ -1544,9 +1544,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[24] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERUp.Pt()*vJot2JERUp.Pt()); 
         bdtWWValueJERUp[0] = TMath::Min(theReaderWW->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWW->EvaluateMulticlass("BDT");
-	//bdtWWValueJERUp[0] = TMath::Min(mvaV[2],0.999);
-	//bdtWWValueJERUp[1] = TMath::Min(mvaV[1],0.999);
-	//bdtWWValueJERUp[2] = TMath::Min(mvaV[0],0.999);
+	//bdtWWValueJERUp[0] = TMath::Min(mvaV[0],0.999f);
+	//bdtWWValueJERUp[1] = TMath::Min(mvaV[1],0.999f);
+	//bdtWWValueJERUp[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJERDown || passBtagSelJERDown){
         //mvaWWInputs[ 0] = (float)massJJJERDown;
@@ -1577,9 +1577,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[24] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERDown.Pt()*vJot2JERDown.Pt()); 
         bdtWWValueJERDown[0] = TMath::Min(theReaderWW->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWW->EvaluateMulticlass("BDT");
-	//bdtWWValueJERDown[0] = TMath::Min(mvaV[2],0.999);
-	//bdtWWValueJERDown[1] = TMath::Min(mvaV[1],0.999);
-	//bdtWWValueJERDown[2] = TMath::Min(mvaV[0],0.999);
+	//bdtWWValueJERDown[0] = TMath::Min(mvaV[0],0.999f);
+	//bdtWWValueJERDown[1] = TMath::Min(mvaV[1],0.999f);
+	//bdtWWValueJERDown[2] = TMath::Min(mvaV[2],0.999f);
       }
 
       double bdtWZValue = 0.0, bdtWZValueJESUp = 0.0, bdtWZValueJESDown = 0.0, bdtWZValueJERUp = 0.0, bdtWZValueJERDown = 0.0;

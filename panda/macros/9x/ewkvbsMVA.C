@@ -66,7 +66,7 @@ void ewkvbsMVA(
   if(nsel == 2){
     dataloader->AddTree(mvaTree, "Background2", 1.0, cutTrainBkg2 , "train");
     dataloader->AddTree(mvaTree, "Background2", 1.0, cutTestBkg2  , "test");
-    dataloader->SetWeightExpression("abs(weight)", "Background2");
+    dataloader->SetWeightExpression("1", "Background2");
   }
   
   if(nsel == 1 || nsel == 2){
@@ -163,7 +163,7 @@ void ewkvbsMVA(
   factory->BookMethod(dataloader, TMVA::Types::kFisher, Form("BoostedFisher_%s",extraString.Data()), hyperparameters);
 
    hyperparameters=
-  "!H:!V:NeuronType=tanh:VarTransform=N:NCycles=800:HiddenLayers=N+3:TestRate=5:!UseRegulator";
+  "!H:!V:NeuronType=tanh:VarTransform=N:NCycles=800:HiddenLayers=N+1:TestRate=5:!UseRegulator";
   factory->BookMethod(dataloader, TMVA::Types::kMLP, Form("MLP_%s",extraString.Data()), hyperparameters);
   }
 
