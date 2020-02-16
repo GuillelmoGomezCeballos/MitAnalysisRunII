@@ -339,7 +339,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   //const int nBinWZBDT = 8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.230, 0.100, 0.330, 0.520, 0.670, 0.790, 0.890, 1.000}; // ptj > 30
   //const int nBinWZBDT = 8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.510,-0.260,-0.040, 0.170, 0.380, 0.580, 0.760, 1.000}; // 20var_ptj50
   //const int nBinWWBDT = 7; Float_t xbinsWWBDT[nBinWWBDT+1] = {-1.000,-0.243, 0.041, 0.244, 0.402, 0.536, 0.662, 1.000}; // V1_v6
-  const int nBinWWBDT = 6; Float_t xbinsWWBDT[nBinWWBDT+1] = {-1.000,-0.188, 0.116, 0.327, 0.494, 0.641, 1.000}; // V1_v6
+  const int nBinWWBDT = 6; Float_t xbinsWWBDT[nBinWWBDT+1] = {-1.000,-0.188, 0.116, 0.327, 0.494, 0.641, 1.000}; // V1_v6 default
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
   int nBinMVAAux = 0;
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
@@ -561,7 +561,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   //bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v1.weights.xml"; // 25var, ptj30/50
   //bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v2.weights.xml"; // 25var, ptj50/50
   //bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v3.weights.xml"; // 26var, ptj50/50
-  bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v6.weights.xml"; // 25var, ptj30/50, other bkg. in training
+  bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v6.weights.xml"; // 25var, ptj30/50, other bkg. in training default
   //bdtWWWeights="MitAnalysisRunII/BDT/ssww_WWDec_V1/bdt_BDTG_v7.weights.xml"; // 25var, ptj30/50, multiclass
 
   TMVA::Reader *theReaderWW = new TMVA::Reader("Silent");
@@ -595,7 +595,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 
   float mvaWZInputs[13];
   TString bdtWZWeights="";
-  bdtWZWeights="MitAnalysisRunII/BDT/ssww_WZNov_V0/bdt_BDTG_13var_detajj2p5.weights.xml";
+  bdtWZWeights="MitAnalysisRunII/BDT/ssww_WZNov_V0/bdt_BDTG_13var_detajj2p5.weights.xml"; // default
   //bdtWZWeights="MitAnalysisRunII/BDT/ssww_WZNov_V0/bdt_BDTG_v1_ptj30.weights.xml";
   //bdtWZWeights="MitAnalysisRunII/BDT/ssww_WZNov_V0/bdt_BDTG_20var_ptj50_detajj2p5.weights.xml";
 
