@@ -823,6 +823,7 @@ int year, int triggerCat, int mH = 125
 
 	//double npvWeight = nPUScaleFactor(fhDNPV, thePandaFlat.npv);
 
+        triggerWeights[0] = trigger_eff_sf(vMet.Pt(), year, triggerCat);
 	/*if(passPhoSel > 0 && year == 2017) {
 	  int nphbin = trgSF->GetXaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), 399.99));
           triggerWeights[0] = trgSF->GetBinContent(nphbin);

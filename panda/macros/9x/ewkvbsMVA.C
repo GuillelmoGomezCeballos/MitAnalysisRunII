@@ -14,6 +14,7 @@ void ewkvbsMVA(
   TString inputFileName,
   int nsel = 0,
   TString extraString="v0",
+  bool moreMVAs = false,
   bool useGaussDeco=false
 ) {
   gROOT->ProcessLine("TMVA::gConfig().GetVariablePlotting().fMaxNumOfAllowedVariablesForScatterPlots = 50");
@@ -132,15 +133,14 @@ void ewkvbsMVA(
   "!H:!V:NTrees=1000:BoostType=Grad:MinNodeSize=5%:NegWeightTreatment=IgnoreNegWeightsInTraining:Shrinkage=0.10:UseBaggedBoost:GradBaggingFraction=0.5:nCuts=10000:MaxDepth=2";
   factory->BookMethod(dataloader, TMVA::Types::kBDT, Form("BDTG_%s",extraString.Data()), hyperparameters);
 
-  bool moreMVAs = false;
   if(moreMVAs){
   hyperparameters=
   "!H:!V:BoostType=AdaBoost:MinNodeSize=5%:NegWeightTreatment=IgnoreNegWeightsInTraining:SeparationType=MisClassificationError:NTrees=1000:MaxDepth=3:AdaBoostBeta=0.12:nCuts=10000";
   factory->BookMethod(dataloader, TMVA::Types::kBDT, Form("BDTA_%s",extraString.Data()), hyperparameters);
 
   hyperparameters=
-  "!H:!V:NTrees=1000:BoostType=Bagging:SeparationType=GiniIndex:nCuts=5000:PruneMethod=NoPruning";
-  factory->BookMethod(dataloader, TMVA::Types::kBDT, Form("BDTB_%s",extraString.Data()), hyperparameters);
+  "!H:!V:VarTransform=None";
+  factory->BookMethod(dataloader, TMVA::Types::kHMatrix, Form("HMatrix_%s",extraString.Data()), hyperparameters);
 
   hyperparameters=
   "!H:!V:!TransformOutput:PDFInterpol=Spline2:NSmoothSig[0]=20:NSmoothBkg[0]=20:NSmooth=5:NAvEvtPerBin=50:VarTransform=PCA";

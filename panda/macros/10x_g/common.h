@@ -196,3 +196,18 @@ double mcCorrection(int type, int year, int infileCat, double mjj, double mtg, i
 
   return totalWeight;
 }
+
+double trigger_eff_sf(double x, int year, int triggerCat){
+  double daTrgEff = 1.0;
+  double mcTrgEff = 1.0;
+  double sfTrgEff = 1.0;
+  if(year == 2017 && triggerCat == 0){
+    double daVal[5] = {2.25313595e-02,1.69065605e+02,8.38266130e-02,3.52689322e-04,2.21520012e+02};
+    double mcVal[5] = {2.46418515e-02,1.54628013e+02,4.01109919e-02,3.22148162e-04,2.20222230e+02};
+    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (x-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(x-daVal[4])*(x-daVal[4]));
+    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (x-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(x-mcVal[4])*(x-mcVal[4]));
+  }
+
+  if(mcTrgEff > 0) sfTrgEff = daTrgEff/mcTrgEff;
+  return sfTrgEff;
+}
