@@ -121,6 +121,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
+  if(outputName == "ssww_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
+
   if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = true;
   else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = true;
   if(_hist[kPlotEWKWZ]   && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = true;
