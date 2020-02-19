@@ -177,7 +177,7 @@ std::map<int, int> plotColors={
   { kPlotEM	     , kGreen-5},
   { kPlotOther       , kGreen-5},
   { kPlotBSM	     , kGreen},
-  { kPlotSignal0     , kRed},
+  { kPlotSignal0     , kBlue},
   { kPlotSignal1     , kMagenta+1},
   { kPlotSignal2     , kMagenta+2},
   { kPlotSignal3     , kMagenta+3},
