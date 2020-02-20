@@ -341,11 +341,49 @@ root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(22, "done_ana
 mv studyFitResults.txt studyFitResults_1j_2018.txt;
 mv histoDatacard_22.root histoDatacard_zh_1j_2018.root
 
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_??.root
+
 hadd -f histoDatacard_zh_0j_2019.root histoDatacard_zh_0j_201[6-8].root
 hadd -f histoDatacard_zh_1j_2019.root histoDatacard_zh_1j_201[6-8].root
 hadd -f histoDatacard_zh_nj_2019.root histoDatacard_zh_?j_201[6-8].root
 
+echo "***************WZ CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoWZ_2016_81.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "WZ_2016")';
+mv studyFitResults.txt studyFitResults_wz_2016.txt;
+mv histoDatacard_99.root histoDatacard_wz_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoWZ_2017_81.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "WZ_2017")';
+mv studyFitResults.txt studyFitResults_wz_2017.txt;
+mv histoDatacard_99.root histoDatacard_wz_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoWZ_2018_81.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "WZ_2018")';
+mv studyFitResults.txt studyFitResults_wz_2018.txt;
+mv histoDatacard_99.root histoDatacard_wz_2018.root
+
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
 rm -f histoDatacard_??.root
+
+hadd -f histoDatacard_wz_2019.root histoDatacard_wz_201[6-8].root
+
+echo "***************zz CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoZZ_2016_70.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "ZZ_2016")';
+mv studyFitResults.txt studyFitResults_zz_2016.txt;
+mv histoDatacard_99.root histoDatacard_zz_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoZZ_2017_70.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "ZZ_2017")';
+mv studyFitResults.txt studyFitResults_zz_2017.txt;
+mv histoDatacard_99.root histoDatacard_zz_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoZZ_2018_70.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "ZZ_2018")';
+mv studyFitResults.txt studyFitResults_zz_2018.txt;
+mv histoDatacard_99.root histoDatacard_zz_2018.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm -f histoDatacard_??.root
+
+hadd -f histoDatacard_zz_2019.root histoDatacard_zz_201[6-8].root
 fi

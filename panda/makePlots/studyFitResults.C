@@ -89,11 +89,11 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
     binToCount = kPlotWZ;
   }
   else if(nsel == 21){ // ZH SR 0j
-    excludeBins[0] =  1;
+    for(int i=0; i<2; i++) excludeBins[i] = i+1;
     binToCount = kPlotEM;
   }
   else if(nsel == 22){ // ZH SR 1 
-    excludeBins[0] =  1;
+    for(int i=0; i<2; i++) excludeBins[i] = i+1;
     binToCount = kPlotEM;
   }
   else if(nsel == 30){ // long SR
@@ -121,6 +121,9 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   }
   else if(nsel == 35){ // long all regions
     binToCount = kPlotWZ;
+  }
+  else if(nsel == 99){ // no region to exclude
+    binToCount = kPlotZZ;
   }
   printf("Bins to exclude:");
   for(int i=0; i<allExcludeBins; i++) if(excludeBins[i] != -1) printf(" %d",excludeBins[i]);

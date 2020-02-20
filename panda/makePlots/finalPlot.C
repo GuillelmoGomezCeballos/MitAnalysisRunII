@@ -52,22 +52,22 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   }
   histo->GetXaxis()->SetLabelFont  (   42);
   histo->GetXaxis()->SetLabelOffset(0.015);
-  histo->GetXaxis()->SetLabelSize  (0.140);
+  histo->GetXaxis()->SetLabelSize  (0.138);
   histo->GetXaxis()->SetNdivisions (  505);
   histo->GetXaxis()->SetTitleFont  (   42);
   histo->GetXaxis()->SetTitleOffset( 0.95);
   histo->GetXaxis()->SetTitleSize  (0.140);
-  histo->GetXaxis()->SetTickLength (0.07 );
+  //histo->GetXaxis()->SetTickLength (0.07 );
 
   histo->GetYaxis()->SetTitle(ytitle.Data());
   histo->GetYaxis()->SetLabelFont  (   42);
   histo->GetYaxis()->SetLabelOffset(0.015);
-  histo->GetYaxis()->SetLabelSize  (0.120);
+  histo->GetYaxis()->SetLabelSize  (0.138);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
-  histo->GetYaxis()->SetTitleSize  (0.120);
-  histo->GetYaxis()->SetTickLength (0.03 );
+  histo->GetYaxis()->SetTitleSize  (0.140);
+  //histo->GetYaxis()->SetTickLength (0.03 );
 
   histo->SetLineColor  (kBlack);
   histo->SetMarkerSize(0.8);
@@ -121,7 +121,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
-  if(outputName == "ssww_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
+  if     (outputName == "ssww_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
+  else if((outputName == "ssww_wzsel_mjj" || outputName == "ssww_wzsel_bdt") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
 
   if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = true;
   else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = true;

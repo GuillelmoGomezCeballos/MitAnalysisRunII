@@ -28,7 +28,7 @@ const int includeBSMAQGC = 0;
 
 double syst_WZl[2] = {1.010, 1.012};
 
-// fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(charge), 7 (PTL1)
+// fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(charge), 7 (PTL1), 8 (SM, EWK-INT-QCD WW)
 
 enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
@@ -355,7 +355,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   //const int nBinWWBDT = 6; Float_t xbinsWWBDT[nBinWWBDT+1] = {-1.000, 0.458, 0.572, 0.663, 0.738, 0.805, 1.000}; // BDTG_v30GeV
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
   int nBinMVAAux = 0;
-  if     (fidAna == 0 || fidAna == 2 || fidAna == 3) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
+  if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
   else if(fidAna == 1) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinMJJ;
   else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 6;
   else if(fidAna == 5) nBinMVAAux = nBinMJJCR*nBinWWBDT + nBinWWBDT + 2*nBinMJJCR + 12;
@@ -1866,13 +1866,13 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       if(passWWSel)    histo[136][theCategory]->Fill(TMath::Min(mllZ,xbinsAQGCMLL[nBinAQGCMLL]-0.0001),totalWeight);
       if(passEWKWZSel) histo[137][theCategory]->Fill(TMath::Min(mtVV,xbinsAQGCMTW[nBinAQGCMTW]-0.0001),totalWeight);
 
-      if((theCategory == kPlotData && passEWKWZSel && debug == 1) || debug == 2){
-        printf("DATA %d %d %llu | %d %d | %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f\n",
+      if((theCategory == kPlotData && (passWWSel || passEWKWZSel) && debug == 1) || debug == 2){
+        printf("DATA %d %d %llu | %d %d | %d %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %f\n",
 	thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,theCategory,lepType,
-	passEWKWZSel,passSel[0],passSel[1],passSel[2],passSel[3],passSel[4],passSel[5],passSel[6],passSel[7],passSel[8],
+	passWWSel,passEWKWZSel,passSel[0],passSel[1],passSel[2],passSel[3],passSel[4],passSel[5],passSel[6],passSel[7],passSel[8],
 	mllZ,vMet.Pt(),deltaEtaJJ,massJJ,maxLeptonZep,
 	fabs(mllZ-91.1876),mllmin,vWln.Pt(),whichWln,vJot1.Pt(),vJot1.Eta(),vJot1.Phi(),vJot2.Pt(),vJot2.Eta(),vJot2.Phi(),
-	vLoose[0].Pt(),vLoose[0].Eta(),vLoose[0].Phi(),vLoose[1].Pt(),vLoose[1].Eta(),vLoose[1].Phi(),vLoose[2].Pt(),vLoose[2].Eta(),vLoose[2].Phi());
+	vLoose[0].Pt(),vLoose[0].Eta(),vLoose[0].Phi(),vLoose[1].Pt(),vLoose[1].Eta(),vLoose[1].Phi(),vLoose[2].Pt(),vLoose[2].Eta(),vLoose[2].Phi(),bdtWZValue);
       }
 
       if(1){
@@ -1881,7 +1881,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         double MVAVarJESDown = -1;
         double MVAVarJERUp   = -1;
         double MVAVarJERDown = -1;
-        if     (fidAna == 0 || fidAna == 2 || fidAna == 3){
+        if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8){
           double typeSelAux0 = 0;
 	  for(int ib=0; ib<nBinMLL; ib++){
 	     if(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.001) < xbinsMLL[ib+1]) {typeSelAux0 = ib; break;}
@@ -2772,7 +2772,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     }
     histo_PUBoundingUp	[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingUp  [ic]->GetSumOfWeights());
     histo_PUBoundingDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingDown[ic]->GetSumOfWeights());
-    if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 5 || fidAna == 7) && (ic == kPlotEWKWZ || ic == kPlotEWKSSWW || ic == kPlotQCDSSWW || ic == kPlotqqWW || ic == kPlotggWW ||
+    if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 5 || fidAna == 7 || fidAna == 8) && (ic == kPlotEWKWZ || ic == kPlotEWKSSWW || ic == kPlotQCDSSWW || ic == kPlotqqWW || ic == kPlotggWW ||
        ic == kPlotSignal0 || ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3 || ic == kPlotBSM)) {
       histo_QCDScaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp   [ic]->GetSumOfWeights());
       histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());

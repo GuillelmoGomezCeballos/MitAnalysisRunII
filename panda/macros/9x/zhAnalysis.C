@@ -207,7 +207,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   //const int nBinMVA = 26; Float_t xbins[nBinMVA+1] = {0,  80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
   //						        1080,1100,1125,1150,1175,1200,1250,1300,1350,1400,1500,1600,2000};
   const int nBinMVA = 13; Float_t xbins[nBinMVA+1] = {0,  80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000};
-  const int nBin1DMET = 12; Float_t xbins1DMET[nBin1DMET+1] = {80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600, 1000};
+  const int nBin1DMET = 11; Float_t xbins1DMET[nBin1DMET+1] = {100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600, 1000};
+  const int nBin1DMT  = 10; Float_t xbins1DMT[nBin1DMT+1] = {200, 250, 300, 350, 400, 500, 600, 700, 800, 1000, 1200};
 
   const double metMax = 999.999;
 
@@ -217,8 +218,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   const int allPlots = 82;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
-    bool is1DPlot = false;
-    if     (thePlot >=   0 && thePlot <=   2) {nBinPlot = 100; xminPlot =100.0; xmaxPlot = 500;}
+    bool is1DMETPlot = false; bool is1DMTPlot = false;
+    if     (thePlot >=   0 && thePlot <=   2) {is1DMTPlot = true;}
     else if(thePlot >=   3 && thePlot <=  14) {nBinPlot = 160; xminPlot = 80.0; xmaxPlot = 240;}
     else if(thePlot >=  15 && thePlot <=  17) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = 100;}
     else if(thePlot >=  18 && thePlot <=  20) {nBinPlot = 5;   xminPlot = -0.5; xmaxPlot = 4.5;}
@@ -231,7 +232,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     else if(thePlot >=  39 && thePlot <=  41) {nBinPlot = 4;   xminPlot = -0.5; xmaxPlot = 3.5;}
     else if(thePlot >=  42 && thePlot <=  44) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 4.0;}
     else if(thePlot >=  45 && thePlot <=  47) {nBinPlot = 10;  xminPlot = -0.5; xmaxPlot = 9.5;}
-    else if(thePlot >=  48 && thePlot <=  53) {is1DPlot = true;}
+    else if(thePlot >=  48 && thePlot <=  53) {is1DMETPlot = true;}
     else if(thePlot >=  54 && thePlot <=  56) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  57 && thePlot <=  59) {nBinPlot = 160; xminPlot = 80.0; xmaxPlot = 240;}
     else if(thePlot >=  60 && thePlot <=  62) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = 1;}
@@ -243,12 +244,13 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     else if(thePlot >=  72 && thePlot <=  72) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  73 && thePlot <=  73) {nBinPlot = 100; xminPlot = -TMath::Pi(); xmaxPlot = TMath::Pi();}
     else if(thePlot >=  74 && thePlot <=  74) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1.0;}
-    else if(thePlot >=  75 && thePlot <=  78) {is1DPlot = true;}
+    else if(thePlot >=  75 && thePlot <=  78) {is1DMETPlot = true;}
     else if(thePlot >=  79 && thePlot <=  79) {nBinPlot = 100; xminPlot = 25.0; xmaxPlot = 425.0;}
     else if(thePlot >=  80 && thePlot <=  80) {nBinPlot = 100; xminPlot = 20.0; xmaxPlot = 220.0;}
-    if(thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
-    else if(is1DPlot == true) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBin1DMET, xbins1DMET);
-    else                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
+    if(thePlot == allPlots-1)    for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
+    else if(is1DMETPlot == true) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBin1DMET, xbins1DMET);
+    else if(is1DMTPlot == true)  for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBin1DMT, xbins1DMT);
+    else                         for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
 
   TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbins); histo_MVA->Sumw2();
@@ -692,7 +694,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
       if(isBlinded && lepType != 2 && passAllCuts[ZHTIGHTSEL] && theCategory == kPlotData) continue; // remove ee/mm data events that pass the full tight ZH selection
 
-      if(passAllCuts[ZHTIGHTSEL]) histo[lepType+  0][theCategory]->Fill(TMath::Min(mT,499.999),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL]) histo[lepType+  0][theCategory]->Fill(TMath::Max(TMath::Min(mT,xbins1DMT[nBin1DMT]-0.001),xbins1DMT[0]+0.001),totalWeight);
       if(passAllCuts[ZHSEL])      histo[lepType+  3][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passAllCuts[BTAGSEL])    histo[lepType+  6][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passAllCuts[ZLLSEL])     histo[lepType+  9][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
@@ -710,12 +712,12 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passNMinusOne[ 8])       histo[lepType+ 39][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,3.499),totalWeight);
       if(passNMinusOne[ 9])       histo[lepType+ 42][theCategory]->Fill(TMath::Min((double)drll,3.999),totalWeight);
       for(int i=0; i<10; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[lepType+45][theCategory]->Fill((double)i,totalWeight);}
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET && !passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET &&  passDPhiZMETTight) histo[50][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET && !passDPhiZMETTight) histo[51][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET &&  passDPhiZMETTight) histo[52][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET && !passDPhiZMETTight) histo[53][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET && !passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET &&  passDPhiZMETTight) histo[50][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET && !passDPhiZMETTight) histo[51][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET &&  passDPhiZMETTight) histo[52][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHTIGHTSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET && !passDPhiZMETTight) histo[53][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 54][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 57][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 60][theCategory]->Fill(TMath::Min(ptFrac,0.999),totalWeight);
@@ -734,10 +736,10 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passAllCuts[DYSEL] && lepType != 2){
 	  bool passA = dilepJet.Pt()/sumHT > 0.60 && passMETTight;
 	  bool passB = passDPhiZMETTight && passDRLL;
-	  if     ( passA &&  passB)  histo[75][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-	  else if( passA && !passB)  histo[76][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-	  else if(!passA &&  passB)  histo[77][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-	  else if(!passA && !passB)  histo[78][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+	  if     ( passA &&  passB)  histo[75][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
+	  else if( passA && !passB)  histo[76][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
+	  else if(!passA &&  passB)  histo[77][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
+	  else if(!passA && !passB)  histo[78][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
       }
       if(passAllCuts[ZHTIGHTSEL] && lepType != 2) histo[79][theCategory]->Fill(TMath::Min(TMath::Max(vLoose[0].Pt(),vLoose[1].Pt()),424.999),totalWeight);
       if(passAllCuts[ZHTIGHTSEL] && lepType != 2) histo[80][theCategory]->Fill(TMath::Min(TMath::Min(vLoose[0].Pt(),vLoose[1].Pt()),219.999),totalWeight);

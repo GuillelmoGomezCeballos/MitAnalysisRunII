@@ -46,6 +46,24 @@ elif [ $NSEL == 'zh' ]; then
   export YEAR=2019;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_zh_nj_'${YEAR}'.root","zh_nj_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"",1,'${APPLYSCALING}',"","")';
 
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_wz_'${YEAR}'.root","wz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_wz_'${YEAR}'.root","wz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_wz_'${YEAR}'.root","wz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_wz_'${YEAR}'.root","wz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_zz_'${YEAR}'.root","zz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_zz_'${YEAR}'.root","zz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_zz_'${YEAR}'.root","zz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Emulated p_{T}","GeVBINBinWidth","done_datacards/histoDatacard_zz_'${YEAR}'.root","zz_met",1,'${YEAR}',"Z(ll)H_{125}(inv.)",'${sf_dy}','${isBlinded}',"1 jet category",1,'${APPLYSCALING}',"","")';
+
 elif [ $NSEL == 'ssww' ]; then
   export YEAR=2016;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{jj}","GeVBIN","done_datacards/histoDatacard_ssww_zz_'${YEAR}'.root","ssww_zzcr_mjj",0,'${YEAR}',"X",'${sf_dy}','${isBlinded}',"ZZ category",1,'${APPLYSCALING}',"","")';
