@@ -83,6 +83,7 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 ADDMonoZ_MD_3_d_7
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WpWp_EWK_QCD
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WpWp_EWK
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WpWp_QCD
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WpWp_EWK_powheg
 
 elif [ $NSEL == 'specialmc' ]; then
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 ZH_ZToLL_HToGDarkG_M125

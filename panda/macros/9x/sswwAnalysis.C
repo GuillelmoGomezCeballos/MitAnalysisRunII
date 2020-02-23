@@ -381,7 +381,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >=  36 && thePlot <=  38) {nBinPlot =   6; xminPlot = -0.5; xmaxPlot = 5.5;}
     else if(thePlot >=  39 && thePlot <=  41) {nBinPlot =  80; xminPlot =  0.0; xmaxPlot = 8.0;}
     else if(thePlot >=  42 && thePlot <=  44) {nBinPlot = 200; xminPlot =  0.0; xmaxPlot =2000;}
-    else if(thePlot >=  45 && thePlot <=  47) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = 1.0;}
+    else if(thePlot >=  45 && thePlot <=  47) {nBinPlot =  40; xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >=  48 && thePlot <=  53) {nBinPlot =   5; xminPlot = -0.5; xmaxPlot = 4.5;}
     else if(thePlot >=  54 && thePlot <=  54) {nBinPlot = 200; xminPlot =500.0; xmaxPlot =2500;}
     else if(thePlot >=  55 && thePlot <=  55) {nBinPlot =  80; xminPlot =  0.0; xmaxPlot = 8.0;}
@@ -1826,7 +1826,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       if(passEWKWZSel){
         histo[92][theCategory]->Fill(TMath::Abs(deltaPhiJJ),totalWeight);
         histo[93][theCategory]->Fill(TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta()),totalWeight);
-	histo[94][theCategory]->Fill(TMath::Min(wzZep,0.999),totalWeight);
+	histo[94][theCategory]->Fill(TMath::Min(maxLeptonZep,0.999),totalWeight);
 	histo[95][theCategory]->Fill(TMath::Sqrt(TMath::Power(TMath::Abs(vJot1.Eta()-(vZ1l1+vZ1l2).Eta()),2)+TMath::Power(TMath::Abs(vJot1.DeltaPhi(vZ1l1+vZ1l2)),2)),totalWeight);
 	histo[96][theCategory]->Fill(totSystem.Pt()/sumPtTot,totalWeight);
       }

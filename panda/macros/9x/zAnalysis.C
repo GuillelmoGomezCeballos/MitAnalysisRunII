@@ -1018,9 +1018,12 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
               (looseLepSelBit[ilep] & kFake) == kFake && (looseLepSelBit[ilep] & kTight) == kTight && (looseLepSelBit[ilep] & kDxyz) == kDxyz && (looseLepSelBit[ilep] & kMiniIsoMedium) == kMiniIsoMedium,
               (looseLepSelBit[ilep] & kFake) == kFake && (looseLepSelBit[ilep] & kTight) == kTight && (looseLepSelBit[ilep] & kDxyz) == kDxyz && (looseLepSelBit[ilep] & kMiniIsoTight) == kMiniIsoTight 	     
              };
+	//if(theCategory == kPlotData||theCategory == kPlotDY) printf("EFFSEL %d %d %6.1f %4.1f",lepType,theCategory,vLoose[ilep].Pt(),vLoose[ilep].Eta());
 	for(int nsel=0; nsel<nLepSel; nsel++){
           if(passLepSel[nsel]) histoEffStudy[nsel][lepType][theEffStudyCategory]->Fill(vLoose[ilep].Eta(),TMath::Min((double)vLoose[ilep].Pt(), 99.999),totalEffStudyWeight);
+	  //if(theCategory == kPlotData||theCategory == kPlotDY) printf(" %d",passLepSel[nsel]);
 	}
+	//if(theCategory == kPlotData||theCategory == kPlotDY) printf("\n");
       }
 
       if(thePandaFlat.npv < 80){
