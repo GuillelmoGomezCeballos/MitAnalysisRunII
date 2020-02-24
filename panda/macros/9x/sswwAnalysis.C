@@ -1078,13 +1078,13 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       bool passZepMaxUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && maxLeptonZepUp   < maxLeptonZepCut;
       bool passZepMaxDown = thePandaFlat.nJot_JESTotalDown >= 2 && maxLeptonZepDown < maxLeptonZepCut;
 
-      double wzZep = 0; double wzZepUp = 0; double wzZepDown = 0;
-      wzZep	= TMath::Abs(alllep.Eta()-(vJot1.Eta()+vJot2.Eta())/2.)/deltaEtaJJ;
-      wzZepUp	= TMath::Abs(alllep.Eta()-(vJot1JESUp.Eta()+vJot2JESUp.Eta())/2.)/deltaEtaJJUp;
-      wzZepDown = TMath::Abs(alllep.Eta()-(vJot1JESDown.Eta()+vJot2JESDown.Eta())/2.)/deltaEtaJJDown;
-      bool passwzZep     = thePandaFlat.nJot              >= 2 && wzZep     < 1.00;
-      bool passwzZepUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && wzZepUp   < 1.00;
-      bool passwzZepDown = thePandaFlat.nJot_JESTotalDown >= 2 && wzZepDown < 1.00;
+      double vvZep = 0; double vvZepUp = 0; double vvZepDown = 0;
+      vvZep	= TMath::Abs(alllep.Eta()-(vJot1.Eta()+vJot2.Eta())/2.)/deltaEtaJJ;
+      vvZepUp	= TMath::Abs(alllep.Eta()-(vJot1JESUp.Eta()+vJot2JESUp.Eta())/2.)/deltaEtaJJUp;
+      vvZepDown = TMath::Abs(alllep.Eta()-(vJot1JESDown.Eta()+vJot2JESDown.Eta())/2.)/deltaEtaJJDown;
+      bool passwzZep     = thePandaFlat.nJot              >= 2 && vvZep     < 1.00;
+      bool passwzZepUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && vvZepUp   < 1.00;
+      bool passwzZepDown = thePandaFlat.nJot_JESTotalDown >= 2 && vvZepDown < 1.00;
 
       double deltaPhiAllleptonMet     = TMath::Abs(alllep.DeltaPhi(vMet));
       double deltaPhiAllleptonMetUp   = TMath::Abs(alllep.DeltaPhi(vMetUp));
@@ -1416,7 +1416,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaZpt      = (float)(vZ1l1+vZ1l2).Pt();
         mvaVVmt     = (float)mtVV;
         mvaWlZdeta  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-        mvazstar    = (float)wzZep;
+        mvazstar    = (float)vvZep;
         mvazep1     = (float)vvZepSS[0];
         mvazep2     = (float)vvZepSS[1];
         mvazep3     = (float)vvZepSS[2];
@@ -1449,7 +1449,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[ 6] = (float)vW.Pt();
 	mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
 	mvaWWInputs[ 8] = (float)mtVV;
-	mvaWWInputs[ 9] = (float)wzZep;
+	mvaWWInputs[ 9] = (float)vvZep;
 	mvaWWInputs[10] = (float)vvZepSS[0];
 	mvaWWInputs[11] = (float)vvZepSS[1];
 	mvaWWInputs[12] = (float)maxLeptonZep;
@@ -1482,7 +1482,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[ 6] = (float)vWUp.Pt();
 	mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
 	mvaWWInputs[ 8] = (float)mtVVUp;
-	mvaWWInputs[ 9] = (float)wzZepUp;
+	mvaWWInputs[ 9] = (float)vvZepUp;
 	mvaWWInputs[10] = (float)vvZepSSUp[0];
 	mvaWWInputs[11] = (float)vvZepSSUp[1];
 	mvaWWInputs[12] = (float)maxLeptonZepUp;
@@ -1515,7 +1515,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[ 6] = (float)vWDown.Pt();
 	mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
 	mvaWWInputs[ 8] = (float)mtVVDown;
-	mvaWWInputs[ 9] = (float)wzZepDown;
+	mvaWWInputs[ 9] = (float)vvZepDown;
 	mvaWWInputs[10] = (float)vvZepSSDown[0];
 	mvaWWInputs[11] = (float)vvZepSSDown[1];
 	mvaWWInputs[12] = (float)maxLeptonZepDown;
@@ -1548,7 +1548,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[ 6] = (float)vW.Pt();
 	mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
 	mvaWWInputs[ 8] = (float)mtVV;
-	mvaWWInputs[ 9] = (float)wzZep;
+	mvaWWInputs[ 9] = (float)vvZep;
 	mvaWWInputs[10] = (float)vvZepSS[0];
 	mvaWWInputs[11] = (float)vvZepSS[1];
 	mvaWWInputs[12] = (float)maxLeptonZep;
@@ -1581,7 +1581,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	mvaWWInputs[ 6] = (float)vW.Pt();
 	mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
 	mvaWWInputs[ 8] = (float)mtVV;
-	mvaWWInputs[ 9] = (float)wzZep;
+	mvaWWInputs[ 9] = (float)vvZep;
 	mvaWWInputs[10] = (float)vvZepSS[0];
 	mvaWWInputs[11] = (float)vvZepSS[1];
 	mvaWWInputs[12] = (float)maxLeptonZep;
@@ -1613,7 +1613,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaWZInputs[4]  = (float)vJot2.Pt();
         mvaWZInputs[5]  = (float)vJot1.Eta();
         mvaWZInputs[6]  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-	mvaWZInputs[7]  = (float)wzZep;
+	mvaWZInputs[7]  = (float)vvZep;
 	mvaWZInputs[8]  = (float)vvZepSS[0];
 	mvaWZInputs[9]  = (float)vvZepSS[1];
 	mvaWZInputs[10] = (float)vvZepSS[2];
@@ -1637,7 +1637,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaWZInputs[4]  = (float)vJot2JESUp.Pt();
         mvaWZInputs[5]  = (float)vJot1JESUp.Eta();
         mvaWZInputs[6]  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-	mvaWZInputs[7]  = (float)wzZepUp;
+	mvaWZInputs[7]  = (float)vvZepUp;
 	mvaWZInputs[8]  = (float)vvZepSSUp[0];
 	mvaWZInputs[9]  = (float)vvZepSSUp[1];
 	mvaWZInputs[10] = (float)vvZepSSUp[2];
@@ -1661,7 +1661,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaWZInputs[4]  = (float)vJot2JESDown.Pt();
         mvaWZInputs[5]  = (float)vJot1JESDown.Eta();
         mvaWZInputs[6]  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-	mvaWZInputs[7]  = (float)wzZepDown;
+	mvaWZInputs[7]  = (float)vvZepDown;
 	mvaWZInputs[8]  = (float)vvZepSSDown[0];
 	mvaWZInputs[9]  = (float)vvZepSSDown[1];
 	mvaWZInputs[10] = (float)vvZepSSDown[2];
@@ -1684,7 +1684,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaWZInputs[4]  = (float)vJot2JERUp.Pt();
         mvaWZInputs[5]  = (float)vJot1JERUp.Eta();
         mvaWZInputs[6]  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-	mvaWZInputs[7]  = (float)wzZep;
+	mvaWZInputs[7]  = (float)vvZep;
 	mvaWZInputs[8]  = (float)vvZepSS[0];
 	mvaWZInputs[9]  = (float)vvZepSS[1];
 	mvaWZInputs[10] = (float)vvZepSS[2];
@@ -1708,7 +1708,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         mvaWZInputs[4]  = (float)vJot2JERDown.Pt();
         mvaWZInputs[5]  = (float)vJot1JERDown.Eta();
         mvaWZInputs[6]  = (float)TMath::Abs(vWln.Eta()-(vZ1l1+vZ1l2).Eta());
-	mvaWZInputs[7]  = (float)wzZep;
+	mvaWZInputs[7]  = (float)vvZep;
 	mvaWZInputs[8]  = (float)vvZepSS[0];
 	mvaWZInputs[9]  = (float)vvZepSS[1];
 	mvaWZInputs[10] = (float)vvZepSS[2];
@@ -1791,7 +1791,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       if(passAllButOneSel[2])histo[lepType+ 36][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
       if(passAllButOneSel[3])histo[lepType+ 39][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
       if(passAllButOneSel[4])histo[lepType+ 42][theCategory]->Fill(TMath::Min(massJJ,1999.999),totalWeight);
-      if(passAllButOneSel[5])histo[lepType+ 45][theCategory]->Fill(TMath::Min(maxLeptonZep,0.999),totalWeight);
+      if(passAllButOneSel[5])histo[45][theCategory]->Fill(TMath::Min(maxLeptonZep,0.999),totalWeight);
+      if(passWWSel)          histo[46][theCategory]->Fill(TMath::Min(vvZep,0.999),totalWeight);
+      if(passEWKWZSel)       histo[47][theCategory]->Fill(TMath::Min(vvZep,0.999),totalWeight);
       if(passAllButOneSel[6])histo[lepType+ 48][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNMBtags,4.499),totalWeight);
       if(passAllButOneSel[7])histo[lepType+ 51][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,4.499),totalWeight);
       if(passPresel)         histo[         54][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
