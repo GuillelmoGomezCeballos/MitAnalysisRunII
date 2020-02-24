@@ -83,6 +83,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   bool isVBS[2] = {false, false};
   if(isBlind) show2D = false;
 
+  bool makeRootFile = false;
+  if(units.Contains("ROOT")) {makeRootFile = true; units = units.ReplaceAll("ROOT","");}
   bool isSignalStack = false;
   if(units.Contains("Stack")) {isSignalStack = true; units = units.ReplaceAll("Stack","");}
   bool isRemoveBSM = false;
@@ -402,8 +404,14 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     c1->SaveAs(myOutputFile.Data());
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
-    myOutputFile = Form("plots/%s.root",outputName.Data());
-    //c1->SaveAs(myOutputFile.Data());
+    if(makeRootFile) {
+      TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
+      for(int ic=0; ic<nPlotCategories; ic++){
+        if(!_hist[ic]) continue;
+        _hist[ic]->Write();
+      }
+      output.Close();
+    }
   }
 
   bool computePU = false;
