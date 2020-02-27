@@ -164,11 +164,6 @@ int year
   //TH1D *fhDNPV    = (TH1D*)(fNPVFile->Get("npvWeights"));   assert(fhDNPV);    fhDNPV	->SetDirectory(0);
   //delete fNPVFile;
 
-  //TFile *fVVFile = TFile::Open("MitAnalysisRunII/data/90x/theory/reweighting_2019_mctoda_vv.root");
-  //TH1D *fhDWZ = (TH1D*)(fVVFile->Get("wzWeights")); assert(fhDWZ); fhDWZ->SetDirectory(0);
-  //TH1D *fhDZZ = (TH1D*)(fVVFile->Get("zzWeights")); assert(fhDZZ); fhDZZ->SetDirectory(0);
-  //delete fVVFile;
-
   const float metCut = 70;
   const int nBinMVA = 11; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 1000};
 
@@ -512,9 +507,6 @@ int year
 	else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz * 0.97;
 	if(theCategory == kPlotZZ && vMetZXLike.Pt() > 300) totalWeight = totalWeight * 0.6;
 
-        //if     (theCategory == kPlotWZ) totalWeight = totalWeight * nVVScaleFactor(fhDWZ, vMetZXLike.Pt());
-	//else if(theCategory == kPlotZZ) totalWeight = totalWeight * nVVScaleFactor(fhDZZ, vMetZXLike.Pt());
-
         double effSF = 1.0;
         for(unsigned int nl=0; nl<idLep.size(); nl++){
           if(idLep[nl] == 0) continue;
@@ -689,8 +681,8 @@ int year
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
     for(int nb=1; nb<=histo_Baseline[ic]->GetNbinsX(); nb++){
+      histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
       // compute QCD scale uncertainties bin-by-bin
       double diffQCDScale[6] = {
        TMath::Abs(histo_QCDScaleBounding[ic][0]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),

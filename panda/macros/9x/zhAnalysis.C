@@ -175,11 +175,6 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   //TH1D *fhDNPV    = (TH1D*)(fNPVFile->Get("npvWeights"));   assert(fhDNPV);    fhDNPV	->SetDirectory(0);
   //delete fNPVFile;
 
-  //TFile *fVVFile = TFile::Open("MitAnalysisRunII/data/90x/theory/reweighting_2019_mctoda_vv.root");
-  //TH1D *fhDWZ = (TH1D*)(fVVFile->Get("wzWeights")); assert(fhDWZ); fhDWZ->SetDirectory(0);
-  //TH1D *fhDZZ = (TH1D*)(fVVFile->Get("zzWeights")); assert(fhDZZ); fhDZZ->SetDirectory(0);
-  //delete fVVFile;
-
   TFile *ftrgSF = TFile::Open(trgSFPath.Data());
   TH2D *trgSFMMBB = (TH2D*)(ftrgSF->Get("trgSFMMBB")); assert(trgSFMMBB); trgSFMMBB->SetDirectory(0);
   TH2D *trgSFMMEB = (TH2D*)(ftrgSF->Get("trgSFMMEB")); assert(trgSFMMEB); trgSFMMEB->SetDirectory(0);
@@ -612,9 +607,6 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
         //if     (infileCat_[ifile] == kPlotWZ)                                                totalWeight = totalWeight * thePandaFlat.sf_wz;
 	//else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz;
 
-        //if     (theCategory == kPlotWZ) totalWeight = totalWeight * nVVScaleFactor(fhDWZ, vMet.Pt());
-	//else if(theCategory == kPlotZZ) totalWeight = totalWeight * nVVScaleFactor(fhDZZ, vMet.Pt());
-
         int theFileCat[2] = {infileCat_[ifile], 0};
         totalWeight = totalWeight * mcCorrection(1, year, thePandaFlat.jetNMBtags,thePandaFlat.jetNBtags, thePandaFlat.nJot, dPhiDiLepMET, theFileCat, thePandaFlat.eventNumber);
 
@@ -898,8 +890,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
     for(int nb=1; nb<=histo_Baseline[ic]->GetNbinsX(); nb++){
+      histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
       // compute QCD scale uncertainties bin-by-bin
       double diffQCDScale[6] = {
        TMath::Abs(histo_QCDScaleBounding[ic][0]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
