@@ -294,6 +294,21 @@ int year, int triggerCat, int mH = 125
   TH1D *trgSF = (TH1D*)(ftrgSF->Get("hDTrgSF_2")); assert(trgSF); trgSF->SetDirectory(0);
   delete ftrgSF;
 
+  TFile *fTrg_effph_VBFG = TFile::Open("MitAnalysisRunII/data/90x/trigger_vbfg/trigger_efficiency_photon_ph75.root");
+  TH1D *trg_VBFG_pth_eff  = (TH1D*)fTrg_effph_VBFG->Get("ph75r9iso/pt_pass"); trg_VBFG_pth_eff ->SetDirectory(0);
+  TH1D *trg_VBFG_pth_base = (TH1D*)fTrg_effph_VBFG->Get("ph75r9iso/pt_base"); trg_VBFG_pth_base->SetDirectory(0);
+  trg_VBFG_pth_eff->Divide(trg_VBFG_pth_base);
+  fTrg_effph_VBFG->Close();
+
+  TFile *fTrg_effjj_VBFG = TFile::Open("MitAnalysisRunII/data/90x/trigger_vbfg/trigger_efficiency_dijet_ph75.root");
+  TH1D *trg_VBFG_mjj_eff  = (TH1D*)fTrg_effjj_VBFG->Get("vbf/mjj_pass"); trg_VBFG_mjj_eff ->SetDirectory(0);
+  TH1D *trg_VBFG_mjj_base = (TH1D*)fTrg_effjj_VBFG->Get("vbf/mjj_base"); trg_VBFG_mjj_base->SetDirectory(0);
+  trg_VBFG_mjj_eff->Divide(trg_VBFG_mjj_base);
+  TH1D *trg_VBFG_detajj_eff  = (TH1D*)fTrg_effjj_VBFG->Get("vbf/dEtajj_pass"); trg_VBFG_detajj_eff ->SetDirectory(0);
+  TH1D *trg_VBFG_detajj_base = (TH1D*)fTrg_effjj_VBFG->Get("vbf/dEtajj_base"); trg_VBFG_detajj_base->SetDirectory(0);
+  trg_VBFG_detajj_eff->Divide(trg_VBFG_detajj_base);
+  fTrg_effjj_VBFG->Close();
+
   // (mjj<=X/>=X) 0: SR , 1: passLGSel, 2: passLSel, 3: passGJSel, 4: passLLGSel
   const int nBinMVA1DTrigger0 = 5; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   65,   100,  200,  1000};//400,  600, 1000};
   const int nBinMVA1DTrigger1 = 5; Double_t xbins1DTrigger1[nBinMVA1DTrigger1+1] = {0,   30,   65,   100,  200,  1000};
@@ -475,7 +490,8 @@ int year, int triggerCat, int mH = 125
       bool passTrigger = false;
       bool passSinglePhotonTrigger = false;
       if(year == 2016 && triggerCat == 0){
-        passTrigger = (thePandaFlat.trigger & (1<<kVBFPhoTrig)) != 0;
+        if(infileCat_[ifile] == kPlotData) passTrigger = (thePandaFlat.trigger & (1<<kVBFPhoTrig)) != 0;
+	else                               passTrigger = true;
       } else {
         if     (triggerCat == 0) passTrigger = (thePandaFlat.trigger & (1<<kMETTrig)) != 0;
         else if(triggerCat == 1) passTrigger = (thePandaFlat.trigger & (1<<kSinglePhoTrig)) != 0;
@@ -823,12 +839,7 @@ int year, int triggerCat, int mH = 125
 
 	//double npvWeight = nPUScaleFactor(fhDNPV, thePandaFlat.npv);
 
-        triggerWeights[0] = trigger_eff_sf(vMet.Pt(), year, triggerCat);
-	/*if(passPhoSel > 0 && year == 2017) {
-	  int nphbin = trgSF->GetXaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), 399.99));
-          triggerWeights[0] = trgSF->GetBinContent(nphbin);
-          triggerWeights[1] = trgSF->GetBinError(nphbin)/triggerWeights[0];
-        }*/
+        trigger_eff_sf(triggerWeights, vMet.Pt(), vPhoton.Pt(), massJJ, deltaEtaJJ, year, triggerCat, trg_VBFG_pth_eff, trg_VBFG_mjj_eff, trg_VBFG_detajj_eff);
 
         totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * 1000 * puWeight * thePandaFlat.sf_l1Prefire * triggerWeights[0] * theMCPrescale;
 
@@ -1020,8 +1031,8 @@ int year, int triggerCat, int mH = 125
                 histo_BTAGLBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight);
                 histo_PreFireBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight*sf_l1PrefireE);
                 histo_PreFireBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight/sf_l1PrefireE);
-                histo_TriggerBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight*(1+triggerWeights[1]));
-                histo_TriggerBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight/(1+triggerWeights[1]));
+                histo_TriggerBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight*triggerWeights[1]);
+                histo_TriggerBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight/triggerWeights[1]);
               } else {
                 histo_BTAGBBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight);
                 histo_BTAGBBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight);

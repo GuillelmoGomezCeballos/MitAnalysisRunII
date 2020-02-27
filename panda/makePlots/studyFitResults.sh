@@ -355,12 +355,23 @@ mv studyFitResults.txt studyFitResults_1j_2018.txt;
 mv histoDatacard_22.root histoDatacard_zh_1j_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+
+hadd -f histoDatacard_zh_0j_2019_merge.root histoDatacard_zh_0j_201?.root 
+hadd -f histoDatacard_zh_1j_2019_merge.root histoDatacard_zh_1j_201?.root 
+hadd -f histoDatacard_zh_nj_2019_merge.root histoDatacard_zh_?j_201?.root 
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(21, "done_ana/histoZH_2019_0j_48.root", "comb/fitDiagnosticszh_comb_obs.root", "ZH0_2019")';
+mv studyFitResults.txt studyFitResults_0j_2019.txt;
+mv histoDatacard_21.root histoDatacard_zh_0j_2019.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(22, "done_ana/histoZH_2019_1j_50.root", "comb/fitDiagnosticszh_comb_obs.root", "ZH1_2019")';
+mv studyFitResults.txt studyFitResults_1j_2019.txt;
+mv histoDatacard_22.root histoDatacard_zh_1j_2019.root
+
+hadd -f histoDatacard_zh_nj_2019.root histoDatacard_zh_?j_2019.root 
+
 rm -f studyFitResults*.txt;
 rm -f histoDatacard_??.root
-
-hadd -f histoDatacard_zh_0j_2019.root histoDatacard_zh_0j_201[6-8].root
-hadd -f histoDatacard_zh_1j_2019.root histoDatacard_zh_1j_201[6-8].root
-hadd -f histoDatacard_zh_nj_2019.root histoDatacard_zh_?j_201[6-8].root
 
 echo "***************WZ CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoWZ_2016_81.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "WZ_2016")';
@@ -376,10 +387,15 @@ mv studyFitResults.txt studyFitResults_wz_2018.txt;
 mv histoDatacard_99.root histoDatacard_wz_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+
+hadd -f histoDatacard_wz_2019_merge.root histoDatacard_wz_201?.root 
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoWZ_2019_81.root", "comb/fitDiagnosticszh_comb_obs.root", "WZ_2019")';
+mv studyFitResults.txt studyFitResults_wz_2019.txt;
+mv histoDatacard_99.root histoDatacard_wz_2019.root
+
 rm -f studyFitResults*.txt;
 rm -f histoDatacard_??.root
-
-hadd -f histoDatacard_wz_2019.root histoDatacard_wz_201[6-8].root
 
 echo "***************zz CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoZZ_2016_70.root", "ana_zh/fitDiagnosticszh_comb_obs.root", "ZZ_2016")';
@@ -395,8 +411,14 @@ mv studyFitResults.txt studyFitResults_zz_2018.txt;
 mv histoDatacard_99.root histoDatacard_zz_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+
+hadd -f histoDatacard_zz_2019_merge.root histoDatacard_zz_201?.root 
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histoZZ_2019_70.root", "comb/fitDiagnosticszh_comb_obs.root", "ZZ_2019")';
+mv studyFitResults.txt studyFitResults_zz_2019.txt;
+mv histoDatacard_99.root histoDatacard_zz_2019.root
+
 rm -f studyFitResults*.txt;
 rm -f histoDatacard_??.root
 
-hadd -f histoDatacard_zz_2019.root histoDatacard_zz_201[6-8].root
 fi

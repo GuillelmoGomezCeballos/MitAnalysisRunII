@@ -2,7 +2,7 @@
 #include "TH2D.h"
 
 enum selYear {Y2016, Y2017, Y2018, nYears};
-const double lumiV[nYears] = {27.5, 41.5, 60.0};
+const double lumiV[nYears] = {35.9, 41.5, 60.0};
 const double lumiE[nYears] = {1.025, 1.023, 1.025};
 const double totalLumiV = lumiV[Y2016] + lumiV[Y2017] + lumiV[Y2018];
 
@@ -197,17 +197,56 @@ double mcCorrection(int type, int year, int infileCat, double mjj, double mtg, i
   return totalWeight;
 }
 
-double trigger_eff_sf(double x, int year, int triggerCat){
-  double daTrgEff = 1.0;
-  double mcTrgEff = 1.0;
-  double sfTrgEff = 1.0;
-  if(year == 2017 && triggerCat == 0){
-    double daVal[5] = {2.25313595e-02,1.69065605e+02,8.38266130e-02,3.52689322e-04,2.21520012e+02};
-    double mcVal[5] = {2.46418515e-02,1.54628013e+02,4.01109919e-02,3.22148162e-04,2.20222230e+02};
-    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (x-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(x-daVal[4])*(x-daVal[4]));
-    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (x-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(x-mcVal[4])*(x-mcVal[4]));
-  }
+void trigger_eff_sf(double triggerWeights[2], double met, double pth, double mjj, double detajj, int year, int triggerCat, 
+                      TH1D* trg_VBFG_pth_eff, TH1D* trg_VBFG_mjj_eff, TH1D* trg_VBFG_detajj_eff){
+  double daTrgEff  = 1.0;
+  double mcTrgEff  = 1.0;
+  double sfTrgEff  = 1.0;
+  double sfTrgEffE = 1.0;
+  if     (year == 2016 && triggerCat == 0){
+    int lastpthBin = trg_VBFG_pth_eff->GetNbinsX();
+    double mypth = TMath::Min(pth, trg_VBFG_pth_eff->GetXaxis()->GetBinCenter(lastpthBin));
+    int mypthBin = trg_VBFG_pth_eff->GetXaxis()->FindBin(mypth);
 
+    double mymjj = TMath::Min(mjj, 999.999);
+    int mymjjBin = trg_VBFG_mjj_eff->GetXaxis()->FindBin(mymjj);
+
+    double mydetajj = TMath::Min(detajj, 4.999);
+    int mydetajjBin = trg_VBFG_detajj_eff->GetXaxis()->FindBin(mydetajj);
+
+    daTrgEff = trg_VBFG_pth_eff->GetBinContent(mypthBin) * trg_VBFG_mjj_eff->GetBinContent(mymjjBin);
+    if(daTrgEff > 0) sfTrgEffE = trg_VBFG_detajj_eff->GetBinContent(mydetajjBin) / trg_VBFG_mjj_eff->GetBinContent(mymjjBin);
+  }
+  else if(year == 2017 && triggerCat == 0){
+    double daVal[5] = {0.022571,167.320198,0.077194,0.000330,222.058189};
+    double mcVal[5] = {0.025953,153.096915,0.043153,0.000338,216.578332};
+    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
+    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    if(met < 240) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
+  }
+  else if(year == 2017 && triggerCat == 1){
+    double daVal[4] = {0.335,217.91,0.065,0.996};
+    double mcVal[4] = {0.244,212.34,0.050,1.000};
+    daTrgEff = daVal[2] + (daVal[3]-daVal[2]) / (1.0+TMath::Exp(-daVal[0]*(pth-daVal[1])));
+    mcTrgEff = mcVal[2] + (mcVal[3]-mcVal[2]) / (1.0+TMath::Exp(-mcVal[0]*(pth-mcVal[1])));
+    if(pth < 225) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
+  }
+  else if(year == 2018 && triggerCat == 0){
+    double daVal[5] = {0.022171,172.524448,0.090892,0.000652,224.661923};
+    double mcVal[5] = {0.025514,137.136023,0.065548,0.000381,182.744938};
+    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
+    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    if(met < 240) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
+  }
+  else if(year == 2018 && triggerCat == 1){
+    double daVal[4] = {1.022,218.39,0.086,0.999};
+    double mcVal[4] = {0.301,212.83,0.062,1.000};
+    daTrgEff = daVal[2] + (daVal[3]-daVal[2]) / (1.0+TMath::Exp(-daVal[0]*(pth-daVal[1])));
+    mcTrgEff = mcVal[2] + (mcVal[3]-mcVal[2]) / (1.0+TMath::Exp(-mcVal[0]*(pth-mcVal[1])));
+    if(pth < 225) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
+  }
   if(mcTrgEff > 0) sfTrgEff = daTrgEff/mcTrgEff;
-  return sfTrgEff;
+  //printf("TRGEFF (%5.1f %5.1f %6.1f %4.1f) (%4d %1d) %5.3f %5.3f %5.3f %5.3f\n",met,pth,mjj,detajj,year,triggerCat,daTrgEff,mcTrgEff,sfTrgEff,sfTrgEffE);
+  triggerWeights[0] = sfTrgEff;
+  triggerWeights[1] = sfTrgEffE;
 }

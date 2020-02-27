@@ -171,9 +171,14 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   TH1D *fhDPUDown = (TH1D*)(fPUFile->Get("puWeightsDown")); assert(fhDPUDown); fhDPUDown->SetDirectory(0);
   delete fPUFile;
 
-  TFile *fNPVFile = TFile::Open(Form("%s",npvPath.Data()));
-  TH1D *fhDNPV    = (TH1D*)(fNPVFile->Get("npvWeights"));   assert(fhDNPV);    fhDNPV	->SetDirectory(0);
-  delete fNPVFile;
+  //TFile *fNPVFile = TFile::Open(Form("%s",npvPath.Data()));
+  //TH1D *fhDNPV    = (TH1D*)(fNPVFile->Get("npvWeights"));   assert(fhDNPV);    fhDNPV	->SetDirectory(0);
+  //delete fNPVFile;
+
+  //TFile *fVVFile = TFile::Open("MitAnalysisRunII/data/90x/theory/reweighting_2019_mctoda_vv.root");
+  //TH1D *fhDWZ = (TH1D*)(fVVFile->Get("wzWeights")); assert(fhDWZ); fhDWZ->SetDirectory(0);
+  //TH1D *fhDZZ = (TH1D*)(fVVFile->Get("zzWeights")); assert(fhDZZ); fhDZZ->SetDirectory(0);
+  //delete fVVFile;
 
   TFile *ftrgSF = TFile::Open(trgSFPath.Data());
   TH2D *trgSFMMBB = (TH2D*)(ftrgSF->Get("trgSFMMBB")); assert(trgSFMMBB); trgSFMMBB->SetDirectory(0);
@@ -200,15 +205,16 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   TH1D* histoADDRatio = (TH1D*)fADDRatios->Get("ratio;1"); histoADDRatio->SetDirectory(0);
   fADDRatios->Close();
 
-  //const int nBinMVA = 36; Float_t xbins[nBinMVA+1] = {0,  80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
+  const float metCut = 70;
+  //const int nBinMVA = 36; Float_t xbins[nBinMVA+1] = {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
   //						        1080,1100,1125,1150,1175,1200,1250,1300,1350,1400,1500,1600,2000,
   //						        2100,2125,2150,2200,3000,
   //						        3100,3125,3150,3200,4000};
-  //const int nBinMVA = 26; Float_t xbins[nBinMVA+1] = {0,  80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
+  //const int nBinMVA = 26; Float_t xbins[nBinMVA+1] = {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
   //						        1080,1100,1125,1150,1175,1200,1250,1300,1350,1400,1500,1600,2000};
-  const int nBinMVA = 13; Float_t xbins[nBinMVA+1] = {0,  80, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000};
-  const int nBin1DMET = 11; Float_t xbins1DMET[nBin1DMET+1] = {100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600, 1000};
-  const int nBin1DMT  = 10; Float_t xbins1DMT[nBin1DMT+1] = {200, 250, 300, 350, 400, 500, 600, 700, 800, 1000, 1200};
+  const int nBinMVA = 12; Float_t xbins[nBinMVA+1] =      {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600,1000};
+  const int nBin1DMET = 11; Float_t xbins1DMET[nBin1DMET+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600,1000};
+  const int nBin1DMT  = 10; Float_t xbins1DMT[nBin1DMT+1] = {200, 250, 300, 350, 400, 500, 600, 700, 800,1000,1200};
 
   const double metMax = 999.999;
 
@@ -323,6 +329,18 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     histo_CorrWZZZDown		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CorrWZZZDown"       , plotBaseNames[ic].Data()));
     histo_EWKCorrZHUp		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_EWKZHCorrUp"        , plotBaseNames[ic].Data()));
     histo_EWKCorrZHDown 	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_EWKZHCorrDown"      , plotBaseNames[ic].Data()));
+  }
+
+  const int vvNorm = 3;
+  TH1D *histo_WZNormUp  [vvNorm];
+  TH1D *histo_WZNormDown[vvNorm];
+  TH1D *histo_ZZNormUp  [vvNorm];
+  TH1D *histo_ZZNormDown[vvNorm];
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dUp"   , plotBaseNames[kPlotWZ].Data(),i));
+    histo_WZNormDown[i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dDown" , plotBaseNames[kPlotWZ].Data(),i));
+    histo_ZZNormUp  [i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dUp"   , plotBaseNames[kPlotZZ].Data(),i));
+    histo_ZZNormDown[i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dDown" , plotBaseNames[kPlotZZ].Data(),i));
   }
 
   //*******************************************************
@@ -497,9 +515,9 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       bool passZMass = TMath::Abs(mllZ-91.1876) < 15.0;
       bool passZMassSB = mllZ > 110 && mllZ < 200;
       bool passMETTight = vMet.Pt()     > 100;
-      bool passMET      = vMet.Pt()     >  80 && (lepType != 2 || vMet.Pt()     > 100);
-      bool passMETUp    = vMetUp.Pt()   >  80 && (lepType != 2 || vMetUp.Pt()   > 100);
-      bool passMETDown  = vMetDown.Pt() >  80 && (lepType != 2 || vMetDown.Pt() > 100);
+      bool passMET      = vMet.Pt()     >  metCut && (lepType != 2 || vMet.Pt()     > 100);
+      bool passMETUp    = vMetUp.Pt()   >  metCut && (lepType != 2 || vMetUp.Pt()   > 100);
+      bool passMETDown  = vMetDown.Pt() >  metCut && (lepType != 2 || vMetDown.Pt() > 100);
       bool passPTLL   = dilep.Pt() > 60;
 
       double ptFrac     = TMath::Abs(dilep.Pt()-vMet.Pt()    )/dilep.Pt();
@@ -591,8 +609,11 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
         if(passBtagVeto) totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * npvWeight * puWeight * thePandaFlat.sf_l1Prefire * thePandaFlat.sf_btag0   * looseLepSF[0] * looseLepSF[1] * triggerWeights[0] * theMCPrescale;
         else	         totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * npvWeight * puWeight * thePandaFlat.sf_l1Prefire * thePandaFlat.sf_btagGT0 * looseLepSF[0] * looseLepSF[1] * triggerWeights[0] * theMCPrescale;
 
-        if     (infileCat_[ifile] == kPlotWZ)                                                totalWeight = totalWeight * thePandaFlat.sf_wz;
-	else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz;
+        //if     (infileCat_[ifile] == kPlotWZ)                                                totalWeight = totalWeight * thePandaFlat.sf_wz;
+	//else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz;
+
+        //if     (theCategory == kPlotWZ) totalWeight = totalWeight * nVVScaleFactor(fhDWZ, vMet.Pt());
+	//else if(theCategory == kPlotZZ) totalWeight = totalWeight * nVVScaleFactor(fhDZZ, vMet.Pt());
 
         int theFileCat[2] = {infileCat_[ifile], 0};
         totalWeight = totalWeight * mcCorrection(1, year, thePandaFlat.jetNMBtags,thePandaFlat.jetNBtags, thePandaFlat.nJot, dPhiDiLepMET, theFileCat, thePandaFlat.eventNumber);
@@ -702,7 +723,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passNMinusOne[ 0])       histo[lepType+ 15][theCategory]->Fill(TMath::Min(TMath::Abs(mllZ-91.1876),99.999),totalWeight);
       if(passNMinusOne[ 1])       histo[lepType+ 18][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,4.4999),totalWeight);
       if(passNMinusOne[ 2] &&
-         vMet.Pt() > 80)          histo[lepType+ 21][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
+         vMet.Pt() > metCut)      histo[lepType+ 21][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passNMinusOne[ 3])       histo[lepType+ 24][theCategory]->Fill(TMath::Min(ptFrac,0.999),totalWeight);
       if(passNMinusOne[ 4])       histo[lepType+ 27][theCategory]->Fill(dPhiDiLepMET,totalWeight);
       if(passNMinusOne[ 5])       histo[lepType+ 30][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNBtags,3.499),totalWeight);
@@ -712,12 +733,12 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passNMinusOne[ 8])       histo[lepType+ 39][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,3.499),totalWeight);
       if(passNMinusOne[ 9])       histo[lepType+ 42][theCategory]->Fill(TMath::Min((double)drll,3.999),totalWeight);
       for(int i=0; i<10; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[lepType+45][theCategory]->Fill((double)i,totalWeight);}
-      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET && !passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET &&  passDPhiZMETTight) histo[50][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHTIGHTSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET && !passDPhiZMETTight) histo[51][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHTIGHTSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET &&  passDPhiZMETTight) histo[52][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHTIGHTSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET && !passDPhiZMETTight) histo[53][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET && !passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET &&  passDPhiZMETTight) histo[50][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET && !passDPhiZMETTight) histo[51][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET &&  passDPhiZMETTight) histo[52][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET && !passDPhiZMETTight) histo[53][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 54][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 57][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 60][theCategory]->Fill(TMath::Min(ptFrac,0.999),totalWeight);
@@ -840,8 +861,35 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
   for(int ic=0; ic<nPlotCategories; ic++) histo[allPlots-1][ic]->Add(histo_Baseline[ic]);
 
-  if(whichBSMName != "" && whichBSMName != "NoBSM") whichBSMName = Form("Only%s",whichBSMName.Data());
+  // VV shapeNorm
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i]->Add(histo_Baseline[kPlotWZ]);
+    histo_WZNormDown[i]->Add(histo_Baseline[kPlotWZ]);
+    histo_ZZNormUp  [i]->Add(histo_Baseline[kPlotZZ]);
+    histo_ZZNormDown[i]->Add(histo_Baseline[kPlotZZ]);
+  }
+  for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {
+    if     (histo_MVA->GetXaxis()->GetBinLowEdge(i) < 200) {
+      histo_WZNormUp  [0]->SetBinContent(i,histo_WZNormUp  [0]->GetBinContent(i)*1.1);
+      histo_WZNormDown[0]->SetBinContent(i,histo_WZNormDown[0]->GetBinContent(i)/1.1);
+      histo_ZZNormUp  [0]->SetBinContent(i,histo_ZZNormUp  [0]->GetBinContent(i)*1.1);
+      histo_ZZNormDown[0]->SetBinContent(i,histo_ZZNormDown[0]->GetBinContent(i)/1.1);
+    }
+    else if(histo_MVA->GetXaxis()->GetBinLowEdge(i) < 400) {
+      histo_WZNormUp  [1]->SetBinContent(i,histo_WZNormUp  [1]->GetBinContent(i)*1.2);
+      histo_WZNormDown[1]->SetBinContent(i,histo_WZNormDown[1]->GetBinContent(i)/1.2);
+      histo_ZZNormUp  [1]->SetBinContent(i,histo_ZZNormUp  [1]->GetBinContent(i)*1.2);
+      histo_ZZNormDown[1]->SetBinContent(i,histo_ZZNormDown[1]->GetBinContent(i)/1.2);
+    }
+    else {
+      histo_WZNormUp  [2]->SetBinContent(i,histo_WZNormUp  [2]->GetBinContent(i)*1.3);
+      histo_WZNormDown[2]->SetBinContent(i,histo_WZNormDown[2]->GetBinContent(i)/1.3);
+      histo_ZZNormUp  [2]->SetBinContent(i,histo_ZZNormUp  [2]->GetBinContent(i)*1.3);
+      histo_ZZNormDown[2]->SetBinContent(i,histo_ZZNormDown[2]->GetBinContent(i)/1.3);
+    }
+  }
 
+  if(whichBSMName != "" && whichBSMName != "NoBSM") whichBSMName = Form("Only%s",whichBSMName.Data());
 
   double qcdScaleTotal[2] = {0.0345, 0.2200}; // use sigma(ZH) (0.0345) instead of sigma(qq->ZZ) (0.0055) and sigma(gg->ZH) (0.2200)
   if(whichBSMName != "") {qcdScaleTotal[0] = 0.0; qcdScaleTotal[1] = 0.0;}
@@ -1179,6 +1227,12 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     histo_EWKCorrZHUp		[ic]->Write();
     histo_EWKCorrZHDown 	[ic]->Write();
   }
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i]->Write();
+    histo_WZNormDown[i]->Write();
+    histo_ZZNormUp  [i]->Write();
+    histo_ZZNormDown[i]->Write();
+  }
   outFileLimits->Close();
 
   if(whichBSMName == ""){
@@ -1254,6 +1308,16 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       else               newcardShape << Form("%f  ", 1.02);
     }
     newcardShape << Form("\n");
+
+    for(int i=0; i<vvNorm; i++){
+      newcardShape << Form("CMS_VVNorm%d    shape     ",i);
+      for (int ic=0; ic<nPlotCategories; ic++){
+	if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+	if(ic != kPlotWZ && ic != kPlotZZ) newcardShape << Form("- ");
+	else                               newcardShape << Form("1.0 ");
+      }
+      newcardShape << Form("\n");
+    }
 
     if(useZZWZEWKUnc == false){
       newcardShape << Form("EWKWZCorr    shape     ");

@@ -226,8 +226,13 @@ int year, TString WZName = "default"
   //TH1D *fhDNPV    = (TH1D*)(fNPVFile->Get("npvWeights"));   assert(fhDNPV);    fhDNPV	->SetDirectory(0);
   //delete fNPVFile;
 
-  const float metCut = 80;
-  const int nBinMVA = 12; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600, 1000};
+  //TFile *fVVFile = TFile::Open("MitAnalysisRunII/data/90x/theory/reweighting_2019_mctoda_vv.root");
+  //TH1D *fhDWZ = (TH1D*)(fVVFile->Get("wzWeights")); assert(fhDWZ); fhDWZ->SetDirectory(0);
+  //TH1D *fhDZZ = (TH1D*)(fVVFile->Get("zzWeights")); assert(fhDZZ); fhDZZ->SetDirectory(0);
+  //delete fVVFile;
+
+  const float metCut = 70;
+  const int nBinMVA = 11; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 1000};
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
@@ -316,6 +321,18 @@ int year, TString WZName = "default"
     histo_ggZZCorrDown		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_ggZZCorrDown"       , plotBaseNames[ic].Data()));
     histo_CorrWZZZUp		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CorrWZZZUp"         , plotBaseNames[ic].Data()));
     histo_CorrWZZZDown		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CorrWZZZDown"       , plotBaseNames[ic].Data()));
+  }
+
+  const int vvNorm = 3;
+  TH1D *histo_WZNormUp  [vvNorm];
+  TH1D *histo_WZNormDown[vvNorm];
+  TH1D *histo_ZZNormUp  [vvNorm];
+  TH1D *histo_ZZNormDown[vvNorm];
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dUp"   , plotBaseNames[kPlotWZ].Data(),i));
+    histo_WZNormDown[i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dDown" , plotBaseNames[kPlotWZ].Data(),i));
+    histo_ZZNormUp  [i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dUp"   , plotBaseNames[kPlotZZ].Data(),i));
+    histo_ZZNormDown[i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_VVNorm%dDown" , plotBaseNames[kPlotZZ].Data(),i));
   }
 
   //*******************************************************
@@ -520,9 +537,9 @@ int year, TString WZName = "default"
       double dPhiDiLepMET = TMath::Abs(dilep.DeltaPhi(vMetZXLike)); double dPhiDiLepMETUp = TMath::Abs(dilep.DeltaPhi(vMetZXLikeUp)); double dPhiDiLepMETDown = TMath::Abs(dilep.DeltaPhi(vMetZXLikeDown));
       bool passDPhiZMET = dPhiDiLepMET > 2.6; bool passDPhiZMETUp = dPhiDiLepMETUp > 2.6; bool passDPhiZMETDown = dPhiDiLepMETDown > 2.6;
 
-      bool passNjets     = thePandaFlat.nJot <= 10; // i.e. no cut
-      bool passNjetsUp   = thePandaFlat.nJot_JESTotalUp <= 10; // i.e. no cut
-      bool passNjetsDown = thePandaFlat.nJot_JESTotalDown <= 10; // i.e. no cut
+      bool passNjets     = thePandaFlat.nJot <= 2; // i.e. no cut
+      bool passNjetsUp   = thePandaFlat.nJot_JESTotalUp <= 2; // i.e. no cut
+      bool passNjetsDown = thePandaFlat.nJot_JESTotalDown <= 2; // i.e. no cut
 
       double dphill = TMath::Abs(vZl1.DeltaPhi(vZl2));
       double detall = TMath::Abs(vZl1.Eta()-vZl2.Eta());
@@ -567,8 +584,11 @@ int year, TString WZName = "default"
         if(passBtagVeto) totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * puWeight * thePandaFlat.sf_l1Prefire * thePandaFlat.sf_btag0   * looseLepSF[0] * looseLepSF[1] * looseLepSF[2];
         else             totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * puWeight * thePandaFlat.sf_l1Prefire * thePandaFlat.sf_btagGT0 * looseLepSF[0] * looseLepSF[1] * looseLepSF[2];
 
-        if     (infileCat_[ifile] == kPlotWZ)                                                totalWeight = totalWeight * thePandaFlat.sf_wz;
-	else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz;
+        if     (infileCat_[ifile] == kPlotWZ)						     totalWeight = totalWeight * thePandaFlat.sf_wz * 0.97;
+	else if(infileCat_[ifile] == kPlotZZ && infileName_[ifile].Contains("qqZZ") == true) totalWeight = totalWeight * thePandaFlat.sf_zz * 0.97;
+
+        //if     (theCategory == kPlotWZ) totalWeight = totalWeight * nVVScaleFactor(fhDWZ, vMetZXLike.Pt());
+	//else if(theCategory == kPlotZZ) totalWeight = totalWeight * nVVScaleFactor(fhDZZ, vMetZXLike.Pt());
 
 	if(passPhoSel == true) {
           if     (thePandaFlat.looseGenPho1PdgId == 1) {
@@ -720,6 +740,34 @@ int year, TString WZName = "default"
   } // end chain loop
 
   for(int ic=0; ic<nPlotCategories; ic++) histo[allPlots-1][ic]->Add(histo_Baseline[ic]);
+
+  // VV shapeNorm
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i]->Add(histo_Baseline[kPlotWZ]);
+    histo_WZNormDown[i]->Add(histo_Baseline[kPlotWZ]);
+    histo_ZZNormUp  [i]->Add(histo_Baseline[kPlotZZ]);
+    histo_ZZNormDown[i]->Add(histo_Baseline[kPlotZZ]);
+  }
+  for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {
+    if     (histo_MVA->GetXaxis()->GetBinLowEdge(i) < 200) {
+      histo_WZNormUp  [0]->SetBinContent(i,histo_WZNormUp  [0]->GetBinContent(i)*1.1);
+      histo_WZNormDown[0]->SetBinContent(i,histo_WZNormDown[0]->GetBinContent(i)/1.1);
+      histo_ZZNormUp  [0]->SetBinContent(i,histo_ZZNormUp  [0]->GetBinContent(i)*1.1);
+      histo_ZZNormDown[0]->SetBinContent(i,histo_ZZNormDown[0]->GetBinContent(i)/1.1);
+    }
+    else if(histo_MVA->GetXaxis()->GetBinLowEdge(i) < 400) {
+      histo_WZNormUp  [1]->SetBinContent(i,histo_WZNormUp  [1]->GetBinContent(i)*1.2);
+      histo_WZNormDown[1]->SetBinContent(i,histo_WZNormDown[1]->GetBinContent(i)/1.2);
+      histo_ZZNormUp  [1]->SetBinContent(i,histo_ZZNormUp  [1]->GetBinContent(i)*1.2);
+      histo_ZZNormDown[1]->SetBinContent(i,histo_ZZNormDown[1]->GetBinContent(i)/1.2);
+    }
+    else {
+      histo_WZNormUp  [2]->SetBinContent(i,histo_WZNormUp  [2]->GetBinContent(i)*1.3);
+      histo_WZNormDown[2]->SetBinContent(i,histo_WZNormDown[2]->GetBinContent(i)/1.3);
+      histo_ZZNormUp  [2]->SetBinContent(i,histo_ZZNormUp  [2]->GetBinContent(i)*1.3);
+      histo_ZZNormDown[2]->SetBinContent(i,histo_ZZNormDown[2]->GetBinContent(i)/1.3);
+    }
+  }
 
   double qcdScaleTotal[2] = {0.035, 0.231};
   double pdfTotal[2] = {0.016, 0.051};
@@ -1027,6 +1075,12 @@ int year, TString WZName = "default"
     histo_CorrWZZZUp		[ic]->Write();
     histo_CorrWZZZDown  	[ic]->Write();
   }
+  for(int i=0; i<vvNorm; i++){
+    histo_WZNormUp  [i]->Write();
+    histo_WZNormDown[i]->Write();
+    histo_ZZNormUp  [i]->Write();
+    histo_ZZNormDown[i]->Write();
+  }
   outFileLimits->Close();
 
 
@@ -1113,6 +1167,16 @@ int year, TString WZName = "default"
     else               newcardShape << Form("%f  ", 1.02);
   }
   newcardShape << Form("\n");
+
+  for(int i=0; i<vvNorm; i++){
+    newcardShape << Form("CMS_VVNorm%d    shape     ",i);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotWZ && ic != kPlotZZ) newcardShape << Form("- ");
+      else				 newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
+  }
 
   if(useZZWZEWKUnc == false){
     newcardShape << Form("EWKWZCorr    shape     ");

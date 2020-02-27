@@ -40,6 +40,14 @@ double nPUScaleFactor(TH1D *fhDPU, float npu){
   return fhDPU->GetBinContent(npuxbin);
 }
 
+double nVVScaleFactor(TH1D *fhDVV, double met){
+  int lastBin = fhDVV->GetNbinsX();
+  double myVar = TMath::Min(met, fhDVV->GetXaxis()->GetBinCenter(lastBin));
+  if(myVar <= fhDVV->GetXaxis()->GetBinLowEdge(1)) return 1.0;
+  int xBin = fhDVV->GetXaxis()->FindBin(myVar);
+  return fhDVV->GetBinContent(xBin);
+}
+
 double electronToPhotonSF(double pt, int year){
   double effDA = 1.0;
   double effMC = 1.0;

@@ -17,10 +17,10 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.19,0.19,0.19,0.19,0.19,0.19,0.19,0.19}; 
+float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40}; 
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
-const Float_t _tsize   = 0.035;
+const Float_t _tsize   = 0.045;
 const Float_t _xoffset = 0.200;
 const Float_t _yoffset = 0.051;
 
@@ -81,8 +81,8 @@ void AxisFonts(TAxis*  axis,
     axis->SetTitleOffset(  0.9);
     axis->SetTitleSize  (0.050);
 
-    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.00);
-    else if (coordinate == "y")                            axis->SetTitleOffset(1.10);
+    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.20);
+    else if (coordinate == "y")                            axis->SetTitleOffset(1.20);
 
     axis->SetTitle(title);
 }
@@ -332,9 +332,9 @@ class StandardPlot {
 
             if (gPad->GetLogy()) {
             	hstack->SetMaximum(10000 * theMax);
-            	hstack->SetMinimum(TMath::Max(0.9 * theMin,0.010));
+            	hstack->SetMinimum(TMath::Max(0.9 * theMin,0.0010));
             } else {
-              hstack->SetMaximum(2.5 * theMax);
+              hstack->SetMaximum(2.0 * theMax);
             }
 
             if(_breakdown) {

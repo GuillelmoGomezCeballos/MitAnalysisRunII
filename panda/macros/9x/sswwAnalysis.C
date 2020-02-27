@@ -1816,7 +1816,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       if(passWWSel)          histo[         66][theCategory]->Fill(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.0001),totalWeight);
       if(passBtagSel)        histo[         67][theCategory]->Fill(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.0001),totalWeight);
       if(passWWSel)          histo[lepType+ 68][theCategory]->Fill(TMath::Min(TMath::Max(vZ1l1.Pt(),vZ1l2.Pt()),419.999),totalWeight);
-      if(passWWSel)          histo[lepType+ 71][theCategory]->Fill(TMath::Min(TMath::Min(vZ1l1.Pt(),vZ1l2.Pt()),419.999),totalWeight);
+      if(passWWSel)          histo[         71][theCategory]->Fill(TMath::Min(TMath::Min(vZ1l1.Pt(),vZ1l2.Pt()),419.999),totalWeight);
+      if(passEWKWZSel)       histo[	    72][theCategory]->Fill(TMath::Min(TMath::Max(TMath::Max(vZ1l1.Pt(),vZ1l2.Pt()),vWln.Pt()),419.999),totalWeight);
+      if(passEWKWZSel)       histo[	    73][theCategory]->Fill(TMath::Min(vWln.Pt(),419.999),totalWeight);
       if(passZSel)           histo[lepType+ 74][theCategory]->Fill(TMath::Min(mllZ,219.999),totalWeight);
       if(passEWKWZSel)       histo[         77][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWZValue,0.999)),totalWeight);
       if(passEWKWZSel)       histo[         78][theCategory]->Fill(TMath::Min(mtVV,499.999),totalWeight);

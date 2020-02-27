@@ -133,6 +133,18 @@ void makeZHYearDataCards(TString folder = "", TString outputLimits = "zh_2016_in
   }
   newcardShape << Form("\n");
 
+  const int vvNorm = 3;
+  for(int i=0; i<vvNorm; i++){
+    newcardShape << Form("CMS_VVNorm%d    shape     ",i);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotWZ && ic != kPlotZZ) newcardShape << Form("- ");
+      else				 newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
+  }
+
   if(useZZWZEWKUnc == false){
     newcardShape << Form("EWKWZCorr    shape     ");
     for (int ic=0; ic<nPlotCategories; ic++){

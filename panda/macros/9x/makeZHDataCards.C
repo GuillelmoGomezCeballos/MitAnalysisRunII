@@ -132,32 +132,56 @@ void makeZHDataCards(TString outputLimits = "zh_comb_input.root", int jetValue =
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("EWKWZCorr    shape     ");
-  for (int ic=0; ic<nPlotCategories; ic++){
-    if(!histo_Baseline[ic]) continue;
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotWZ) newcardShape << Form("- ");
-    else              newcardShape << Form("1.0 ");
+  const int vvNorm = 3;
+  for(int i=0; i<vvNorm; i++){
+    newcardShape << Form("CMS_VVNorm%d    shape     ",i);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotWZ && ic != kPlotZZ) newcardShape << Form("- ");
+      else				 newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
   }
-  newcardShape << Form("\n");
 
-  newcardShape << Form("EWKqqZZCorr    shape     ");
-  for (int ic=0; ic<nPlotCategories; ic++){
-    if(!histo_Baseline[ic]) continue;
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotZZ) newcardShape << Form("- ");
-    else              newcardShape << Form("1.0 ");
-  }
-  newcardShape << Form("\n");
+  if(useZZWZEWKUnc == false){
+    newcardShape << Form("EWKWZCorr    shape     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotWZ) newcardShape << Form("- ");
+      else              newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
 
-  newcardShape << Form("ggZZCorr    shape     ");
-  for (int ic=0; ic<nPlotCategories; ic++){
-    if(!histo_Baseline[ic]) continue;
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotZZ) newcardShape << Form("- ");
-    else              newcardShape << Form("1.0 ");
+    newcardShape << Form("EWKqqZZCorr    shape     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotZZ) newcardShape << Form("- ");
+      else              newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("ggZZCorr    shape     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotZZ) newcardShape << Form("- ");
+      else              newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
   }
-  newcardShape << Form("\n");
+  else {
+    newcardShape << Form("CorrWZZZ    shape     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotZZ) newcardShape << Form("- ");
+      else              newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
+  }
 
   newcardShape << Form("WZ_lep    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){

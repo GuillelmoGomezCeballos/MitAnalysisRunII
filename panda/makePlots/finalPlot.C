@@ -150,7 +150,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
       //  if(i>20)_hist[ic]->SetBinContent(i,0);
       //}
       hData = (TH1F*)_hist[ic]->Clone();
-      hBck  = (TH1F*)_hist[ic]->Clone(); hBck->Scale(0);
+      hBck  = (TH1F*)_hist[ic]->Clone("hBck"); hBck->Scale(0);
     }
     else if(applySmoothing && _hist[ic]->GetSumOfWeights() > 0 && ic != kPlotBSM && ic != kPlotVG &&
       ic != kPlotSignal0 && ic != kPlotSignal1 &&
@@ -406,6 +406,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
       TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
+      hBck->Write();
       for(int ic=0; ic<nPlotCategories; ic++){
         if(!_hist[ic]) continue;
         _hist[ic]->Write();

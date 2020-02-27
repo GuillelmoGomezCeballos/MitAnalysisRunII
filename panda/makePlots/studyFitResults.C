@@ -89,11 +89,11 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
     binToCount = kPlotWZ;
   }
   else if(nsel == 21){ // ZH SR 0j
-    for(int i=0; i<2; i++) excludeBins[i] = i+1;
+    for(int i=0; i<1; i++) excludeBins[i] = i+1;
     binToCount = kPlotEM;
   }
   else if(nsel == 22){ // ZH SR 1 
-    for(int i=0; i<2; i++) excludeBins[i] = i+1;
+    for(int i=0; i<1; i++) excludeBins[i] = i+1;
     binToCount = kPlotEM;
   }
   else if(nsel == 30){ // long SR
@@ -222,6 +222,7 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   for(int i=1; i<nPlotCategories; i++) printf("%7.1f ",_histPostFit[i]->GetSumOfWeights());
   printf(")\n");
   if(nsel == 22) for(int np=0; np<nPlotCategories; np++) if(np != kPlotBSM && np != kPlotData) {_histPostFit[np]->SetBinContent(3,_histPostFit[np]->GetBinContent(3)*1.15);}
+  if((nsel == 21 || nsel == 22) && plotName.Contains("2016")) for(int np=0; np<nPlotCategories; np++) if(np != kPlotBSM && np != kPlotData) {_histPostFit[np]->SetBinContent(2,_histPostFit[np]->GetBinContent(2)*1.09);}
   for(int np=0; np<nPlotCategories; np++) {_histPostFit[np]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));_histPostFit[np]->Write();}
   outFilePlotsNote->Close();
 }
