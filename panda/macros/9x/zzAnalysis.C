@@ -689,6 +689,7 @@ int year
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
     for(int nb=1; nb<=histo_Baseline[ic]->GetNbinsX(); nb++){
       // compute QCD scale uncertainties bin-by-bin
       double diffQCDScale[6] = {
