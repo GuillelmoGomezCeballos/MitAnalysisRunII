@@ -189,6 +189,7 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH));     infileCat_.push_back(kPlotBSM);
   }
   else if(year == 2016) {
+    puPath = Form("MitAnalysisRunII/data/90x/pu/puWeights_90x_vbfg%d.root",year);
     //filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v9_puppi/");
     filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v6/");
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2016.root";
@@ -367,7 +368,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 50;  xminPlot =  0.0; xmaxPlot = 5.0;}
     else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 30;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  80 && thePlot <=  89) {nBinPlot = 25;  xminPlot =  0.0; xmaxPlot = 5.0;}
-    else if(thePlot >=  90 && thePlot <=  94) {nBinPlot = 60;  xminPlot = -TMath::Pi(); xmaxPlot = TMath::Pi();}
+    else if(thePlot >=  90 && thePlot <=  94) {nBinPlot = 80;  xminPlot = -0.5; xmaxPlot = 79.5;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
@@ -979,7 +980,7 @@ int year, int triggerCat, int mH = 125
       if(dataCardSel >= 0) histo[ 70+dataCardSel][theCategory]->Fill(TMath::Min(dPhiGMET,2.999),totalWeight);
       if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Abs(thePandaFlat.jotEta[0]),TMath::Abs(thePandaFlat.jotEta[1])),totalWeight);
       if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(thePandaFlat.jotEta[0]),TMath::Abs(thePandaFlat.jotEta[1])),totalWeight);
-      if(dataCardSel >= 0) histo[ 90+theMinSelType][theCategory]->Fill(vMet.Phi(),totalWeight);
+      if(dataCardSel >= 0) histo[ 90+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight);
 
       if(theMinSelType != LLGSEL){ // Begin datacard making
         if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight,nloKfactor);
@@ -1702,7 +1703,7 @@ int year, int triggerCat, int mH = 125
     for(int np=0; np<nPlotCategories; np++) {histo[thePlot][np]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));histo[thePlot][np]->Write();}
     outFilePlotsNote->Close();
   }
-  
+
   // Checking data/background yields
   for(int nb=1; nb<=histo[allPlots-1][kPlotData]->GetNbinsX(); nb++) {
     double totBck[3] = {0,0,0}; double sfBin[3] = {1,1,1,}; double totCR[2] = {0};
