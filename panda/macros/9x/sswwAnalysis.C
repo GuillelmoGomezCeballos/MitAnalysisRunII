@@ -339,6 +339,8 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 
   const int nBinAQGCMLL = 5; Float_t xbinsAQGCMLL[nBinAQGCMLL+1] = {0,150,300,450,600,750};
   const int nBinAQGCMTW = 3; Float_t xbinsAQGCMTW[nBinAQGCMTW+1] = {0,300,600,900};
+  const int nBinAQGCMTWW = 6; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,400,600,800,1000,1300,1600};
+  const int nBinAQGCMTWZ = 6; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,400,600,800,1000,1300,1600};
 
   const int nBinMJJ = 8; Float_t xbinsMJJ[nBinMJJ+1] = {500,650,800,1000,1200,1500,1800,2300,3000};
   const int nBinMJJCR = 4; Float_t xbinsMJJCR[nBinMJJCR+1] = {500,800,1200,1800,3000};
@@ -413,12 +415,12 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >= 109 && thePlot <= 111) {nBinPlot = 100; xminPlot = -5.0; xmaxPlot = 5.0;}
     else if(thePlot >= 112 && thePlot <= 114) {nBinPlot = 100; xminPlot = 20.0; xmaxPlot = 220;}
     else if(thePlot >= 115 && thePlot <= 117) {nBinPlot =  50; xminPlot =  0.0; xmaxPlot = 2.5;}
-    else if(thePlot >= 118 && thePlot <= 118) {nBinPlot = 20; xminPlot =  0.0; xmaxPlot = 1000;}
+    else if(thePlot >= 118 && thePlot <= 118) {nBinPlot = 20; xminPlot =  150.0; xmaxPlot = 1150;}
     else if(thePlot >= 119 && thePlot <= 121) {nBinPlot =2500; xminPlot = 500.0; xmaxPlot = 3000.0;}
     else if(thePlot >= 122 && thePlot <= 124) {nBinPlot = 500; xminPlot =  0.0; xmaxPlot = 500.0;}
     else if(thePlot >= 125 && thePlot <= 125) {nBinPlot = 40; xminPlot = 0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >= 126 && thePlot <= 127) {nBinPlot = 30; xminPlot =  0.0; xmaxPlot = 300.0;}
-    else if(thePlot >= 128 && thePlot <= 128) {nBinPlot = 20; xminPlot =  0.0; xmaxPlot = 400.0;}
+    else if(thePlot >= 128 && thePlot <= 128) {nBinPlot = 20; xminPlot =100.0; xmaxPlot = 1100.0;}
     else if(thePlot >= 129 && thePlot <= 130) {nBinPlot = 25; xminPlot = 0.0; xmaxPlot = 8.0;}
     else if(thePlot >= 131 && thePlot <= 131) {nBinPlot = 20; xminPlot = 0.0; xmaxPlot = 0.5;}
     else if(thePlot >= 132 && thePlot <= 132) {nBinPlot = 25; xminPlot =  0.0; xmaxPlot = 250.0;}
@@ -434,8 +436,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >=  77 && thePlot <=  77) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWZBDT, xbinsWZBDT);
     else if(thePlot >=  89 && thePlot <=  90) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWBDT, xbinsWWBDT);
     else if(thePlot >=  91 && thePlot <=  91) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWZBDT, xbinsWZBDT);
-    else if(thePlot >= 118 && thePlot <= 120) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
-    else if(thePlot >= 121 && thePlot <= 123) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMLL, xbinsMLL);
+    else if(thePlot >= 118 && thePlot <= 118) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTWZ, xbinsAQGCMTWZ);
+    else if(thePlot >= 119 && thePlot <= 121) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
+    else if(thePlot >= 122 && thePlot <= 124) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMLL, xbinsMLL);
+    else if(thePlot >= 128 && thePlot <= 128) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTWW, xbinsAQGCMTWW);
     else if(thePlot >= 136 && thePlot <= 136) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMLL, xbinsAQGCMLL);
     else if(thePlot >= 137 && thePlot <= 137) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTW, xbinsAQGCMTW);
     else                                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
@@ -1847,7 +1851,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	histo[115+lepType][theCategory]->Fill(TMath::Abs(vZ1l1.Eta()),totalWeight);
 	histo[115+lepType][theCategory]->Fill(TMath::Abs(vZ1l2.Eta()),totalWeight);
       }
-      if(passEWKWZSel) histo[118][theCategory]->Fill(TMath::Min((alllep+vMet).Mt(),999.999),totalWeight);
+      if(passEWKWZSel) histo[118][theCategory]->Fill(TMath::Min((alllep+vMet).Mt(),xbinsAQGCMTWZ[nBinAQGCMTWZ]-0.0001),totalWeight);
       if(passWWSel) {
         if(qTot>0) histo[119][theCategory]->Fill(TMath::Min(massJJ,xbinsMJJ[nBinMJJ]-0.0001),totalWeight);
         if(qTot<0) histo[120][theCategory]->Fill(TMath::Min(massJJ,xbinsMJJ[nBinMJJ]-0.0001),totalWeight);
@@ -1858,7 +1862,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         histo[125][theCategory]->Fill(TMath::Abs(deltaPhiJJ),totalWeight);
         histo[126][theCategory]->Fill(TMath::Min(vW.Pt(),299.999),totalWeight);
         histo[127][theCategory]->Fill(TMath::Min((vZ1l1+vZ1l2).Pt(),299.999),totalWeight);
-        histo[128][theCategory]->Fill(TMath::Min(mtVV,399.999),totalWeight);
+        histo[128][theCategory]->Fill(TMath::Min((alllep+vMet).Mt(),xbinsAQGCMTWW[nBinAQGCMTWW]-0.0001),totalWeight);
         histo[129][theCategory]->Fill(TMath::Sqrt(TMath::Power(TMath::Abs(vJot1.Eta()-(vZ1l1+vZ1l2).Eta()),2)+TMath::Power(TMath::Abs(vJot1.DeltaPhi(vZ1l1+vZ1l2)),2)),totalWeight);
         histo[130][theCategory]->Fill(TMath::Sqrt(TMath::Power(TMath::Abs(vJot2.Eta()-(vZ1l1+vZ1l2).Eta()),2)+TMath::Power(TMath::Abs(vJot2.DeltaPhi(vZ1l1+vZ1l2)),2)),totalWeight);
         histo[131][theCategory]->Fill(TMath::Min(totSystem.Pt()/sumPtTot,0.499),totalWeight);

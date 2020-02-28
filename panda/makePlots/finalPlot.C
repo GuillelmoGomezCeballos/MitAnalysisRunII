@@ -123,12 +123,12 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
-  if     (outputName == "ssww_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
-  else if((outputName == "ssww_wzsel_mjj" || outputName == "ssww_wzsel_bdt") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
-
   if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = true;
   else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = true;
   if(_hist[kPlotEWKWZ]   && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = true;
+
+  if     (outputName == "ssww_wzsel_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
+  else if(outputName.Contains("ssww_wzsel") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
 
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
