@@ -60,14 +60,15 @@ enum plotCategory {
   kPlotDY        , // 8
   kPlotTop       , // 9
   kPlotVVV       , //10
-  kPlotWG        , //11
-  kPlotZG        , //12
-  kPlotGJ0       , //13
-  kPlotGJ1       , //14
-  kPlotNonPrompt , //15
-  kPlotPhotonE0  , //16
-  kPlotPhotonE1  , //17
-  kPlotBSM       , //18
+  kPlotWG0       , //11
+  kPlotWG1       , //12
+  kPlotZG        , //13
+  kPlotGJ0       , //14
+  kPlotGJ1       , //15
+  kPlotNonPrompt , //16
+  kPlotPhotonE0  , //17
+  kPlotPhotonE1  , //18
+  kPlotBSM       , //19
   nPlotCategories
 };
 
@@ -83,7 +84,8 @@ std::map<int, TString> plotBaseNames={
   { kPlotDY	   , "DY" },
   { kPlotTop	   , "Top" },
   { kPlotVVV	   , "VVV" },
-  { kPlotWG	   , "WG" },
+  { kPlotWG0	   , "WG0" },
+  { kPlotWG1	   , "WG1" },
   { kPlotZG        , "ZG" },
   { kPlotGJ0	   , "GJ0" },
   { kPlotGJ1	   , "GJ1" },
@@ -105,7 +107,8 @@ std::map<int, int> plotColors={
   { kPlotDY        , kYellow},
   { kPlotTop       , kAzure-2},
   { kPlotVVV       , TColor::GetColor(248,206,104)},
-  { kPlotWG        , TColor::GetColor(250,202,255)},
+  { kPlotWG0       , TColor::GetColor(250,202,255)},
+  { kPlotWG1       , TColor::GetColor(250,202,255)},
   { kPlotZG        , kCyan+3},
   { kPlotGJ0       , TColor::GetColor(222,90,106)},
   { kPlotGJ1       , kMagenta+4},
@@ -127,12 +130,13 @@ std::map<int, TString> plotNames={
     { kPlotDY	     , "Z+jets"},
     { kPlotTop       , "Top quark"},
     { kPlotVVV       , "VVV"},
-    { kPlotWG	     , "W#gamma" },
+    { kPlotWG0	     , "W#gamma"},
+    { kPlotWG1	     , "W#gamma1"},
     { kPlotZG        , "Z#gamma"},
     { kPlotGJ0	     , "#gamma+jets"},
     { kPlotGJ1	     , "#gamma+jets1"},
     { kPlotNonPrompt , "Nonprompt"},
-    { kPlotPhotonE0  , "Mismeasured #gamma low m_{jj}"},
+    { kPlotPhotonE0  , "Mismeasured #gamma"},
     { kPlotPhotonE1  , "Mismeasured #gamma high m_{jj}"},
     { kPlotBSM       , "BSM"}
 };
@@ -146,64 +150,35 @@ double mcCorrection(int type, int year, int infileCat, double mjj, double mtg, i
   if(infileCat == kPlotBSM) totalWeight = totalWeight * 0.1; // 3.782;
 
   if     (type == 0){ // VBFG
-
-    if     (year == 2016 && infileCat == kPlotWG) totalWeight = totalWeight * 0.45;
-    else if(year == 2017 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 0.65;
+/*
+    if     (year == 2016 && infileCat == kPlotWG) totalWeight = totalWeight * 0.65;
+    else if(year == 2017 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 1.00;
     else if(year == 2017 && infileCat == kPlotWG && triggerCat == 1) totalWeight = totalWeight * 1.10;
-    else if(year == 2018 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 0.90;
+    else if(year == 2018 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 1.30;
     else if(year == 2018 && infileCat == kPlotWG && triggerCat == 1) totalWeight = totalWeight * 0.75;
 
-/*
-    else if(year == 2016 && infileCat == kPlotWJ && mjj <  1500) totalWeight = totalWeight * 1.55;
-    else if(year == 2016 && infileCat == kPlotWJ && mjj >= 1500) totalWeight = totalWeight * 1.20;
+    else if(year == 2016 && infileCat == kPlotWJ0) totalWeight = totalWeight * 2.1;
+    else if(year == 2017 && infileCat == kPlotWJ0) totalWeight = totalWeight * 1.2;
+    else if(year == 2018 && infileCat == kPlotWJ0) totalWeight = totalWeight * 1.1;
 
-    else if(year == 2017 && infileCat == kPlotWJ && mjj <  1500 && triggerCat == 0) totalWeight = totalWeight * 1.10;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj <  1500 && triggerCat == 1) totalWeight = totalWeight * 0.85;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj >= 1500 && triggerCat == 0) totalWeight = totalWeight * 0.90;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj >= 1500 && triggerCat == 1) totalWeight = totalWeight * 0.90;
-
-    else if(year == 2018 && infileCat == kPlotWJ && mjj <  1500 && triggerCat == 0) totalWeight = totalWeight * 0.85;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj <  1500 && triggerCat == 1) totalWeight = totalWeight * 1.15;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj >= 1500 && triggerCat == 0) totalWeight = totalWeight * 1.20;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj >= 1500 && triggerCat == 1) totalWeight = totalWeight * 1.40;
-
-    else if(year == 2016 && infileCat == kPlotWJ && mjj <  1500 && mtg <  100) totalWeight = totalWeight * 1.872004;// * 1.95 * 0.96;
-    else if(year == 2016 && infileCat == kPlotWJ && mjj <  1500              ) totalWeight = totalWeight * 3.216278;// * 1.95 * 1.65;
-    else if(year == 2016 && infileCat == kPlotWJ && mjj >= 1500 && mtg <  100) totalWeight = totalWeight * 1.329084;// * 1.95 * 0.68;
-    else if(year == 2016 && infileCat == kPlotWJ && mjj >= 1500              ) totalWeight = totalWeight * 3.046966;// * 1.95 * 1.55;
-
-    else if(year == 2017 && infileCat == kPlotWJ && mjj <  1500 && mtg <  100) totalWeight = totalWeight * 0.863155;// * 1.05 * 0.81;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj <  1500 	     ) totalWeight = totalWeight * 1.500989;// * 1.05 * 1.29;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj >= 1500 && mtg <  100) totalWeight = totalWeight * 0.913045;// * 1.05 * 0.86;
-    else if(year == 2017 && infileCat == kPlotWJ && mjj >= 1500 	     ) totalWeight = totalWeight * 1.040936;// * 1.05 * 1.00;
-
-    else if(year == 2018 && infileCat == kPlotWJ && mjj <  1500 && mtg <  100) totalWeight = totalWeight * 1.300613;// * 1.50 * 0.86;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj <  1500 	     ) totalWeight = totalWeight * 1.736664;// * 1.50 * 1.14;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj >= 1500 && mtg <  100) totalWeight = totalWeight * 1.083650;// * 1.50 * 0.72;
-    else if(year == 2018 && infileCat == kPlotWJ && mjj >= 1500 	     ) totalWeight = totalWeight * 3.583177;// * 1.50 * 2.30;
-
-
-    else if(year == 2016 && infileCat == kPlotGJ && mjj < 1500) totalWeight = totalWeight * 3.338539;// * 2.15 * 1.31;
-    else if(year == 2016 && infileCat == kPlotGJ              ) totalWeight = totalWeight * 3.280275;// * 2.15 * 1.36;
-
-    else if(year == 2017 && infileCat == kPlotGJ && mjj < 1500) totalWeight = totalWeight * 4.109783;// * 2.90 * 1.41;
-    else if(year == 2017 && infileCat == kPlotGJ              ) totalWeight = totalWeight * 3.556604;// * 2.90 * 1.23;
-
-    else if(year == 2018 && infileCat == kPlotGJ && mjj < 1500) totalWeight = totalWeight * 3.969444;// * 3.75 * 1.06;
-    else if(year == 2018 && infileCat == kPlotGJ              ) totalWeight = totalWeight * 2.670423;// * 3.75 * 0.64;
+    else if(infileCat == kPlotGJ0) totalWeight = totalWeight * 2.3;
 */
  }
 
   return totalWeight;
 }
 
-void trigger_eff_sf(double triggerWeights[2], double met, double pth, double mjj, double detajj, int year, int triggerCat, 
-                      TH1D* trg_VBFG_pth_eff, TH1D* trg_VBFG_mjj_eff, TH1D* trg_VBFG_detajj_eff){
+void trigger_eff_sf(double triggerWeights[2], double met, double r9, double pth, double mjj, double detajj, int year, int triggerCat, 
+                    TH1D* trg_VBFG_r9_eff, TH1D* trg_VBFG_pth_eff, TH1D* trg_VBFG_mjj_eff, TH1D* trg_VBFG_detajj_eff){
   double daTrgEff  = 1.0;
   double mcTrgEff  = 1.0;
   double sfTrgEff  = 1.0;
   double sfTrgEffE = 1.0;
   if     (year == 2016 && triggerCat == 0){
+    int lastr9Bin = trg_VBFG_r9_eff->GetNbinsX();
+    double myr9 = TMath::Min(r9, trg_VBFG_r9_eff->GetXaxis()->GetBinCenter(lastr9Bin));
+    int myr9Bin = trg_VBFG_r9_eff->GetXaxis()->FindBin(myr9);
+
     int lastpthBin = trg_VBFG_pth_eff->GetNbinsX();
     double mypth = TMath::Min(pth, trg_VBFG_pth_eff->GetXaxis()->GetBinCenter(lastpthBin));
     int mypthBin = trg_VBFG_pth_eff->GetXaxis()->FindBin(mypth);
@@ -215,7 +190,7 @@ void trigger_eff_sf(double triggerWeights[2], double met, double pth, double mjj
     int mydetajjBin = trg_VBFG_detajj_eff->GetXaxis()->FindBin(mydetajj);
 
     daTrgEff = trg_VBFG_pth_eff->GetBinContent(mypthBin) * trg_VBFG_mjj_eff->GetBinContent(mymjjBin);
-    if(daTrgEff > 0) sfTrgEffE = trg_VBFG_detajj_eff->GetBinContent(mydetajjBin) / trg_VBFG_mjj_eff->GetBinContent(mymjjBin);
+    if(daTrgEff > 0) sfTrgEffE = (trg_VBFG_r9_eff->GetBinContent(myr9Bin) * trg_VBFG_detajj_eff->GetBinContent(mydetajjBin)) / daTrgEff;
   }
   else if(year == 2017 && triggerCat == 0){
     double daVal[5] = {0.022571,167.320198,0.077194,0.000330,222.058189};
@@ -246,7 +221,7 @@ void trigger_eff_sf(double triggerWeights[2], double met, double pth, double mjj
     if(pth < 225) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
   }
   if(mcTrgEff > 0) sfTrgEff = daTrgEff/mcTrgEff;
-  //printf("TRGEFF (%5.1f %5.1f %6.1f %4.1f) (%4d %1d) %5.3f %5.3f %5.3f %5.3f\n",met,pth,mjj,detajj,year,triggerCat,daTrgEff,mcTrgEff,sfTrgEff,sfTrgEffE);
+  //printf("TRGEFF (%5.1f %5.2f %5.1f %6.1f %4.1f) (%4d %1d) %5.3f %5.3f %5.3f %5.3f\n",met,r9,pth,mjj,detajj,year,triggerCat,daTrgEff,mcTrgEff,sfTrgEff,sfTrgEffE);
   triggerWeights[0] = sfTrgEff;
   triggerWeights[1] = sfTrgEffE;
 }

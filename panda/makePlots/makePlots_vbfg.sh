@@ -16,7 +16,10 @@ if [ $NSEL == 'vbfg' ]; then
   export APPLYSCALING=1;
   fi
 
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"card","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_95.root","vbfg_trigger'${TRIG}'_sel_card",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"m_{T}","GeV","done_vbfg/histoVBFGMTGMETMJJ_'${YEAR}'_trigger'${TRIG}'_mH125_0.root","vbfg_trigger'${TRIG}'_sel_mtg0",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"m_{T}","GeV","done_vbfg/histoVBFGMTGMETMJJ_'${YEAR}'_trigger'${TRIG}'_mH125_1.root","vbfg_trigger'${TRIG}'_sel_mtg1",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"card","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_106.root","vbfg_trigger'${TRIG}'_sel_card",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_0.root","vbfg_trigger'${TRIG}'_sel0_mtg",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_1.root","vbfg_trigger'${TRIG}'_sel1_mtg",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
@@ -124,10 +127,16 @@ if [ $NSEL == 'vbfg' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"|#eta_{j}|","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_88.root","vbfg_trigger'${TRIG}'_sel3_etajmin",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"|#eta_{j}|","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_89.root","vbfg_trigger'${TRIG}'_sel4_etajmin",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"N_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_90.root","vbfg_trigger'${TRIG}'_sel0_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"N_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_91.root","vbfg_trigger'${TRIG}'_sel1_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"N_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_92.root","vbfg_trigger'${TRIG}'_sel2_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"N_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_93.root","vbfg_trigger'${TRIG}'_sel3_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"N_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_94.root","vbfg_trigger'${TRIG}'_sel4_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"n_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_90.root","vbfg_trigger'${TRIG}'_sel0_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"n_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_91.root","vbfg_trigger'${TRIG}'_sel1_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"n_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_92.root","vbfg_trigger'${TRIG}'_sel2_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"n_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_93.root","vbfg_trigger'${TRIG}'_sel3_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,2,"n_{PV}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_94.root","vbfg_trigger'${TRIG}'_sel4_npv",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"R_{9}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_95.root","vbfg_trigger'${TRIG}'_sel0_r9",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"R_{9}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_96.root","vbfg_trigger'${TRIG}'_sel1_r9",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"R_{9}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_97.root","vbfg_trigger'${TRIG}'_sel2_r9",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"R_{9}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_98.root","vbfg_trigger'${TRIG}'_sel3_r9",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"R_{9}","","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_99.root","vbfg_trigger'${TRIG}'_sel4_r9",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
 fi

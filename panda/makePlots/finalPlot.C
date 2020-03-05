@@ -80,7 +80,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 		TString mlfitResult = "", TString channelName = "", bool applyBBBBSF = false,
 		TString plotExtraName = "", TString higgs2Label = "", bool applySmoothing = false) {
 
-  bool isVBS[2] = {false, false};
+  int isVBS[2] = {0, 0};
   if(isBlind) show2D = false;
 
   bool makeRootFile = false;
@@ -123,19 +123,23 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
-  if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = true;
-  else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = true;
-  if(_hist[kPlotEWKWZ]   && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = true;
+  if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = 1;
+  else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = 2;
+  if(_hist[kPlotEWKWZ]   && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = 1;
 
-  if     (outputName == "ssww_wzsel_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
-  else if(outputName.Contains("ssww_wzsel") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
+  if(outputName == "ssww_wzsel_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
+  if(outputName == "ssww_wzsel_aqgc_fullmtwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
+  if(outputName == "ssww_wzsel_aqgc_fullmwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
+  if(outputName.Contains("ssww_wzsel") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
 
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
     if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
-    else if(isVBS[0] && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[1] && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 2 && ic == kPlotqqWW)    {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 2 && ic == kPlotQCDSSWW) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[1] == 1 && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));
     // begin btaging study
     //_hist[ic]->SetBinContent(1,0);

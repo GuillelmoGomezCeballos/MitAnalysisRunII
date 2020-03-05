@@ -56,12 +56,12 @@ elif [ $NSEL == 'ww' ]; then
 ./MitAnalysisRunII/panda/makePlots/makePlots.sh ww 0 2018;
 
 elif [ $NSEL == 'vbfg' ]; then
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2016 0 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2017 0 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2017 1 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2018 0 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2018 1 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2019 0 $2
-./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2019 1 $2
+./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2016 0 $2
+./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2017 0 $2
+./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2017 1 $2
+./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2018 0 $2
+./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2018 1 $2
+#./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2019 0 $2
+#./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 0 2019 1 $2
 
 fi

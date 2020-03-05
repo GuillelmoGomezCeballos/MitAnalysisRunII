@@ -332,7 +332,7 @@ class StandardPlot {
 
             if (gPad->GetLogy()) {
             	hstack->SetMaximum(10000 * theMax);
-            	hstack->SetMinimum(TMath::Max(0.9 * theMin,0.0010));
+            	hstack->SetMinimum(TMath::Max(0.9 * theMin,0.005));
             } else {
               hstack->SetMaximum(2.0 * theMax);
             }

@@ -30,63 +30,51 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   double SF_yieldSB[nPlotCategories]; 
   double SF_yieldSB_unc[nPlotCategories];
 
-  int binToCount = kPlotBSM;
+  bool isAllBkgConsidered = false;
   const int allExcludeBins = 60;
   int excludeBins[allExcludeBins];
   for(int i=0; i<allExcludeBins; i++) excludeBins[i] = -1;
   if     (nsel == 0){ // ZHG SR
     excludeBins[0] =  1;excludeBins[1] = 12;excludeBins[2] = 13;
     excludeBins[3] = 14;excludeBins[4] = 15;
-    binToCount = kPlotEM;
   }
   else if(nsel == 1){ // ZHG EM CR
     for(int i=0; i<14; i++) excludeBins[i] = i+2;
-    binToCount = kPlotEM;
   }
   else if(nsel == 2){ // ZHG WZ CR
     for(int i=0; i<11; i++) excludeBins[i] = i+1;
     excludeBins[12] = 14;excludeBins[13] = 15;
-    binToCount = kPlotEM;
   }
   else if(nsel == 3){ // ZHG ZZ CR
     for(int i=0; i<13; i++) excludeBins[i] = i+1;
-    binToCount = kPlotEM;
   }
   else if(nsel == 4){ // ZHG SR low eta
     excludeBins[0] =  1;
     for(int i=6; i<15; i++) excludeBins[i] = i+1;
-    binToCount = kPlotEM;
   }
   else if(nsel == 5){ // ZHG SR high eta
     for(int i=0; i<6; i++) excludeBins[i] = i+1;
     for(int i=11; i<15; i++) excludeBins[i] = i+1;
-    binToCount = kPlotEM;
   }
   else if(nsel == 10){ // SSWW SR
     for(int i=32; i<52; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 11){ // btagged CR
     for(int i=0; i<32; i++) excludeBins[i] = i+1;
     for(int i=36; i<52; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 12){ // ZZ CR
     for(int i=0; i<36; i++) excludeBins[i] = i+1;
     for(int i=40; i<52; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 13){ // WZb CR
     for(int i=0; i<40; i++) excludeBins[i] = i+1;
     for(int i=44; i<52; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 14){ // WZ CR
     for(int i=0; i<44; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 15){ // all regions
-    binToCount = kPlotWZ;
   }
   else if(nsel == 21){ // ZH SR 0j
     for(int i=0; i<1; i++) excludeBins[i] = i+1;
@@ -98,32 +86,25 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   }
   else if(nsel == 30){ // long SR
     for(int i=24; i<50; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 31){ // long btagged CR
     for(int i=0; i<24; i++) excludeBins[i] = i+1;
     for(int i=30; i<50; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 32){ // long ZZ CR
     for(int i=0; i<30; i++) excludeBins[i] = i+1;
     for(int i=34; i<50; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 33){ // long WZb CR
     for(int i=0; i<34; i++) excludeBins[i] = i+1;
     for(int i=38; i<50; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 34){ // long WZ CR
     for(int i=0; i<38; i++) excludeBins[i] = i+1;
-    binToCount = kPlotWZ;
   }
   else if(nsel == 35){ // long all regions
-    binToCount = kPlotWZ;
   }
   else if(nsel == 99){ // no region to exclude
-    binToCount = kPlotZZ;
   }
   printf("Bins to exclude:");
   for(int i=0; i<allExcludeBins; i++) if(excludeBins[i] != -1) printf(" %d",excludeBins[i]);
@@ -169,7 +150,8 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
 	  sum[3] = sum[3] + ((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i);
           sum[4] = sum[4] + ((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinContent(i);
 	  sum[5] = sum[5] + ((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i);
-	  if(ic != binToCount) continue; //Trick to go through just once
+	  if(isAllBkgConsidered == true) continue; // Trick to go through just once
+	  isAllBkgConsidered = true;
 	  totalSum[0]    = totalSum[0]    + ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/total_background",channelName.Data())))->GetBinContent(i);
 	  totalSysUnc[0] = totalSysUnc[0] + ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/total_background",channelName.Data())))->GetBinError  (i);
           totalSum[1]    = totalSum[1]    + ((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/total_background" ,channelName.Data())))->GetBinContent(i);

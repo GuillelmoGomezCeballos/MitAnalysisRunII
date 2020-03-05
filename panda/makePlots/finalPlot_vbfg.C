@@ -77,10 +77,14 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   if(isBlind) show2D = false;
 
+  bool makeRootFile = false;
+  if(units.Contains("ROOT")) {makeRootFile = true; units = units.ReplaceAll("ROOT","");}
   bool isSignalStack = false;
   if(units.Contains("Stack")) {isSignalStack = true; units = units.ReplaceAll("Stack","");}
   bool isRemoveBSM = false;
   if(units.Contains("NoBSM")) {isRemoveBSM = true; units = units.ReplaceAll("NoBSM","");}
+  bool doApplyBinWidth = false;
+  if(units.Contains("BinWidth")) {doApplyBinWidth = true; units = units.ReplaceAll("BinWidth","");}
 
   //gInterpreter->ExecuteMacro("GoodStyle.C");
   //gROOT->LoadMacro("StandardPlot.C");
@@ -88,6 +92,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   TH1F* _hist[nPlotCategories];
   StandardPlot myPlot;
+  myPlot.setDoApplyBinWidth(doApplyBinWidth);
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
   myPlot.addLabel(extraLabel.Data());
@@ -119,7 +124,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
       hData = (TH1F*)_hist[ic]->Clone();
       hBck  = (TH1F*)_hist[ic]->Clone(); hBck->Scale(0);
     }
-    else if(applySmoothing && _hist[ic]->GetSumOfWeights() > 0 && ic != kPlotBSM && ic != kPlotWG) 
+    else if(applySmoothing && _hist[ic]->GetSumOfWeights() > 0 && ic != kPlotBSM && ic != kPlotWG0 && ic != kPlotWG1) 
     {double scale = _hist[ic]->GetSumOfWeights(); _hist[ic]->Smooth(); if(_hist[ic]->GetSumOfWeights() > 0) _hist[ic]->Scale(scale/_hist[ic]->GetSumOfWeights());}
 
     if(isBlind == true && ic == kPlotData) continue;
@@ -186,6 +191,8 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ3]);_hist[kPlotWJ3]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ4]);_hist[kPlotWJ4]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ5]);_hist[kPlotWJ5]->Scale(0.0);
+  _hist[kPlotWG0]->Add(_hist[kPlotWG1]);_hist[kPlotWG1]->Scale(0.0);
+  _hist[kPlotPhotonE0]->Add(_hist[kPlotPhotonE1]);_hist[kPlotPhotonE1]->Scale(0.0);
 
   /*TFile* fileExtra;
   if(plotExtraName != ""){
@@ -219,13 +226,13 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   TCanvas* c1 = new TCanvas("c1", "c1",5,5,500,500);
 
   double maxRatio = 0.0;
-  double minRatio = 0.0;
+  double minRatio = 1.0;
 
   if(show2D==false){
   if(isLogY == true) c1->SetLogy();
   if(isLogX == true) c1->SetLogx();
   myPlot.Draw(ReBin);  // Can pass a rebin 
-  CMS_lumi( c1, year, 12 );
+  CMS_lumi( c1, year, 1 );
   } else {
   c1->SetBottomMargin(0.1);
   c1->cd();
@@ -247,7 +254,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(isLogSpecial) {c1->SetLogx();pad1->SetLogx();pad2->SetLogx();}
 
   myPlot.Draw(ReBin);
-  CMS_lumi( pad1, year, 12 );
+  CMS_lumi( pad1, year, 1 );
 
   pad2->cd();
   pad2->RedrawAxis();
@@ -376,8 +383,18 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     c1->SaveAs(myOutputFile.Data());
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
-    myOutputFile = Form("plots/%s.root",outputName.Data());
-    //c1->SaveAs(myOutputFile.Data());
+    if(makeRootFile) {
+      outputName = plotName.ReplaceAll("done_vbfg","plots");
+      if(outputName != plotName){ // Avoid overwriting input
+        TFile output(Form("%s.root",outputName.Data()),"RECREATE");
+        hBck->Write();
+        for(int ic=0; ic<nPlotCategories; ic++){
+          if(!_hist[ic]) continue;
+          _hist[ic]->Write();
+        }
+        output.Close();
+      }
+    }
   }
 
   bool computePU = false;
