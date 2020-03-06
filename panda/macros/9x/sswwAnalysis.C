@@ -361,7 +361,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   int nBinMVAAux = 0;
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
   else if(fidAna == 1) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinMJJ;
-  else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 6;
+  else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 2*5;
   else if(fidAna == 5) nBinMVAAux = nBinMJJCR*nBinWWBDT + nBinWWBDT + 2*nBinMJJCR + 12;
   else if(fidAna == 6) nBinMVAAux = nBinMVAAux = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + 3;
   else if(fidAna == 7) nBinMVAAux = nBinMJJCR*nBinPTL1 + 3*nBinMJJCR + nBinWZBDT;
@@ -2114,12 +2114,24 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
           else if(dataCardSelJERDown == 5) MVAVarJERDown = nBinMJJ*nBinMLL + 3*nBinMJJCR + 2*nBinMJJCR + nBinMJJ + typeSelAux5[whichBin];
         }
         else if(fidAna == 4){
-          double typeSelAux0 = 0;
-          if     (mllZ < 150) typeSelAux0 = 0;
-          else if(mllZ < 300) typeSelAux0 = 1;
-          else if(mllZ < 450) typeSelAux0 = 2;
-          else if(mllZ < 600) typeSelAux0 = 3;
-          else                typeSelAux0 = 4;
+          double typeSelAux0[5] = {0,0,0,0,0};
+          if     ((alllep+vMet).Mt() <  350) typeSelAux0[0] = 0;
+          else if((alllep+vMet).Mt() <  650) typeSelAux0[0] = 1;
+          else if((alllep+vMet).Mt() <  850) typeSelAux0[0] = 2;
+          else if((alllep+vMet).Mt() < 1050) typeSelAux0[0] = 3;
+          else                               typeSelAux0[0] = 4;
+          if     ((alllep+vMetUp).Mt() <  350) typeSelAux0[1] = 0;
+          else if((alllep+vMetUp).Mt() <  650) typeSelAux0[1] = 1;
+          else if((alllep+vMetUp).Mt() <  850) typeSelAux0[1] = 2;
+          else if((alllep+vMetUp).Mt() < 1050) typeSelAux0[1] = 3;
+          else                                 typeSelAux0[1] = 4;
+          if     ((alllep+vMetDown).Mt() <  350) typeSelAux0[2] = 0;
+          else if((alllep+vMetDown).Mt() <  650) typeSelAux0[2] = 1;
+          else if((alllep+vMetDown).Mt() <  850) typeSelAux0[2] = 2;
+          else if((alllep+vMetDown).Mt() < 1050) typeSelAux0[2] = 3;
+          else                                   typeSelAux0[2] = 4;
+          typeSelAux0[3] = typeSelAux0[0];
+          typeSelAux0[4] = typeSelAux0[0];
           double typeSelAux1[5] = {0,0,0,0,0};
           if     (massJJ        <  800) typeSelAux1[0] = 0;
 	  else if(massJJ        < 1200) typeSelAux1[0] = 1;
@@ -2143,57 +2155,64 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	  else                          typeSelAux1[4] = 3; 
 
           double typeSelAux2[5] = {0,0,0,0,0};
-          if     (mtVV <  300) typeSelAux2[0] = 0;
-	  else if(mtVV <  600) typeSelAux2[0] = 1;
-	  else                 typeSelAux2[0] = 2;
-	  if(massJJ > 1200) typeSelAux2[0] += 3;
-          if     (mtVVUp <  300) typeSelAux2[1] = 0;
-	  else if(mtVVUp <  600) typeSelAux2[1] = 1;
-	  else                   typeSelAux2[1] = 2;
-	  if(massJJJESUp > 1200) typeSelAux2[1] += 3;
-          if     (mtVVDown <  300) typeSelAux2[2] = 0;
-	  else if(mtVVDown <  600) typeSelAux2[2] = 1;
-	  else                     typeSelAux2[2] = 2;
-	  if(massJJJESDown > 1200) typeSelAux2[2] += 3;
+          if     ((alllep+vMet).Mt() <  400) typeSelAux2[0] = 0;
+          else if((alllep+vMet).Mt() <  750) typeSelAux2[0] = 1;
+          else if((alllep+vMet).Mt() < 1050) typeSelAux2[0] = 2;
+          else if((alllep+vMet).Mt() < 1350) typeSelAux2[0] = 3;
+          else                               typeSelAux2[0] = 4;
+	  if(massJJ > 1200) typeSelAux2[0] += 5;
+          if     ((alllep+vMetUp).Mt() <  400) typeSelAux2[1] = 0;
+          else if((alllep+vMetUp).Mt() <  750) typeSelAux2[1] = 1;
+          else if((alllep+vMetUp).Mt() < 1050) typeSelAux2[1] = 2;
+          else if((alllep+vMetUp).Mt() < 1350) typeSelAux2[1] = 3;
+          else                                 typeSelAux2[1] = 4;
+	  if(massJJJESUp > 1200) typeSelAux2[1] += 5;
+          if     ((alllep+vMetDown).Mt() <  400) typeSelAux2[2] = 0;
+          else if((alllep+vMetDown).Mt() <  750) typeSelAux2[2] = 1;
+          else if((alllep+vMetDown).Mt() < 1050) typeSelAux2[2] = 2;
+          else if((alllep+vMetDown).Mt() < 1350) typeSelAux2[2] = 3;
+          else                                   typeSelAux2[2] = 4;
+	  if(massJJJESDown > 1200) typeSelAux2[2] += 5;
           typeSelAux2[3] = typeSelAux2[0];
+	  if(massJJJERUp > 1200) typeSelAux2[3] += 5;
           typeSelAux2[4] = typeSelAux2[0];
+	  if(massJJJERDown > 1200) typeSelAux2[4] += 5;
 
           int whichBin = 0;
-          if     (dataCardSel        == 0) MVAVar        = typeSelAux0 + 5*typeSelAux1[whichBin];
+          if     (dataCardSel        == 0) MVAVar        = typeSelAux0[whichBin] + 5*typeSelAux1[whichBin];
           else if(dataCardSel        == 1) MVAVar        = 20 + typeSelAux1[whichBin];
           else if(dataCardSel        == 2) MVAVar        = 24;
           else if(dataCardSel        == 3) MVAVar        = 25;
           else if(dataCardSel        == 4) MVAVar        = 26 + typeSelAux2[whichBin];
 
           whichBin = 1;
-          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux0 + 5*typeSelAux1[whichBin];
+          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux0[whichBin] + 5*typeSelAux1[whichBin];
           else if(dataCardSelJESUp   == 1) MVAVarJESUp   = 20 + typeSelAux1[whichBin];
           else if(dataCardSelJESUp   == 2) MVAVarJESUp   = 24;
           else if(dataCardSelJESUp   == 3) MVAVarJESUp   = 25;
           else if(dataCardSelJESUp   == 4) MVAVarJESUp   = 26 + typeSelAux2[whichBin];
 
           whichBin = 2;
-          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux0 + 5*typeSelAux1[whichBin];
+          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux0[whichBin] + 5*typeSelAux1[whichBin];
           else if(dataCardSelJESDown == 1) MVAVarJESDown = 20 + typeSelAux1[whichBin];
           else if(dataCardSelJESDown == 2) MVAVarJESDown = 24;
           else if(dataCardSelJESDown == 3) MVAVarJESDown = 25;
           else if(dataCardSelJESDown == 4) MVAVarJESDown = 26 + typeSelAux2[whichBin];
 
           whichBin = 3;
-          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux0 + 5*typeSelAux1[whichBin];
+          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux0[whichBin] + 5*typeSelAux1[whichBin];
           else if(dataCardSelJERUp   == 1) MVAVarJERUp   = 20 + typeSelAux1[whichBin];
           else if(dataCardSelJERUp   == 2) MVAVarJERUp   = 24;
           else if(dataCardSelJERUp   == 3) MVAVarJERUp   = 25;
           else if(dataCardSelJERUp   == 4) MVAVarJERUp   = 26 + typeSelAux2[whichBin];
 
           whichBin = 4;
-          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux0 + 5*typeSelAux1[whichBin];
+          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux0[whichBin] + 5*typeSelAux1[whichBin];
           else if(dataCardSelJERDown == 1) MVAVarJERDown = 20 + typeSelAux1[whichBin];
           else if(dataCardSelJERDown == 2) MVAVarJERDown = 24;
           else if(dataCardSelJERDown == 3) MVAVarJERDown = 25;
           else if(dataCardSelJERDown == 4) MVAVarJERDown = 26 + typeSelAux2[whichBin];
 
-	  if(MVAVar >= 32) printf("Problem with MVAVar %f %f %f %f %d\n",MVAVar,typeSelAux0,typeSelAux1[0],typeSelAux2[0],dataCardSel);
 	}
         else if(fidAna == 5){
           double bdtWWValueBin[5] = {0,0,0,0,0};

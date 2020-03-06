@@ -31,6 +31,7 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
   double SF_yieldSB_unc[nPlotCategories];
 
   bool isAllBkgConsidered = false;
+  int binToCount = -1;
   const int allExcludeBins = 60;
   int excludeBins[allExcludeBins];
   for(int i=0; i<allExcludeBins; i++) excludeBins[i] = -1;
@@ -272,8 +273,8 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
 	  sum[3] = sum[3] + ((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i);
           sum[4] = sum[4] + ((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinContent(i);
 	  sum[5] = sum[5] + ((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s", channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i);
-	  if(isAllBkgConsidered == true) continue; // Trick to go through just once
-	  isAllBkgConsidered = true;
+          if(isAllBkgConsidered == true && ic != binToCount) continue; // Trick to go through just once
+          isAllBkgConsidered = true; binToCount = ic;
 	  totalSum[0]    = totalSum[0]    + ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/total_background",channelName.Data())))->GetBinContent(i);
 	  totalSysUnc[0] = totalSysUnc[0] + ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/total_background",channelName.Data())))->GetBinError  (i);
           totalSum[1]    = totalSum[1]    + ((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/total_background" ,channelName.Data())))->GetBinContent(i);

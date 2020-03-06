@@ -206,4 +206,41 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2019; export MJJ=0; export TRIG=1;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_gj_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_gj_mtg_trigger'${TRIG}'",0,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
 
+elif [ $NSEL == 'zhmt' ]; then
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
+
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
+
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
+
+  export YEAR=2016;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_chBSM_'${YEAR}'.root","zh_signal_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"Signal category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2017;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_chBSM_'${YEAR}'.root","zh_signal_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"Signal category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2018;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_chBSM_'${YEAR}'.root","zh_signal_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"Signal category",1,'${APPLYSCALING}',"","")';
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_chBSM_'${YEAR}'.root","zh_signal_mt",1,'${YEAR}',"#splitline{m_{H} = 1200 GeV,}{m_{A} = 300 GeV}",'${sf_dy}','${isBlinded}',"Signal category",1,'${APPLYSCALING}',"","")';
+
 fi
