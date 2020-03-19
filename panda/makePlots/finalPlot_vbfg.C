@@ -77,7 +77,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   if(isBlind) show2D = false;
 
-  bool makeRootFile = false;
+  bool makeRootFile = true; if(plotName.Contains("2019")) makeRootFile = false;
   if(units.Contains("ROOT")) {makeRootFile = true; units = units.ReplaceAll("ROOT","");}
   bool isSignalStack = false;
   if(units.Contains("Stack")) {isSignalStack = true; units = units.ReplaceAll("Stack","");}
@@ -186,12 +186,15 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   }
 
   _hist[kPlotGJ0]->Add(_hist[kPlotGJ1]);_hist[kPlotGJ1]->Scale(0.0);
+
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ1]);_hist[kPlotWJ1]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ2]);_hist[kPlotWJ2]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ3]);_hist[kPlotWJ3]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ4]);_hist[kPlotWJ4]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ5]);_hist[kPlotWJ5]->Scale(0.0);
+
   _hist[kPlotWG0]->Add(_hist[kPlotWG1]);_hist[kPlotWG1]->Scale(0.0);
+
   _hist[kPlotPhotonE0]->Add(_hist[kPlotPhotonE1]);_hist[kPlotPhotonE1]->Scale(0.0);
 
   /*TFile* fileExtra;
@@ -384,9 +387,10 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
-      outputName = plotName.ReplaceAll("done_vbfg","plots");
+      outputName = plotName;
+      outputName = outputName.ReplaceAll("done_vbfg","plots");
       if(outputName != plotName){ // Avoid overwriting input
-        TFile output(Form("%s.root",outputName.Data()),"RECREATE");
+        TFile output(Form("%s",outputName.Data()),"RECREATE");
         hBck->Write();
         for(int ic=0; ic<nPlotCategories; ic++){
           if(!_hist[ic]) continue;

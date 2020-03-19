@@ -1,8 +1,8 @@
 //////////////////////////////////////////////////////////
 // This class has been automatically generated on
-// Tue Aug  6 10:01:23 2019 by ROOT version 6.12/07
+// Thu Mar 12 04:44:50 2020 by ROOT version 6.12/07
 // from TTree events/events
-// found on file: /scratch5/bmaier/darkg/2018/vbfg_v_013_v6/WZG.root
+// found on file: /local/bmaier/darkg/2016/vbfg_v_009_v20_gensmear/Diboson_zz.root
 //////////////////////////////////////////////////////////
 
 #ifndef pandaFlat_h
@@ -58,7 +58,6 @@ public :
    Float_t         sf_metTrigVBF;
    Float_t         sf_metTrigZmmVBF;
    Float_t         sf_l1Prefire;
-   Float_t         sf_pu;
    Float_t         sf_npv;
    Float_t         sf_tt;
    Float_t         sf_phoPurity;
@@ -79,6 +78,7 @@ public :
    Float_t         puppimetphi;
    Float_t         puppimetphi_JESTotalUp;
    Float_t         puppimetphi_JESTotalDown;
+   Float_t         pfmhtnomu;
    Float_t         calomet;
    Float_t         calometphi;
    Float_t         pfcalobalance;
@@ -187,6 +187,8 @@ public :
    Float_t         genJet2Pt;
    Float_t         genJet1Eta;
    Float_t         genJet2Eta;
+   Float_t         genJet1Phi;
+   Float_t         genJet2Phi;
    Int_t           nJet;
    Int_t           nJot;
    Int_t           nJot_JESTotalUp;
@@ -288,6 +290,21 @@ public :
    Float_t         jot12DPhi;
    Float_t         jot12DPhi_JESTotalUp;
    Float_t         jot12DPhi_JESTotalDown;
+   Float_t         allJotPt;
+   Float_t         allJotPt_JESTotalUp;
+   Float_t         allJotPt_JESTotalDown;
+   Float_t         allJotEta;
+   Float_t         allJotEta_JESTotalUp;
+   Float_t         allJotEta_JESTotalDown;
+   Float_t         allJotPhi;
+   Float_t         allJotPhi_JESTotalUp;
+   Float_t         allJotPhi_JESTotalDown;
+   Float_t         allJotE;
+   Float_t         allJotE_JESTotalUp;
+   Float_t         allJotE_JESTotalDown;
+   Float_t         allJotHT;
+   Float_t         allJotHT_JESTotalUp;
+   Float_t         allJotHT_JESTotalDown;
    Int_t           nHF;
    Int_t           nB;
    Int_t           nBGenJets;
@@ -400,7 +417,20 @@ public :
    Int_t           looseGenLep2PdgId;
    Int_t           looseGenLep3PdgId;
    Int_t           looseGenLep4PdgId;
+   Float_t         genPho1Pt;
+   Float_t         genPho1Eta;
+   Float_t         genPho1Phi;
+   Int_t           vtxNTrk;
+   Float_t         vtxScore;
+   Float_t         vtxChi2;
    Float_t         normalizedWeight;
+   Float_t         sf_photon;
+   Float_t         sf_photon_unc[3];
+   Float_t         sf_trigWeight[2];
+   Float_t         sf_lepton;
+   Float_t         sf_pu;
+   Float_t         sf_puDown;
+   Float_t         sf_puUp;
 
    // List of branches
    TBranch        *b_runNumber;   //!
@@ -439,7 +469,6 @@ public :
    TBranch        *b_sf_metTrigVBF;   //!
    TBranch        *b_sf_metTrigZmmVBF;   //!
    TBranch        *b_sf_l1Prefire;   //!
-   TBranch        *b_sf_pu;   //!
    TBranch        *b_sf_npv;   //!
    TBranch        *b_sf_tt;   //!
    TBranch        *b_sf_phoPurity;   //!
@@ -460,6 +489,7 @@ public :
    TBranch        *b_puppimetphi;   //!
    TBranch        *b_puppimetphi_JESTotalUp;   //!
    TBranch        *b_puppimetphi_JESTotalDown;   //!
+   TBranch        *b_pfmhtnomu;   //!
    TBranch        *b_calomet;   //!
    TBranch        *b_calometphi;   //!
    TBranch        *b_pfcalobalance;   //!
@@ -568,6 +598,8 @@ public :
    TBranch        *b_genJet2Pt;   //!
    TBranch        *b_genJet1Eta;   //!
    TBranch        *b_genJet2Eta;   //!
+   TBranch        *b_genJet1Phi;   //!
+   TBranch        *b_genJet2Phi;   //!
    TBranch        *b_nJet;   //!
    TBranch        *b_nJot;   //!
    TBranch        *b_nJot_JESTotalUp;   //!
@@ -669,6 +701,21 @@ public :
    TBranch        *b_jot12DPhi;   //!
    TBranch        *b_jot12DPhi_JESTotalUp;   //!
    TBranch        *b_jot12DPhi_JESTotalDown;   //!
+   TBranch        *b_allJotPt;   //!
+   TBranch        *b_allJotPt_JESTotalUp;   //!
+   TBranch        *b_allJotPt_JESTotalDown;   //!
+   TBranch        *b_allJotEta;   //!
+   TBranch        *b_allJotEta_JESTotalUp;   //!
+   TBranch        *b_allJotEta_JESTotalDown;   //!
+   TBranch        *b_allJotPhi;   //!
+   TBranch        *b_allJotPhi_JESTotalUp;   //!
+   TBranch        *b_allJotPhi_JESTotalDown;   //!
+   TBranch        *b_allJotE;   //!
+   TBranch        *b_allJotE_JESTotalUp;   //!
+   TBranch        *b_allJotE_JESTotalDown;   //!
+   TBranch        *b_allJotHT;   //!
+   TBranch        *b_allJotHT_JESTotalUp;   //!
+   TBranch        *b_allJotHT_JESTotalDown;   //!
    TBranch        *b_nHF;   //!
    TBranch        *b_nB;   //!
    TBranch        *b_nBGenJets;   //!
@@ -781,7 +828,20 @@ public :
    TBranch        *b_looseGenLep2PdgId;   //!
    TBranch        *b_looseGenLep3PdgId;   //!
    TBranch        *b_looseGenLep4PdgId;   //!
+   TBranch        *b_genPho1Pt;   //!
+   TBranch        *b_genPho1Eta;   //!
+   TBranch        *b_genPho1Phi;   //!
+   TBranch        *b_vtxNTrk;   //!
+   TBranch        *b_vtxScore;   //!
+   TBranch        *b_vtxChi2;   //!
    TBranch        *b_normalizedWeight;   //!
+   TBranch        *b_sf_photon;   //!
+   TBranch        *b_sf_photon_unc;   //!
+   TBranch        *b_sf_trigWeight;   //!
+   TBranch        *b_sf_lepton;   //!
+   TBranch        *b_sf_pu;   //!
+   TBranch        *b_sf_puDown;   //!
+   TBranch        *b_sf_puUp;   //!
 
    pandaFlat(TTree *tree=0);
    virtual ~pandaFlat();
@@ -802,9 +862,9 @@ pandaFlat::pandaFlat(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/scratch5/bmaier/darkg/2018/vbfg_v_013_v6/WZG.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/local/bmaier/darkg/2016/vbfg_v_009_v20_gensmear/Diboson_zz.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/scratch5/bmaier/darkg/2018/vbfg_v_013_v6/WZG.root");
+         f = new TFile("/local/bmaier/darkg/2016/vbfg_v_009_v20_gensmear/Diboson_zz.root");
       }
       f->GetObject("events",tree);
 
@@ -889,7 +949,6 @@ void pandaFlat::Init(TTree *tree)
    fChain->SetBranchAddress("sf_metTrigVBF", &sf_metTrigVBF, &b_sf_metTrigVBF);
    fChain->SetBranchAddress("sf_metTrigZmmVBF", &sf_metTrigZmmVBF, &b_sf_metTrigZmmVBF);
    fChain->SetBranchAddress("sf_l1Prefire", &sf_l1Prefire, &b_sf_l1Prefire);
-   fChain->SetBranchAddress("sf_pu", &sf_pu, &b_sf_pu);
    fChain->SetBranchAddress("sf_npv", &sf_npv, &b_sf_npv);
    fChain->SetBranchAddress("sf_tt", &sf_tt, &b_sf_tt);
    fChain->SetBranchAddress("sf_phoPurity", &sf_phoPurity, &b_sf_phoPurity);
@@ -910,6 +969,7 @@ void pandaFlat::Init(TTree *tree)
    fChain->SetBranchAddress("puppimetphi", &puppimetphi, &b_puppimetphi);
    fChain->SetBranchAddress("puppimetphi_JESTotalUp", &puppimetphi_JESTotalUp, &b_puppimetphi_JESTotalUp);
    fChain->SetBranchAddress("puppimetphi_JESTotalDown", &puppimetphi_JESTotalDown, &b_puppimetphi_JESTotalDown);
+   fChain->SetBranchAddress("pfmhtnomu", &pfmhtnomu, &b_pfmhtnomu);
    fChain->SetBranchAddress("calomet", &calomet, &b_calomet);
    fChain->SetBranchAddress("calometphi", &calometphi, &b_calometphi);
    fChain->SetBranchAddress("pfcalobalance", &pfcalobalance, &b_pfcalobalance);
@@ -1018,6 +1078,8 @@ void pandaFlat::Init(TTree *tree)
    fChain->SetBranchAddress("genJet2Pt", &genJet2Pt, &b_genJet2Pt);
    fChain->SetBranchAddress("genJet1Eta", &genJet1Eta, &b_genJet1Eta);
    fChain->SetBranchAddress("genJet2Eta", &genJet2Eta, &b_genJet2Eta);
+   fChain->SetBranchAddress("genJet1Phi", &genJet1Phi, &b_genJet1Phi);
+   fChain->SetBranchAddress("genJet2Phi", &genJet2Phi, &b_genJet2Phi);
    fChain->SetBranchAddress("nJet", &nJet, &b_nJet);
    fChain->SetBranchAddress("nJot", &nJot, &b_nJot);
    fChain->SetBranchAddress("nJot_JESTotalUp", &nJot_JESTotalUp, &b_nJot_JESTotalUp);
@@ -1119,6 +1181,21 @@ void pandaFlat::Init(TTree *tree)
    fChain->SetBranchAddress("jot12DPhi", &jot12DPhi, &b_jot12DPhi);
    fChain->SetBranchAddress("jot12DPhi_JESTotalUp", &jot12DPhi_JESTotalUp, &b_jot12DPhi_JESTotalUp);
    fChain->SetBranchAddress("jot12DPhi_JESTotalDown", &jot12DPhi_JESTotalDown, &b_jot12DPhi_JESTotalDown);
+   fChain->SetBranchAddress("allJotPt", &allJotPt, &b_allJotPt);
+   fChain->SetBranchAddress("allJotPt_JESTotalUp", &allJotPt_JESTotalUp, &b_allJotPt_JESTotalUp);
+   fChain->SetBranchAddress("allJotPt_JESTotalDown", &allJotPt_JESTotalDown, &b_allJotPt_JESTotalDown);
+   fChain->SetBranchAddress("allJotEta", &allJotEta, &b_allJotEta);
+   fChain->SetBranchAddress("allJotEta_JESTotalUp", &allJotEta_JESTotalUp, &b_allJotEta_JESTotalUp);
+   fChain->SetBranchAddress("allJotEta_JESTotalDown", &allJotEta_JESTotalDown, &b_allJotEta_JESTotalDown);
+   fChain->SetBranchAddress("allJotPhi", &allJotPhi, &b_allJotPhi);
+   fChain->SetBranchAddress("allJotPhi_JESTotalUp", &allJotPhi_JESTotalUp, &b_allJotPhi_JESTotalUp);
+   fChain->SetBranchAddress("allJotPhi_JESTotalDown", &allJotPhi_JESTotalDown, &b_allJotPhi_JESTotalDown);
+   fChain->SetBranchAddress("allJotE", &allJotE, &b_allJotE);
+   fChain->SetBranchAddress("allJotE_JESTotalUp", &allJotE_JESTotalUp, &b_allJotE_JESTotalUp);
+   fChain->SetBranchAddress("allJotE_JESTotalDown", &allJotE_JESTotalDown, &b_allJotE_JESTotalDown);
+   fChain->SetBranchAddress("allJotHT", &allJotHT, &b_allJotHT);
+   fChain->SetBranchAddress("allJotHT_JESTotalUp", &allJotHT_JESTotalUp, &b_allJotHT_JESTotalUp);
+   fChain->SetBranchAddress("allJotHT_JESTotalDown", &allJotHT_JESTotalDown, &b_allJotHT_JESTotalDown);
    fChain->SetBranchAddress("nHF", &nHF, &b_nHF);
    fChain->SetBranchAddress("nB", &nB, &b_nB);
    fChain->SetBranchAddress("nBGenJets", &nBGenJets, &b_nBGenJets);
@@ -1231,7 +1308,20 @@ void pandaFlat::Init(TTree *tree)
    fChain->SetBranchAddress("looseGenLep2PdgId", &looseGenLep2PdgId, &b_looseGenLep2PdgId);
    fChain->SetBranchAddress("looseGenLep3PdgId", &looseGenLep3PdgId, &b_looseGenLep3PdgId);
    fChain->SetBranchAddress("looseGenLep4PdgId", &looseGenLep4PdgId, &b_looseGenLep4PdgId);
+   fChain->SetBranchAddress("genPho1Pt", &genPho1Pt, &b_genPho1Pt);
+   fChain->SetBranchAddress("genPho1Eta", &genPho1Eta, &b_genPho1Eta);
+   fChain->SetBranchAddress("genPho1Phi", &genPho1Phi, &b_genPho1Phi);
+   fChain->SetBranchAddress("vtxNTrk", &vtxNTrk, &b_vtxNTrk);
+   fChain->SetBranchAddress("vtxScore", &vtxScore, &b_vtxScore);
+   fChain->SetBranchAddress("vtxChi2", &vtxChi2, &b_vtxChi2);
    fChain->SetBranchAddress("normalizedWeight", &normalizedWeight, &b_normalizedWeight);
+   fChain->SetBranchAddress("sf_photon", &sf_photon, &b_sf_photon);
+   fChain->SetBranchAddress("sf_photon_unc", sf_photon_unc, &b_sf_photon_unc);
+   fChain->SetBranchAddress("sf_trigWeight", sf_trigWeight, &b_sf_trigWeight);
+   fChain->SetBranchAddress("sf_lepton", &sf_lepton, &b_sf_lepton);
+   fChain->SetBranchAddress("sf_pu", &sf_pu, &b_sf_pu);
+   fChain->SetBranchAddress("sf_puDown", &sf_puDown, &b_sf_puDown);
+   fChain->SetBranchAddress("sf_puUp", &sf_puUp, &b_sf_puUp);
    Notify();
 }
 

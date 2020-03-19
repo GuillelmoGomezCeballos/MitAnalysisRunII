@@ -17,7 +17,7 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40}; 
+float xPos[nPlotCategories] = {0.65,0.65,0.65,0.65,0.65,0.65,0.65,0.35,0.35,0.35,0.35,0.35,0.35,0.35,0.35}; 
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
 const Float_t _tsize   = 0.045;
@@ -371,11 +371,13 @@ class StandardPlot {
             for (int ic=0; ic<nPlotCategories; ic++) {
 	      if     (ic==kPlotData){
 	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "epl"); j++;}
+                if(plotSystErrorBars == true) {DrawLegendTG(xPos[j], 0.84 - yOff[j]*_yoffset,gsyst, "Bkg. unc.",  "f" ); j++;isThereSignal = true;}
               }
 	      else if(ic == kPlotBSM){
-                if(plotSystErrorBars == true) {DrawLegendTG(xPos[j], 0.84 - yOff[j]*_yoffset,gsyst, "Bkg. unc.",  "f" ); j++;isThereSignal = true;}
-                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "f" ); j++; }
-                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "l" ); j++; }
+	        double furtherXOffSet = 0.0;
+		if(higgsLabel.Contains("m_{H},m_{A}")) furtherXOffSet = -0.05;
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "l" ); j++; }
 	      }
 	      //else if(ic == kPlotSignal0){
               //  if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.01, _hist[ic], higgs2Label, "f" ); j++; }

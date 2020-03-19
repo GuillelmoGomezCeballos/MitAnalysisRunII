@@ -1,10 +1,11 @@
 #include "CMS_lumi.h"
+#include <iostream>
 
 void 
 CMS_lumi( TPad* pad, int iPeriod, int iPosX )
 {            
   bool outOfFrame    = false;
-  if( iPosX/10==0 ) 
+  if( iPosX/10==1 ) 
     {
       outOfFrame = true;
     }
@@ -85,8 +86,12 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
     {
       lumiText += "8 TeV";
     }
+  else if ( iPeriod==0 )
+    {
+      lumiText += lumi_sqrtS;
+    }
    
-  printf("%s\n",lumiText.Data());
+  std::cout << lumiText << endl;
 
   TLatex latex;
   latex.SetNDC();

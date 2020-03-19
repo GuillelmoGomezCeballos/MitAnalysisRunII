@@ -37,6 +37,7 @@ elif [ $NSEL == 5 ]; then
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zzAnalysis.C+'('${YEAR}')'     >& log_zz_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}',0)'   >& log_zh_${YEAR}_0j &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}',1)'   >& log_zh_${YEAR}_1j &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/zhAnalysis.C+'('${YEAR}',2)'   >& log_zh_${YEAR}_2j &
   fi
   if [ $# == 3 ] && [ $3 == 1 ]; then
     for jetValue in 0 1; do

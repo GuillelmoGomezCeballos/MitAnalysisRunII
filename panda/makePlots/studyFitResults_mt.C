@@ -56,11 +56,13 @@ void studyFitResults_mt(int nsel = 0,  TString mlfitResult = "comb/fitDiagnostic
 
   int nBinMVAAux = 0;
   if     (nsel == 0) nBinMVAAux = nBinMT0;
-  else if(nsel == 1) nBinMVAAux = nBinMT1;
+  else if(nsel == 1) nBinMVAAux = nBinMT0;
+  else if(nsel == 2) nBinMVAAux = nBinMT1;
 
   const int nBinMVA = nBinMVAAux; Float_t xbins[nBinMVA+1];
   if     (nsel == 0) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT0[nb];
-  else if(nsel == 1) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT1[nb];
+  else if(nsel == 1) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT0[nb];
+  else if(nsel == 2) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT1[nb];
   
 
   TH1F* _histPostFit[nPlotCategories];
@@ -82,10 +84,15 @@ void studyFitResults_mt(int nsel = 0,  TString mlfitResult = "comb/fitDiagnostic
   const int allExcludeBins = 60;
   int excludeBins[allExcludeBins];
   for(int i=0; i<allExcludeBins; i++) excludeBins[i] = -1;
-  if     (nsel == 0){
+  if     (nsel == 0){ // 0j SR and EM CR
+    for(int i=11; i<22; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 1){
+  else if(nsel == 1){ // 1j SR
+    for(int i=0; i<11; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 2){ // CR
     for(int i=0; i<1; i++) excludeBins[i] = i+1;
+    for(int i=11; i<22; i++) excludeBins[i] = i+1;
   }
   printf("Bins to exclude:");
   for(int i=0; i<allExcludeBins; i++) if(excludeBins[i] != -1) printf(" %d",excludeBins[i]);
@@ -102,7 +109,7 @@ void studyFitResults_mt(int nsel = 0,  TString mlfitResult = "comb/fitDiagnostic
 
   TGraphAsymmErrors *graphData = (TGraphAsymmErrors*)mlfit->Get(Form("shapes_fit_b/%s/%s",channelName.Data(),cPlotBaseNames[cTokPlotBase[0]].Data()));
   int countUsedBins = 0;
-  for(int i=0; i <nBinMVA; ++i) {
+  for(int i=0; i <graphData->GetN(); ++i) {
      bool binToExclude = false;
      for(int nb=0; nb<allExcludeBins; nb++) if(i == excludeBins[nb]-1) binToExclude = true;
      if(binToExclude == true) continue;

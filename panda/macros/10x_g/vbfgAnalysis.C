@@ -29,8 +29,8 @@ TString systTypeName[nSystTypes]= {"JESUP","JESDOWN"};
 const double pdfUncs[2] = {1.010, 1.016};
 
 const double mjjSplit = 1500;
-const double mtgSplit0 = 90;
-const double mtgSplit1 = 200;
+const double mtgSplit0 =  90;
+const double mtgSplit1 = 250;
 
 void vbfgAnalysis(
 int year, int triggerCat, int mH = 125
@@ -67,14 +67,15 @@ int year, int triggerCat, int mH = 125
     //filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v12_puppi/");
     //filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v7/");
     //filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v12/");
-    filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v15/");
+    filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v21/");
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2018.root";
 
-    if(triggerCat == 0){
-    infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
-    } else {
-    infileName_.push_back(Form("%sEGamma.root" ,filesPath.Data()));                   infileCat_.push_back(kPlotData);
-    }
+    //if(triggerCat == 0){
+    //infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
+    //} else {
+    //infileName_.push_back(Form("%sEGamma.root" ,filesPath.Data()));                   infileCat_.push_back(kPlotData);
+    //}
+    infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -116,7 +117,7 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotWG0);
 
-    infileName_.push_back(Form("%sZGToNuNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
+    infileName_.push_back(Form("%sZGToNuNuG_nlo_CP5.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
     infileName_.push_back(Form("%sZGTo2LG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
 
     //infileName_.push_back(Form("%sGJets_ht100to200_CP5.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
@@ -130,14 +131,16 @@ int year, int triggerCat, int mH = 125
     //filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v9_puppi/");
     //filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v12/");
     //filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v15/");
-    filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v15_EEfix/");
+    filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v21/");
+    //filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v19_jerpropagation/");
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2017.root";
 
-    if(triggerCat == 0){
-    infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
-    } else {
-    infileName_.push_back(Form("%sSinglePhoton.root" ,filesPath.Data()));             infileCat_.push_back(kPlotData);
-    }
+    //if(triggerCat == 0){
+    //infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
+    //} else {
+    //infileName_.push_back(Form("%sSinglePhoton.root" ,filesPath.Data()));             infileCat_.push_back(kPlotData);
+    //}
+    infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -170,7 +173,7 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sZtoNuNu_ht800to1200_CP5.root" ,filesPath.Data()));  infileCat_.push_back(kPlotDY);
     infileName_.push_back(Form("%sZtoNuNu_ht1200to2500_CP5.root" ,filesPath.Data())); infileCat_.push_back(kPlotDY);
     infileName_.push_back(Form("%sZtoNuNu_ht2500toinf_CP5.root" ,filesPath.Data()));  infileCat_.push_back(kPlotDY);
-    infileName_.push_back(Form("%sZtoNuNu_EWK.root" ,filesPath.Data()));              infileCat_.push_back(kPlotDY);
+    infileName_.push_back(Form("%sZtoNuNu_EWK_CP5.root" ,filesPath.Data()));          infileCat_.push_back(kPlotDY);
 
     infileName_.push_back(Form("%sTTbar_GJets_CP5.root" ,filesPath.Data()));          infileCat_.push_back(kPlotTop);
     infileName_.push_back(Form("%sSingleTop_tG_CP5.root" ,filesPath.Data()));         infileCat_.push_back(kPlotTop);
@@ -191,8 +194,9 @@ int year, int triggerCat, int mH = 125
   }
   else if(year == 2016) {
     puPath = Form("MitAnalysisRunII/data/90x/pu/puWeights_90x_vbfg%d.root",year);
-    //filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v9_puppi/");
     filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v6/");
+    //filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v15/");
+    filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v21/");
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2016.root";
 
     infileName_.push_back(Form("%sSinglePhoton.root" ,filesPath.Data()));         infileCat_.push_back(kPlotData);
@@ -231,7 +235,7 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sZtoNuNu_EWK.root" ,filesPath.Data()));          infileCat_.push_back(kPlotDY);
 
     infileName_.push_back(Form("%sTTbar_GJets.root" ,filesPath.Data()));          infileCat_.push_back(kPlotTop);
-    //infileName_.push_back(Form("%sSingleTop_tG.root" ,filesPath.Data()));         infileCat_.push_back(kPlotTop);
+    infileName_.push_back(Form("%sSingleTop_tG.root" ,filesPath.Data()));         infileCat_.push_back(kPlotTop);
 
     infileName_.push_back(Form("%sWZG.root" ,filesPath.Data()));		  infileCat_.push_back(kPlotVVV);
 
@@ -315,8 +319,8 @@ int year, int triggerCat, int mH = 125
   fTrg_effjj_VBFG->Close();
 
   // (mjj<=X/>=X) 0: SR , 1: passLGSel, 2: passLSel, 3: passGJSel, 4: passLLGSel
-  const int nBinMVA1DTrigger0 = 6; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   60,   mtgSplit0, 140, mtgSplit1, 1000};
-  const int nBinMVA1DTrigger1 = 6; Double_t xbins1DTrigger1[nBinMVA1DTrigger1+1] = {0,   30,   60,   mtgSplit0, 140, mtgSplit1, 1000};
+  const int nBinMVA1DTrigger0 = 6; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   60,   mtgSplit0, 170, mtgSplit1, 1000};
+  const int nBinMVA1DTrigger1 = 6; Double_t xbins1DTrigger1[nBinMVA1DTrigger1+1] = {0,   30,   60,   mtgSplit0, 170, mtgSplit1, 1000};
   //const int nBinMVA1DAddTrigger0 = 10; Double_t xbins1DAddTrigger0[nBinMVA1DAddTrigger0+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,2000+mtgSplit0,2000+mtgSplit1,3000,3000+mtgSplit0,3000+mtgSplit1,4000,5000};
   const int nBinMVA1DAddTrigger0 =  6; Double_t xbins1DAddTrigger0[nBinMVA1DAddTrigger0+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,3000,4000,5000};
   const int nBinMVA1DAddTrigger1 =  6; Double_t xbins1DAddTrigger1[nBinMVA1DAddTrigger1+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,3000,4000,5000};
@@ -354,7 +358,7 @@ int year, int triggerCat, int mH = 125
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 107;
+  const int allPlots = 117;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
@@ -362,24 +366,27 @@ int year, int triggerCat, int mH = 125
     int the1DFit = 0;
     if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
     //if     (thePlot >=   0 && thePlot <=   9) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1000;}
-    else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 50;  xminPlot =  0.0; xmaxPlot = 500;}
-    else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 6;   xminPlot = -0.5; xmaxPlot = 5.5;}
-    else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 2000;}
-    else if(thePlot >=  30 && thePlot <=  34) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 8;}
-    else if(thePlot >=  35 && thePlot <=  39) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1.0;}
-    else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 200;}
+    else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 20;  xminPlot = 60.0; xmaxPlot = 460;}
+    else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 4;   xminPlot =  1.5; xmaxPlot = 5.5;}
+    else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
+    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot = 10;  xminPlot =500.0; xmaxPlot = 2500;}
+    else if(thePlot >=  30 && thePlot <=  34) {nBinPlot = 10;  xminPlot =  3.0; xmaxPlot = 8;}
+    else if(thePlot >=  35 && thePlot <=  39) {nBinPlot = 10;  xminPlot =  0.0; xmaxPlot = 1.0;}
+    else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 14;  xminPlot =  0.0; xmaxPlot = 210;}
     else if(thePlot >=  45 && thePlot <=  49) {nBinPlot = 8;   xminPlot = -0.5; xmaxPlot = 7.5;}
-    else if(thePlot >=  50 && thePlot <=  54) {nBinPlot = 25;  xminPlot =  0.0; xmaxPlot = 2.5;}
-    else if(thePlot >=  55 && thePlot <=  59) {nBinPlot = 50;  xminPlot = 80.0; xmaxPlot = 480.0;}
-    else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 50;  xminPlot =  0.0; xmaxPlot = 5.0;}
-    else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 30;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  80 && thePlot <=  89) {nBinPlot = 25;  xminPlot =  0.0; xmaxPlot = 5.0;}
-    else if(thePlot >=  90 && thePlot <=  94) {nBinPlot = 80;  xminPlot = -0.5; xmaxPlot = 79.5;}
-    else if(thePlot >=  95 && thePlot <=  99) {nBinPlot = 30;  xminPlot =  0.7; xmaxPlot = 1.0;}
-    else if(thePlot >= 100 && thePlot <= 101) {the1DFit = 1;}
-    else if(thePlot >= 102 && thePlot <= 105) {if(triggerCat == 0) the1DFit = 2; else the1DFit = 2;}
+    else if(thePlot >=  50 && thePlot <=  54) {nBinPlot = 15;  xminPlot =  0.0; xmaxPlot = 1.5;}
+    else if(thePlot >=  55 && thePlot <=  59) {nBinPlot = 20;  xminPlot = 80.0; xmaxPlot = 480.0;}
+    else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
+    else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
+    else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
+    else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
+    else if(thePlot >=  85 && thePlot <=  89) {nBinPlot = 20;  xminPlot = 50.0; xmaxPlot = 450.0;}
+    else if(thePlot >=  90 && thePlot <=  94) {nBinPlot = 40;  xminPlot = -0.5; xmaxPlot = 79.5;}
+    else if(thePlot >=  95 && thePlot <=  99) {nBinPlot = 15;  xminPlot =  0.7; xmaxPlot = 1.0;}
+    else if(thePlot >= 100 && thePlot <= 109) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 1.0;}
+    else if(thePlot >= 110 && thePlot <= 111) {the1DFit = 1;}
+    else if(thePlot >= 112 && thePlot <= 113) {the1DFit = 2;}
+    else if(thePlot >= 114 && thePlot <= 115) {the1DFit = 2;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
@@ -391,10 +398,10 @@ int year, int triggerCat, int mH = 125
   TH1D* histoMTGMET0p75 = new TH1D(Form("histoMTGMET0p75"), Form("histoMTGMET0p75"), nBinMVA1D, xbins1D);
   TH1D* histoMTGMET0p50 = new TH1D(Form("histoMTGMET0p50"), Form("histoMTGMET0p50"), nBinMVA1D, xbins1D);
   TH1D* histoMTGMET0p25 = new TH1D(Form("histoMTGMET0p25"), Form("histoMTGMET0p25"), nBinMVA1D, xbins1D);
-  TH1D* histoMTGMETFit  = new TH1D(Form("histoMTGMETFit"),  Form("histoMTGMETFit"),  20, 0, 200);
+  TH1D* histoMTGMETFit  = new TH1D(Form("histoMTGMETFit"),  Form("histoMTGMETFit"),  5, 0, 100);
   TH1D* histoMTGMETMJJ[2][nPlotCategories];
   for(int thePlot=0; thePlot<2; thePlot++){
-    for(int i=0; i<nPlotCategories; i++) histoMTGMETMJJ[thePlot][i] = new TH1D(Form("histoMTGMETMJJ_%d_%d",thePlot,i), Form("histoMTGMETMJJ_%d_%d",thePlot,i), 20, 0, 200);
+    for(int i=0; i<nPlotCategories; i++) histoMTGMETMJJ[thePlot][i] = new TH1D(Form("histoMTGMETMJJ_%d_%d",thePlot,i), Form("histoMTGMETMJJ_%d_%d",thePlot,i), 5, 0, 100);
   }
 
   TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbins); histo_MVA->Sumw2();
@@ -695,8 +702,7 @@ int year, int triggerCat, int mH = 125
 
       if(dRJetG < 0.4) continue; // Remove events where photon and jet overlap
       
-      if     (theMinSelType == VBFGSEL && (dPhiJetMET > 0.0 && dPhiJetMET < 0.5) && year == 2016) theMinSelType = GJSEL;
-      else if(theMinSelType == VBFGSEL && (dPhiJetMET > 0.0 && dPhiJetMET < 0.5) && year != 2016) theMinSelType = GJSEL;
+      if(theMinSelType == VBFGSEL && dPhiJetMET > 0.0 && dPhiJetMET < 0.5) theMinSelType = GJSEL;
 
       TLorentzVector totSystem,totSystemUp,totSystemDown;
       double dPhiGMET = 0; double dPhiGMETUp = 0;double dPhiGMETDown = 0;
@@ -725,9 +731,9 @@ int year, int triggerCat, int mH = 125
 
       if(debug == 1 && dPhiGMET < 0.1) printf("%d %f %f %f %f %f %f\n",theMinSelType,mTGMET,dPhiGMET,theG.Phi(),vMet.Phi(),theG.Pt(),vMet.Pt());
 
-      bool passNjets     = thePandaFlat.nJot              >= 2 && thePandaFlat.jotPt[0]              > 50 && thePandaFlat.jotPt[1]              > 50;
-      bool passNjetsUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && thePandaFlat.jotPt_JESTotalUp[0]   > 50 && thePandaFlat.jotPt_JESTotalUp[1]   > 50;
-      bool passNjetsDown = thePandaFlat.nJot_JESTotalDown >= 2 && thePandaFlat.jotPt_JESTotalDown[0] > 50 && thePandaFlat.jotPt_JESTotalDown[1] > 50;
+      bool passNjets     = thePandaFlat.nJot              >= 2 && thePandaFlat.nJot              <= 5 && thePandaFlat.jotPt[0]  	    > 50 && thePandaFlat.jotPt[1]	       > 50;
+      bool passNjetsUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && thePandaFlat.nJot_JESTotalUp   <= 5 && thePandaFlat.jotPt_JESTotalUp[0]   > 50 && thePandaFlat.jotPt_JESTotalUp[1]   > 50;
+      bool passNjetsDown = thePandaFlat.nJot_JESTotalDown >= 2 && thePandaFlat.nJot_JESTotalDown <= 5 && thePandaFlat.jotPt_JESTotalDown[0] > 50 && thePandaFlat.jotPt_JESTotalDown[1] > 50;
       TLorentzVector vJot1;     vJot1.SetPtEtaPhiM    (thePandaFlat.jotPt[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
       TLorentzVector vJot2;     vJot2.SetPtEtaPhiM    (thePandaFlat.jotPt[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
       TLorentzVector vJot1Up;   vJot1Up.SetPtEtaPhiM  (thePandaFlat.jotPt_JESTotalUp[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
@@ -737,6 +743,21 @@ int year, int triggerCat, int mH = 125
       totSystem     = totSystem     + vJot1     + vJot2;
       totSystemUp   = totSystemUp   + vJot1Up   + vJot2Up;
       totSystemDown = totSystemDown + vJot1Down + vJot2Down;
+
+      TLorentzVector vAllJot;     vAllJot    .SetPtEtaPhiE(thePandaFlat.allJotPt             ,thePandaFlat.allJotEta             ,thePandaFlat.allJotPhi             ,thePandaFlat.allJotE	       );
+      TLorentzVector vAllJotUp;   vAllJotUp  .SetPtEtaPhiE(thePandaFlat.allJotPt_JESTotalUp  ,thePandaFlat.allJotEta_JESTotalUp  ,thePandaFlat.allJotPhi_JESTotalUp  ,thePandaFlat.allJotE_JESTotalUp  );
+      TLorentzVector vAllJotDown; vAllJotDown.SetPtEtaPhiE(thePandaFlat.allJotPt_JESTotalDown,thePandaFlat.allJotEta_JESTotalDown,thePandaFlat.allJotPhi_JESTotalDown,thePandaFlat.allJotE_JESTotalDown);
+      double theAllJotHT     = thePandaFlat.allJotHT;
+      double theAllJotHTUp   = thePandaFlat.allJotHT_JESTotalUp;
+      double theAllJotHTDown = thePandaFlat.allJotHT_JESTotalDown;
+      double ratio_allJetPt_vs_allJetHT = vAllJot.Pt()/theAllJotHT;
+
+      vAllJot     = vAllJot     - vJot1     - vJot2     + theG;
+      vAllJotUp   = vAllJotUp   - vJot1Up   - vJot2Up   + theG;
+      vAllJotDown = vAllJotDown - vJot1Down - vJot2Down + theG;
+      theAllJotHT     = theAllJotHT     - vJot1.Pt()     - vJot2.Pt()     + theG.Pt();
+      theAllJotHTUp   = theAllJotHTUp   - vJot1Up.Pt()   - vJot2Up.Pt()   + theG.Pt();
+      theAllJotHTDown = theAllJotHTDown - vJot1Down.Pt() - vJot2Down.Pt() + theG.Pt();
 
       double massJJ         = thePandaFlat.jot12Mass;
       double massJJUp       = thePandaFlat.jot12Mass_JESTotalUp;
@@ -978,15 +999,15 @@ int year, int triggerCat, int mH = 125
       //}
 
       if((theMinSelType == VBFGSEL || theMinSelType == GJSEL) && passNjets && passMJJ && passDEtaJJ && passgZep && (theCategory == kPlotGJ0 || theCategory == kPlotGJ1)){
-        TLorentzVector vMet0p75 = vMet + 0.30 * theG;
-        TLorentzVector vMet0p50 = vMet + 0.45 * theG;
-        TLorentzVector vMet0p25 = vMet + 0.60 * theG;
+        TLorentzVector vMet0p75 = vMet + 0.40 * theG;
+        TLorentzVector vMet0p50 = vMet + 0.65 * theG;
+        TLorentzVector vMet0p25 = vMet + 0.90 * theG;
 	double dPhiGMET0p75 = TMath::Abs(theG.DeltaPhi(vMet0p75)); 
 	double dPhiGMET0p50 = TMath::Abs(theG.DeltaPhi(vMet0p50)); 
 	double dPhiGMET0p25 = TMath::Abs(theG.DeltaPhi(vMet0p25)); 
-        double mTGMET0p75 = TMath::Sqrt(2.0*theG.Pt()*0.70*vMet0p75.Pt()*(1.0 - cos(dPhiGMET0p75))); 
-        double mTGMET0p50 = TMath::Sqrt(2.0*theG.Pt()*0.55*vMet0p50.Pt()*(1.0 - cos(dPhiGMET0p50))); 
-        double mTGMET0p25 = TMath::Sqrt(2.0*theG.Pt()*0.40*vMet0p25.Pt()*(1.0 - cos(dPhiGMET0p25)));
+        double mTGMET0p75 = TMath::Sqrt(2.0*theG.Pt()*(1-0.40)*vMet0p75.Pt()*(1.0 - cos(dPhiGMET0p75))); 
+        double mTGMET0p50 = TMath::Sqrt(2.0*theG.Pt()*(1-0.65)*vMet0p50.Pt()*(1.0 - cos(dPhiGMET0p50))); 
+        double mTGMET0p25 = TMath::Sqrt(2.0*theG.Pt()*(1-0.90)*vMet0p25.Pt()*(1.0 - cos(dPhiGMET0p25)));
         histoMTGMET0p75->Fill(TMath::Min(mTGMET0p75,999.999),totalWeight);
         histoMTGMET0p50->Fill(TMath::Min(mTGMET0p50,999.999),totalWeight);
         histoMTGMET0p25->Fill(TMath::Min(mTGMET0p25,999.999),totalWeight);
@@ -994,33 +1015,39 @@ int year, int triggerCat, int mH = 125
       }
 
       if(dataCardSel >= 0) histo[ 0+dataCardSel][theCategory]  ->Fill(TMath::Min(mTGMET,999.999),totalWeight);
-      if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),499.999),totalWeight);
-      if(passNMinusOne[1]) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
+      if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),459.999),totalWeight);
+      if(dataCardSel >= 0) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
       if(passNMinusOne[2]) histo[20+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
-      if(passNMinusOne[3]) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,1999.999),totalWeight);
-      if(passNMinusOne[4]) histo[30+theMinSelType][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
+      if(dataCardSel >= 0) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+      if(dataCardSel >= 0)  histo[30+theMinSelType][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
       if(passNMinusOne[5]) histo[35+theMinSelType][theCategory]->Fill(gZep,totalWeight);
-      if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),199.999),totalWeight);
+      if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
       for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
       if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
       if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(TMath::Min(theG.Pt(),479.999),totalWeight);
       if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
       if(dataCardSel >= 0) histo[ 65+theMinSelType][theCategory]->Fill(TMath::Min(dRJetG,4.999),totalWeight);
       if(dataCardSel >= 0) histo[ 70+dataCardSel][theCategory]->Fill(TMath::Min(dPhiGMET,2.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Abs(thePandaFlat.jotEta[0]),TMath::Abs(thePandaFlat.jotEta[1])),totalWeight);
-      if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(thePandaFlat.jotEta[0]),TMath::Abs(thePandaFlat.jotEta[1])),totalWeight);
+      if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot1.Eta()),totalWeight);
+      if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot2.Eta()),totalWeight);
+      if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot1.Pt(),449.999),totalWeight);
+      if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot2.Pt(),449.999),totalWeight);
       if(dataCardSel >= 0) histo[ 90+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight);
       if(dataCardSel >= 0) histo[ 95+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Min(photonR9,0.999),0.701),totalWeight);
-      if(dataCardSel == 1) histo[100][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight);
-      if(dataCardSel == 6) histo[101][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight);
-      if(dataCardSel == 2) {if(triggerCat == -1) histo[102][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight); else histo[102][theCategory]->Fill(0.0,totalWeight); }
-      if(dataCardSel == 7) {if(triggerCat == -1) histo[103][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight); else histo[103][theCategory]->Fill(0.0,totalWeight); }
-      if(dataCardSel == 3) {if(triggerCat == -1) histo[104][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight); else histo[104][theCategory]->Fill(0.0,totalWeight); }
-      if(dataCardSel == 8) {if(triggerCat == -1) histo[105][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight); else histo[105][theCategory]->Fill(0.0,totalWeight); }
+      if(dataCardSel >= 0) histo[100+theMinSelType][theCategory]->Fill(TMath::Min(ratio_allJetPt_vs_allJetHT,0.999),totalWeight);
+      if(dataCardSel >= 0 && thePandaFlat.nJot > 2)
+                           histo[105+theMinSelType][theCategory]->Fill(TMath::Min(vAllJot.Pt()/theAllJotHT,0.999),totalWeight);
+      if(dataCardSel == 1) histo[110][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight);
+      if(dataCardSel == 6) histo[111][theCategory]->Fill(TMath::Min(mTGMET,999.999),totalWeight);
+      if(dataCardSel == 2) histo[112][theCategory]->Fill(0.0,totalWeight);
+      if(dataCardSel == 7) histo[113][theCategory]->Fill(0.0,totalWeight);
+      if(dataCardSel == 3) histo[114][theCategory]->Fill(0.0,totalWeight);
+      if(dataCardSel == 8) histo[115][theCategory]->Fill(0.0,totalWeight);
       if(dataCardSel == 0) histoMTGMETMJJ[0][theCategory]->Fill(mTGMET,totalWeight);
       if(dataCardSel == 5) histoMTGMETMJJ[1][theCategory]->Fill(mTGMET,totalWeight);
 
       if(theMinSelType != LLGSEL){ // Begin datacard making
+      //if(1){ // Begin datacard making
         if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight,nloKfactor);
         double MVAVar     = TMath::Min(mTGMET    ,999.999);
         double MVAVarUp   = TMath::Min(mTGMETUp  ,999.999);
@@ -1123,7 +1150,7 @@ int year, int triggerCat, int mH = 125
     histo_GJPhotonE1Up           ->SetBinContent(i+nBinMVA/2,histoMTGMET0p75->GetBinContent(i));
     histo_GJPhotonE1Down         ->SetBinContent(i+nBinMVA/2,histoMTGMET0p25->GetBinContent(i));
   }
-  double normPhotonE0 = 10.0; if(year != 2016) normPhotonE0 = 1.0;
+  double normPhotonE0 = 25.0; if(year != 2016) normPhotonE0 = 1.0;
   histo_Baseline[kPlotPhotonE0]->Scale(normPhotonE0/histo_Baseline[kPlotPhotonE0]->GetSumOfWeights());
   histo_GJPhotonE0Up           ->Scale(normPhotonE0/histo_GJPhotonE0Up		 ->GetSumOfWeights());
   histo_GJPhotonE0Down         ->Scale(normPhotonE0/histo_GJPhotonE0Down 	 ->GetSumOfWeights());
@@ -1207,7 +1234,9 @@ int year, int triggerCat, int mH = 125
       histo_ElToPhRateBoundingUp  [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhRateBoundingUp  [ic]->GetBinContent(nb),0.0f));
       histo_ElToPhRateBoundingDown[ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhRateBoundingDown[ic]->GetBinContent(nb),0.0f));
     }
-    if(ic == kPlotBSM || ic == kPlotGJ0 || ic == kPlotGJ1 || ic == kPlotWG0 || ic == kPlotWG1 ||
+    if(ic == kPlotBSM || 
+       ic == kPlotGJ0 || ic == kPlotGJ1 ||
+       ic == kPlotWG0 || ic == kPlotWG1 ||
        ic == kPlotWJ0 || ic == kPlotWJ1 || ic == kPlotWJ2 || ic == kPlotWJ3 || ic == kPlotWJ4 || ic == kPlotWJ5) {
       histo_QCDScaleUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp  [ic]->GetSumOfWeights());
       histo_QCDScaleDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown[ic]->GetSumOfWeights());
@@ -1711,17 +1740,21 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("ch1 autoMCStats 0\n");
 
+  //newcardShape << Form("CMS_vbfg_zgnorm_%d_trigger%d   rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotZG].Data());
+
   newcardShape << Form("CMS_vbfg_wg0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG0].Data());
   newcardShape << Form("CMS_vbfg_wg1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG1].Data());
 
   newcardShape << Form("CMS_vbfg_gj0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ0].Data());
   newcardShape << Form("CMS_vbfg_gj1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ1].Data());
+
   newcardShape << Form("CMS_vbfg_wj0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ0].Data());
   newcardShape << Form("CMS_vbfg_wj1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ1].Data());
   newcardShape << Form("CMS_vbfg_wj2norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ2].Data());
   newcardShape << Form("CMS_vbfg_wj3norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ3].Data());
   newcardShape << Form("CMS_vbfg_wj4norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ4].Data());
   newcardShape << Form("CMS_vbfg_wj5norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ5].Data());
+
   //if(year == 2016){
   //  newcardShape << Form("CMS_vbfg_photone0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotPhotonE0].Data());
   //  newcardShape << Form("CMS_vbfg_photone1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotPhotonE1].Data());
@@ -1776,17 +1809,4 @@ int year, int triggerCat, int mH = 125
     outFilePlotsNote->Close();
   }
 
-  // Checking data/background yields
-  for(int nb=1; nb<=histo[allPlots-1][kPlotData]->GetNbinsX(); nb++) {
-    double totBck[3] = {0,0,0}; double sfBin[3] = {1,1,1,}; double totCR[2] = {0};
-    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM) totBck[0] = totBck[0] + histo[allPlots-1][i]->GetBinContent(nb);
-    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM && i != kPlotWJ0 && i != kPlotWJ1 && i != kPlotWJ2 && i != kPlotWJ3 && i != kPlotWJ4 && i != kPlotWJ5) totBck[1] = totBck[1] + histo[allPlots-1][i]->GetBinContent(nb);
-    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM && i != kPlotGJ0 && i != kPlotGJ1) totBck[2] = totBck[2] + histo[allPlots-1][i]->GetBinContent(nb);
-    for(int i=1; i<nPlotCategories; i++) if(i == kPlotWJ0 || i == kPlotWJ1 || i == kPlotWJ2 || i == kPlotWJ3 || i == kPlotWJ4 || i == kPlotWJ5) totCR[0] = totCR[0] + histo[allPlots-1][i]->GetBinContent(nb);
-    for(int i=1; i<nPlotCategories; i++) if(i == kPlotGJ0 || i == kPlotGJ1) totCR[1] = totCR[1] + histo[allPlots-1][i]->GetBinContent(nb);
-    if(totBck[0] > 0) sfBin[0] = histo[allPlots-1][kPlotData]->GetBinContent(nb) / totBck[0];
-    if(totCR[0] > 0) sfBin[1] = (histo[allPlots-1][kPlotData]->GetBinContent(nb)-totBck[1])/totCR[0];
-    if(totCR[1] > 0) sfBin[2] = (histo[allPlots-1][kPlotData]->GetBinContent(nb)-totBck[2])/totCR[1];
-    printf("(%d) %f/%f = %f | %f(%f) %f(%f)\n",nb,histo[allPlots-1][kPlotData]->GetBinContent(nb),totBck[0],sfBin[0],totCR[0],sfBin[1],totCR[1],sfBin[2]);
-  }
 }

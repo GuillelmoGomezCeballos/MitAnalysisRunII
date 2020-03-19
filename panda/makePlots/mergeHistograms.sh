@@ -26,24 +26,6 @@ do
   fi
 done
 
-elif [ $# == 1 ] && [ $1 == "vbfg" ]; then
-
-for i in `seq 0 110`;
-do
-  ls done_vbfg/histoVBFG_2016_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger0_mH125_${i}.root >& /dev/null
-  if [ $? -eq 0 ]; then
-    hadd -f done_vbfg/histoVBFG_2019_trigger0_mH125_${i}.root  done_vbfg/histoVBFG_2016_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger0_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger0_mH125_${i}.root
-  fi
-done
-
-for i in `seq 0 110`;
-do
-  ls done_vbfg/histoVBFG_2017_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger1_mH125_${i}.root >& /dev/null
-  if [ $? -eq 0 ]; then
-    hadd -f done_vbfg/histoVBFG_2019_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2017_trigger1_mH125_${i}.root done_vbfg/histoVBFG_2018_trigger1_mH125_${i}.root
-  fi
-done
-
 elif [ $# == 1 ] && [ $1 == "ssww" ]; then
 
 for i in `seq 0 150`;
@@ -64,19 +46,19 @@ done
 
 elif [ $# == 1 ] && [ $1 == "vbfg" ]; then
 
-for i in `seq 0 150`;
+for i in `seq 0 1`;
 do
-  ls done_ana/histoVBFG_trigger0_2016_${i}.root done_ana/histoVBFG_trigger0_2017_${i}.root done_ana/histoVBFG_trigger0_2018_${i}.root >& /dev/null
+  ls plots/histoVBFGMTGMETMJJ_201[6-8]_trigger[0-1]_mH125_${i}.root >& /dev/null
   if [ $? -eq 0 ]; then
-    hadd -f done_ana/histoVBFG_trigger0_2019_${i}.root done_ana/histoVBFG_trigger0_2016_${i}.root done_ana/histoVBFG_trigger0_2017_${i}.root done_ana/histoVBFG_trigger0_2018_${i}.root
+    hadd -f done_vbfg/histoVBFGMTGMETMJJ_2019_trigger2_mH125_${i}.root plots/histoVBFGMTGMETMJJ_201[6-8]_trigger[0-1]_mH125_${i}.root
   fi
 done
 
 for i in `seq 0 150`;
 do
-  ls done_ana/histoVBFG_trigger1_2017_${i}.root done_ana/histoVBFG_trigger1_2018_${i}.root >& /dev/null
+  ls plots/histoVBFG_2016_trigger0_mH125_${i}.root plots/histoVBFG_2017_trigger0_mH125_${i}.root plots/histoVBFG_2017_trigger1_mH125_${i}.root plots/histoVBFG_2018_trigger0_mH125_${i}.root plots/histoVBFG_2018_trigger1_mH125_${i}.root >& /dev/null
   if [ $? -eq 0 ]; then
-    hadd -f done_ana/histoVBFG_trigger1_2016_${i}.root done_ana/histoVBFG_trigger1_2017_${i}.root done_ana/histoVBFG_trigger1_2018_${i}.root
+    hadd -f done_vbfg/histoVBFG_2019_trigger2_mH125_${i}.root plots/histoVBFG_2016_trigger0_mH125_${i}.root plots/histoVBFG_2017_trigger0_mH125_${i}.root plots/histoVBFG_2017_trigger1_mH125_${i}.root plots/histoVBFG_2018_trigger0_mH125_${i}.root plots/histoVBFG_2018_trigger1_mH125_${i}.root
   fi
 done
 

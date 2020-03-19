@@ -243,8 +243,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     else if(thePlot >=  70 && thePlot <=  70) {nBinPlot = 5;   xminPlot = -0.5; xmaxPlot = 4.5;}
     else if(thePlot >=  71 && thePlot <=  71) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >=  72 && thePlot <=  72) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  73 && thePlot <=  73) {nBinPlot = 100; xminPlot = -TMath::Pi(); xmaxPlot = TMath::Pi();}
-    else if(thePlot >=  74 && thePlot <=  74) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1.0;}
+    else if(thePlot >=  73 && thePlot <=  74) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >=  75 && thePlot <=  78) {is1DMETPlot = true;}
     else if(thePlot >=  79 && thePlot <=  79) {nBinPlot = 100; xminPlot = 25.0; xmaxPlot = 425.0;}
     else if(thePlot >=  80 && thePlot <=  80) {nBinPlot = 100; xminPlot = 20.0; xmaxPlot = 220.0;}
@@ -501,6 +500,12 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
         vJetTemp.SetPtEtaPhiM(thePandaFlat.jotPt_JESTotalDown[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
         dPhiJetMETDown = TMath::Abs(vJetTemp.DeltaPhi(vMetDown));
       }
+      if(thePandaFlat.nJot > 1 && thePandaFlat.jotPt[1] > 30) {
+        TLorentzVector vJetTemp;
+        vJetTemp.SetPtEtaPhiM(thePandaFlat.jotPt[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
+	sumHT = sumHT + thePandaFlat.jotPt[1];
+	dilepJet = dilepJet + vJetTemp;
+      }
 
       if(!(dilep.Pt() > 60 && (vMet.Pt() > 70 || vMetUp.Pt() > 70 ||vMetDown.Pt() > 70) && (thePandaFlat.nLooseLep != 2 || TMath::Abs(dilep.M()-125) < 75))) continue;
 
@@ -744,7 +749,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 	    histo[71][theCategory]->Fill(dPhiDiLepMET,totalWeight);
 	    histo[72][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
       }
-      if(passAllCuts[ZHTIGHTSEL] && thePandaFlat.nJot >= 1 && lepType != 2) histo[73][theCategory]->Fill(thePandaFlat.jotPhi[0],totalWeight);
+      if(passNMinusOne[1] && thePandaFlat.nJot == 2 && lepType != 2) histo[73][theCategory]->Fill(dilepJet.Pt()/sumHT,totalWeight);
       if(passAllCuts[ZHTIGHTSEL] && lepType != 2) histo[74][theCategory]->Fill(dilepJet.Pt()/sumHT,totalWeight);
       if(passAllCuts[DYSEL] && lepType != 2){
 	  bool passA = dilepJet.Pt()/sumHT > 0.60 && passMETTight;

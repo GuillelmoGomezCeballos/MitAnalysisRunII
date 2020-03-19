@@ -73,12 +73,12 @@ def doAnalysis(paths_to_watch):
         totalUncPF = pow(processesDict[key][1]*processesDict[key][1]+processesDict[key][6],0.5)
         totalUncB  = pow(processesDict[key][3]*processesDict[key][3]+processesDict[key][7],0.5)
         totalUncSB = pow(processesDict[key][5]*processesDict[key][5]+processesDict[key][8],0.5)
-        print "{0:15s}: {1:5.1f} +/- {2:5.1f} ({3:5.1f}) | {4:5.1f} +/- {5:5.1f} ({6:5.1f}) | {7:5.1f} +/- {8:5.1f} ({9:5.1f})".format(key,processesDict[key][0],totalUncPF,pow(processesDict[key][6],0.5),processesDict[key][2],totalUncB,pow(processesDict[key][7],0.5),processesDict[key][4],totalUncSB,pow(processesDict[key][8],0.5))
+        print "{0:15s}: {1:6.1f} +/- {2:6.1f} ({3:6.1f}) | {4:6.1f} +/- {5:6.1f} ({6:6.1f}) | {7:6.1f} +/- {8:6.1f} ({9:6.1f})".format(key,processesDict[key][0],totalUncPF,pow(processesDict[key][6],0.5),processesDict[key][2],totalUncB,pow(processesDict[key][7],0.5),processesDict[key][4],totalUncSB,pow(processesDict[key][8],0.5))
     for key in backgroundDict:
         totalUncPF = pow(backgroundDict[key][1]*backgroundDict[key][1]+backgroundDict[key][2],0.5)
         totalUncB  = pow(backgroundDict[key][4]*backgroundDict[key][4]+backgroundDict[key][5],0.5)
         totalUncSB = pow(backgroundDict[key][7]*backgroundDict[key][7]+backgroundDict[key][8],0.5)
-        print "{0:15s}: {1:5.1f} +/- {2:5.1f} ({3:5.1f}) | {4:5.1f} +/- {5:5.1f} ({6:5.1f}) | {7:5.1f} +/- {8:5.1f} ({9:5.1f})".format(key,backgroundDict[key][0],totalUncPF,pow(backgroundDict[key][2],0.5),backgroundDict[key][3],totalUncB,pow(backgroundDict[key][5],0.5),backgroundDict[key][6],totalUncSB,pow(backgroundDict[key][8],0.5))
+        print "{0:15s}: {1:6.1f} +/- {2:6.1f} ({3:6.1f}) | {4:6.1f} +/- {5:6.1f} ({6:6.1f}) | {7:6.1f} +/- {8:6.1f} ({9:6.1f})".format(key,backgroundDict[key][0],totalUncPF,pow(backgroundDict[key][2],0.5),backgroundDict[key][3],totalUncB,pow(backgroundDict[key][5],0.5),backgroundDict[key][6],totalUncSB,pow(backgroundDict[key][8],0.5))
 
 """
 Main
