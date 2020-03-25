@@ -61,7 +61,7 @@ elif [ $NSEL == 'vbfg' ]; then
 ./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2017 1 1
 ./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2018 0 1
 ./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2018 1 1
-./MitAnalysisRunII/panda/makePlots/mergeHistograms.sh vbfg
+./MitAnalysisRunII/panda/makePlots/mergeHistograms.sh vbfg 125
 ./MitAnalysisRunII/panda/makePlots/makePlots_vbfg.sh vbfg 1 2019 2 1
 
 fi

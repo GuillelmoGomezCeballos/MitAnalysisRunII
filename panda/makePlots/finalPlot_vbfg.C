@@ -186,6 +186,10 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   }
 
   _hist[kPlotGJ0]->Add(_hist[kPlotGJ1]);_hist[kPlotGJ1]->Scale(0.0);
+  _hist[kPlotGJ0]->Add(_hist[kPlotGJ2]);_hist[kPlotGJ2]->Scale(0.0);
+  _hist[kPlotGJ0]->Add(_hist[kPlotGJ3]);_hist[kPlotGJ3]->Scale(0.0);
+  _hist[kPlotGJ0]->Add(_hist[kPlotGJ4]);_hist[kPlotGJ4]->Scale(0.0);
+  _hist[kPlotGJ0]->Add(_hist[kPlotGJ5]);_hist[kPlotGJ5]->Scale(0.0);
 
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ1]);_hist[kPlotWJ1]->Scale(0.0);
   _hist[kPlotWJ0]->Add(_hist[kPlotWJ2]);_hist[kPlotWJ2]->Scale(0.0);

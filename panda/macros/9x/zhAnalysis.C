@@ -149,7 +149,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   }
 
   //infileName_.clear();infileCat_.clear();
-  //infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data()));	       infileCat_.push_back(kPlotBSM);
+  //infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data()));	       infileCat_.push_back(kPlotBSM);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
@@ -199,6 +199,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   TFile *fADDRatios = TFile::Open(Form("MitAnalysisRunII/data/90x/add/%s_%d.root",fileADDName.Data(),year));
   TH1D* histoADDRatio = (TH1D*)fADDRatios->Get("ratio;1"); histoADDRatio->SetDirectory(0);
   fADDRatios->Close();
+
+  TH1D* hDWZGenLevel = new TH1D(Form("hDWZGenLevel"), Form("hDWZGenLevel"), 16, -0.5, 15.5);
 
   const float metCut = 70;
   //const int nBinMVA = 36; Float_t xbins[nBinMVA+1] = {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
@@ -711,6 +713,14 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       }
 
       if(isBlinded && lepType != 2 && passAllCuts[ZHTIGHTSEL] && theCategory == kPlotData) continue; // remove ee/mm data events that pass the full tight ZH selection
+
+      if(passAllCuts[ZHTIGHTSEL] && infileCat_[ifile] == kPlotWZ){
+        int theWZCat[2] = {0,0};
+	if(thePandaFlat.genLep1Pt > 10) {theWZCat[0]++; if(TMath::Abs(thePandaFlat.genLep1Eta) < 2.5) theWZCat[1]++;}
+	if(thePandaFlat.genLep2Pt > 10) {theWZCat[0]++; if(TMath::Abs(thePandaFlat.genLep2Eta) < 2.5) theWZCat[1]++;}
+	if(thePandaFlat.genLep3Pt > 10) {theWZCat[0]++; if(TMath::Abs(thePandaFlat.genLep3Eta) < 2.5) theWZCat[1]++;}
+	hDWZGenLevel->Fill(theWZCat[0]+4*theWZCat[1],totalWeight);
+      }
 
       if(passAllCuts[ZHTIGHTSEL]) histo[lepType+  0][theCategory]->Fill(TMath::Max(TMath::Min(mT,xbins1DMT[nBin1DMT]-0.001),xbins1DMT[0]+0.001),totalWeight);
       if(passAllCuts[ZHSEL])      histo[lepType+  3][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
@@ -1474,6 +1484,15 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     newcardShape << Form("ch1 autoMCStats 0\n");
 
     newcardShape.close();
+
+    if(hDWZGenLevel->GetSumOfWeights() > 0){
+      hDWZGenLevel->Scale(1.0/hDWZGenLevel->GetSumOfWeights());
+      printf("hDWZGenLevel");
+      for(int i=1; i<=hDWZGenLevel->GetNbinsX(); i++) {
+        printf(" %.3f",hDWZGenLevel->GetBinContent(i));
+      }
+      printf("\n");
+    }
 
     // Writing standard histograms
     char output[200];

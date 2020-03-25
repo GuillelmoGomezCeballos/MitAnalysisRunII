@@ -49,26 +49,30 @@ enum TriggerBits {
 
 
 enum plotCategory {
-  kPlotData      , // 0
-  kPlotVV        , // 1
-  kPlotWJ0       , // 2
-  kPlotWJ1       , // 3
-  kPlotWJ2       , // 4
-  kPlotWJ3       , // 5
-  kPlotWJ4       , // 6
-  kPlotWJ5       , // 7
-  kPlotDY        , // 8
-  kPlotTop       , // 9
-  kPlotVVV       , //10
-  kPlotWG0       , //11
-  kPlotWG1       , //12
-  kPlotZG        , //13
-  kPlotGJ0       , //14
-  kPlotGJ1       , //15
-  kPlotNonPrompt , //16
-  kPlotPhotonE0  , //17
-  kPlotPhotonE1  , //18
-  kPlotBSM       , //19
+  kPlotData	 , // 0
+  kPlotVV	 , // 1
+  kPlotWJ0	 , // 2
+  kPlotWJ1	 , // 3
+  kPlotWJ2	 , // 4
+  kPlotWJ3	 , // 5
+  kPlotWJ4	 , // 6
+  kPlotWJ5	 , // 7
+  kPlotDY	 , // 8
+  kPlotTop	 , // 9
+  kPlotVVV	 , //10
+  kPlotWG0	 , //11
+  kPlotWG1	 , //12
+  kPlotZG	 , //13
+  kPlotGJ0	 , //14
+  kPlotGJ1	 , //15
+  kPlotGJ2	 , //16
+  kPlotGJ3	 , //17
+  kPlotGJ4	 , //18
+  kPlotGJ5	 , //19
+  kPlotNonPrompt , //20
+  kPlotPhotonE0  , //21
+  kPlotPhotonE1  , //22
+  kPlotBSM	 , //23
   nPlotCategories
 };
 
@@ -89,6 +93,10 @@ std::map<int, TString> plotBaseNames={
   { kPlotZG        , "ZG" },
   { kPlotGJ0	   , "GJ0" },
   { kPlotGJ1	   , "GJ1" },
+  { kPlotGJ2	   , "GJ2" },
+  { kPlotGJ3	   , "GJ3" },
+  { kPlotGJ4	   , "GJ4" },
+  { kPlotGJ5	   , "GJ5" },
   { kPlotNonPrompt , "NonPrompt" },
   { kPlotPhotonE0  , "PhotonE0" },
   { kPlotPhotonE1  , "PhotonE1" },
@@ -96,22 +104,26 @@ std::map<int, TString> plotBaseNames={
 }; 
 
 std::map<int, int> plotColors={
-  { kPlotData      , kBlack},
-  { kPlotVV        , kAzure-9},
-  { kPlotWJ0       , 901},
-  { kPlotWJ1       , kMagenta+1},
-  { kPlotWJ2       , kMagenta+2},
-  { kPlotWJ3       , kMagenta+3},
-  { kPlotWJ4       , kMagenta+4},
-  { kPlotWJ5       , kMagenta+5},
-  { kPlotDY        , kYellow},
-  { kPlotTop       , kAzure-2},
-  { kPlotVVV       , TColor::GetColor(248,206,104)},
-  { kPlotWG0       , TColor::GetColor(250,202,255)},
-  { kPlotWG1       , TColor::GetColor(250,202,255)},
-  { kPlotZG        , kCyan+3},
-  { kPlotGJ0       , TColor::GetColor(222,90,106)},
-  { kPlotGJ1       , kMagenta+4},
+  { kPlotData	   , kBlack},
+  { kPlotVV	   , kAzure-9},
+  { kPlotWJ0	   , 901},
+  { kPlotWJ1	   , kMagenta+1},
+  { kPlotWJ2	   , kMagenta+2},
+  { kPlotWJ3	   , kMagenta+3},
+  { kPlotWJ4	   , kMagenta+4},
+  { kPlotWJ5	   , kMagenta+5},
+  { kPlotDY	   , kYellow},
+  { kPlotTop	   , kAzure-2},
+  { kPlotVVV	   , TColor::GetColor(248,206,104)},
+  { kPlotWG0	   , TColor::GetColor(250,202,255)},
+  { kPlotWG1	   , TColor::GetColor(250,202,255)},
+  { kPlotZG	   , kCyan+3},
+  { kPlotGJ0	   , TColor::GetColor(222,90,106)},
+  { kPlotGJ1	   , kMagenta+4},
+  { kPlotGJ2	   , kMagenta+5},
+  { kPlotGJ3	   , kMagenta+6},
+  { kPlotGJ4	   , kMagenta+7},
+  { kPlotGJ5	   , kMagenta+8},
   { kPlotNonPrompt , kAzure-9},
   { kPlotPhotonE0  , TColor::GetColor(155,152,204)},
   { kPlotPhotonE1  , 809},
@@ -120,7 +132,7 @@ std::map<int, int> plotColors={
 
 std::map<int, TString> plotNames={
     { kPlotData      , "Data"},
-    { kPlotVV        , "VV"},
+    { kPlotVV	     , "VV"},
     { kPlotWJ0       , "W+jets"},
     { kPlotWJ1       , "W+jets1"},
     { kPlotWJ2       , "W+jets2"},
@@ -130,11 +142,15 @@ std::map<int, TString> plotNames={
     { kPlotDY	     , "Z+jets"},
     { kPlotTop       , "Top quark"},
     { kPlotVVV       , "VVV"},
-    { kPlotWG0	     , "W#gamma"},
-    { kPlotWG1	     , "W#gamma1"},
-    { kPlotZG        , "Z#gamma"},
-    { kPlotGJ0	     , "#gamma+jets"},
-    { kPlotGJ1	     , "#gamma+jets1"},
+    { kPlotWG0       , "W#gamma"},
+    { kPlotWG1       , "W#gamma1"},
+    { kPlotZG	     , "Z#gamma"},
+    { kPlotGJ0       , "#gamma+jets"},
+    { kPlotGJ1       , "#gamma+jets1"},
+    { kPlotGJ2       , "#gamma+jets2"},
+    { kPlotGJ3       , "#gamma+jets3"},
+    { kPlotGJ4       , "#gamma+jets4"},
+    { kPlotGJ5       , "#gamma+jets5"},
     { kPlotNonPrompt , "Nonprompt"},
     { kPlotPhotonE0  , "Mismeasured #gamma"},
     { kPlotPhotonE1  , "Mismeasured #gamma high m_{jj}"},
@@ -144,10 +160,20 @@ std::map<int, TString> plotNames={
 const double mass_el = 0.000510998928;
 const double mass_mu = 0.10566;
 
-double mcCorrection(int type, int year, int infileCat, double mjj, double mtg, int triggerCat){
+double mcCorrection(int type, TString infileName, int year, int infileCat, double mjj, double mtg, int triggerCat){
   double totalWeight = 1.0;
 
-  if(infileCat == kPlotBSM) totalWeight = totalWeight * 0.1; // 3.782;
+  if(infileCat == kPlotBSM) {
+    if     (infileName.Contains("VBF_HinvG")) totalWeight = totalWeight * 1.0;
+    else if(infileName.Contains("125"))  totalWeight = totalWeight * 0.392500;
+    else if(infileName.Contains("150"))  totalWeight = totalWeight * 0.323900;
+    else if(infileName.Contains("200"))  totalWeight = totalWeight * 0.228200;
+    else if(infileName.Contains("300"))  totalWeight = totalWeight * 0.125600;
+    else if(infileName.Contains("500"))  totalWeight = totalWeight * 0.048720;
+    else if(infileName.Contains("800"))  totalWeight = totalWeight * 0.016220;
+    else if(infileName.Contains("1000")) totalWeight = totalWeight * 0.008732;
+    else {printf("XS NOT FOUND!\n"); totalWeight = 0.0;}
+  }
 
   if     (type == 0){ // VBFG
 /*
