@@ -261,7 +261,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(isLogSpecial) {c1->SetLogx();pad1->SetLogx();pad2->SetLogx();}
 
   myPlot.Draw(ReBin);
-  CMS_lumi( pad1, year, 1 );
+  CMS_lumi( pad1, year, 11 );
 
   pad2->cd();
   pad2->RedrawAxis();

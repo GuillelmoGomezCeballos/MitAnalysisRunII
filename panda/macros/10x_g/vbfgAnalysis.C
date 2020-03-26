@@ -53,8 +53,8 @@ int year, int triggerCat, int mH = 125
   if(isHVBFGAna == true){ // mjj and detajj
     printf("isHVBFGAna!\n");
     mjjSplit = 1500;
-    mtgSplit0 = 4.0*100;
-    mtgSplit1 = 5.0*100;
+    mtgSplit0 = 4.5*100;
+    mtgSplit1 = 999.99999;
   }
 
   //*******************************************************
@@ -835,9 +835,9 @@ int year, int triggerCat, int mH = 125
         passDPhiJetMETDown = thePandaFlat.dphipfUW_JESTotalDown >= dPhiJetCutVal;
       }
 
-      const int numberOfCuts = 8;
-      //                                                 0                      1         2       3              4       5          6        7
-      bool passCutEvol[numberOfCuts] = {theMinSelType >= 0,passZMass && passPtTot,passNjets,passMET,passDPhiJetMET,passMJJ,passDEtaJJ,passgZep};
+      const int numberOfCuts = 9;
+      //                                                 0         1         2       3          4       5         6              7        8
+      bool passCutEvol[numberOfCuts] = {theMinSelType >= 0,passZMass,passNjets,passMJJ,passDEtaJJ,passMET,passPtTot,passDPhiJetMET,passgZep};
       bool passCutEvolAll = true;
 
       if((debug == 1 || debug == 3) && theMinSelType >= 0) printf("DEBUG %d %d %d %d %d %d %d %d\n",theMinSelType,passZMass,passPtTot,passMET,passNjets,passDPhiJetMET,passMJJ,passDEtaJJ);
@@ -847,7 +847,7 @@ int year, int triggerCat, int mH = 125
      theMinSelType == LSEL    && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == LGSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == GJSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
-     theMinSelType == LLGSEL  && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot 
+     theMinSelType == LLGSEL  && passZMass && passMET && passNjets &&                   passMJJ && passDEtaJJ
                                     };
 
       bool passNMinusOne[7] = {
@@ -872,9 +872,9 @@ int year, int triggerCat, int mH = 125
       bool passGJSel	   = theMinSelType == GJSEL   && passZMass && passMET     && passNjets     && passDPhiJetMET     && passMJJ	&& passDEtaJJ     && passgZep     && passPtTot    ;
       bool passGJSelUp	   = theMinSelType == GJSEL   && passZMass && passMETUp   && passNjetsUp   && passDPhiJetMETUp   && passMJJUp   && passDEtaJJUp   && passgZepUp   && passPtTotUp  ;
       bool passGJSelDown   = theMinSelType == GJSEL   && passZMass && passMETDown && passNjetsDown && passDPhiJetMETDown && passMJJDown && passDEtaJJDown && passgZepDown && passPtTotDown;
-      bool passLLGSel      = theMinSelType == LLGSEL  && passZMass && passMET     && passNjets     && passDPhiJetMET     && passMJJ	&& passDEtaJJ     && passgZep     && passPtTot    ;
-      bool passLLGSelUp    = theMinSelType == LLGSEL  && passZMass && passMETUp   && passNjetsUp   && passDPhiJetMETUp   && passMJJUp   && passDEtaJJUp   && passgZepUp   && passPtTotUp  ;
-      bool passLLGSelDown  = theMinSelType == LLGSEL  && passZMass && passMETDown && passNjetsDown && passDPhiJetMETDown && passMJJDown && passDEtaJJDown && passgZepDown && passPtTotDown;
+      bool passLLGSel      = theMinSelType == LLGSEL  && passZMass && passMET     && passNjets     && passMJJ	  && passDEtaJJ    ;
+      bool passLLGSelUp    = theMinSelType == LLGSEL  && passZMass && passMETUp   && passNjetsUp   && passMJJUp   && passDEtaJJUp  ;
+      bool passLLGSelDown  = theMinSelType == LLGSEL  && passZMass && passMETDown && passNjetsDown && passMJJDown && passDEtaJJDown;
 
       int dataCardSel = -1; int dataCardSelUp = -1;int dataCardSelDown = -1;
       if     (passVBFGSel) dataCardSel = 0;
@@ -1794,7 +1794,7 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("ch1 autoMCStats 0\n");
 
-  //newcardShape << Form("CMS_vbfg_zgnorm_%d_trigger%d   rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotZG].Data());
+  newcardShape << Form("CMS_vbfg_zgnorm_%d rateParam * %s 1 [0,20]\n",year,plotBaseNames[kPlotZG].Data());
 
   newcardShape << Form("CMS_vbfg_wg0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG0].Data());
   newcardShape << Form("CMS_vbfg_wg1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG1].Data());
