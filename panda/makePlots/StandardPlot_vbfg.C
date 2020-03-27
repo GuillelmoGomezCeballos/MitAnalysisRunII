@@ -81,8 +81,8 @@ void AxisFonts(TAxis*  axis,
     axis->SetTitleOffset(  0.9);
     axis->SetTitleSize  (0.050);
 
-    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.20);
-    else if (coordinate == "y")                            axis->SetTitleOffset(1.20);
+    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.10);
+    else if (coordinate == "y")                            axis->SetTitleOffset(1.10);
 
     axis->SetTitle(title);
 }

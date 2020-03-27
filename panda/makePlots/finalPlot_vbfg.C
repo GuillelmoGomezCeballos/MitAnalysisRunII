@@ -44,28 +44,34 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
     histo->GetXaxis()->SetTitle(xtitle.Data());
   } else {
     units = units.ReplaceAll("BIN","");
-    histo->GetXaxis()->SetTitle(Form("%s [%s]",xtitle.Data(),units.Data()));
+    if(strcmp(units.Data(),"")==0){
+      histo->GetXaxis()->SetTitle(Form("%s",xtitle.Data()));
+    }
+    else {
+      histo->GetXaxis()->SetTitle(Form("%s [%s]",xtitle.Data(),units.Data()));
+    }
   }
   histo->GetXaxis()->SetLabelFont  (   42);
   histo->GetXaxis()->SetLabelOffset(0.015);
-  histo->GetXaxis()->SetLabelSize  (0.140);
+  histo->GetXaxis()->SetLabelSize  (0.138);
   histo->GetXaxis()->SetNdivisions (  505);
   histo->GetXaxis()->SetTitleFont  (   42);
   histo->GetXaxis()->SetTitleOffset( 0.95);
   histo->GetXaxis()->SetTitleSize  (0.140);
-  histo->GetXaxis()->SetTickLength (0.07 );
+  //histo->GetXaxis()->SetTickLength (0.07 );
 
   histo->GetYaxis()->SetTitle(ytitle.Data());
   histo->GetYaxis()->SetLabelFont  (   42);
   histo->GetYaxis()->SetLabelOffset(0.015);
-  histo->GetYaxis()->SetLabelSize  (0.120);
+  histo->GetYaxis()->SetLabelSize  (0.138);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
-  histo->GetYaxis()->SetTitleSize  (0.120);
-  histo->GetYaxis()->SetTickLength (0.03 );
+  histo->GetYaxis()->SetTitleSize  (0.140);
+  //histo->GetYaxis()->SetTickLength (0.03 );
 
   histo->SetLineColor  (kBlack);
+  histo->SetMarkerSize(0.8);
   histo->SetMarkerStyle(kFullCircle);
 }
 
@@ -239,7 +245,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(isLogY == true) c1->SetLogy();
   if(isLogX == true) c1->SetLogx();
   myPlot.Draw(ReBin);  // Can pass a rebin 
-  CMS_lumi( c1, year, 1 );
+  CMS_lumi( c1, year, 11 );
   } else {
   c1->SetBottomMargin(0.1);
   c1->cd();

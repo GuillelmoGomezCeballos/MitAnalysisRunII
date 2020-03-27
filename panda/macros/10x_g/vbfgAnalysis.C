@@ -1794,7 +1794,7 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("ch1 autoMCStats 0\n");
 
-  newcardShape << Form("CMS_vbfg_zgnorm_%d rateParam * %s 1 [0,20]\n",year,plotBaseNames[kPlotZG].Data());
+  //newcardShape << Form("CMS_vbfg_zgnorm rateParam * %s 1 [0,20]\n",plotBaseNames[kPlotZG].Data());
 
   newcardShape << Form("CMS_vbfg_wg0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG0].Data());
   newcardShape << Form("CMS_vbfg_wg1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG1].Data());
