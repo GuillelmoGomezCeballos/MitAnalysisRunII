@@ -385,7 +385,7 @@ int year, int triggerCat, int mH = 125
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 117;
+  const int allPlots = 116;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
@@ -400,7 +400,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  30 && thePlot <=  34) {nBinPlot = 10;  xminPlot =  3.0; xmaxPlot = 8;}
     else if(thePlot >=  35 && thePlot <=  39) {nBinPlot = 10;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 14;  xminPlot =  0.0; xmaxPlot = 210;}
-    else if(thePlot >=  45 && thePlot <=  49) {nBinPlot = 8;   xminPlot = -0.5; xmaxPlot = 7.5;}
+    else if(thePlot >=  45 && thePlot <=  49) {nBinPlot = 9;   xminPlot = -0.5; xmaxPlot = 8.5;}
     else if(thePlot >=  50 && thePlot <=  54) {nBinPlot = 15;  xminPlot =  0.0; xmaxPlot = 1.5;}
     else if(thePlot >=  55 && thePlot <=  59) {nBinPlot = 20;  xminPlot = 80.0; xmaxPlot = 480.0;}
     else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
@@ -412,13 +412,14 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  95 && thePlot <=  99) {nBinPlot = 15;  xminPlot =  0.7; xmaxPlot = 1.0;}
     else if(thePlot >= 100 && thePlot <= 109) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >= 110 && thePlot <= 111) {the1DFit = 1;}
-    else if(thePlot >= 112 && thePlot <= 113) {the1DFit = 2;}
-    else if(thePlot >= 114 && thePlot <= 115) {the1DFit = 2;}
+    else if(thePlot >= 112 && thePlot <= 112) {the1DFit = 2;}
+    else if(thePlot >= 113 && thePlot <= 113) {the1DFit = 2;}
+    else if(thePlot >= 114 && thePlot <= 114) {the1DFit = 2;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
     else if(the1DFit == 1)         for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVACR, xbinsMVACR);
-    else if(the1DFit == 2)         for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), 1, -0.5, 0.5);
+    else if(the1DFit == 2)         for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), 2, 500, 2500);
     else                           for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
 
@@ -749,6 +750,7 @@ int year, int triggerCat, int mH = 125
       double mtgCutVal = 0;if(isHVBFGAna) mtgCutVal = 70;
       double metCutVal = 100;
       if(year != 2016) metCutVal = 140;
+      if(theMinSelType == LLGSEL && (triggerCat == 1 || year == 2016)) metCutVal = 0;
       bool passZMass = TMath::Abs(mLL-91.1876) < 15.0;
       bool passMET     = vMet.Pt()     > metCutVal && mTGMET     > mtgCutVal;
       bool passMETUp   = vMetUp.Pt()   > metCutVal && mTGMETUp   > mtgCutVal;
@@ -757,6 +759,11 @@ int year, int triggerCat, int mH = 125
         passMET     = thePandaFlat.pfUWmag              > metCutVal && mTGMET     > mtgCutVal; 
 	passMETUp   = thePandaFlat.pfUWmag_JESTotalUp   > metCutVal && mTGMETUp   > mtgCutVal;
 	passMETDown = thePandaFlat.pfUWmag_JESTotalDown > metCutVal && mTGMETDown > mtgCutVal;
+      }
+      else if(theMinSelType == LLGSEL){
+        passMET     = thePandaFlat.pfUZmag		> metCutVal && mTGMET     > mtgCutVal; 
+	passMETUp   = thePandaFlat.pfUZmag_JESTotalUp   > metCutVal && mTGMETUp   > mtgCutVal;
+	passMETDown = thePandaFlat.pfUZmag_JESTotalDown > metCutVal && mTGMETDown > mtgCutVal;
       }
 
       if(debug == 1 && dPhiGMET < 0.1) printf("%d %f %f %f %f %f %f\n",theMinSelType,mTGMET,dPhiGMET,theG.Phi(),vMet.Phi(),theG.Pt(),vMet.Pt());
@@ -829,10 +836,23 @@ int year, int triggerCat, int mH = 125
       bool passDPhiJetMET     = dPhiJetMET     >= dPhiJetCutVal || theMinSelType == GJSEL;
       bool passDPhiJetMETUp   = dPhiJetMETUp   >= dPhiJetCutVal || theMinSelType == GJSEL;
       bool passDPhiJetMETDown = dPhiJetMETDown >= dPhiJetCutVal || theMinSelType == GJSEL;
-      if(theMinSelType == LGSEL || theMinSelType == LLGSEL){
+      if     (theMinSelType == LGSEL){
         passDPhiJetMET     = thePandaFlat.dphipfUW              >= dPhiJetCutVal;
         passDPhiJetMETUp   = thePandaFlat.dphipfUW_JESTotalUp   >= dPhiJetCutVal;
         passDPhiJetMETDown = thePandaFlat.dphipfUW_JESTotalDown >= dPhiJetCutVal;
+      }
+      else if(theMinSelType == LLGSEL){
+        passDPhiJetMET     = thePandaFlat.dphipfUZ              >= dPhiJetCutVal;
+        passDPhiJetMETUp   = thePandaFlat.dphipfUZ_JESTotalUp   >= dPhiJetCutVal;
+        passDPhiJetMETDown = thePandaFlat.dphipfUZ_JESTotalDown >= dPhiJetCutVal;
+      }
+
+      // Removing some requirements
+      if(theMinSelType == LLGSEL){
+        passMET        = true; passMETUp        = true; passMETDown        = true;
+	passDPhiJetMET = true; passDPhiJetMETUp = true; passDPhiJetMETDown = true;
+	passgZep       = true; passgZepUp       = true; passgZepDown       = true;
+        passPtTot      = true; passPtTotUp      = true; passPtTotDown      = true;
       }
 
       const int numberOfCuts = 9;
@@ -847,7 +867,7 @@ int year, int triggerCat, int mH = 125
      theMinSelType == LSEL    && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == LGSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == GJSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
-     theMinSelType == LLGSEL  && passZMass && passMET && passNjets &&                   passMJJ && passDEtaJJ
+     theMinSelType == LLGSEL  && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot
                                     };
 
       bool passNMinusOne[7] = {
@@ -872,9 +892,9 @@ int year, int triggerCat, int mH = 125
       bool passGJSel	   = theMinSelType == GJSEL   && passZMass && passMET     && passNjets     && passDPhiJetMET     && passMJJ	&& passDEtaJJ     && passgZep     && passPtTot    ;
       bool passGJSelUp	   = theMinSelType == GJSEL   && passZMass && passMETUp   && passNjetsUp   && passDPhiJetMETUp   && passMJJUp   && passDEtaJJUp   && passgZepUp   && passPtTotUp  ;
       bool passGJSelDown   = theMinSelType == GJSEL   && passZMass && passMETDown && passNjetsDown && passDPhiJetMETDown && passMJJDown && passDEtaJJDown && passgZepDown && passPtTotDown;
-      bool passLLGSel      = theMinSelType == LLGSEL  && passZMass && passMET     && passNjets     && passMJJ	  && passDEtaJJ    ;
-      bool passLLGSelUp    = theMinSelType == LLGSEL  && passZMass && passMETUp   && passNjetsUp   && passMJJUp   && passDEtaJJUp  ;
-      bool passLLGSelDown  = theMinSelType == LLGSEL  && passZMass && passMETDown && passNjetsDown && passMJJDown && passDEtaJJDown;
+      bool passLLGSel      = theMinSelType == LLGSEL  && passZMass && passMET	  && passNjets     && passDPhiJetMET	 && passMJJ	&& passDEtaJJ	  && passgZep	  && passPtTot    ;
+      bool passLLGSelUp    = theMinSelType == LLGSEL  && passZMass && passMETUp   && passNjetsUp   && passDPhiJetMETUp   && passMJJUp	&& passDEtaJJUp   && passgZepUp   && passPtTotUp  ;
+      bool passLLGSelDown  = theMinSelType == LLGSEL  && passZMass && passMETDown && passNjetsDown && passDPhiJetMETDown && passMJJDown && passDEtaJJDown && passgZepDown && passPtTotDown;
 
       int dataCardSel = -1; int dataCardSelUp = -1;int dataCardSelDown = -1;
       if     (passVBFGSel) dataCardSel = 0;
@@ -1096,15 +1116,14 @@ int year, int triggerCat, int mH = 125
                            histo[105+theMinSelType][theCategory]->Fill(TMath::Min(vAllJot.Pt()/theAllJotHT,0.999),totalWeight);
       if(dataCardSel == 1) histo[110][theCategory]->Fill(MVAVar,totalWeight);
       if(dataCardSel == 6) histo[111][theCategory]->Fill(MVAVar,totalWeight);
-      if(dataCardSel == 2) histo[112][theCategory]->Fill(0.0,totalWeight);
-      if(dataCardSel == 7) histo[113][theCategory]->Fill(0.0,totalWeight);
-      if(dataCardSel == 3) histo[114][theCategory]->Fill(0.0,totalWeight);
-      if(dataCardSel == 8) histo[115][theCategory]->Fill(0.0,totalWeight);
+      if(dataCardSel == 2 || dataCardSel == 7) histo[112][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+      if(dataCardSel == 3 || dataCardSel == 8) histo[113][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+      if(dataCardSel == 4 || dataCardSel == 9) histo[114][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
       if(dataCardSel == 0) histoMTGMETMJJ[0][theCategory]->Fill(mTGMET,totalWeight);
       if(dataCardSel == 5) histoMTGMETMJJ[1][theCategory]->Fill(mTGMET,totalWeight);
 
-      if(theMinSelType != LLGSEL){ // Begin datacard making
-      //if(1){ // Begin datacard making
+      //if(theMinSelType != LLGSEL){ // Begin datacard making
+      if(1){ // Begin datacard making
         if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight,nloKfactor);
 
         if(dataCardSel     >= 0) {MVAVar     = MVAVar	  +  dataCardSel     * 1000;}
@@ -1794,7 +1813,7 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("ch1 autoMCStats 0\n");
 
-  //newcardShape << Form("CMS_vbfg_zgnorm rateParam * %s 1 [0,20]\n",plotBaseNames[kPlotZG].Data());
+  newcardShape << Form("CMS_vbfg_zgnorm rateParam * %s 1 [0,20]\n",plotBaseNames[kPlotZG].Data());
 
   newcardShape << Form("CMS_vbfg_wg0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG0].Data());
   newcardShape << Form("CMS_vbfg_wg1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG1].Data());

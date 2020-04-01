@@ -133,22 +133,10 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
     for(int i=22; i<23; i++) excludeBins[i] = i+1;
     for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 60){ // vbfg low mjj trigger0 WG CR
+  else if(nsel == 60){ // vbfg trigger0 WG CR
     for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
     for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
     //for(int i= 9; i<10; i++) excludeBins[i] = i+1;
-    for(int i=10; i<11; i++) excludeBins[i] = i+1;
-    for(int i=11; i<12; i++) excludeBins[i] = i+1;
-    for(int i=12; i<18; i++) excludeBins[i] = i+1;
-    for(int i=18; i<21; i++) excludeBins[i] = i+1;
-    for(int i=21; i<22; i++) excludeBins[i] = i+1;
-    for(int i=22; i<23; i++) excludeBins[i] = i+1;
-    for(int i=23; i<24; i++) excludeBins[i] = i+1;
-  }
-  else if(nsel == 61){ // vbfg high mjj trigger0 WG CR
-    for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
-    for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
-    for(int i= 9; i<10; i++) excludeBins[i] = i+1;
     for(int i=10; i<11; i++) excludeBins[i] = i+1;
     for(int i=11; i<12; i++) excludeBins[i] = i+1;
     for(int i=12; i<18; i++) excludeBins[i] = i+1;
@@ -157,22 +145,10 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
     for(int i=22; i<23; i++) excludeBins[i] = i+1;
     for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 62){ // vbfg low mjj trigger1 WG CR
+  else if(nsel == 61){ // vbfg trigger1 WG CR
     for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
     for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
     //for(int i= 9; i<10; i++) excludeBins[i] = i+1;
-    for(int i=10; i<11; i++) excludeBins[i] = i+1;
-    for(int i=11; i<12; i++) excludeBins[i] = i+1;
-    for(int i=12; i<18; i++) excludeBins[i] = i+1;
-    for(int i=18; i<21; i++) excludeBins[i] = i+1;
-    for(int i=21; i<22; i++) excludeBins[i] = i+1;
-    for(int i=22; i<23; i++) excludeBins[i] = i+1;
-    for(int i=23; i<24; i++) excludeBins[i] = i+1;
-  }
-  else if(nsel == 63){ // vbfg high mjj trigger1 WG CR
-    for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
-    for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
-    for(int i= 9; i<10; i++) excludeBins[i] = i+1;
     for(int i=10; i<11; i++) excludeBins[i] = i+1;
     for(int i=11; i<12; i++) excludeBins[i] = i+1;
     for(int i=12; i<18; i++) excludeBins[i] = i+1;
@@ -181,7 +157,7 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
     for(int i=22; i<23; i++) excludeBins[i] = i+1;
     for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 70){ // vbfg low mjj trigger0 GJ CR
+  else if(nsel == 70){ // vbfg trigger0 GJ CR
     for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
     for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
     for(int i= 9; i<10; i++) excludeBins[i] = i+1;
@@ -190,22 +166,10 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
     for(int i=12; i<18; i++) excludeBins[i] = i+1;
     for(int i=18; i<21; i++) excludeBins[i] = i+1;
     for(int i=21; i<22; i++) excludeBins[i] = i+1;
-    for(int i=22; i<23; i++) excludeBins[i] = i+1;
-    for(int i=23; i<24; i++) excludeBins[i] = i+1;
-  }
-  else if(nsel == 71){ // vbfg high mjj trigger0 Gj CR
-    for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
-    for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
-    for(int i= 9; i<10; i++) excludeBins[i] = i+1;
-    for(int i=10; i<11; i++) excludeBins[i] = i+1;
-    for(int i=11; i<12; i++) excludeBins[i] = i+1;
-    for(int i=12; i<18; i++) excludeBins[i] = i+1;
-    for(int i=18; i<21; i++) excludeBins[i] = i+1;
-    for(int i=21; i<22; i++) excludeBins[i] = i+1;
     //for(int i=22; i<23; i++) excludeBins[i] = i+1;
     for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 72){ // vbfg low mjj trigger1 GJ CR
+  else if(nsel == 71){ // vbfg low mjj trigger1 GJ CR
     for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
     for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
     for(int i= 9; i<10; i++) excludeBins[i] = i+1;
@@ -214,20 +178,32 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
     for(int i=12; i<18; i++) excludeBins[i] = i+1;
     for(int i=18; i<21; i++) excludeBins[i] = i+1;
     for(int i=21; i<22; i++) excludeBins[i] = i+1;
-    for(int i=22; i<23; i++) excludeBins[i] = i+1;
+    //for(int i=22; i<23; i++) excludeBins[i] = i+1;
     for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 73){ // vbfg high mjj trigger1 GJ CR
+  else if(nsel == 80){ // vbfg trigger0 ZG CR
     for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
     for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
     for(int i= 9; i<10; i++) excludeBins[i] = i+1;
     for(int i=10; i<11; i++) excludeBins[i] = i+1;
-    for(int i=11; i<12; i++) excludeBins[i] = i+1;
+    //for(int i=11; i<12; i++) excludeBins[i] = i+1;
     for(int i=12; i<18; i++) excludeBins[i] = i+1;
     for(int i=18; i<21; i++) excludeBins[i] = i+1;
     for(int i=21; i<22; i++) excludeBins[i] = i+1;
-    //for(int i=22; i<23; i++) excludeBins[i] = i+1;
-    for(int i=23; i<24; i++) excludeBins[i] = i+1;
+    for(int i=22; i<23; i++) excludeBins[i] = i+1;
+    //for(int i=23; i<24; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 81){ // vbfg trigger1 ZG CR
+    for(int i= 0; i< 6; i++) excludeBins[i] = i+1;
+    for(int i= 6; i< 9; i++) excludeBins[i] = i+1;
+    for(int i= 9; i<10; i++) excludeBins[i] = i+1;
+    for(int i=10; i<11; i++) excludeBins[i] = i+1;
+    //for(int i=11; i<12; i++) excludeBins[i] = i+1;
+    for(int i=12; i<18; i++) excludeBins[i] = i+1;
+    for(int i=18; i<21; i++) excludeBins[i] = i+1;
+    for(int i=21; i<22; i++) excludeBins[i] = i+1;
+    for(int i=22; i<23; i++) excludeBins[i] = i+1;
+    //for(int i=23; i<24; i++) excludeBins[i] = i+1;
   }
   printf("Bins to exclude:");
   for(int i=0; i<allExcludeBins; i++) if(excludeBins[i] != -1) printf(" %d",excludeBins[i]);

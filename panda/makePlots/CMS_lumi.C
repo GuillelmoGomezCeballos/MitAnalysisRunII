@@ -111,7 +111,6 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
       latex.SetTextAlign(11); 
       latex.SetTextSize(cmsTextSize*t);    
       latex.DrawLatex(l,1-t+lumiTextOffset*t,cmsText);
-printf("A %f %f\n",l,1-t+lumiTextOffset*t);
     }
   
   pad->cd();
@@ -174,7 +173,6 @@ printf("A %f %f\n",l,1-t+lumiTextOffset*t);
       latex.SetTextSize(extraTextSize*t);
       latex.SetTextAlign(11);
       latex.DrawLatex(posX_, posY_, extraText);      
-printf("A %f %f\n",posX_, posY_);
     }
   return;
 }

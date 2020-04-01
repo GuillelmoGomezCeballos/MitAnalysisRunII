@@ -429,23 +429,23 @@ hadd -f histoDatacard_zz_2019_merge.root histoDatacard_zz_201?.root
 elif [ $NSEL == 'vbfg' ]; then
 #grep -e POST -e background log|awk '{if($1=="POST"&&$3~"BSM")printf("%20s %6.1f pm %6.1f\n",$3,$16,$18);else if($1=="POST")printf("%20s %6.1f pm %6.1f\n",$3,$20,$22);else printf("\n%20s %6.1f pm %6.1f\n",$2,$10,$12);}'
 echo "***************VBFG SR*****"
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2016_trigger0_mH125_116.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2016_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2016.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger0_mH125_116.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2017.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger1_mH125_116.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger1_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger1_2017.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger1_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger0_mH125_116.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2018.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger1_mH125_116.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger1_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger1_2018.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger1_2018.root
 
@@ -552,95 +552,79 @@ root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(60, "don
 mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj0_trigger0_2016.txt;
 mv histoDatacard_60.root histoDatacard_vbfg_wg_mtg_mjj0_trigger0_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(61, "done_vbfg/histoVBFG_2016_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj1_trigger0_2016.txt;
-mv histoDatacard_61.root histoDatacard_vbfg_wg_mtg_mjj1_trigger0_2016.root
-
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(60, "done_vbfg/histoVBFG_2017_trigger0_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj0_trigger0_2017.txt;
 mv histoDatacard_60.root histoDatacard_vbfg_wg_mtg_mjj0_trigger0_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(61, "done_vbfg/histoVBFG_2017_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj1_trigger0_2017.txt;
-mv histoDatacard_61.root histoDatacard_vbfg_wg_mtg_mjj1_trigger0_2017.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(62, "done_vbfg/histoVBFG_2017_trigger1_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(61, "done_vbfg/histoVBFG_2017_trigger1_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj0_trigger1_2017.txt;
-mv histoDatacard_62.root histoDatacard_vbfg_wg_mtg_mjj0_trigger1_2017.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(63, "done_vbfg/histoVBFG_2017_trigger1_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
-mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj1_trigger1_2017.txt;
-mv histoDatacard_63.root histoDatacard_vbfg_wg_mtg_mjj1_trigger1_2017.root
+mv histoDatacard_61.root histoDatacard_vbfg_wg_mtg_mjj0_trigger1_2017.root
 
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(60, "done_vbfg/histoVBFG_2018_trigger0_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj0_trigger0_2018.txt;
 mv histoDatacard_60.root histoDatacard_vbfg_wg_mtg_mjj0_trigger0_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(61, "done_vbfg/histoVBFG_2018_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj1_trigger0_2018.txt;
-mv histoDatacard_61.root histoDatacard_vbfg_wg_mtg_mjj1_trigger0_2018.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(62, "done_vbfg/histoVBFG_2018_trigger1_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(61, "done_vbfg/histoVBFG_2018_trigger1_mH125_112.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj0_trigger1_2018.txt;
-mv histoDatacard_62.root histoDatacard_vbfg_wg_mtg_mjj0_trigger1_2018.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(63, "done_vbfg/histoVBFG_2018_trigger1_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
-mv studyFitResults.txt studyFitResults_vbfg_wg_mtg_mjj1_trigger1_2018.txt;
-mv histoDatacard_63.root histoDatacard_vbfg_wg_mtg_mjj1_trigger1_2018.root
+mv histoDatacard_61.root histoDatacard_vbfg_wg_mtg_mjj0_trigger1_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
-hadd -f histoDatacard_vbfg_wg_mtg_trigger0_2019.root histoDatacard_vbfg_wg_mtg_mjj?_trigger0_201[6-8].root
-hadd -f histoDatacard_vbfg_wg_mtg_trigger1_2019.root histoDatacard_vbfg_wg_mtg_mjj?_trigger1_201[6-8].root
+hadd -f histoDatacard_vbfg_wg_mtg_trigger2_2019.root histoDatacard_vbfg_wg_mtg_mjj?_trigger0_201[6-8].root
 
 rm -f studyFitResults*.txt;
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2016_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2016_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj0_trigger0_2016.txt;
 mv histoDatacard_70.root histoDatacard_vbfg_gj_mtg_mjj0_trigger0_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(71, "done_vbfg/histoVBFG_2016_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj1_trigger0_2016.txt;
-mv histoDatacard_71.root histoDatacard_vbfg_gj_mtg_mjj1_trigger0_2016.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2017_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2017_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj0_trigger0_2017.txt;
 mv histoDatacard_70.root histoDatacard_vbfg_gj_mtg_mjj0_trigger0_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(71, "done_vbfg/histoVBFG_2017_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj1_trigger0_2017.txt;
-mv histoDatacard_71.root histoDatacard_vbfg_gj_mtg_mjj1_trigger0_2017.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(72, "done_vbfg/histoVBFG_2017_trigger1_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(71, "done_vbfg/histoVBFG_2017_trigger1_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj0_trigger1_2017.txt;
-mv histoDatacard_72.root histoDatacard_vbfg_gj_mtg_mjj0_trigger1_2017.root
+mv histoDatacard_71.root histoDatacard_vbfg_gj_mtg_mjj0_trigger1_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(73, "done_vbfg/histoVBFG_2017_trigger1_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
-mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj1_trigger1_2017.txt;
-mv histoDatacard_73.root histoDatacard_vbfg_gj_mtg_mjj1_trigger1_2017.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2018_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(70, "done_vbfg/histoVBFG_2018_trigger0_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj0_trigger0_2018.txt;
 mv histoDatacard_70.root histoDatacard_vbfg_gj_mtg_mjj0_trigger0_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(71, "done_vbfg/histoVBFG_2018_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
-mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj1_trigger0_2018.txt;
-mv histoDatacard_71.root histoDatacard_vbfg_gj_mtg_mjj1_trigger0_2018.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(72, "done_vbfg/histoVBFG_2018_trigger1_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(71, "done_vbfg/histoVBFG_2018_trigger1_mH125_113.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj0_trigger1_2018.txt;
-mv histoDatacard_72.root histoDatacard_vbfg_gj_mtg_mjj0_trigger1_2018.root
-
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(73, "done_vbfg/histoVBFG_2018_trigger1_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
-mv studyFitResults.txt studyFitResults_vbfg_gj_mtg_mjj1_trigger1_2018.txt;
-mv histoDatacard_73.root histoDatacard_vbfg_gj_mtg_mjj1_trigger1_2018.root
+mv histoDatacard_71.root histoDatacard_vbfg_gj_mtg_mjj0_trigger1_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
-hadd -f histoDatacard_vbfg_gj_mtg_trigger0_2019.root histoDatacard_vbfg_gj_mtg_mjj?_trigger0_201[6-8].root
-hadd -f histoDatacard_vbfg_gj_mtg_trigger1_2019.root histoDatacard_vbfg_gj_mtg_mjj?_trigger1_201[6-8].root
+hadd -f histoDatacard_vbfg_gj_mtg_trigger2_2019.root histoDatacard_vbfg_gj_mtg_mjj?_trigger0_201[6-8].root
 
 rm -f studyFitResults*.txt;
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(80, "done_vbfg/histoVBFG_2016_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
+mv studyFitResults.txt studyFitResults_vbfg_zg_mtg_mjj0_trigger0_2016.txt;
+mv histoDatacard_80.root histoDatacard_vbfg_zg_mtg_mjj0_trigger0_2016.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(80, "done_vbfg/histoVBFG_2017_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
+mv studyFitResults.txt studyFitResults_vbfg_zg_mtg_mjj0_trigger0_2017.txt;
+mv histoDatacard_80.root histoDatacard_vbfg_zg_mtg_mjj0_trigger0_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(81, "done_vbfg/histoVBFG_2017_trigger1_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
+mv studyFitResults.txt studyFitResults_vbfg_zg_mtg_mjj0_trigger1_2017.txt;
+mv histoDatacard_81.root histoDatacard_vbfg_zg_mtg_mjj0_trigger1_2017.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(80, "done_vbfg/histoVBFG_2018_trigger0_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
+mv studyFitResults.txt studyFitResults_vbfg_zg_mtg_mjj0_trigger0_2018.txt;
+mv histoDatacard_80.root histoDatacard_vbfg_zg_mtg_mjj0_trigger0_2018.root
+
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(81, "done_vbfg/histoVBFG_2018_trigger1_mH125_114.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
+mv studyFitResults.txt studyFitResults_vbfg_zg_mtg_mjj0_trigger1_2018.txt;
+mv histoDatacard_81.root histoDatacard_vbfg_zg_mtg_mjj0_trigger1_2018.root
+
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+
+hadd -f histoDatacard_vbfg_zg_mtg_trigger2_2019.root histoDatacard_vbfg_zg_mtg_mjj0_trigger?_201[6-8].root
+
+#rm -f studyFitResults*.txt;
 
 elif [ $NSEL == 'zhmt' ]; then
 
