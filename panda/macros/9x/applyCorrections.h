@@ -64,9 +64,9 @@ double electronToPhotonSF(double pt, int year){
   return effDA/effMC;
 }
 
-double effhDPhotonScaleFactor(double pt, double eta, TString type, TH2D *fhDIdSF, TH2D *fhDVetoSF){
+double effhDPhotonScaleFactor(double pt, double eta, TString type, TH2D *fhDIdSF, TH2D *fhDVetoSF, bool isUnc = false){
 
-  if(pt>=200) pt = +199.999;
+  if(pt>=fhDIdSF->GetYaxis()->GetBinCenter(fhDIdSF->GetNbinsY())) pt = fhDIdSF->GetYaxis()->GetBinCenter(fhDIdSF->GetNbinsY());
 
   if     (eta>=+2.4) eta = +2.399;
   else if(eta<=-2.4) eta = -2.399;
@@ -78,13 +78,19 @@ double effhDPhotonScaleFactor(double pt, double eta, TString type, TH2D *fhDIdSF
 
   binXA = fhDIdSF  ->GetXaxis()->FindFixBin(eta);binYA = fhDIdSF  ->GetYaxis()->FindFixBin(pt);
   
+  if(pt>=fhDVetoSF->GetYaxis()->GetBinCenter(fhDVetoSF->GetNbinsY())) pt = fhDVetoSF->GetYaxis()->GetBinCenter(fhDVetoSF->GetNbinsY());
   eta = abs(eta); if(eta < 1.5) eta = 1.0; else eta = 2.0;
   binXB = fhDVetoSF->GetXaxis()->FindFixBin(eta);binYB = fhDVetoSF->GetYaxis()->FindFixBin(pt);
 
   double idSF   = fhDIdSF  ->GetBinContent(binXA, binYA);
   double vetoSF = fhDVetoSF->GetBinContent(binXB, binYB);
-  
+
   if(idSF <= 0 || vetoSF <= 0) printf("photonSF <= 0! %f %f %d %d %d %d - %f %f\n",idSF,vetoSF,binXA,binYA,binXB,binYB,pt,eta);
+
+  if(isUnc == true){
+    idSF   = 1.0 + fhDIdSF  ->GetBinError(binXA, binYA);
+    vetoSF = 1.0 + fhDVetoSF->GetBinError(binXB, binYB);
+  }
 
   return idSF*vetoSF;
 }

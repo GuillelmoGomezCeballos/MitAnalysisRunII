@@ -208,7 +208,7 @@ std::map<int, TString> plotNames={
     { kPlotBSM         , "BSM"},
     { kPlotSignal0     , "Signal 0"},
     { kPlotSignal1     , "W_{X}W_{T}"},
-    { kPlotSignal2     , "W_{L}W_{L}"},
+    { kPlotSignal2     , "W_{T}W_{T}"},
     { kPlotSignal3     , "Signal 3"},
     { kPlotEWKSSWW_dim8, "EWKSSWW_dim8"},
     { kPlotEWKWZ_dim8  , "EWKWZ_dim8"}

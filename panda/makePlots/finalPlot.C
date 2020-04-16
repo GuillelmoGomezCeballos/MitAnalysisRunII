@@ -134,12 +134,6 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
-    if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
-    else if(isVBS[0] == 1 && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 1 && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 2 && ic == kPlotqqWW)    {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 2 && ic == kPlotQCDSSWW) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[1] == 1 && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));
     // begin btaging study
     //_hist[ic]->SetBinContent(1,0);
@@ -202,6 +196,22 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
     if(ic == kPlotDY) _hist[ic]->Scale(lumi);
 
+    if(printYieldsBinByBin && _hist[ic]->GetSumOfWeights() > 0){
+      printf("Yields(%s) = %.3f\n",plotBaseNames[ic].Data(),_hist[ic]->GetSumOfWeights());
+      for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",_hist[ic]->GetBinContent(i),_hist[ic]->GetBinError(i));
+    }
+
+    if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
+    else if(isVBS[0] == 1 && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 2 && ic == kPlotqqWW)    {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 2 && ic == kPlotQCDSSWW) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 2 && ic == kPlotSignal2) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[1] == 1 && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
+  }
+  
+  for(int ic=0; ic<nPlotCategories; ic++){
+    if(!_hist[ic]) continue;
     if(ic != kPlotData && ic != kPlotBSM) {
       hBck->Add(_hist[ic]);
       if(mlfitResult==""){
@@ -210,14 +220,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
         }
       }
     }
-
-    if(_hist[ic]->GetSumOfWeights() > 0) myPlot.setMCHist(ic, _hist[ic]);
-    if(printYieldsBinByBin && _hist[ic]->GetSumOfWeights() > 0){
-      printf("Yields(%s) = %.3f\n",plotBaseNames[ic].Data(),_hist[ic]->GetSumOfWeights());
-      for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",_hist[ic]->GetBinContent(i),_hist[ic]->GetBinError(i));
-    }
   }
-  
+
   TFile* fileExtra;
   if(plotExtraName != ""){
      fileExtra = new TFile(plotExtraName, "read");

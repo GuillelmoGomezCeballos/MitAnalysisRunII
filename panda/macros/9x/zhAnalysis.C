@@ -148,7 +148,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     infileName_.push_back(Form("%s%s.root" ,filesPath.Data(),whichBSMName.Data())); infileCat_.push_back(kPlotBSM);
   }
 
-  //infileName_.clear();infileCat_.clear();
+  infileName_.clear();infileCat_.clear();
+  infileName_.push_back(Form("%sADDMonoZ_MD_2_d_4.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data()));	       infileCat_.push_back(kPlotBSM);
 
@@ -235,13 +236,14 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     else if(thePlot >=  39 && thePlot <=  41) {nBinPlot = 4;   xminPlot = -0.5; xmaxPlot = 3.5;}
     else if(thePlot >=  42 && thePlot <=  44) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 4.0;}
     else if(thePlot >=  45 && thePlot <=  47) {nBinPlot = 10;  xminPlot = -0.5; xmaxPlot = 9.5;}
-    else if(thePlot >=  48 && thePlot <=  53) {is1DMETPlot = true;}
+    else if(thePlot >=  48 && thePlot <=  49) {is1DMETPlot = true;}
+    else if(thePlot >=  50 && thePlot <=  53) {nBinPlot = 80;  xminPlot = -5.0; xmaxPlot = 5.0;}
     else if(thePlot >=  54 && thePlot <=  56) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  57 && thePlot <=  59) {nBinPlot = 160; xminPlot = 80.0; xmaxPlot = 240;}
     else if(thePlot >=  60 && thePlot <=  62) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = 1;}
     else if(thePlot >=  63 && thePlot <=  65) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >=  66 && thePlot <=  68) {nBinPlot = 4;   xminPlot = -0.5; xmaxPlot = 3.5;}
-    else if(thePlot >=  69 && thePlot <=  69) {nBinPlot =100;  xminPlot = -5.0; xmaxPlot = 5.0;}
+    else if(thePlot >=  69 && thePlot <=  69) {nBinPlot = 80;  xminPlot = -5.0; xmaxPlot = 5.0;}
     else if(thePlot >=  70 && thePlot <=  70) {nBinPlot = 5;   xminPlot = -0.5; xmaxPlot = 4.5;}
     else if(thePlot >=  71 && thePlot <=  71) {nBinPlot = 100; xminPlot =  0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >=  72 && thePlot <=  72) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 3.0;}
@@ -618,42 +620,6 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
         totalWeight = totalWeight * mcCorrection(1, year, thePandaFlat.jetNMBtags,thePandaFlat.jetNBtags, thePandaFlat.nJot, dPhiDiLepMET, theFileCat, thePandaFlat.eventNumber);
 
         if(infileCat_[ifile] == kPlotDY && year == 2018 && thePandaFlat.normalizedWeight < -0.05 && vMet.Pt() > 100) totalWeight = 0.0;
-/*
-	else if(infileCat_[ifile] == kPlotEM && passBtagVeto && year == 2016) totalWeight = totalWeight * 1.30;
-	else if(infileCat_[ifile] == kPlotEM && passBtagVeto && year == 2017) totalWeight = totalWeight * 1.20;
-	else if(infileCat_[ifile] == kPlotEM &&                 year == 2018) totalWeight = totalWeight * 1.55;
-
-	else if(infileCat_[ifile] == kPlotDY && year == 2016) totalWeight = totalWeight * 0.75;
-	else if(infileCat_[ifile] == kPlotDY && year == 2017) totalWeight = totalWeight * 0.90;
-	else if(infileCat_[ifile] == kPlotDY && year == 2018) totalWeight = totalWeight * 1.50;
-
-        if     (infileCat_[ifile] == kPlotDY && year == 2016 && lepType == 0) totalWeight = totalWeight * (1.09180-ptFrac*0.104392);
-        else if(infileCat_[ifile] == kPlotDY && year == 2016 && lepType == 1) totalWeight = totalWeight * (1.15117-ptFrac*0.141021);
-
-        if     (infileCat_[ifile] == kPlotDY && year == 2017 && TMath::Abs(thePandaFlat.jotEta[0]) < 10 && lepType == 0) {
-	  if     (thePandaFlat.jotEta[0] >= -4.0 && thePandaFlat.jotEta[0] < -3.5) totalWeight = totalWeight * 2.35;
-	  else if(thePandaFlat.jotEta[0] >= -3.5 && thePandaFlat.jotEta[0] < -3.0) totalWeight = totalWeight * 2.35;
-	  else if(thePandaFlat.jotEta[0] >= -3.0 && thePandaFlat.jotEta[0] < -2.5) totalWeight = totalWeight * 3.30;
-	  else if(thePandaFlat.jotEta[0] >   2.5 && thePandaFlat.jotEta[0] <  3.0) totalWeight = totalWeight * 3.20;
-	  else if(thePandaFlat.jotEta[0] >   3.0 && thePandaFlat.jotEta[0] <  3.5) totalWeight = totalWeight * 3.40;
-	  else if(thePandaFlat.jotEta[0] >   3.5 && thePandaFlat.jotEta[0] <  4.0) totalWeight = totalWeight * 7.00;
-	}
-        else if(infileCat_[ifile] == kPlotDY && year == 2017 && TMath::Abs(thePandaFlat.jotEta[0]) < 10 && lepType == 1) {
-	  if     (thePandaFlat.jotEta[0] >= -4.0 && thePandaFlat.jotEta[0] < -3.5) totalWeight = totalWeight * 6.00;
-	  else if(thePandaFlat.jotEta[0] >= -3.5 && thePandaFlat.jotEta[0] < -3.0) totalWeight = totalWeight * 2.95;
-	  else if(thePandaFlat.jotEta[0] >= -3.0 && thePandaFlat.jotEta[0] < -2.5) totalWeight = totalWeight * 1.20;
-	  else if(thePandaFlat.jotEta[0] >   2.5 && thePandaFlat.jotEta[0] <  3.0) totalWeight = totalWeight * 2.25;
-	  else if(thePandaFlat.jotEta[0] >   3.0 && thePandaFlat.jotEta[0] <  3.5) totalWeight = totalWeight * 1.00;
-	  else if(thePandaFlat.jotEta[0] >   3.5 && thePandaFlat.jotEta[0] <  4.0) totalWeight = totalWeight * 2.00;
-	}
-
-	if     (infileCat_[ifile] == kPlotDY && year == 2016 && thePandaFlat.nJot == 0) totalWeight = totalWeight * 1.5;
-	else if(infileCat_[ifile] == kPlotDY && year == 2016 && thePandaFlat.nJot == 1) totalWeight = totalWeight * 1.0;
-	else if(infileCat_[ifile] == kPlotDY && year == 2017 && thePandaFlat.nJot == 0) totalWeight = totalWeight * 2.5;
-	else if(infileCat_[ifile] == kPlotDY && year == 2017 && thePandaFlat.nJot == 1) totalWeight = totalWeight * 0.8;
-	else if(infileCat_[ifile] == kPlotDY && year == 2018 && thePandaFlat.nJot == 0) totalWeight = totalWeight * 5.0;
-	else if(infileCat_[ifile] == kPlotDY && year == 2018 && thePandaFlat.nJot == 1) totalWeight = totalWeight * 1.0;
-*/
 	
 	if(infileCat_[ifile] == kPlotBSM && infileName_[ifile].Contains("qqZH") == true){
 	  sf_EWKZH     = thePandaFlat.sf_vh;
@@ -735,17 +701,18 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passNMinusOne[ 4])       histo[lepType+ 27][theCategory]->Fill(dPhiDiLepMET,totalWeight);
       if(passNMinusOne[ 5])       histo[lepType+ 30][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNBtags,3.499),totalWeight);
       if(passNMinusOne[ 6])       histo[lepType+ 33][theCategory]->Fill(TMath::Min(dilep.Pt(),249.999),totalWeight);
-      if(passNMinusOne[ 7] && TMath::Abs(thePandaFlat.jotEta[0]) < 2.5)
-                                  histo[lepType+ 36][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
+      if(passNMinusOne[ 7])       histo[lepType+ 36][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
       if(passNMinusOne[ 8])       histo[lepType+ 39][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,3.499),totalWeight);
       if(passNMinusOne[ 9])       histo[lepType+ 42][theCategory]->Fill(TMath::Min((double)drll,3.999),totalWeight);
       for(int i=0; i<10; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[lepType+45][theCategory]->Fill((double)i,totalWeight);}
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 0 && passMET && !passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET &&  passDPhiZMETTight) histo[50][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType != 2 && thePandaFlat.nJot == 1 && passMET && !passDPhiZMETTight) histo[51][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET &&  passDPhiZMETTight) histo[52][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType == 2 && thePandaFlat.nJot <= 1 && passMET && !passDPhiZMETTight) histo[53][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType == 2 && passMET &&  passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passNMinusOne[1]){
+        if(lepType != 2 && thePandaFlat.nJot == 1) histo[50][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+        if(lepType == 2 && thePandaFlat.nJot == 1) histo[51][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+        if(lepType != 2 && thePandaFlat.nJot == 2) histo[52][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+        if(lepType == 2 && thePandaFlat.nJot == 2) histo[53][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+      }
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 54][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 57][theCategory]->Fill(TMath::Min(vMet.Pt(),239.999),totalWeight);
       if(passAllCuts[PRESEL] && !passAllCuts[ZHTIGHTSEL]) histo[lepType+ 60][theCategory]->Fill(TMath::Min(ptFrac,0.999),totalWeight);
