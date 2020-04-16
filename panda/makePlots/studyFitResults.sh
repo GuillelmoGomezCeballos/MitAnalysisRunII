@@ -198,21 +198,21 @@ rm -f histoDatacard_*.root
 
 elif [ $NSEL == 'long' ]; then
 echo "***************LONG All*****"
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2016_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2016_fiducial5_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2016_140_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2016")';
 mv studyFitResults.txt studyFitResults_2016.txt;
 mv histoDatacard_35.root histoDatacard_long_all_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2017_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2017_fiducial5_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2017_140_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2017")';
 mv studyFitResults.txt studyFitResults_2017.txt;
 mv histoDatacard_35.root histoDatacard_long_all_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2018_136_fiducial5.root", "ana_long/fitDiagnosticsssww_2018_fiducial5_obs.root", "ch1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2018_140_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2018")';
 mv studyFitResults.txt studyFitResults_2018.txt;
 mv histoDatacard_35.root histoDatacard_long_all_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2019_136_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(35, "done_ana/histossww_2019_140_fiducial5.root", "ana_long/fitDiagnosticsssww_comb_fiducial5_obs.root", "SSWW_2019")';
 mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_35.root histoDatacard_long_all_2019.root
 
