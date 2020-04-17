@@ -184,7 +184,6 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
       }
     }
 
-    if(_hist[ic]->GetSumOfWeights() > 0) myPlot.setMCHist(ic, _hist[ic]);
     if(printYieldsBinByBin && _hist[ic]->GetSumOfWeights() > 0){
       printf("Yields(%s) = %.3f\n",plotBaseNames[ic].Data(),_hist[ic]->GetSumOfWeights());
       for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",_hist[ic]->GetBinContent(i),_hist[ic]->GetBinError(i));

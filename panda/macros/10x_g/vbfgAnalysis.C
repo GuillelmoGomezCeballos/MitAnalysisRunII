@@ -717,7 +717,9 @@ int year, int triggerCat, int mH = 125
 
       if(debug == 3) printf("DEBUG%d STEP3 %d %d %llu %d %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,passSinglePhotonTrigger,theG.Pt());
 
-      if(year != 2016 && triggerCat == 0 && passSinglePhotonTrigger == true && theG.Pt() > 220) continue;
+      bool isPhoSel = passSinglePhotonTrigger == true && theG.Pt() > 220;
+      if(year != 2016 && triggerCat == 0 &&  isPhoSel) continue;
+      if(year != 2016 && triggerCat == 1 && !isPhoSel) continue;
 
       double dPhiJetG = 100.0; double dRJetG = 100.0;
       for(int i=0; i<TMath::Min(thePandaFlat.nJot,2); i++){
