@@ -809,6 +809,20 @@ for(int i=1; i<nFiles; i++){
   hDWWNJET_NNLO	     ->Add(hDIWWNJET_NNLO      [i]);  
 }
 
+TH1D *hDWWNJETS      = (TH1D*)hDWWNJET->Clone("hDWWNJETS");
+
+hDWWNJETS->SetBinContent(1,0.677); hDWWNJETS->SetBinError(1,0.007);
+hDWWNJETS->SetBinContent(2,0.248); hDWWNJETS->SetBinError(2,0.007);
+hDWWNJETS->SetBinContent(3,0.075); hDWWNJETS->SetBinError(3,0.006);
+
+TH1D *hDWWNJETS_PDF  = (TH1D*)hDWWNJETS->Clone("hDWWNJETS_PDF");
+TH1D *hDWWNJETS_QCD  = (TH1D*)hDWWNJETS->Clone("hDWWNJETS_QCD");
+TH1D *hDWWNJETS_NNLO = (TH1D*)hDWWNJETS->Clone("hDWWNJETS_NNLO");
+
+hDWWNJETS_PDF->SetBinContent(1,hDWWNJETS_PDF->GetBinContent(1)+0.058);
+hDWWNJETS_PDF->SetBinContent(2,hDWWNJETS_PDF->GetBinContent(2)+0.033);
+hDWWNJETS_PDF->SetBinContent(3,hDWWNJETS_PDF->GetBinContent(3)+0.026);
+
 TFile myOutputFile("genWW.root","RECREATE");
   hDWWMLL	->Write(); 
   hDWWDPHILL	->Write(); 
@@ -823,6 +837,7 @@ TFile myOutputFile("genWW.root","RECREATE");
   hDWWPTLL0JET  ->Write();
   hDWWN0JET	->Write(); 
   hDWWNJET	->Write(); 
+  hDWWNJETS	->Write(); 
 
   hDWWMLL_PDF	    ->Write(); 
   hDWWDPHILL_PDF    ->Write(); 
@@ -836,6 +851,7 @@ TFile myOutputFile("genWW.root","RECREATE");
   hDWWPTLL0JET_PDF  ->Write();
   hDWWN0JET_PDF     ->Write(); 
   hDWWNJET_PDF      ->Write(); 
+  hDWWNJETS_PDF     ->Write();
 
   hDWWMLL_QCD	    ->Write();
   hDWWDPHILL_QCD    ->Write();
@@ -849,6 +865,7 @@ TFile myOutputFile("genWW.root","RECREATE");
   hDWWPTLL0JET_QCD  ->Write();
   hDWWN0JET_QCD     ->Write();
   hDWWNJET_QCD      ->Write();
+  hDWWNJETS_QCD     ->Write();
 
   hDWWMLL_NNLO	     ->Write();
   hDWWDPHILL_NNLO    ->Write();
@@ -862,6 +879,7 @@ TFile myOutputFile("genWW.root","RECREATE");
   hDWWPTLL0JET_NNLO  ->Write();
   hDWWN0JET_NNLO     ->Write();
   hDWWNJET_NNLO      ->Write();
+  hDWWNJETS_NNLO     ->Write();
 myOutputFile.Close();
 }
 else if(nsel == 3){ // Znunu
