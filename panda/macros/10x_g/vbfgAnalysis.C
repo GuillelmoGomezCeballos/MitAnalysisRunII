@@ -68,7 +68,8 @@ int year, int triggerCat, int mH = 125
   TString puPath = Form("MitAnalysisRunII/data/90x/pu/puWeights_90x_%d.root",year);
   TString puPathStd = Form("MitAnalysisRunII/data/90x/pu/puWeights_90x_%d.root",year);
   TString photonSFPath = Form("MitAnalysisRunII/data/90x/eff/photon_scalefactors_%d.root",year);
-  TString elephoSFPath = Form("MitAnalysisRunII/data/90x/eff/histoDY0LGSF_%d.root",year);
+  TString elephoSFPathDef = Form("MitAnalysisRunII/data/90x/eff/histoDY0HighPtDefLGSF_%d.root",year);
+  TString elephoSFPathAlt = Form("MitAnalysisRunII/data/90x/eff/histoDY0HighPtAltLGSF_%d.root",year);
   TString trgSFPath = Form("MitAnalysisRunII/data/10x_g/histoTriggerSFVBFG_%d.root",year);
   TString effSFPath = Form("MitAnalysisRunII/data/90x/eff/histoDY0EffSFStudy_%d.root",year);
   //TString npvPath = Form("MitAnalysisRunII/data/90x/pu/npvWeights_%d.root",year);
@@ -302,10 +303,13 @@ int year, int triggerCat, int mH = 125
   TH2D *fhDElectronVetoSF = (TH2D*)(fPhotonSF->Get("Scaling_Factors_HasPix_R9 Inclusive")); assert(fhDElectronVetoSF); fhDElectronVetoSF->SetDirectory(0);
   delete fPhotonSF;
 
-  TFile *fElePhoSF = TFile::Open(elephoSFPath.Data());
-  TH2D *fhDElePhoSF    = (TH2D*)(fElePhoSF->Get("histoLGSF"));    assert(fhDElePhoSF);    fhDElePhoSF   ->SetDirectory(0);
-  TH2D *fhDElePhoEffda = (TH2D*)(fElePhoSF->Get("histoLGEffda")); assert(fhDElePhoEffda); fhDElePhoEffda->SetDirectory(0);
-  delete fElePhoSF;
+  TFile *fElePhoSFDef = TFile::Open(elephoSFPathDef.Data());
+  TH2D *fhDElePhoSFDef = (TH2D*)(fElePhoSFDef->Get("histoLGSF")); assert(fhDElePhoSFDef); fhDElePhoSFDef->SetDirectory(0);
+  delete fElePhoSFDef;
+
+  TFile *fElePhoSFAlt = TFile::Open(elephoSFPathAlt.Data());
+  TH2D *fhDElePhoSFAlt = (TH2D*)(fElePhoSFAlt->Get("histoLGSF")); assert(fhDElePhoSFAlt); fhDElePhoSFAlt->SetDirectory(0);
+  delete fElePhoSFAlt;
 
   TFile *ftrgSF = TFile::Open(trgSFPath.Data());
   TH1D *trgSF = (TH1D*)(ftrgSF->Get("hDTrgSF_2")); assert(trgSF); trgSF->SetDirectory(0);
@@ -457,8 +461,10 @@ int year, int triggerCat, int mH = 125
   TH1D *histo_PhoEffBoundingDown[nPlotCategories];
   TH1D *histo_PhoFakeBoundingUp[nPlotCategories];
   TH1D *histo_PhoFakeBoundingDown[nPlotCategories];
-  TH1D *histo_ElToPhRateBoundingUp[nPlotCategories];
-  TH1D *histo_ElToPhRateBoundingDown[nPlotCategories];
+  TH1D *histo_ElToPhDefBoundingUp[nPlotCategories];
+  TH1D *histo_ElToPhDefBoundingDown[nPlotCategories];
+  TH1D *histo_ElToPhAltBoundingUp[nPlotCategories];
+  TH1D *histo_ElToPhAltBoundingDown[nPlotCategories];
   
   for(unsigned ic=kPlotData; ic!=nPlotCategories; ic++) {
     for(int i=0; i<6; i++)  histo_QCDScaleBounding[ic][i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_%d_QCDScaleBounding",plotBaseNames[ic].Data(),i));
@@ -483,16 +489,18 @@ int year, int triggerCat, int mH = 125
     histo_JESBoundingUp      [nj][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jes_%d_%dUp"	   , plotBaseNames[ic].Data(),nj,year));
     histo_JESBoundingDown    [nj][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jes_%d_%dDown"  , plotBaseNames[ic].Data(),nj,year));
     }
-    histo_PreFireBoundingUp     [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dUp"   , plotBaseNames[ic].Data(),year));
-    histo_PreFireBoundingDown   [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dDown" , plotBaseNames[ic].Data(),year));
-    histo_TriggerBoundingUp     [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_trigger%d_%dUp"   , plotBaseNames[ic].Data(),triggerCat,year));
-    histo_TriggerBoundingDown   [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_trigger%d_%dDown" , plotBaseNames[ic].Data(),triggerCat,year));
-    histo_PhoEffBoundingUp	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonUp"   , plotBaseNames[ic].Data()));
-    histo_PhoEffBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonDown" , plotBaseNames[ic].Data()));
-    histo_PhoFakeBoundingUp	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonUp"  , plotBaseNames[ic].Data()));
-    histo_PhoFakeBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonDown", plotBaseNames[ic].Data()));
-    histo_ElToPhRateBoundingUp	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elUp"      , plotBaseNames[ic].Data()));
-    histo_ElToPhRateBoundingDown[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elDown"    , plotBaseNames[ic].Data()));
+    histo_PreFireBoundingUp    [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dUp"   , plotBaseNames[ic].Data(),year));
+    histo_PreFireBoundingDown  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dDown" , plotBaseNames[ic].Data(),year));
+    histo_TriggerBoundingUp    [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_trigger%d_%dUp"   , plotBaseNames[ic].Data(),triggerCat,year));
+    histo_TriggerBoundingDown  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_trigger%d_%dDown" , plotBaseNames[ic].Data(),triggerCat,year));
+    histo_PhoEffBoundingUp     [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonUp"   , plotBaseNames[ic].Data()));
+    histo_PhoEffBoundingDown   [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonDown" , plotBaseNames[ic].Data()));
+    histo_PhoFakeBoundingUp    [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonUp"  , plotBaseNames[ic].Data()));
+    histo_PhoFakeBoundingDown  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonDown", plotBaseNames[ic].Data()));
+    histo_ElToPhDefBoundingUp  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elDef_%dUp"  , plotBaseNames[ic].Data(),year));
+    histo_ElToPhDefBoundingDown[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elDef_%dDown", plotBaseNames[ic].Data(),year));
+    histo_ElToPhAltBoundingUp  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elAlt_%dUp"  , plotBaseNames[ic].Data(),year));
+    histo_ElToPhAltBoundingDown[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elAlt_%dDown", plotBaseNames[ic].Data(),year));
   }
   TH1D *histo_GJPhotonE0Up   = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_GJPhotonE0_%d_trigger%dUp"   , plotBaseNames[kPlotPhotonE0].Data(),year,triggerCat));
   TH1D *histo_GJPhotonE0Down = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_GJPhotonE0_%d_trigger%dDown" , plotBaseNames[kPlotPhotonE0].Data(),year,triggerCat));
@@ -939,10 +947,10 @@ int year, int triggerCat, int mH = 125
 
       bool passSystCuts[nSystTypes] = {dataCardSelUp  >= 0, dataCardSelDown  >= 0};
 
-      double photonSFUnc[3] = {1.0, 1.0, 1.0};
+      double photonSFUnc[4] = {1.0, 1.0, 1.0, 1.0};
       double totalWeight = 1.0; double puStdWeight = 1.0;  double puWeight = 1.0;double puWeightUp = 1.0; double puWeightDown = 1.0; double sf_l1PrefireE = 1.0;
       double triggerWeights[2] = {1.0, 1.0}; double nloKfactor = 1;
-      double photonSF = 1.0, effSFLoose = 1.0, effSFTight = 1.0;
+      double photonSFDef = 1.0, effSFLoose = 1.0, effSFTight = 1.0;
       if(theCategory != kPlotData){
 	puWeight     = nPUScaleFactor(fhDPU,    thePandaFlat.pu);
         puWeightUp   = nPUScaleFactor(fhDPUUp,  thePandaFlat.pu);
@@ -1017,22 +1025,23 @@ int year, int triggerCat, int mH = 125
 
 	if(passPhoSel == 1 || passPhoSel == 2) {
           if     (thePandaFlat.looseGenPho1PdgId == 1) {
-	    int nxbin = fhDElePhoSF->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()));
-	    int nybin = fhDElePhoSF->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), 124.999));
-            photonSF = fhDElePhoSF->GetBinContent(nxbin, nybin);
-	    photonSFUnc[2] = (photonSF+fhDElePhoSF->GetBinError(nxbin, nybin))/photonSF;
+	    int nxbin = fhDElePhoSFDef->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()));
+	    int nybin = fhDElePhoSFDef->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), fhDElePhoSFDef->GetYaxis()->GetBinCenter(fhDElePhoSFDef->GetNbinsY())));
+            photonSFDef = fhDElePhoSFDef->GetBinContent(nxbin, nybin);
+	    photonSFUnc[2] = (photonSFDef+fhDElePhoSFDef->GetBinError(nxbin, nybin))/photonSFDef;
+	    photonSFUnc[3] = fhDElePhoSFAlt->GetBinContent(nxbin, nybin)/photonSFDef;
 	  }
           else if(thePandaFlat.looseGenPho1PdgId == 3) {
-            photonSF = effhDPhotonScaleFactor(vPhoton.Pt(), vPhoton.Eta(), "medium", fhDPhotonSF, fhDElectronVetoSF);
+            photonSFDef = effhDPhotonScaleFactor(vPhoton.Pt(), vPhoton.Eta(), "medium", fhDPhotonSF, fhDElectronVetoSF);
 	    photonSFUnc[0] = effhDPhotonScaleFactor(vPhoton.Pt(), vPhoton.Eta(), "medium", fhDPhotonSF, fhDElectronVetoSF, true);
 	  }
           else if(thePandaFlat.looseGenPho1PdgId == 2) {
-            photonSF = 1.0; photonSFUnc[1] = 1.30;
+            photonSFDef = 1.0; photonSFUnc[1] = 1.10;
 	  }
           else {
-            photonSF = 0.0; // fake photons estimated on data
+            photonSFDef = 0.0; // fake photons estimated on data
 	  }
-	  totalWeight = totalWeight * photonSF;
+	  totalWeight = totalWeight * photonSFDef;
 	}
 
         //if(theMinSelType != ESEL){
@@ -1068,7 +1077,7 @@ int year, int triggerCat, int mH = 125
       }
 
       if     (passPhoSel == 2 && theCategory == kPlotData){
-        photonSFUnc[1] = 1.30;
+        photonSFUnc[1] = 1.10;
         theCategory = kPlotNonPrompt;
 	totalWeight = totalWeight * 0.17 * TMath::Exp(-0.0066*vPhoton.Pt());
       }
@@ -1147,7 +1156,7 @@ int year, int triggerCat, int mH = 125
       if(dataCardSel == 5) histoMTGMETMJJ[1][theCategory]->Fill(mTGMET,totalWeight);
 
       if(dataCardSel >= 0 || dataCardSelUp   >= 0 || dataCardSelDown >= 0){ // Begin datacard making
-        if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSF,effSFLoose,effSFTight,nloKfactor);
+        if(debug == 2 && dataCardSel >= 0) printf("DEBUG%d %d %d %llu %d %f %f %f %f %f %f %f %f %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,dataCardSel,totalWeight,thePandaFlat.normalizedWeight*lumiV[whichYear]*1000,puWeight,thePandaFlat.sf_l1Prefire,triggerWeights[0],photonSFDef,effSFLoose,effSFTight,nloKfactor);
 
         if(dataCardSel     >= 0) {MVAVar     = MVAVar	  +  dataCardSel     * 1000;}
         if(dataCardSelUp   >= 0) {MVAVarUp   = MVAVarUp   +  dataCardSelUp   * 1000;}
@@ -1193,8 +1202,10 @@ int year, int triggerCat, int mH = 125
 	    histo_PhoEffBoundingDown[theCategory]->Fill(MVAVar,totalWeight/photonSFUnc[0]);
 	    histo_PhoFakeBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*photonSFUnc[1]);
 	    histo_PhoFakeBoundingDown[theCategory]->Fill(MVAVar,totalWeight/photonSFUnc[1]);
-	    histo_ElToPhRateBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*photonSFUnc[2]);
-	    histo_ElToPhRateBoundingDown[theCategory]->Fill(MVAVar,totalWeight/photonSFUnc[2]);
+	    histo_ElToPhDefBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*photonSFUnc[2]);
+	    histo_ElToPhDefBoundingDown[theCategory]->Fill(MVAVar,totalWeight/photonSFUnc[2]);
+	    histo_ElToPhAltBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*photonSFUnc[3]);
+	    histo_ElToPhAltBoundingDown[theCategory]->Fill(MVAVar,totalWeight/photonSFUnc[3]);
 	  }
 	  for(int nj=0; nj<nJESTypes; nj++){
 	    if(nj == theJESType) {
@@ -1300,12 +1311,14 @@ int year, int triggerCat, int mH = 125
       histo_JESBoundingDown[nj][ic]->SetBinContent(nb, TMath::Max((float)histo_JESBoundingDown[nj][ic]->GetBinContent(nb),0.00001f));
       histo_JESBoundingDown[nj][ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_JESBoundingUp[nj][ic]->GetBinContent(nb)),0.00001f));
       }
-      histo_PhoEffBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoEffBoundingUp	[ic]->GetBinContent(nb),0.0f));
-      histo_PhoEffBoundingDown    [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoEffBoundingDown	[ic]->GetBinContent(nb),0.0f));
-      histo_PhoFakeBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoFakeBoundingUp	[ic]->GetBinContent(nb),0.0f));
-      histo_PhoFakeBoundingDown   [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoFakeBoundingDown	[ic]->GetBinContent(nb),0.0f));
-      histo_ElToPhRateBoundingUp  [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhRateBoundingUp  [ic]->GetBinContent(nb),0.0f));
-      histo_ElToPhRateBoundingDown[ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhRateBoundingDown[ic]->GetBinContent(nb),0.0f));
+      histo_PhoEffBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoEffBoundingUp     [ic]->GetBinContent(nb),0.0f));
+      histo_PhoEffBoundingDown    [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoEffBoundingDown   [ic]->GetBinContent(nb),0.0f));
+      histo_PhoFakeBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoFakeBoundingUp    [ic]->GetBinContent(nb),0.0f));
+      histo_PhoFakeBoundingDown   [ic]->SetBinContent(nb, TMath::Max((float)histo_PhoFakeBoundingDown  [ic]->GetBinContent(nb),0.0f));
+      histo_ElToPhDefBoundingUp   [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhDefBoundingUp  [ic]->GetBinContent(nb),0.0f));
+      histo_ElToPhDefBoundingDown [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhDefBoundingDown[ic]->GetBinContent(nb),0.0f));
+      histo_ElToPhAltBoundingUp   [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhAltBoundingUp  [ic]->GetBinContent(nb),0.0f));
+      histo_ElToPhAltBoundingDown [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhAltBoundingDown[ic]->GetBinContent(nb),0.0f));
     }
     if(ic == kPlotBSM || ic == kPlotZG ||
        ic == kPlotGJ0 || ic == kPlotGJ1 || ic == kPlotGJ2 || ic == kPlotGJ3 || ic == kPlotGJ4 || ic == kPlotGJ5 ||
@@ -1511,17 +1524,29 @@ int year, int triggerCat, int mH = 125
         for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_PhoFakeBoundingDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
     }
 
-    printf("uncertainties ElToPhRateUp\n");
+    printf("uncertainties ElToPhDefUp\n");
     for(unsigned ic=0; ic<nPlotCategories; ic++) {
       if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
          printf("%10s: ",plotBaseNames[ic].Data());
-        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhRateBoundingUp[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhDefBoundingUp[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
     }
-    printf("uncertainties ElToPhRateDown\n");
+    printf("uncertainties ElToPhDefDown\n");
     for(unsigned ic=0; ic<nPlotCategories; ic++) {
       if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
          printf("%10s: ",plotBaseNames[ic].Data());
-        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhRateBoundingDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhDefBoundingDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+    }
+    printf("uncertainties ElToPhAltUp\n");
+    for(unsigned ic=0; ic<nPlotCategories; ic++) {
+      if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+         printf("%10s: ",plotBaseNames[ic].Data());
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhAltBoundingUp[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+    }
+    printf("uncertainties ElToPhAltDown\n");
+    for(unsigned ic=0; ic<nPlotCategories; ic++) {
+      if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+         printf("%10s: ",plotBaseNames[ic].Data());
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_ElToPhAltBoundingDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
     }
 
   }
@@ -1561,12 +1586,14 @@ int year, int triggerCat, int mH = 125
     histo_JESBoundingUp 	[nj][ic]->Write();
     histo_JESBoundingDown	[nj][ic]->Write();
     }
-    histo_PhoEffBoundingUp	[ic]->Write();
-    histo_PhoEffBoundingDown	[ic]->Write();
-    histo_PhoFakeBoundingUp	[ic]->Write();
-    histo_PhoFakeBoundingDown	[ic]->Write();
-    histo_ElToPhRateBoundingUp  [ic]->Write();
-    histo_ElToPhRateBoundingDown[ic]->Write();
+    histo_PhoEffBoundingUp     [ic]->Write();
+    histo_PhoEffBoundingDown   [ic]->Write();
+    histo_PhoFakeBoundingUp    [ic]->Write();
+    histo_PhoFakeBoundingDown  [ic]->Write();
+    histo_ElToPhDefBoundingUp  [ic]->Write();
+    histo_ElToPhDefBoundingDown[ic]->Write();
+    histo_ElToPhAltBoundingUp  [ic]->Write();
+    histo_ElToPhAltBoundingDown[ic]->Write();
   }
   histo_GJPhotonE0Up  ->Write();
   histo_GJPhotonE0Down->Write();
@@ -1752,7 +1779,15 @@ int year, int triggerCat, int mH = 125
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_fake_el    shape     ");
+  newcardShape << Form("CMS_fake_elDef_%d    shape     ",year);
+  for (int ic=0; ic<nPlotCategories; ic++){
+    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+    else                                                                   newcardShape << Form("1.0 ");
+  }
+  newcardShape << Form("\n");
+
+  newcardShape << Form("CMS_fake_elAlt_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
