@@ -8,7 +8,7 @@ export PANDA="${CMSSW_BASE}/src/PandaAnalysis"
 #export PANDA_CFG="http://t3serv001.mit.edu/~ceballos/histcatalog/20170419_all.cfg" 
 #export PANDA_CFG="http://t3serv001.mit.edu/~ceballos/histcatalog/20170502_signals.cfg" 
 export PANDA_CFG="http://t3serv001.mit.edu/~ceballos/ceballos/catalog/test.cfg"
-export PANDA_FLATDIR="/export/data/t3home000/ceballos/panda/v_001_0/"
+export PANDA_FLATDIR="/data/t3home000/ceballos/panda/v_001_0/"
 mkdir -p $PANDA_FLATDIR
 
 export SUBMIT_TMPL="skim_lep_tmpl.py"
