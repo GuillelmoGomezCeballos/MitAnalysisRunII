@@ -195,7 +195,7 @@ double mcCorrection(int type, TString infileName, int year, int infileCat, doubl
 }
 
 void trigger_eff_sf(double triggerWeights[2], double met, double r9, double pth, double mjj, double detajj, int year, int triggerCat, 
-                    TH1D* trg_VBFG_r9_eff, TH1D* trg_VBFG_pth_eff, TH1D* trg_VBFG_mjj_eff, TH1D* trg_VBFG_detajj_eff){
+                    TH1D* trg_VBFG_r9_eff, TH1D* trg_VBFG_pth_eff, TH1D* trg_VBFG_mjj_eff, TH1D* trg_VBFG_detajj_eff, bool isElEff){
   double daTrgEff  = 1.0;
   double mcTrgEff  = 1.0;
   double sfTrgEff  = 1.0;
@@ -219,10 +219,17 @@ void trigger_eff_sf(double triggerWeights[2], double met, double r9, double pth,
     if(daTrgEff > 0) sfTrgEffE = (trg_VBFG_r9_eff->GetBinContent(myr9Bin) * trg_VBFG_detajj_eff->GetBinContent(mydetajjBin)) / daTrgEff;
   }
   else if(year == 2017 && triggerCat == 0){
-    double daVal[5] = {0.022571,167.320198,0.077194,0.000330,222.058189};
-    double mcVal[5] = {0.025953,153.096915,0.043153,0.000338,216.578332};
-    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
-    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    if(isElEff == false){
+      double daVal[5] = {0.022571,167.320198,0.077194,0.000330,222.058189};
+      double mcVal[5] = {0.025953,153.096915,0.043153,0.000338,216.578332};
+      daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
+      mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    } else {
+      double daVal[2] = {2.76878259e-02,1.83986714e+02};
+      double mcVal[2] = {3.30525865e-02,1.71112499e+02};
+      daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1])/sqrt(2)));
+      mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1])/sqrt(2)));
+    }
     if(met < 240) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
   }
   else if(year == 2017 && triggerCat == 1){
@@ -233,10 +240,17 @@ void trigger_eff_sf(double triggerWeights[2], double met, double r9, double pth,
     if(pth < 225) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
   }
   else if(year == 2018 && triggerCat == 0){
-    double daVal[5] = {0.022171,172.524448,0.090892,0.000652,224.661923};
-    double mcVal[5] = {0.025514,137.136023,0.065548,0.000381,182.744938};
-    daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
-    mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    if(isElEff == false){
+      double daVal[5] = {0.022171,172.524448,0.090892,0.000652,224.661923};
+      double mcVal[5] = {0.025514,137.136023,0.065548,0.000381,182.744938};
+      daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
+      mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    } else {
+      double daVal[5] = {1.48004575e-02,2.08450376e+02,-3.29619730e-01,3.76548739e-04,2.09122325e+02};
+      double mcVal[5] = {2.48814500e-02,1.93317169e+02,-5.92316991e-01,5.12962900e-04,1.70073538e+02};
+      daTrgEff = 1./2*(1 + TMath::Erf(daVal[0] * (met-daVal[1]))) - daVal[2]*TMath::Exp(-daVal[3]*(met-daVal[4])*(met-daVal[4]));
+      mcTrgEff = 1./2*(1 + TMath::Erf(mcVal[0] * (met-mcVal[1]))) - mcVal[2]*TMath::Exp(-mcVal[3]*(met-mcVal[4])*(met-mcVal[4]));
+    }
     if(met < 240) sfTrgEffE = 1.10; else sfTrgEffE = 1.01;
   }
   else if(year == 2018 && triggerCat == 1){

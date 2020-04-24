@@ -427,6 +427,7 @@ rm -f studyFitResults*.txt;
 hadd -f histoDatacard_zz_2019_merge.root histoDatacard_zz_201?.root 
 
 elif [ $NSEL == 'vbfg' ]; then
+rm -f studyFitResults*.txt;
 #grep -e POST -e background log|awk '{if($1=="POST"&&$3~"BSM")printf("%20s %6.1f pm %6.1f\n",$3,$16,$18);else if($1=="POST")printf("%20s %6.1f pm %6.1f\n",$3,$20,$22);else printf("\n%20s %6.1f pm %6.1f\n",$2,$10,$12);}'
 echo "***************VBFG SR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2016_trigger0_mH125_115.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
@@ -624,7 +625,7 @@ python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
 hadd -f histoDatacard_vbfg_zg_mtg_trigger2_2019.root histoDatacard_vbfg_zg_mtg_mjj0_trigger?_201[6-8].root
 
-#rm -f studyFitResults*.txt;
+rm -f studyFitResults*.txt;
 
 elif [ $NSEL == 'zhmt' ]; then
 

@@ -23,6 +23,14 @@ def doAnalysis(paths_to_watch):
             theString = content[nChan].split(' ')
 
             key = theString[0]
+	    if("WJ" in key):
+	        key = "WJ"
+	    if("WG" in key):
+	        key = "WG"
+	    if("GJ" in key):
+	        key = "GJ"
+	    if("PhotonE" in key):
+	        key = "PhotonE"
 	    if(key == "Background"):
                  if key in backgroundDict.keys():
 		     var0 = backgroundDict[key][0] + float(theString[1])

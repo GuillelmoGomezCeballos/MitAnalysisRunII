@@ -269,10 +269,10 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     TH1D* histos = new TH1D("histos", "histos", nBinPlot, xminPlot, xmaxPlot);
     histos->Sumw2();
     for(int nsel=0; nsel<2; nsel++){
-      for(int i=0; i<nPlotCategories; i++) histoEGStudy[nsel][i] = (TH1D*) histos->Clone(Form("histo%d",i));
+      for(int i=0; i<nPlotCategories; i++) histoEGStudy[nsel][i] = (TH1D*) histos->Clone(Form("histoEGStudy%d",i));
     }
     for(int nsel=0; nsel<nBinLGEta*nBinLGPt*2; nsel++){
-      for(int i=0; i<nPlotCategories; i++) histoEGStudyMass[nsel][i] = (TH1D*) histos->Clone(Form("histo%d",i));
+      for(int i=0; i<nPlotCategories; i++) histoEGStudyMass[nsel][i] = (TH1D*) histos->Clone(Form("histoEGStudyMass%d",i));
     }
     histos->Reset();histos->Clear();
   }
@@ -280,7 +280,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     TH1D* histos = new TH1D("histos", "histos", nBinLGPt, xbinsLGPt);
     histos->Sumw2();
     for(int nsel=2; nsel<12; nsel++){
-      for(int i=0; i<nPlotCategories; i++) histoEGStudy[nsel][i] = (TH1D*) histos->Clone(Form("histo%d",i));
+      for(int i=0; i<nPlotCategories; i++) histoEGStudy[nsel][i] = (TH1D*) histos->Clone(Form("histoEGStudy%d",i));
     }
     histos->Reset();histos->Clear();
   }
@@ -572,7 +572,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	  }
 	  histoEGStudy[0][theCategoryLG]->Fill(dilep.M(),totalLGWeight);
 	  if(TMath::Abs(dilep.M()-91.1876) < 15){ // Tighter mass window for the actual study
-            if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[nBinLGEta]){
+            if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[nBinLGEta] && vLoose[0].Pt() > xbinsLGPt[0]){
 	      histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
 	      if     (TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[1]) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
 	      else if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[2]) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
@@ -582,7 +582,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	                             (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001))-1);
               histoEGStudyMass[mlgxbin][theCategoryLG]->Fill(dilep.M(),totalLGWeight*0.5);
             }
-            if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[nBinLGEta]){
+            if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[nBinLGEta] && vLoose[1].Pt() > xbinsLGPt[0]){
 	      histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
 	      if     (TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[1]) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
 	      else if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[2]) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
@@ -619,7 +619,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	    printf("IMPOSSIBLE\n");
 	  }
 	  histoEGStudy[1][theCategoryLG]->Fill((vLoose[0]+vPhoton).M(),totalLGWeight);
-	  if(TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 15 && TMath::Abs(vPhoton.Eta()) <xbinsLGEta[nBinLGEta]){ // Tighter mass window for the actual study
+	  if(TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 15 && TMath::Abs(vPhoton.Eta()) <xbinsLGEta[nBinLGEta] && vPhoton.Pt() > xbinsLGPt[0]){ // Tighter mass window for the actual study
 	    histoEGStudy[7][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
 	    if     (TMath::Abs(vPhoton.Eta()) < xbinsLGEta[1]) histoEGStudy[ 8][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
 	    else if(TMath::Abs(vPhoton.Eta()) < xbinsLGEta[2]) histoEGStudy[ 9][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
@@ -1250,7 +1250,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
       totBck);
       double totBckNoZ = totBck - histoEGStudy[np][kPlotDY]->GetSumOfWeights();
       histoEGStudy[np][kPlotDY]->Scale((histoEGStudy[np][kPlotData]->GetSumOfWeights()-totBckNoZ)/histoEGStudy[np][kPlotDY]->GetSumOfWeights());
-      for(int nc=0; nc<nPlotCategories; nc++) histoEGStudy[np][nc]->Write();
+      for(int nc=0; nc<nPlotCategories; nc++) {histoEGStudy[np][nc]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));histoEGStudy[np][nc]->Write();}
       outFilePlotsNote->Close();
     }
     for(int np=0; np<nBinLGEta*nBinLGPt*2; np++){
@@ -1268,7 +1268,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
       totBck);
       double totBckNoZ = totBck - histoEGStudyMass[np][kPlotDY]->GetSumOfWeights();
       histoEGStudyMass[np][kPlotDY]->Scale((histoEGStudyMass[np][kPlotData]->GetSumOfWeights()-totBckNoZ)/histoEGStudyMass[np][kPlotDY]->GetSumOfWeights());
-      for(int nc=0; nc<nPlotCategories; nc++) histoEGStudyMass[np][nc]->Write();
+      for(int nc=0; nc<nPlotCategories; nc++) {histoEGStudyMass[np][nc]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));histoEGStudyMass[np][nc]->Write();}
       outFilePlotsNote->Close();
     }
   }
