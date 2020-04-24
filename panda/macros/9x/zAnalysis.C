@@ -100,7 +100,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     infileName_.push_back(Form("%sggWW.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotggWW);
     infileName_.push_back(Form("%sDYJetsToLL_M-10to50.root" ,filesPath.Data())); infileCat_.push_back(kPlotDY);
     if     (whichDY == 0){
-    infileName_.push_back(Form("%sDYJetsToLL_M-50_NLO.root",filesPath.Data()));  infileCat_.push_back(kPlotDY);
+    infileName_.push_back(Form("%sDYJetsToLL_M-50_LO.root",filesPath.Data()));  infileCat_.push_back(kPlotDY);
     }
     else if(whichDY == 1){
     infileName_.push_back(Form("%sDYNJetsToLL_NLO.root",filesPath.Data()));      infileCat_.push_back(kPlotDY);
@@ -258,8 +258,8 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
   TH2D* histoZRapPtStudy1 = new TH2D("histoZRapPtStudy1", "histoZRapPtStudy1", 10, 0.0, 2.5, 20, 0., 200.);
 
   TH1D* histoEGStudy[12][nPlotCategories];
-  const int nBinLGPt  =  7; Float_t xbinsLGPt [nBinLGPt+1]  = {25,30,35,40,45,50,60,125};
-  const int nBinLGEta =  4; Float_t xbinsLGEta[nBinLGEta+1] = {0.0,0.5,1.0,1.5,2.5};
+  const int nBinLGPt  =  4; Float_t xbinsLGPt [nBinLGPt+1]  = {80,130,220,270,350};
+  const int nBinLGEta =  2; Float_t xbinsLGEta[nBinLGEta+1] = {0.00,0.75,1.50};
   TH2D* histoLGSF = new TH2D("histoLGSF", "histoLGSF", nBinLGEta, xbinsLGEta, nBinLGPt, xbinsLGPt);
   TH2D* histoLGEffda = new TH2D("histoLGEffda", "histoLGEffda", nBinLGEta, xbinsLGEta, nBinLGPt, xbinsLGPt);
   TH2D* histoLGEffmc = new TH2D("histoLGEffmc", "histoLGEffmc", nBinLGEta, xbinsLGEta, nBinLGPt, xbinsLGPt);
@@ -538,8 +538,8 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
                  && (thePandaFlat.loosePho1SelBit & pPixelVeto) == pPixelVeto;
         vPhoton.SetPtEtaPhiM(thePandaFlat.loosePho1Pt, thePandaFlat.loosePho1Eta, thePandaFlat.loosePho1Phi, 0);
       }
-      bool passLGSel[2] = {thePandaFlat.nLooseLep == 2 && countLeptonTight == 2 && vLoose[0].Pt() > 35 && vLoose[1].Pt() > 25 && lepType != 0 && TMath::Abs(dilep.M()-91.1876) < 15 && qTot == 0,
-                           thePandaFlat.nLooseLep == 1 && countLeptonTight == 1 && vLoose[0].Pt() > 35 && passPhoSel && TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 15};
+      bool passLGSel[2] = {thePandaFlat.nLooseLep == 2 && countLeptonTight == 2 && vLoose[0].Pt() > 35 && vLoose[1].Pt() > 25 && lepType != 0 && TMath::Abs(dilep.M()-91.1876) < 15 && qTot == 0 && thePandaFlat.nJot >= 1,
+                           thePandaFlat.nLooseLep == 1 && countLeptonTight == 1 && vLoose[0].Pt() > 35 && passPhoSel && TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 15 && thePandaFlat.nJot >= 1};
       //if((passLGSel[0] || passLGSel[1]) && (infileCat_[ifile] == kPlotData || lepType != 2) && (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0){
       if((passLGSel[0] || passLGSel[1]) && (infileCat_[ifile] == kPlotData || lepType != 2) && passTrigger){
         int theCategoryLG = infileCat_[ifile];
@@ -547,7 +547,8 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	if(theCategoryLG != kPlotData){
           double puWeight  = nPUScaleFactor(fhDPU,  thePandaFlat.pu);
           double npvWeight = nPUScaleFactor(fhDNPV, thePandaFlat.npv);
-          totalLGWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * npvWeight * puWeight * thePandaFlat.sf_l1Prefire * looseLepSF[0];
+          //totalLGWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * npvWeight * puWeight * thePandaFlat.sf_l1Prefire * looseLepSF[0];
+          totalLGWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * puWeight * thePandaFlat.sf_l1Prefire * looseLepSF[0];
         }
         if(passLGSel[0]){
 	  if(theCategoryLG != kPlotData){
@@ -570,24 +571,28 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	    printf("IMPOSSIBLE\n");
 	  }
 	  histoEGStudy[0][theCategoryLG]->Fill(dilep.M(),totalLGWeight);
-	  if(TMath::Abs(dilep.M()-91.1876) < 10){ // Tighter mass window for the actual study
-	    histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), 124.999),totalLGWeight);
-	    if     (TMath::Abs(vLoose[0].Eta()) < 0.5) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[0].Eta()) < 1.0) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[0].Eta()) < 1.5) histoEGStudy[5][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[0].Eta()) < 2.5) histoEGStudy[6][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), 124.999),totalLGWeight);
-	    histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), 124.999),totalLGWeight);
-	    if     (TMath::Abs(vLoose[1].Eta()) < 0.5) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[1].Eta()) < 1.0) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[1].Eta()) < 1.5) histoEGStudy[5][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vLoose[1].Eta()) < 2.5) histoEGStudy[6][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), 124.999),totalLGWeight);
+	  if(TMath::Abs(dilep.M()-91.1876) < 15){ // Tighter mass window for the actual study
+            if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[nBinLGEta]){
+	      histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      if     (TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[1]) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      else if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[2]) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      //else if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[3]) histoEGStudy[5][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      //else if(TMath::Abs(vLoose[0].Eta()) < xbinsLGEta[4]) histoEGStudy[6][theCategoryLG]->Fill(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      int mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vLoose[0].Eta()))-1)+
+	                             (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vLoose[0].Pt(), xbinsLGPt[nBinLGPt]-0.001))-1);
+              histoEGStudyMass[mlgxbin][theCategoryLG]->Fill(dilep.M(),totalLGWeight*0.5);
+            }
+            if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[nBinLGEta]){
+	      histoEGStudy[2][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      if     (TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[1]) histoEGStudy[3][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      else if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[2]) histoEGStudy[4][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      //else if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[3]) histoEGStudy[5][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      //else if(TMath::Abs(vLoose[1].Eta()) < xbinsLGEta[4]) histoEGStudy[6][theCategoryLG]->Fill(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight*0.5);
+	      int mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vLoose[1].Eta()))-1)+
+	                             (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vLoose[1].Pt(), xbinsLGPt[nBinLGPt]-0.001))-1);
+              histoEGStudyMass[mlgxbin][theCategoryLG]->Fill(dilep.M(),totalLGWeight*0.5);
+            }
 	  }
-	  Int_t mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vLoose[0].Eta()))-1)+
-	                           (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vLoose[0].Pt(), 124.999))-1);
-          histoEGStudyMass[mlgxbin][theCategoryLG]->Fill(dilep.M(),totalLGWeight);
-	        mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vLoose[1].Eta()))-1)+
-	                           (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vLoose[1].Pt(), 124.999))-1);
-          histoEGStudyMass[mlgxbin][theCategoryLG]->Fill(dilep.M(),totalLGWeight);
 	}
 	else {
 	  if(theCategoryLG != kPlotData){
@@ -614,16 +619,16 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	    printf("IMPOSSIBLE\n");
 	  }
 	  histoEGStudy[1][theCategoryLG]->Fill((vLoose[0]+vPhoton).M(),totalLGWeight);
-	  if(TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 10){ // Tighter mass window for the actual study
-	    histoEGStudy[7][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), 124.999),totalLGWeight);
-	    if     (TMath::Abs(vPhoton.Eta()) < 0.5) histoEGStudy[ 8][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vPhoton.Eta()) < 1.0) histoEGStudy[ 9][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vPhoton.Eta()) < 1.5) histoEGStudy[10][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), 124.999),totalLGWeight);
-	    else if(TMath::Abs(vPhoton.Eta()) < 2.5) histoEGStudy[11][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), 124.999),totalLGWeight);
+	  if(TMath::Abs((vLoose[0]+vPhoton).M()-91.1876) < 15 && TMath::Abs(vPhoton.Eta()) <xbinsLGEta[nBinLGEta]){ // Tighter mass window for the actual study
+	    histoEGStudy[7][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
+	    if     (TMath::Abs(vPhoton.Eta()) < xbinsLGEta[1]) histoEGStudy[ 8][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
+	    else if(TMath::Abs(vPhoton.Eta()) < xbinsLGEta[2]) histoEGStudy[ 9][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
+	    //else if(TMath::Abs(vPhoton.Eta()) < xbinsLGEta[3]) histoEGStudy[10][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
+	    //else if(TMath::Abs(vPhoton.Eta()) < xbinsLGEta[4]) histoEGStudy[11][theCategoryLG]->Fill(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001),totalLGWeight);
+	    Int_t mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()))-1)+
+	                             (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001))-1);
+            histoEGStudyMass[nBinLGEta*nBinLGPt+mlgxbin][theCategoryLG]->Fill((vLoose[0]+vPhoton).M(),totalLGWeight);
           }
-	  Int_t mlgxbin = nBinLGPt*(histoLGSF->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()))-1)+
-	                           (histoLGSF->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), 124.999))-1);
-          histoEGStudyMass[nBinLGPt*nBinLGEta+mlgxbin][theCategoryLG]->Fill((vLoose[0]+vPhoton).M(),totalLGWeight);
 	}
       } // end eg analysis
 
@@ -645,7 +650,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
           double photonSF = 1.0;
           if	 (thePandaFlat.looseGenPho1PdgId == 1) {
 	    int nxbin = fhDElePhoSF->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()));
-	    int nybin = fhDElePhoSF->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), 124.999));
+	    int nybin = fhDElePhoSF->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), xbinsLGPt[nBinLGPt]-0.001));
             photonSF = fhDElePhoSF->GetBinContent(nxbin, nybin);
 	  }
           else if(thePandaFlat.looseGenPho1PdgId == 3) {
@@ -1190,10 +1195,10 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 
   { // EG study, making pain text format gStyle->SetPaintTextFormat(".3f")
     printf("---------------EG Study---------------\n");
-    int valLL[4] = {3, 4, 5, 6};
-    int valLG[4] = {8, 9,10,11};
+    int valLL[nBinLGEta] = {3, 4}; //{3, 4, 5, 6};
+    int valLG[nBinLGEta] = {8, 9}; //{8, 9,10,11};
     double effda, effmc, effdaE, effmcE, sf, sfE;
-    for(int netab=0; netab<4; netab++){
+    for(int netab=0; netab<nBinLGEta; netab++){
       for(int i=1; i<=histoEGStudy[valLL[netab]][0]->GetNbinsX(); i++){
         double totBck[2] = {0, 0};
         for(int ic=1; ic<nPlotCategories; ic++) {
@@ -1202,22 +1207,27 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
           totBck[1] = totBck[1] + histoEGStudy[valLG[netab]][ic]->GetBinContent(i);
         }
 	double total[2] = {(histoEGStudy[valLL[netab]][kPlotData]->GetBinContent(i)-totBck[0])+(histoEGStudy[valLG[netab]][kPlotData]->GetBinContent(i)-totBck[1]),
-                           histoEGStudy[valLL[netab]][kPlotDY]->GetBinContent(i)+histoEGStudy[valLG[netab]][kPlotDY]->GetBinContent(i)};
+                            histoEGStudy[valLL[netab]][kPlotDY]->GetBinContent(i)+histoEGStudy[valLG[netab]][kPlotDY]->GetBinContent(i)};
         effda = (histoEGStudy[valLG[netab]][kPlotData]->GetBinContent(i)-totBck[1]) / total[0];
         effmc = histoEGStudy[valLG[netab]][kPlotDY]->GetBinContent(i) / total[1];
         effdaE = sqrt((1-effda)*effda/total[0]);
         effmcE = sqrt((1-effmc)*effmc/total[1]);
         sf = effda/effmc;
-        sfE = effda/effmc*sqrt(effdaE/effda*effdaE/effda+effmcE/effmc*effmcE/effmc);
+	if(sf > 3.5) {
+	  sf = 3.4 + gRandom->Uniform()*0.1;
+	  effmc = effda / sf;
+	  effmcE = effmc*0.1;
+	}
+        sfE = sf*sqrt(effdaE/effda*effdaE/effda+effmcE/effmc*effmcE/effmc);
         printf("(%d,%2d): %.3f +/- %.3f / %.3f +/- %.3f = %.3f +/- %.3f\n",netab,i,effda,effdaE,effmc,effmcE,sf,sfE);
         histoLGEffda->SetBinContent(netab+1, i, effda );
         histoLGEffda->SetBinError  (netab+1, i, effdaE);
         histoLGEffmc->SetBinContent(netab+1, i, effmc );
         histoLGEffmc->SetBinError  (netab+1, i, effmcE);
         histoLGSF   ->SetBinContent(netab+1, i, sf    );
-        histoLGSF   ->SetBinError  (netab+1, i, sqrt(sfE*sfE+0.2*0.2));
+        histoLGSF   ->SetBinError  (netab+1, i, sqrt(sfE*sfE)); // +0.2*0.2
       } // pt bins
-    } // 4 eta bins
+    } // eta bins
     sprintf(output,"histoDY%dLGSF_%d%s.root",whichDY,year,addSuffix.Data());
     TFile* outFilePlotsNote = new TFile(output,"recreate");
     outFilePlotsNote->cd();
