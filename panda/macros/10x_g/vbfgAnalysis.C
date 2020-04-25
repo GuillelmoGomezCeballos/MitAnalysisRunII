@@ -1151,7 +1151,6 @@ int year, int triggerCat, int mH = 125
       if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
       for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
       if(dataCardSel >= 0&&theMinSelType==0&&TMath::Abs(theG.Eta())<0.1)
-      printf("aaaa %f %f %f\n",theG.Eta(),vPhoton.Eta(),thePandaFlat.loosePho1Eta);
       if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
       if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(TMath::Min(theG.Pt(),479.999),totalWeight);
       if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
