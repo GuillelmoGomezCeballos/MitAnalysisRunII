@@ -414,7 +414,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
     else if(thePlot >=  85 && thePlot <=  89) {nBinPlot = 20;  xminPlot = 50.0; xmaxPlot = 450.0;}
     else if(thePlot >=  90 && thePlot <=  92) {nBinPlot = 80;  xminPlot = -0.5; xmaxPlot = 79.5;}
-    else if(thePlot >=  93 && thePlot <=  94) {nBinPlot = 60;  xminPlot = 60.0; xmaxPlot = 120.0;}
+    else if(thePlot >=  93 && thePlot <=  94) {nBinPlot = 40; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
     else if(thePlot >=  95 && thePlot <=  99) {nBinPlot = 15;  xminPlot =  0.7; xmaxPlot = 1.0;}
     else if(thePlot >= 100 && thePlot <= 104) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >= 105 && thePlot <= 109) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 1.0;}
@@ -713,7 +713,7 @@ int year, int triggerCat, int mH = 125
 	mLL = (vLoose[0]+vLoose[1]).M();
       }
       //else if(passPhoSel == 3 && vLoose.size() == 0){ // electron faking gamma + 0 leptons
-      else if(passPhoSel == 0 && vLoose.size() == 1 && thePandaFlat.nLooseElectron == 1){ // 0 gamma + 1 electron
+      else if(passPhoSel == 0 && vLoose.size() == 1 && thePandaFlat.nLooseElectron == 1 && TMath::Abs(vLoose[0].Eta()) < 2.4){ // 0 gamma + 1 electron
         theMinSelType = ESEL;
         //theG = vPhoton;
 	theG = vLoose[0];
@@ -852,6 +852,9 @@ int year, int triggerCat, int mH = 125
         passHEM1516 = 
         !(thePandaFlat.jotPhi[0]<-0.87 && thePandaFlat.jotPhi[0]>-1.57 && thePandaFlat.jotEta[0]<-1.3 && thePandaFlat.jotEta[0]>-3.0) &&
         !(thePandaFlat.jotPhi[1]<-0.87 && thePandaFlat.jotPhi[1]>-1.57 && thePandaFlat.jotEta[1]<-1.3 && thePandaFlat.jotEta[1]>-3.0);
+        if(theMinSelType == ESEL){
+          passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
+        }
       }
       if(passHEM1516 == false) continue;
 
@@ -1150,7 +1153,6 @@ int year, int triggerCat, int mH = 125
       if(passNMinusOne[5]) histo[35+theMinSelType][theCategory]->Fill(gZep,totalWeight);
       if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
       for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
-      if(dataCardSel >= 0&&theMinSelType==0&&TMath::Abs(theG.Eta())<0.1)
       if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
       if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(TMath::Min(theG.Pt(),479.999),totalWeight);
       if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
@@ -1163,7 +1165,8 @@ int year, int triggerCat, int mH = 125
       if(dataCardSel >= 0) histo[ 90][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight);
       if(dataCardSel >= 0) histo[ 91][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight);
       if(dataCardSel >= 0) histo[ 92][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight*puStdWeight);
-
+      if     (passVBFGSel     ) histo[ 93][theCategory]->Fill(theG.Phi(),totalWeight);
+      else if(dataCardSel >= 0) histo[ 94][theCategory]->Fill(theG.Phi(),totalWeight);
       if(dataCardSel >= 0) histo[ 95+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Min(photonR9,0.999),0.701),totalWeight);
       if(dataCardSel >= 0) histo[100+theMinSelType][theCategory]->Fill(TMath::Min(ratio_allJetPt_vs_allJetHT,0.999),totalWeight);
       if(dataCardSel >= 0) histo[105+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(vMet.Pt()-thePandaFlat.trkmet)/vMet.Pt(),0.999),totalWeight);
@@ -1323,7 +1326,7 @@ int year, int triggerCat, int mH = 125
       histo_ScaleGBoundingDown    [ic]->SetBinContent(nb, TMath::Max((float)histo_ScaleGBoundingDown    [ic]->GetBinContent(nb),0.0f));
       histo_PUBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PUBoundingUp  	[ic]->GetBinContent(nb),0.0f));
       histo_PUBoundingDown	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PUBoundingDown	[ic]->GetBinContent(nb),0.0f));
-      histo_PUBoundingDown        [ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_PUBoundingUp[ic]->GetBinContent(nb)),0.0f));
+      histo_PUBoundingDown        [ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_PUBoundingUp[ic]->GetBinContent(nb)),0.00001f));
       histo_PreFireBoundingUp     [ic]->SetBinContent(nb, TMath::Max((float)histo_PreFireBoundingUp     [ic]->GetBinContent(nb),0.0f));
       histo_PreFireBoundingDown   [ic]->SetBinContent(nb, TMath::Max((float)histo_PreFireBoundingDown   [ic]->GetBinContent(nb),0.0f));
       histo_TriggerDBoundingUp    [ic]->SetBinContent(nb, TMath::Max((float)histo_TriggerDBoundingUp	[ic]->GetBinContent(nb),0.0f));

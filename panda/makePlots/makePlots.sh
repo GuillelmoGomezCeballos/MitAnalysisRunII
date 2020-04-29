@@ -719,6 +719,14 @@ elif [ $NSEL == 'ssww' ] || [ $NSEL == 'long' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}^{WZ}","GeV","done_ana/histossww_'${YEAR}'_138'${fidAnaName}'.root","ssww_wzsel_aqgc_fullmtwz",0,'${YEAR}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m^{WZ}"    ,"GeV","done_ana/histossww_'${YEAR}'_139'${fidAnaName}'.root","ssww_wzsel_aqgc_fullmwz" ,0,'${YEAR}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 
+elif [ $NSEL == 'llg' ]; then
+  export sf_dy=1.0;
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,2,"m_{ll}","GeV","done_dy/histoDY0LLGStudy_'${YEAR}'_0.root","zllg_mllg0",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,2,"m_{ll}","GeV","done_dy/histoDY0LLGStudy_'${YEAR}'_1.root","zllg_mllg1",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"p_{T}^{#gamma}","GeV","done_dy/histoDY0LLGStudy_'${YEAR}'_2.root","zllg_ptg0",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"p_{T}^{#gamma}","GeV","done_dy/histoDY0LLGStudy_'${YEAR}'_3.root","zllg_ptg1",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+
 elif [ $NSEL == 'zlg' ]; then
   export sf_dy=1.0;
 

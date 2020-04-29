@@ -6,6 +6,13 @@ void GoodStyle()
   TStyle* GoodStyle = new TStyle("GoodStyle", "GoodStyle");
   gStyle = GoodStyle;
 
+  //----------------------------------------------------------------------------
+  // Legend
+  //----------------------------------------------------------------------------
+  GoodStyle->SetLegendBorderSize( 0);
+  GoodStyle->SetLegendFont      (42);
+  GoodStyle->SetLegendFillColor ( 0);
+  GoodStyle->SetFillColor       ( 0);
 
   //----------------------------------------------------------------------------
   // Canvas

@@ -120,7 +120,7 @@ void DrawLegend(Float_t x1,
     legend->SetBorderSize(     0);
     legend->SetFillColor (     0);
     legend->SetTextAlign (    12);
-    legend->SetTextFont  (    42);
+    legend->SetTextFont  (    62);
     legend->SetTextSize  (_tsize);
 
     legend->AddEntry(hist, label.Data(), option.Data());
@@ -142,7 +142,7 @@ void DrawLegendTG(Float_t x1,
     legend->SetBorderSize(     0);
     legend->SetFillColor (     0);
     legend->SetTextAlign (    12);
-    legend->SetTextFont  (    42);
+    legend->SetTextFont  (    62);
     legend->SetTextSize  (_tsize);
 
     legend->AddEntry(hist, label.Data(), option.Data());
