@@ -15,12 +15,8 @@
 #include "MitAnalysisRunII/panda/macros/10x_g/common.h"
 #include "MitAnalysisRunII/panda/macros/9x/applyCorrections.h"
 
-const bool isSingleLeptonAna = false;
 const int debug = 0;
 const bool showSyst = true;
-const unsigned int period = 0;
-const double mcPrescale = 1;
-const bool usePureMC = true;
 enum selType                     { VBFGSEL,   ESEL,   MGSEL,   GJSEL,   MMGSEL, nSelTypes};
 TString selTypeName[nSelTypes]=  {"VBFGSEL", "ESEL", "MGSEL", "GJSEL", "MMGSEL"};
 enum systType                     {JESUP=0, JESDOWN, nSystTypes};
@@ -76,12 +72,8 @@ int year, int triggerCat, int mH = 125
   if(year == 2018) {
     filesPath = Form("/local/bmaier/darkg/2018/vbfg_v_013_v21/");
 
-    //if(triggerCat == 0){
-    //infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
-    //} else {
-    //infileName_.push_back(Form("%sEGamma.root" ,filesPath.Data()));                   infileCat_.push_back(kPlotData);
-    //}
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
+    infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -144,12 +136,8 @@ int year, int triggerCat, int mH = 125
   else if(year == 2017) {
     filesPath = Form("/local/bmaier/darkg/2017/vbfg_v_012_v21/");
 
-    //if(triggerCat == 0){
-    //infileName_.push_back(Form("%sMET.root" ,filesPath.Data()));                      infileCat_.push_back(kPlotData);
-    //} else {
-    //infileName_.push_back(Form("%sSinglePhoton.root" ,filesPath.Data()));             infileCat_.push_back(kPlotData);
-    //}
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
+    infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -214,6 +202,7 @@ int year, int triggerCat, int mH = 125
     filesPath = Form("/local/bmaier/darkg/2016/vbfg_v_009_v21/");
 
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                 infileCat_.push_back(kPlotData);
+    infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                 infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -531,7 +520,6 @@ int year, int triggerCat, int mH = 125
     double srYields[4]  = {0., 0., 0., 0.};
     double srYieldsE[4] = {0., 0., 0., 0.};
     pandaFlat thePandaFlat(the_input_tree);
-    double theMCPrescale = 1.0; if(infileCat_[ifile] != kPlotData) theMCPrescale = mcPrescale;
     Long64_t nentries = thePandaFlat.fChain->GetEntriesFast();
     Long64_t nbytes = 0, nb = 0;
     for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -539,7 +527,6 @@ int year, int triggerCat, int mH = 125
       if (ientry < 0) break;
       nb = thePandaFlat.fChain->GetEntry(jentry);   nbytes += nb;
       if (jentry%1000000 == 0) printf("--- reading event %8lld (%8lld) of %8lld\n",jentry,ientry,nentries);
-      if (infileCat_[ifile] != 0 && jentry%(int)theMCPrescale != 0) continue;
 
 /*bool thePass =
 (thePandaFlat.runNumber==297563&&thePandaFlat.eventNumber==278996355)||
@@ -552,10 +539,10 @@ int year, int triggerCat, int mH = 125
       bool passTrigger[2] = {false, false};
       bool passSinglePhotonTrigger = false;
       if(year == 2016 && triggerCat == 0){
-        if(infileCat_[ifile] == kPlotData) passTrigger[0] = (thePandaFlat.trigger & (1<<kVBFPhoTrig)) != 0;
-	else                               passTrigger[0] = true;
-        if(infileCat_[ifile] == kPlotData) passTrigger[1] = (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0;
-	else                               passTrigger[1] = (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0;
+        if(infileCat_[ifile] == kPlotData || infileCat_[ifile] == kPlotNonPrompt) passTrigger[0] = (thePandaFlat.trigger & (1<<kVBFPhoTrig)) != 0;
+	else                                                                      passTrigger[0] = true;
+        if(infileCat_[ifile] == kPlotData || infileCat_[ifile] == kPlotNonPrompt) passTrigger[1] = (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0;
+	else                                                                      passTrigger[1] = (thePandaFlat.trigger & (1<<kSingleEleTrig)) != 0;
       } else {
         if     (triggerCat == 0) passTrigger[0] = (thePandaFlat.trigger & (1<<kMETTrig)) != 0;
         else if(triggerCat == 1) passTrigger[0] = (thePandaFlat.trigger & (1<<kSinglePhoTrig)) != 0;
@@ -567,35 +554,40 @@ int year, int triggerCat, int mH = 125
 
       if(debug == 3) printf("DEBUG%d STEP1 %d %d %llu\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber);
 
-      //if(infileCat_[ifile] == kPlotData && thePandaFlat.runNumber >= 319077) continue;
-
       if(thePandaFlat.nLooseLep > 2) continue;
+
+      int theCategory = infileCat_[ifile];
 
       double etaPhotonCut = 1.47; double r9PhotonCut = 0.9;
       if(year == 2017 || year == 2018) {etaPhotonCut = 1.47; r9PhotonCut = 0.0;}
 
       TLorentzVector vFakePhoton,vPhoton,vPhotonUp,vPhotonDown;
       int passPhoSel = 0; double photonR9 = 0;
-      if(thePandaFlat.loosePho1Pt > ptMin
-         && TMath::Abs(thePandaFlat.loosePho1Eta) < etaPhotonCut
-         && (thePandaFlat.loosePho1SelBit & pMedium) == pMedium
-	 && thePandaFlat.loosePho1r9 > r9PhotonCut
-	 && (thePandaFlat.loosePho1SelBit & pCsafeVeto) == pCsafeVeto
-	 && (thePandaFlat.loosePho1SelBit & pPixelVeto) == pPixelVeto) passPhoSel = 1;
-      if(passPhoSel == 0
-         && thePandaFlat.alterPho1Pt > ptMin
-         && TMath::Abs(thePandaFlat.alterPho1Eta) < etaPhotonCut
-         && (thePandaFlat.alterPho1SelBit & pMediumNM1) == pMediumNM1
-	 && thePandaFlat.alterPho1SelBit > r9PhotonCut
-	 && (thePandaFlat.alterPho1SelBit & pCsafeVeto) == pCsafeVeto
-	 && (thePandaFlat.alterPho1SelBit & pPixelVeto) == pPixelVeto) passPhoSel = 2;
-      if(passPhoSel == 0
-         && thePandaFlat.loosePho1Pt > ptMin
-         && TMath::Abs(thePandaFlat.loosePho1Eta) < etaPhotonCut
-         && (thePandaFlat.loosePho1SelBit & pMedium) == pMedium
-	 && thePandaFlat.loosePho1r9 > r9PhotonCut
-	 &&!((thePandaFlat.loosePho1SelBit & pCsafeVeto) == pCsafeVeto
-	 &&  (thePandaFlat.loosePho1SelBit & pPixelVeto) == pPixelVeto)) passPhoSel = 3;
+      if(theCategory != kPlotNonPrompt){
+        if(thePandaFlat.loosePho1Pt > ptMin
+           && TMath::Abs(thePandaFlat.loosePho1Eta) < etaPhotonCut
+           && (thePandaFlat.loosePho1SelBit & pMedium) == pMedium
+	   && thePandaFlat.loosePho1r9 > r9PhotonCut
+	   && (thePandaFlat.loosePho1SelBit & pCsafeVeto) == pCsafeVeto
+	   && (thePandaFlat.loosePho1SelBit & pPixelVeto) == pPixelVeto) passPhoSel = 1;
+        //if(passPhoSel == 0
+        //   && thePandaFlat.loosePho1Pt > ptMin
+        //   && TMath::Abs(thePandaFlat.loosePho1Eta) < etaPhotonCut
+        //   && (thePandaFlat.loosePho1SelBit & pMedium) == pMedium
+        //   && thePandaFlat.loosePho1r9 > r9PhotonCut
+        //   &&!((thePandaFlat.loosePho1SelBit & pCsafeVeto) == pCsafeVeto
+        //   &&  (thePandaFlat.loosePho1SelBit & pPixelVeto) == pPixelVeto)) passPhoSel = 3;
+      }
+      else {
+        if(thePandaFlat.alterPho1Pt > ptMin
+           && TMath::Abs(thePandaFlat.alterPho1Eta) < etaPhotonCut
+           && (thePandaFlat.alterPho1SelBit & pMediumNM1) == pMediumNM1
+	   && thePandaFlat.alterPho1SelBit > r9PhotonCut
+	   && (thePandaFlat.alterPho1SelBit & pCsafeVeto) == pCsafeVeto
+	   && (thePandaFlat.alterPho1SelBit & pPixelVeto) == pPixelVeto) passPhoSel = 2;
+        if(passPhoSel == 0) continue;
+      }
+
       if     (passPhoSel == 1 || passPhoSel == 3) {
         vPhoton.SetPtEtaPhiM(thePandaFlat.loosePho1Pt, thePandaFlat.loosePho1Eta, thePandaFlat.loosePho1Phi, 0);
 	photonR9 = thePandaFlat.loosePho1r9;
@@ -638,7 +630,6 @@ int year, int triggerCat, int mH = 125
 
       if((int)looseLepPt.size() != thePandaFlat.nLooseLep && passPhoSel != 3) printf("IMPOSSIBLE\n");
 
-      int theCategory = infileCat_[ifile];
       vector<TLorentzVector> vLoose;
       vector<int> idLep;
       int qTot = 0;
@@ -687,7 +678,7 @@ int year, int triggerCat, int mH = 125
         dPhiJetMETDown = thePandaFlat.dphipuppimet_JESTotalDown;
       }
 
-      if(usePureMC == true && countLeptonTight != idLep.size()) continue;
+      if(countLeptonTight != idLep.size()) continue;
 
       double mLL = 91.1876;
       int theMinSelType = -1;
@@ -713,7 +704,7 @@ int year, int triggerCat, int mH = 125
 	mLL = (vLoose[0]+vLoose[1]).M();
       }
       //else if(passPhoSel == 3 && vLoose.size() == 0){ // electron faking gamma + 0 leptons
-      else if(passPhoSel == 0 && vLoose.size() == 1 && thePandaFlat.nLooseElectron == 1 && TMath::Abs(vLoose[0].Eta()) < 2.4){ // 0 gamma + 1 electron
+      else if(passPhoSel == 0 && vLoose.size() == 1 && thePandaFlat.nLooseElectron == 1 && TMath::Abs(vLoose[0].Eta()) < etaPhotonCut){ // 0 gamma + 1 electron
         theMinSelType = ESEL;
         //theG = vPhoton;
 	theG = vLoose[0];
@@ -957,7 +948,7 @@ int year, int triggerCat, int mH = 125
       double totalWeight = 1.0; double puStdWeight = 1.0;  double puWeight = 1.0;double puWeightUp = 1.0; double puWeightDown = 1.0; double sf_l1PrefireE = 1.0;
       double triggerWeights[2] = {1.0, 1.0}; double triggerWeightsEl[2] = {1.0, 1.0}; double nloKfactor = 1;
       double photonSFDef = 1.0, effSFLoose = 1.0, effSFTight = 1.0;
-      if(theCategory != kPlotData){
+      if(theCategory != kPlotData && theCategory != kPlotNonPrompt){
 	puWeight     = nPUScaleFactor(fhDPU,    thePandaFlat.pu);
         puWeightUp   = nPUScaleFactor(fhDPUUp,  thePandaFlat.pu);
         puWeightDown = nPUScaleFactor(fhDPUDown,thePandaFlat.pu);
@@ -981,7 +972,7 @@ int year, int triggerCat, int mH = 125
           triggerWeights[1] = 1.03;
 	}
 
-        totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * 1000 * puWeight * thePandaFlat.sf_l1Prefire * triggerWeights[0] * theMCPrescale;
+        totalWeight = thePandaFlat.normalizedWeight * lumiV[whichYear] * 1000 * puWeight * thePandaFlat.sf_l1Prefire * triggerWeights[0];
 
         //if(theMinSelType != ESEL){
         if(1){
@@ -1046,7 +1037,7 @@ int year, int triggerCat, int mH = 125
 	  else if(splitVar0 >= mjjSplit) theCategory = kPlotWG1;
         }
 
-	if(passPhoSel == 1 || passPhoSel == 2) {
+	if(passPhoSel == 1) {
           if     (thePandaFlat.looseGenPho1PdgId == 1) {
 	    int nxbin = fhDElePhoSFDef->GetXaxis()->FindBin(TMath::Abs(vPhoton.Eta()));
 	    int nybin = fhDElePhoSFDef->GetYaxis()->FindBin(TMath::Min((double)vPhoton.Pt(), fhDElePhoSFDef->GetYaxis()->GetBinCenter(fhDElePhoSFDef->GetNbinsY())));
@@ -1077,35 +1068,15 @@ int year, int triggerCat, int mH = 125
           }
 	}
         totalWeight = totalWeight * effSFLoose * effSFTight;
-      }
-
-      if(usePureMC == false && countLeptonTight != idLep.size()){
-        double fakeSF = 1.0;
-        for(unsigned int nl=0; nl<idLep.size(); nl++){
-          if(idLep[nl] == 1) continue;
-          bool applyTight = false;
-          fakeSF = fakeSF * fakeRateFactor(TMath::Min((double)vLoose[nl].Pt(),44.999),TMath::Abs(vLoose[nl].Eta()),TMath::Abs(looseLepPdgId[nl]),applyTight,histoFakeEffSelMediumEtaPt_m,histoFakeEffSelMediumEtaPt_e,histoFakeEffSelTightEtaPt_m,histoFakeEffSelTightEtaPt_e);
-          theCategory = kPlotNonPrompt;
-        }
-        if     (infileCat_[ifile] != kPlotData && countLeptonTight == idLep.size()-4) fakeSF = +1.0 * fakeSF; // fourth fake, MC
-        else if(infileCat_[ifile] != kPlotData && countLeptonTight == idLep.size()-3) fakeSF = -1.0 * fakeSF; // triple fake, MC
-        else if(infileCat_[ifile] != kPlotData && countLeptonTight == idLep.size()-2) fakeSF = +1.0 * fakeSF; // double fake, MC
-        else if(infileCat_[ifile] != kPlotData && countLeptonTight == idLep.size()-1) fakeSF = -1.0 * fakeSF; // single fake, MC
-        else if(infileCat_[ifile] == kPlotData && countLeptonTight == idLep.size()-4) fakeSF = -1.0 * fakeSF; // fourth fake, data
-        else if(infileCat_[ifile] == kPlotData && countLeptonTight == idLep.size()-3) fakeSF = +1.0 * fakeSF; // triple fake, data
-        else if(infileCat_[ifile] == kPlotData && countLeptonTight == idLep.size()-2) fakeSF = -1.0 * fakeSF; // double fake, data
-        else if(infileCat_[ifile] == kPlotData && countLeptonTight == idLep.size()-1) fakeSF = +1.0 * fakeSF; // single fake, data
-        else printf("IMPOSSIBLE FAKE OPTION\n");
-        totalWeight = totalWeight * fakeSF;
-      }
-
-      if     (passPhoSel == 2 && theCategory == kPlotData){
+      } // mcWeights
+      else if(passPhoSel == 2 && theCategory == kPlotNonPrompt){
         photonSFUnc[1] = 1.10;
-        theCategory = kPlotNonPrompt;
 	totalWeight = totalWeight * 0.17 * TMath::Exp(-0.0066*vPhoton.Pt());
       }
-      else if(passPhoSel == 2){
-	totalWeight = 0.0;
+      else if(theCategory == kPlotData){
+      }
+      else {
+        printf("IMPOSSIBLE weight category\n");
       }
 
       if(totalWeight == 0) continue;
