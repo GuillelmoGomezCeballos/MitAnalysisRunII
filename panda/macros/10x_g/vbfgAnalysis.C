@@ -400,7 +400,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
     else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
+    else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 4.8;}
     else if(thePlot >=  85 && thePlot <=  89) {nBinPlot = 20;  xminPlot = 50.0; xmaxPlot = 450.0;}
     else if(thePlot >=  90 && thePlot <=  92) {nBinPlot = 80;  xminPlot = -0.5; xmaxPlot = 79.5;}
     else if(thePlot >=  93 && thePlot <=  94) {nBinPlot = 40; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
@@ -840,12 +840,17 @@ int year, int triggerCat, int mH = 125
 
       bool passHEM1516 = true;
       if(year == 2018 && thePandaFlat.nJot >= 2){
-        passHEM1516 = 
+        passHEM1516 = passHEM1516 && 
         !(thePandaFlat.jotPhi[0]<-0.87 && thePandaFlat.jotPhi[0]>-1.57 && thePandaFlat.jotEta[0]<-1.3 && thePandaFlat.jotEta[0]>-3.0) &&
         !(thePandaFlat.jotPhi[1]<-0.87 && thePandaFlat.jotPhi[1]>-1.57 && thePandaFlat.jotEta[1]<-1.3 && thePandaFlat.jotEta[1]>-3.0);
         if(theMinSelType == ESEL){
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
+      }
+      if(thePandaFlat.nJot >= 2 && theMinSelType == GJSEL && year  != 2016){
+        passHEM1516 = passHEM1516 &&  
+        !(TMath::Abs(thePandaFlat.jotEta[0]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[0]) < 3.1) &&
+        !(TMath::Abs(thePandaFlat.jotEta[1]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[1]) < 3.1);
       }
       if(passHEM1516 == false) continue;
 
