@@ -849,8 +849,8 @@ int year, int triggerCat, int mH = 125
       }
       if(thePandaFlat.nJot >= 2 && theMinSelType == GJSEL && year  != 2016){
         passHEM1516 = passHEM1516 &&  
-        !(TMath::Abs(thePandaFlat.jotEta[0]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[0]) < 3.1) &&
-        !(TMath::Abs(thePandaFlat.jotEta[1]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[1]) < 3.1);
+        !(TMath::Abs(thePandaFlat.jotEta[0]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[0]) < 3.2) &&
+        !(TMath::Abs(thePandaFlat.jotEta[1]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[1]) < 3.2);
       }
       if(passHEM1516 == false) continue;
 
