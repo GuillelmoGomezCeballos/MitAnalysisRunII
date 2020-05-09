@@ -11,8 +11,8 @@
 #include <fstream>
 #include "TLorentzVector.h"
 
-#include "MitAnalysisRunII/panda/macros/9x/pandaFlat.C"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
+#include "pandaFlat.C"
+#include "common.h"
 
 void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna = 0){
 

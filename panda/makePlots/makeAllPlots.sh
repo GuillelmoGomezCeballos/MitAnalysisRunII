@@ -39,11 +39,11 @@ elif [ $NSEL == 'ssww' ]; then
 ./MitAnalysisRunII/panda/makePlots/makePlots.sh ssww 1 2018 $2;
 ./MitAnalysisRunII/panda/makePlots/makePlots.sh ssww 1 2019 $2;
 
-elif [ $NSEL == 'long' ]; then
-./MitAnalysisRunII/panda/makePlots/makePlots.sh long 1 2016 $2;
-./MitAnalysisRunII/panda/makePlots/makePlots.sh long 1 2017 $2;
-./MitAnalysisRunII/panda/makePlots/makePlots.sh long 1 2018 $2;
-./MitAnalysisRunII/panda/makePlots/makePlots.sh long 1 2019 $2;
+elif [ $NSEL == 'sswwll' ]; then
+./MitAnalysisRunII/panda/makePlots/makePlots.sh sswwll 1 2016 $2;
+./MitAnalysisRunII/panda/makePlots/makePlots.sh sswwll 1 2017 $2;
+./MitAnalysisRunII/panda/makePlots/makePlots.sh sswwll 1 2018 $2;
+./MitAnalysisRunII/panda/makePlots/makePlots.sh sswwll 1 2019 $2;
 
 elif [ $NSEL == 'z' ]; then
 ./MitAnalysisRunII/panda/makePlots/makePlots.sh z 1 2016;

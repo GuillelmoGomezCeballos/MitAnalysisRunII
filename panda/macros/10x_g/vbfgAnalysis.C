@@ -400,7 +400,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
     else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 24;  xminPlot =  0.0; xmaxPlot = 4.8;}
+    else if(thePlot >=  80 && thePlot <=  84) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 4.8;}
     else if(thePlot >=  85 && thePlot <=  89) {nBinPlot = 20;  xminPlot = 50.0; xmaxPlot = 450.0;}
     else if(thePlot >=  90 && thePlot <=  92) {nBinPlot = 80;  xminPlot = -0.5; xmaxPlot = 79.5;}
     else if(thePlot >=  93 && thePlot <=  94) {nBinPlot = 40; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
@@ -847,11 +847,11 @@ int year, int triggerCat, int mH = 125
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
       }
-      if(thePandaFlat.nJot >= 2 && theMinSelType == GJSEL && year  != 2016){
+      /*if(thePandaFlat.nJot >= 2 && theMinSelType == GJSEL && year  != 2016){
         passHEM1516 = passHEM1516 &&  
         !(TMath::Abs(thePandaFlat.jotEta[0]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[0]) < 3.2) &&
         !(TMath::Abs(thePandaFlat.jotEta[1]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[1]) < 3.2);
-      }
+      }*/
       if(passHEM1516 == false) continue;
 
       double dPhiJetCutVal = 1.0;
@@ -1012,6 +1012,13 @@ int year, int triggerCat, int mH = 125
           totalWeight = totalWeight * mcCorrection(0, infileName_[ifile].Data(), year, theCategory, massJJ, mTGMET, triggerCat);
         }
 
+        if(theCategory == kPlotGJ0){
+	  double addFactor = 2.0;
+	  if(year != 2016 && triggerCat == 0) addFactor = 3.0;
+          if(TMath::Abs(vJot1.Eta()) > 2.6 && TMath::Abs(vJot1.Eta()) < 3.2) totalWeight = totalWeight * addFactor;
+          if(TMath::Abs(vJot2.Eta()) > 2.6 && TMath::Abs(vJot2.Eta()) < 3.2) totalWeight = totalWeight * addFactor;
+        }
+
         double splitVar0 = massJJ; double splitVar1 = mTGMET;
 	if(isHVBFGAna){
           splitVar0 = massJJ; splitVar1 = 100*deltaEtaJJ;
@@ -1073,6 +1080,7 @@ int year, int triggerCat, int mH = 125
           }
 	}
         totalWeight = totalWeight * effSFLoose * effSFTight;
+
       } // mcWeights
       else if(passPhoSel == 2 && theCategory == kPlotNonPrompt){
         photonSFUnc[1] = 1.10;
