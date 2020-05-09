@@ -59,6 +59,12 @@ void ewkvbsMVA(
     cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",testTreeEventSplitStr.Data(), kPlotSignal1,kPlotSignal2);
     cutTestBkg2    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",testTreeEventSplitStr.Data(), kPlotWS);
   }
+  else if(nsel == 3){
+    cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d|| category==%d)",trainTreeEventSplitStr.Data(),kPlotSignal1,kPlotSignal2,kPlotBSM);
+    cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",trainTreeEventSplitStr.Data(),kPlotWS);
+    cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d|| category==%d)",testTreeEventSplitStr.Data(), kPlotSignal1,kPlotSignal2,kPlotBSM);
+    cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",testTreeEventSplitStr.Data(), kPlotWS);
+  }
   dataloader->AddTree(mvaTree, "Signal"    , 1.0, cutTrainSignal, "train");
   dataloader->AddTree(mvaTree, "Background", 1.0, cutTrainBkg	, "train");
   dataloader->AddTree(mvaTree, "Signal"    , 1.0, cutTestSignal , "test");
@@ -98,6 +104,34 @@ void ewkvbsMVA(
     //dataloader->AddVariable("mvadrll"    , "mvadrll"	, "", 'F');//c  
     dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');
     dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');
+  }
+  else if(nsel == 3){
+    dataloader->AddVariable("mvadphijj"  , "mvadphijj"  , "", 'F');
+    dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');//c
+    dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');
+    //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');//c
+    //dataloader->AddVariable("mvajeteta2" , "mvajeteta2" , "", 'F');
+    dataloader->AddVariable("mvaWpt"	 , "mvaMet"	, "", 'F');
+    dataloader->AddVariable("mvaZpt"	 , "mvaZpt"	, "", 'F');
+    dataloader->AddVariable("mvaVVmt"    , "mvaVVmt"	, "", 'F');
+    //dataloader->AddVariable("mvazstar"   , "mvazstar"	, "", 'F');//c
+    dataloader->AddVariable("mvazep1"    , "mvazep1"	, "", 'F');
+    dataloader->AddVariable("mvazep2"    , "mvazep2"	, "", 'F');
+    //dataloader->AddVariable("mvamaxzep"  , "mvamaxzep"  , "", 'F');//c
+    dataloader->AddVariable("mvaj1Zdr"   , "mvaj1Zdr"	, "", 'F');
+    dataloader->AddVariable("mvaj2Zdr"   , "mvaj2Zdr"	, "", 'F');
+    //dataloader->AddVariable("mvapttot"   , "mvapttot"	, "", 'F');
+    //dataloader->AddVariable("mvasumpttot", "mvasumpttot", "", 'F');//cc
+    dataloader->AddVariable("mvaleppt1"  , "mvaleppt1"  , "", 'F');
+    dataloader->AddVariable("mvaleppt2"  , "mvaleppt2"  , "", 'F');
+    //dataloader->AddVariable("mvalepeta1" , "mvalepeta1" , "", 'F');//cc
+    //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');//c
+    dataloader->AddVariable("mvadphill"  , "mvadphill"  , "", 'F');
+    //dataloader->AddVariable("mvadrll"    , "mvadrll"	, "", 'F');//c  
+    dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');
+    dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');
+    dataloader->AddVariable("mvamjj"   , "mvamjj"     , "", 'F'); //c
+    dataloader->AddVariable("mvadetajj"  , "mvadetajj"  , "", 'F');
   }
   else {
     dataloader->AddVariable("mvamjj"    , "mvamjj"    , "", 'F');
