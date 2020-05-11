@@ -497,8 +497,8 @@ int year, int triggerCat, int mH = 125
     histo_TriggerABoundingDown [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_triggerA%d_%dDown", plotBaseNames[ic].Data(),triggerCat,year));
     histo_PhoEffBoundingUp     [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonUp"   , plotBaseNames[ic].Data()));
     histo_PhoEffBoundingDown   [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_photonDown" , plotBaseNames[ic].Data()));
-    histo_PhoFakeBoundingUp    [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonUp"  , plotBaseNames[ic].Data()));
-    histo_PhoFakeBoundingDown  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photonDown", plotBaseNames[ic].Data()));
+    histo_PhoFakeBoundingUp    [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photon_%dUp"  , plotBaseNames[ic].Data(),year));
+    histo_PhoFakeBoundingDown  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_photon_%dDown", plotBaseNames[ic].Data(),year));
     histo_ElToPhDefBoundingUp  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elDef_%dUp"  , plotBaseNames[ic].Data(),year));
     histo_ElToPhDefBoundingDown[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elDef_%dDown", plotBaseNames[ic].Data(),year));
     histo_ElToPhAltBoundingUp  [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fake_elAlt_%dUp"  , plotBaseNames[ic].Data(),year));
@@ -1083,8 +1083,10 @@ int year, int triggerCat, int mH = 125
 
       } // mcWeights
       else if(passPhoSel == 2 && theCategory == kPlotNonPrompt){
-        photonSFUnc[1] = 1.10;
-	totalWeight = totalWeight * 0.17 * TMath::Exp(-0.0066*vPhoton.Pt());
+        photonSFUnc[1] = TMath::Min(0.000625/2*vPhoton.Pt()+1.025,1.15);
+	if     (year == 2016) totalWeight = totalWeight * 3.60167797932 * TMath::Exp(-0.0508590637067*vPhoton.Pt())+0.164430014756;
+	else if(year == 2017) totalWeight = totalWeight * 6.54397693239 * TMath::Exp(-0.0521365327166*vPhoton.Pt())+0.245878324881;
+	else if(year == 2018) totalWeight = totalWeight * 3.05432591588 * TMath::Exp(-0.0424254500630*vPhoton.Pt())+0.272151820071;
       }
       else if(theCategory == kPlotData){
       }
@@ -1805,7 +1807,7 @@ int year, int triggerCat, int mH = 125
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_fake_photon    shape     ");
+  newcardShape << Form("CMS_fake_photon_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
