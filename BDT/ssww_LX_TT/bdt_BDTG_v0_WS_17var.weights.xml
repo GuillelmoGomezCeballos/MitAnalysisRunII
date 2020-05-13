@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
-<MethodSetup Method="BDT::BDTG_v0_WS">
+<MethodSetup Method="BDT::BDTG_v0_WS_17var">
   <GeneralInfo>
     <Info name="TMVA Release" value="4.2.1 [262657]"/>
     <Info name="ROOT Release" value="6.12/07 [396295]"/>
     <Info name="Creator" value="ceballos"/>
-    <Info name="Date" value="Sat May  9 12:46:48 2020"/>
+    <Info name="Date" value="Tue May 12 09:05:57 2020"/>
     <Info name="Host" value="Linux vocms0315.cern.ch 2.6.32-696.30.1.el6.x86_64 #1 SMP Tue May 22 06:09:36 CEST 2018 x86_64 x86_64 x86_64 GNU/Linux"/>
     <Info name="Dir" value="/home/ceballos/cms/cmssw/051/CMSSW_10_3_2/src"/>
     <Info name="Training events" value="382904"/>
-    <Info name="TrainingTime" value="3.12053800e+02"/>
+    <Info name="TrainingTime" value="2.98273090e+02"/>
     <Info name="AnalysisType" value="Classification"/>
   </GeneralInfo>
   <Options>

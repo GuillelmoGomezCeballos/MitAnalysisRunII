@@ -396,7 +396,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 14;  xminPlot =  0.0; xmaxPlot = 210;}
     else if(thePlot >=  45 && thePlot <=  49) {nBinPlot = 9;   xminPlot = -0.5; xmaxPlot = 8.5;}
     else if(thePlot >=  50 && thePlot <=  54) {nBinPlot = 15;  xminPlot =  0.0; xmaxPlot = 1.5;}
-    else if(thePlot >=  55 && thePlot <=  59) {nBinPlot = 20;  xminPlot = 80.0; xmaxPlot = 480.0;}
+    else if(thePlot >=  55 && thePlot <=  59) {nBinPlot = 14;  xminPlot = 80.0; xmaxPlot = 500.0;}
     else if(thePlot >=  60 && thePlot <=  64) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
     else if(thePlot >=  65 && thePlot <=  69) {nBinPlot = 20;  xminPlot =  0.0; xmaxPlot = 5.0;}
     else if(thePlot >=  70 && thePlot <=  79) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
@@ -719,7 +719,7 @@ int year, int triggerCat, int mH = 125
 
       if(debug == 3) printf("DEBUG%d STEP3 %d %d %llu %d %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,passSinglePhotonTrigger,theG.Pt());
 
-      bool isPhoSel = passSinglePhotonTrigger == true && theG.Pt() > 220;
+      bool isPhoSel = passSinglePhotonTrigger == true && theG.Pt() > 230;
       if(year != 2016 && triggerCat == 0 &&  isPhoSel) continue;
       if(year != 2016 && triggerCat == 1 && !isPhoSel) continue;
 
@@ -1140,7 +1140,7 @@ int year, int triggerCat, int mH = 125
       if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
       for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
       if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
-      if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(TMath::Min(theG.Pt(),479.999),totalWeight);
+      if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(theG.Pt(),totalWeight);
       if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
       if(dataCardSel >= 0) histo[ 65+theMinSelType][theCategory]->Fill(TMath::Min(dRJetG,4.999),totalWeight);
       if(dataCardSel >= 0) histo[ 70+dataCardSel][theCategory]->Fill(TMath::Min(dPhiGMET,2.999),totalWeight);

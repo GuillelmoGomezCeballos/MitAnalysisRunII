@@ -101,11 +101,11 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
@@ -175,11 +175,11 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
@@ -251,11 +251,11 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,  filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_new.root"   ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
@@ -319,8 +319,8 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
   //infileName_.push_back(Form("%sTZQ.root" ,"/data/t3home000/ceballos/panda/v_004_0/")); infileCat_.push_back(kPlotTVX);
   //infileName_.push_back(Form("%sWWjj_SS_long_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotBSM);
-  //infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotSignal1);
-  //infileName_.push_back(Form("%sWWjj_SS_tt_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotSignal1);
+  //infileName_.push_back(Form("%sWWjj_SS_lt_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotBSM);
+  //infileName_.push_back(Form("%sWWjj_SS_tt_new.root" ,filesPath.Data())); infileCat_.push_back(kPlotBSM);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
@@ -401,13 +401,13 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     xbinsWWLXBDT[1] = -0.215;xbinsWWLXBDT[2] = -0.003;xbinsWWLXBDT[3] = 0.161;
     xbinsWWLXBDT[4] =  0.312;xbinsWWLXBDT[5] =  0.474;xbinsWWLXBDT[6] = 1.000;
   }
-  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.145, 0.280, 0.587, 0.795, 1.000};
+  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.122, 0.332, 0.640, 0.841, 1.000};
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
   int nBinMVAAux = 0;
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
   else if(fidAna == 1) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinMJJ;
   else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 2*5;
-  else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 3*nBinMJJCR;
+  else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
   else if(useTwoBDTs == true  && (fidAna == 5 || fidAna == 9)) nBinMVAAux = nBinWWWSBDT*nBinWWLXBDT + nBinWWWSBDT + 3*nBinMJJCR;
   else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + 3;
   else if(fidAna == 7) nBinMVAAux = nBinMJJCR*nBinPTL1 + 3*nBinMJJCR + nBinWZBDT;
@@ -505,7 +505,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >= 148 && thePlot <= 148) {nBinPlot =  40; xminPlot = 0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >= 149 && thePlot <= 149) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 5.0;}
     else if(thePlot >= 150 && thePlot <= 150) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 2;}
-    else if(thePlot >= 151 && thePlot <= 152) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
+    //else if(thePlot >= 151 && thePlot <= 152) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
     if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(thePlot >=   0 && thePlot <=   4) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
     else if(thePlot >=  52 && thePlot <=  53) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
@@ -656,7 +656,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   float mvaWpt, mvaZpt, mvaVVmt, mvaWlZdeta;
   float mvazstar, mvazep1, mvazep2, mvazep3, mvamaxzep, mvaj1Zdr, mvaj2Zdr, mvapttot, mvasumpttot;
   float mvaleppt1, mvaleppt2, mvalepeta1, mvalepeta2, mvadphill, mvadrll, mvamll;
-  float mvaWWInputs[17];
+  float mvaWWInputs[21];
   TString bdtWWLXWeights="";
   //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_26var.weights.xml"; // 26var, ptj50/50
   //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_25var.weights.xml"; // 25var, ptj50/50
@@ -672,57 +672,48 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   if(fidAna == 9){
     bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v13.weights.xml";
   }
-  TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS.weights.xml";
+  TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS_17var.weights.xml";
 
   TMVA::Reader *theReaderWWLX = new TMVA::Reader("Silent");
-  //theReaderWWLX->AddVariable("mvamjj"     ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvajetpt1"  ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvajeteta1" ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvazstar"   ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvasumpttot",&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvalepeta1" ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvalepeta2" ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvadrll"    ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvapttot"   ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvadetajj"  ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvajeteta2" ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvaZpt"     ,&mvaWWInputs[99]);
-  //theReaderWWLX->AddVariable("mvamaxzep"  ,&mvaWWInputs[99]);
   theReaderWWLX->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
   theReaderWWLX->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
   theReaderWWLX->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
-  theReaderWWLX->AddVariable("mvaWpt"	,&mvaWWInputs[ 3]);
-  theReaderWWLX->AddVariable("mvaZpt"	,&mvaWWInputs[ 4]);
-  theReaderWWLX->AddVariable("mvaVVmt"	,&mvaWWInputs[ 5]);
-  theReaderWWLX->AddVariable("mvazep1"	,&mvaWWInputs[ 6]);
-  theReaderWWLX->AddVariable("mvazep2"	,&mvaWWInputs[ 7]);
-  theReaderWWLX->AddVariable("mvaj1Zdr"	,&mvaWWInputs[ 8]);
-  theReaderWWLX->AddVariable("mvaj2Zdr"	,&mvaWWInputs[ 9]);
+  theReaderWWLX->AddVariable("mvaWpt"	  ,&mvaWWInputs[ 3]);
+  theReaderWWLX->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
+  theReaderWWLX->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  theReaderWWLX->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
+  theReaderWWLX->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
+  theReaderWWLX->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  theReaderWWLX->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
   theReaderWWLX->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
   theReaderWWLX->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
   theReaderWWLX->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
   theReaderWWLX->AddVariable("mvamll"     ,&mvaWWInputs[13]);
-  theReaderWWLX->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  ,&mvaWWInputs[14]);
+  theReaderWWLX->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
   theReaderWWLX->BookMVA("BDT", bdtWWLXWeights.Data());
 
   TMVA::Reader *theReaderWWWS = new TMVA::Reader("Silent");
   theReaderWWWS->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
   theReaderWWWS->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
   theReaderWWWS->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
-  theReaderWWWS->AddVariable("mvaWpt"	,&mvaWWInputs[ 3]);
-  theReaderWWWS->AddVariable("mvaZpt"	,&mvaWWInputs[ 4]);
-  theReaderWWWS->AddVariable("mvaVVmt"	,&mvaWWInputs[ 5]);
-  theReaderWWWS->AddVariable("mvazep1"	,&mvaWWInputs[ 6]);
-  theReaderWWWS->AddVariable("mvazep2"	,&mvaWWInputs[ 7]);
-  theReaderWWWS->AddVariable("mvaj1Zdr"	,&mvaWWInputs[ 8]);
-  theReaderWWWS->AddVariable("mvaj2Zdr"	,&mvaWWInputs[ 9]);
+  theReaderWWWS->AddVariable("mvaWpt"	  ,&mvaWWInputs[ 3]);
+  theReaderWWWS->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
+  theReaderWWWS->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  theReaderWWWS->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
+  theReaderWWWS->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
+  theReaderWWWS->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  theReaderWWWS->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
   theReaderWWWS->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
   theReaderWWWS->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
   theReaderWWWS->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
   theReaderWWWS->AddVariable("mvamll"     ,&mvaWWInputs[13]);
-  theReaderWWWS->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  ,&mvaWWInputs[14]);
+  theReaderWWWS->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
   theReaderWWWS->AddVariable("mvamjj"     ,&mvaWWInputs[15]);
   theReaderWWWS->AddVariable("mvadetajj"  ,&mvaWWInputs[16]);
+  //theReaderWWWS->AddVariable("mvajeteta1" ,&mvaWWInputs[17]);
+  //theReaderWWWS->AddVariable("mvajeteta2" ,&mvaWWInputs[18]);
+  //theReaderWWWS->AddVariable("mvazstar"   ,&mvaWWInputs[19]);
+  //theReaderWWWS->AddVariable("mvapttot/mvasumpttot" ,&mvaWWInputs[20]);
   theReaderWWWS->BookMVA("BDT", bdtWWWSWeights.Data());
 
   float mvaWZInputs[13];
@@ -1546,22 +1537,6 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
       double bdtWWLXValue[3] = {0.0,0.0,0.0}, bdtWWLXValueJESUp[3] = {0.0,0.0,0.0}, bdtWWLXValueJESDown[3] = {0.0,0.0,0.0}, bdtWWLXValueJERUp[3] = {0.0,0.0,0.0}, bdtWWLXValueJERDown[3] = {0.0,0.0,0.0};
       double bdtWWWSValue[3] = {0.0,0.0,0.0}, bdtWWWSValueJESUp[3] = {0.0,0.0,0.0}, bdtWWWSValueJESDown[3] = {0.0,0.0,0.0}, bdtWWWSValueJERUp[3] = {0.0,0.0,0.0}, bdtWWWSValueJERDown[3] = {0.0,0.0,0.0};
       if(passWWSel || passBtagSel){
-        //mvaWWInputs[ 0] = (float)massJJ;
-        //mvaWWInputs[ 4] = (float)vJot1.Eta();
-	//mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[ 9] = (float)vvZep;
-	//mvaWWInputs[16] = (float)totSystem.Pt();
-	//mvaWWInputs[19] = (float)vZ1l1.Eta();
-	//mvaWWInputs[20] = (float)vZ1l2.Eta();
-	//mvaWWInputs[22] = (float)drll;
-	//mvaWWInputs[23] = (float)(vZ1l1+vZ1l2).M();
-	//mvaWWInputs[ 4] = (float)vW.Pt();
-	//mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1.Pt()*vJot2.Pt());
-        //mvaWWInputs[ 0] = (float)deltaEtaJJ;
-        //mvaWWInputs[ 3] = (float)vJot2.Eta();
-	//mvaWWInputs[ 5] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[11] = (float)totSystem.Pt()/sumPtTot;
-	//mvaWWInputs[ 7] = (float)maxLeptonZep;
         mvaWWInputs[ 0] = (float)deltaPhiJJ;
 	mvaWWInputs[ 1] = (float)vJot1.Pt();
         mvaWWInputs[ 2] = (float)vJot2.Pt();
@@ -1580,6 +1555,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         bdtWWLXValue[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJ;
         mvaWWInputs[16] = (float)deltaEtaJJ;
+        mvaWWInputs[17] = (float)vJot1.Eta();
+        mvaWWInputs[18] = (float)vJot2.Eta();
+	mvaWWInputs[19] = (float)vvZep;
+	mvaWWInputs[20] = (float)totSystem.Pt()/sumPtTot;
         bdtWWWSValue[0] = TMath::Min(theReaderWWWS->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWWLX->EvaluateMulticlass("BDT");
 	//bdtWWLXValue[0] = TMath::Min(mvaV[0],0.999f);
@@ -1587,19 +1566,6 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	//bdtWWLXValue[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJESUp || passBtagSelJESUp){
-        //mvaWWInputs[ 0] = (float)massJJJESUp;
-	//mvaWWInputs[ 2] = (float)vJot1JESUp.Pt();
-        //mvaWWInputs[ 4] = (float)vJot1JESUp.Eta();
-	//mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[ 9] = (float)vvZepUp;
-	//mvaWWInputs[12] = (float)maxLeptonZepUp;
-	//mvaWWInputs[16] = (float)totSystemJESUp.Pt();
-	//mvaWWInputs[19] = (float)vZ1l1.Eta();
-	//mvaWWInputs[20] = (float)vZ1l2.Eta();
-	//mvaWWInputs[22] = (float)drll;
-	//mvaWWInputs[23] = (float)(vZ1l1+vZ1l2).M();
-	//mvaWWInputs[ 4] = (float)vWUp.Pt();
-	//mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESUp.Pt()*vJot2JESUp.Pt());
 	mvaWWInputs[ 0] = (float)deltaPhiJJUp;
 	mvaWWInputs[ 1] = (float)vJot1JESUp.Pt();
         mvaWWInputs[ 2] = (float)vJot2JESUp.Pt();
@@ -1618,6 +1584,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         bdtWWLXValueJESUp[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJESUp;
         mvaWWInputs[16] = (float)deltaEtaJJ;
+        mvaWWInputs[17] = (float)vJot1JESUp.Eta();
+        mvaWWInputs[18] = (float)vJot2JESUp.Eta();
+	mvaWWInputs[19] = (float)vvZepUp;
+	mvaWWInputs[20] = (float)totSystemJESUp.Pt()/sumPtTotJESUp;
         bdtWWWSValueJESUp[0] = TMath::Min(theReaderWWWS->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWWLX->EvaluateMulticlass("BDT");
 	//bdtWWLXValueJESUp[0] = TMath::Min(mvaV[0],0.999f);
@@ -1625,19 +1595,6 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	//bdtWWLXValueJESUp[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJESDown || passBtagSelJESDown){
-        //mvaWWInputs[ 0] = (float)massJJJESDown;
-	//mvaWWInputs[ 2] = (float)vJot1JESDown.Pt();
-        //mvaWWInputs[ 4] = (float)vJot1JESDown.Eta();
-	//mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[ 9] = (float)vvZepDown;
-	//mvaWWInputs[12] = (float)maxLeptonZepDown;
-	//mvaWWInputs[16] = (float)totSystemJESDown.Pt();
-	//mvaWWInputs[19] = (float)vZ1l1.Eta();
-	//mvaWWInputs[20] = (float)vZ1l2.Eta();
-	//mvaWWInputs[22] = (float)drll;
-	//mvaWWInputs[23] = (float)(vZ1l1+vZ1l2).M();
-	//mvaWWInputs[ 4] = (float)vWDown.Pt();
-	//mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESDown.Pt()*vJot2JESDown.Pt()); 
 	mvaWWInputs[ 0] = (float)deltaPhiJJDown;
 	mvaWWInputs[ 1] = (float)vJot1JESDown.Pt();
         mvaWWInputs[ 2] = (float)vJot2JESDown.Pt();
@@ -1656,6 +1613,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         bdtWWLXValueJESDown[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJESDown;
         mvaWWInputs[16] = (float)deltaEtaJJ;
+        mvaWWInputs[17] = (float)vJot1JESDown.Eta();
+        mvaWWInputs[18] = (float)vJot2JESDown.Eta();
+	mvaWWInputs[19] = (float)vvZepDown;
+	mvaWWInputs[20] = (float)totSystemJESDown.Pt()/sumPtTotJESDown;
         bdtWWWSValueJESDown[0] = TMath::Min(theReaderWWWS->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWWLX->EvaluateMulticlass("BDT");
 	//bdtWWLXValueJESDown[0] = TMath::Min(mvaV[0],0.999f);
@@ -1663,19 +1624,6 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	//bdtWWLXValueJESDown[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJERUp || passBtagSelJERUp){
-        //mvaWWInputs[ 0] = (float)massJJJERUp;
-	//mvaWWInputs[ 2] = (float)vJot1JERUp.Pt();
-        //mvaWWInputs[ 4] = (float)vJot1JERUp.Eta();
-	//mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[ 9] = (float)vvZep;
- 	//mvaWWInputs[12] = (float)maxLeptonZep;
-	//mvaWWInputs[16] = (float)totSystemJERUp.Pt();
-	//mvaWWInputs[19] = (float)vZ1l1.Eta();
-	//mvaWWInputs[20] = (float)vZ1l2.Eta();
-	//mvaWWInputs[22] = (float)drll;
-	//mvaWWInputs[23] = (float)(vZ1l1+vZ1l2).M();
-	//mvaWWInputs[ 4] = (float)vW.Pt();
-	//mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERUp.Pt()*vJot2JERUp.Pt()); 
 	mvaWWInputs[ 0] = (float)deltaPhiJJ;
 	mvaWWInputs[ 1] = (float)vJot1JERUp.Pt();
         mvaWWInputs[ 2] = (float)vJot2JERUp.Pt();
@@ -1694,6 +1642,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         bdtWWLXValueJERUp[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJERUp;
         mvaWWInputs[16] = (float)deltaEtaJJ;
+        mvaWWInputs[17] = (float)vJot1JERUp.Eta();
+        mvaWWInputs[18] = (float)vJot2JERUp.Eta();
+	mvaWWInputs[19] = (float)vvZep;
+	mvaWWInputs[20] = (float)totSystemJERUp.Pt()/sumPtTotJERUp;
         bdtWWWSValueJERUp[0] = TMath::Min(theReaderWWWS->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWWLX->EvaluateMulticlass("BDT");
 	//bdtWWLXValueJERUp[0] = TMath::Min(mvaV[0],0.999f);
@@ -1701,19 +1653,6 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	//bdtWWLXValueJERUp[2] = TMath::Min(mvaV[2],0.999f);
       }
       if(passWWSelJERDown || passBtagSelJERDown){
-        //mvaWWInputs[ 0] = (float)massJJJERDown;
-	//mvaWWInputs[ 2] = (float)vJot1JERDown.Pt();
-        //mvaWWInputs[ 4] = (float)vJot1JERDown.Eta();
-	//mvaWWInputs[ 7] = (float)(vZ1l1+vZ1l2).Pt();
-	//mvaWWInputs[ 9] = (float)vvZep;
-	//mvaWWInputs[12] = (float)maxLeptonZep;
-	//mvaWWInputs[16] = (float)totSystemJERDown.Pt();
-	//mvaWWInputs[19] = (float)vZ1l1.Eta();
-	//mvaWWInputs[20] = (float)vZ1l2.Eta();
-	//mvaWWInputs[22] = (float)drll;
-	//mvaWWInputs[23] = (float)(vZ1l1+vZ1l2).M();
-	//mvaWWInputs[ 4] = (float)vW.Pt();
-	//mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERDown.Pt()*vJot2JERDown.Pt()); 
 	mvaWWInputs[ 0] = (float)deltaPhiJJ;
 	mvaWWInputs[ 1] = (float)vJot1JERDown.Pt();
         mvaWWInputs[ 2] = (float)vJot2JERDown.Pt();
@@ -1732,6 +1671,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
         bdtWWLXValueJERDown[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJERDown;
         mvaWWInputs[16] = (float)deltaEtaJJ;
+        mvaWWInputs[17] = (float)vJot1JERDown.Eta();
+        mvaWWInputs[18] = (float)vJot2JERDown.Eta();
+	mvaWWInputs[19] = (float)vvZep;
+	mvaWWInputs[20] = (float)totSystemJERDown.Pt()/sumPtTotJERDown;
         bdtWWWSValueJERDown[0] = TMath::Min(theReaderWWWS->EvaluateMVA("BDT"),0.999);
         //const std::vector< Float_t > mvaV = theReaderWWLX->EvaluateMulticlass("BDT");
 	//bdtWWLXValueJERDown[0] = TMath::Min(mvaV[0],0.999f);
@@ -2512,38 +2455,38 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
           if(useTwoBDTs == false){
           int whichBin = 0;
           if     (dataCardSel        == 0) MVAVar        = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinWWLXBDT + bdtWWLXValueBin[whichBin];
-          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinWWLXBDT +               typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 1;
           if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 2;
           if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 3;
           if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 4;
           if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
           } else {
           int whichBin = 0;
           if     (dataCardSel        == 0) MVAVar        = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];

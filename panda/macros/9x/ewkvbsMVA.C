@@ -78,60 +78,61 @@ void ewkvbsMVA(
   }
   
   if(nsel == 1 || nsel == 2){
-    //dataloader->AddVariable("mvamjj"	 , "mvamjj"	, "", 'F'); //c
+    //dataloader->AddVariable("mvamjj"	 , "mvamjj"	, "", 'F');
     //dataloader->AddVariable("mvadetajj"  , "mvadetajj"  , "", 'F');
     dataloader->AddVariable("mvadphijj"  , "mvadphijj"  , "", 'F');
-    dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');//c
+    dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');
     dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');
-    //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');//c
+    //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');
     //dataloader->AddVariable("mvajeteta2" , "mvajeteta2" , "", 'F');
     dataloader->AddVariable("mvaWpt"	 , "mvaMet"	, "", 'F');
     dataloader->AddVariable("mvaZpt"	 , "mvaZpt"	, "", 'F');
     dataloader->AddVariable("mvaVVmt"    , "mvaVVmt"	, "", 'F');
-    //dataloader->AddVariable("mvazstar"   , "mvazstar"	, "", 'F');//c
+    //dataloader->AddVariable("mvazstar"   , "mvazstar"	, "", 'F');
     dataloader->AddVariable("mvazep1"    , "mvazep1"	, "", 'F');
     dataloader->AddVariable("mvazep2"    , "mvazep2"	, "", 'F');
-    //dataloader->AddVariable("mvamaxzep"  , "mvamaxzep"  , "", 'F');//c
+    //dataloader->AddVariable("mvamaxzep"  , "mvamaxzep"  , "", 'F');
     dataloader->AddVariable("mvaj1Zdr"   , "mvaj1Zdr"	, "", 'F');
     dataloader->AddVariable("mvaj2Zdr"   , "mvaj2Zdr"	, "", 'F');
     //dataloader->AddVariable("mvapttot"   , "mvapttot"	, "", 'F');
-    //dataloader->AddVariable("mvasumpttot", "mvasumpttot", "", 'F');//cc
+    //dataloader->AddVariable("mvasumpttot", "mvasumpttot", "", 'F');
     dataloader->AddVariable("mvaleppt1"  , "mvaleppt1"  , "", 'F');
     dataloader->AddVariable("mvaleppt2"  , "mvaleppt2"  , "", 'F');
-    //dataloader->AddVariable("mvalepeta1" , "mvalepeta1" , "", 'F');//cc
-    //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');//c
+    //dataloader->AddVariable("mvalepeta1" , "mvalepeta1" , "", 'F');
+    //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');
     dataloader->AddVariable("mvadphill"  , "mvadphill"  , "", 'F');
-    //dataloader->AddVariable("mvadrll"    , "mvadrll"	, "", 'F');//c  
+    //dataloader->AddVariable("mvadrll"    , "mvadrll"	, "", 'F');  
     dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');
     dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');
   }
   else if(nsel == 3){
     dataloader->AddVariable("mvadphijj"  , "mvadphijj"  , "", 'F');
-    dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');//c
+    dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');
     dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');
-    //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');//c
-    //dataloader->AddVariable("mvajeteta2" , "mvajeteta2" , "", 'F');
     dataloader->AddVariable("mvaWpt"	 , "mvaMet"	, "", 'F');
     dataloader->AddVariable("mvaZpt"	 , "mvaZpt"	, "", 'F');
     dataloader->AddVariable("mvaVVmt"    , "mvaVVmt"	, "", 'F');
-    //dataloader->AddVariable("mvazstar"   , "mvazstar"	, "", 'F');//c
     dataloader->AddVariable("mvazep1"    , "mvazep1"	, "", 'F');
     dataloader->AddVariable("mvazep2"    , "mvazep2"	, "", 'F');
-    //dataloader->AddVariable("mvamaxzep"  , "mvamaxzep"  , "", 'F');//c
     dataloader->AddVariable("mvaj1Zdr"   , "mvaj1Zdr"	, "", 'F');
     dataloader->AddVariable("mvaj2Zdr"   , "mvaj2Zdr"	, "", 'F');
-    //dataloader->AddVariable("mvapttot"   , "mvapttot"	, "", 'F');
-    //dataloader->AddVariable("mvasumpttot", "mvasumpttot", "", 'F');//cc
     dataloader->AddVariable("mvaleppt1"  , "mvaleppt1"  , "", 'F');
     dataloader->AddVariable("mvaleppt2"  , "mvaleppt2"  , "", 'F');
-    //dataloader->AddVariable("mvalepeta1" , "mvalepeta1" , "", 'F');//cc
-    //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');//c
     dataloader->AddVariable("mvadphill"  , "mvadphill"  , "", 'F');
-    //dataloader->AddVariable("mvadrll"    , "mvadrll"	, "", 'F');//c  
     dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');
     dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');
-    dataloader->AddVariable("mvamjj"   , "mvamjj"     , "", 'F'); //c
+    dataloader->AddVariable("mvamjj"	 , "mvamjj"	, "", 'F');
     dataloader->AddVariable("mvadetajj"  , "mvadetajj"  , "", 'F');
+    //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');
+    //dataloader->AddVariable("mvajeteta2" , "mvajeteta2" , "", 'F');
+    //dataloader->AddVariable("mvazstar"   , "mvazstar"	, "", 'F');
+    //dataloader->AddVariable("mvamaxzep"  , "mvamaxzep"  , "", 'F');
+    //dataloader->AddVariable("mvapttot/mvasumpttot" , "mvapttotN" , "", 'F');
+    //dataloader->AddVariable("mvapttot"   , "mvapttot"	, "", 'F');
+    //dataloader->AddVariable("mvasumpttot", "mvasumpttot", "", 'F');
+    //dataloader->AddVariable("mvalepeta1" , "mvalepeta1" , "", 'F');
+    //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');
+    //dataloader->AddVariable("mvadrll"	 , "mvadrll"	, "", 'F');  
   }
   else {
     dataloader->AddVariable("mvamjj"    , "mvamjj"    , "", 'F');
