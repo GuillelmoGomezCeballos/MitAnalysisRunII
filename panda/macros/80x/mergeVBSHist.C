@@ -5,6 +5,12 @@ double diff[2];
 
 TString inputFolder = "/data/t3home000/ceballos/panda/v_001_0";
 
+const int nFilesEWKWWNEW = 3;
+TFile *_filesEWKWWNEW[nFilesEWKWWNEW];
+_filesEWKWWNEW[0] = TFile::Open(Form("%s/WWjj_SS_long_new.root", inputFolder.Data()));
+_filesEWKWWNEW[1] = TFile::Open(Form("%s/WWjj_SS_lt_new.root"  , inputFolder.Data()));
+_filesEWKWWNEW[2] = TFile::Open(Form("%s/WWjj_SS_tt_new.root"  , inputFolder.Data()));
+
 const int nFilesEWKWW = 2;
 TFile *_filesEWKWW[nFilesEWKWW];
 _filesEWKWW[0] = TFile::Open(Form("%s/WWjj_SS_lttt.root"  , inputFolder.Data()));
@@ -33,6 +39,11 @@ const int nFilesINTWZ = 1;
 TFile *_filesINTWZ[nFilesINTWZ];
 _filesINTWZ[0] = TFile::Open(Form("%s/WZJJ_interference.root",inputFolder.Data()));
 
+double xsEWKWWNEW[nFilesEWKWWNEW] = {0.002119,
+                                     0.01087,
+                                     0.0161
+                                    };
+
 double xsEWKWW[nFilesEWKWW] = {0.0258,
                                0.00192
                               };
@@ -55,6 +66,10 @@ double xsQCDWZ[nFilesQCDWZ] = {0.5770677*1.109*1.206,
 double xsINTWZ[nFilesINTWZ] = {0.0002365*4
                               };
 
+TH1D *hDITotalMCWeightEWKWWNEW[nFilesEWKWWNEW];
+for(int i=0; i<nFilesEWKWWNEW; i++){
+  hDITotalMCWeightEWKWWNEW[i] = (TH1D*)_filesEWKWWNEW[i]->Get("hDTotalMCWeight");	 
+}
 TH1D *hDITotalMCWeightEWKWW[nFilesEWKWW];
 for(int i=0; i<nFilesEWKWW; i++){
   hDITotalMCWeightEWKWW[i] = (TH1D*)_filesEWKWW[i]->Get("hDTotalMCWeight");	 
@@ -78,6 +93,73 @@ for(int i=0; i<nFilesQCDWZ; i++){
 TH1D *hDITotalMCWeightINTWZ[nFilesINTWZ];
 for(int i=0; i<nFilesINTWZ; i++){
   hDITotalMCWeightINTWZ[i] = (TH1D*)_filesINTWZ[i]->Get("hDTotalMCWeight");	 
+}
+
+// EWKWWNEW EWKCorr applied
+TH1D *hDIEWKWWNEWMJJ[nFilesEWKWWNEW];  TH1D *hDIEWKWWNEWMJJ_PDF[nFilesEWKWWNEW];  TH1D *hDIEWKWWNEWMJJ_QCD[nFilesEWKWWNEW];	 
+TH1D *hDIEWKWWNEWMLL[nFilesEWKWWNEW];  TH1D *hDIEWKWWNEWMLL_PDF[nFilesEWKWWNEW];  TH1D *hDIEWKWWNEWMLL_QCD[nFilesEWKWWNEW];	 
+TH1D *hDIEWKWWNEWPTL1[nFilesEWKWWNEW]; TH1D *hDIEWKWWNEWPTL1_PDF[nFilesEWKWWNEW]; TH1D *hDIEWKWWNEWPTL1_QCD[nFilesEWKWWNEW];	 
+
+for(int i=0; i<nFilesEWKWWNEW; i++){
+  printf("EWKWWNEWEWKCorr(%d)\n",i);
+  hDIEWKWWNEWMJJ[i]      = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMJJ");      hDIEWKWWNEWMJJ[i]     ->Sumw2(); hDIEWKWWNEWMJJ[i]     ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWMJJ_PDF[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMJJ_PDF");  hDIEWKWWNEWMJJ_PDF[i] ->Sumw2(); hDIEWKWWNEWMJJ_PDF[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWMJJ_QCD[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMJJ_QCD");  hDIEWKWWNEWMJJ_QCD[i] ->Sumw2(); hDIEWKWWNEWMJJ_QCD[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWMLL[i]      = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMLL");      hDIEWKWWNEWMLL[i]     ->Sumw2(); hDIEWKWWNEWMLL[i]     ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWMLL_PDF[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMLL_PDF");  hDIEWKWWNEWMLL_PDF[i] ->Sumw2(); hDIEWKWWNEWMLL_PDF[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWMLL_QCD[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWMLL_QCD");  hDIEWKWWNEWMLL_QCD[i] ->Sumw2(); hDIEWKWWNEWMLL_QCD[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWPTL1[i]     = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWPTL1");     hDIEWKWWNEWPTL1[i]    ->Sumw2(); hDIEWKWWNEWPTL1[i]    ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWPTL1_PDF[i] = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWPTL1_PDF"); hDIEWKWWNEWPTL1_PDF[i]->Sumw2(); hDIEWKWWNEWPTL1_PDF[i]->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDIEWKWWNEWPTL1_QCD[i] = (TH1D*)_filesEWKWWNEW[i]->Get("hDSSWWPTL1_QCD"); hDIEWKWWNEWPTL1_QCD[i]->Sumw2(); hDIEWKWWNEWPTL1_QCD[i]->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+}
+
+TH1D *hDEWKWWNEWMJJ      = (TH1D*)hDIEWKWWNEWMJJ     [0]->Clone("hDEWKWWNEWMJJ"	   );
+TH1D *hDEWKWWNEWMJJ_PDF  = (TH1D*)hDIEWKWWNEWMJJ_PDF [0]->Clone("hDEWKWWNEWMJJ_PDF" );
+TH1D *hDEWKWWNEWMJJ_QCD  = (TH1D*)hDIEWKWWNEWMJJ_QCD [0]->Clone("hDEWKWWNEWMJJ_QCD" );
+TH1D *hDEWKWWNEWMLL      = (TH1D*)hDIEWKWWNEWMLL     [0]->Clone("hDEWKWWNEWMLL"	   );
+TH1D *hDEWKWWNEWMLL_PDF  = (TH1D*)hDIEWKWWNEWMLL_PDF [0]->Clone("hDEWKWWNEWMLL_PDF" );
+TH1D *hDEWKWWNEWMLL_QCD  = (TH1D*)hDIEWKWWNEWMLL_QCD [0]->Clone("hDEWKWWNEWMLL_QCD" );
+TH1D *hDEWKWWNEWPTL1     = (TH1D*)hDIEWKWWNEWPTL1    [0]->Clone("hDEWKWWNEWPTL1"    );
+TH1D *hDEWKWWNEWPTL1_PDF = (TH1D*)hDIEWKWWNEWPTL1_PDF[0]->Clone("hDEWKWWNEWPTL1_PDF");
+TH1D *hDEWKWWNEWPTL1_QCD = (TH1D*)hDIEWKWWNEWPTL1_QCD[0]->Clone("hDEWKWWNEWPTL1_QCD");
+
+for(int i=1; i<nFilesEWKWWNEW; i++){
+  hDEWKWWNEWMJJ	 ->Add(hDIEWKWWNEWMJJ     [i]); 
+  hDEWKWWNEWMJJ_PDF ->Add(hDIEWKWWNEWMJJ_PDF [i]);   
+  hDEWKWWNEWMJJ_QCD ->Add(hDIEWKWWNEWMJJ_QCD [i]);   
+  hDEWKWWNEWMLL	 ->Add(hDIEWKWWNEWMLL     [i]); 
+  hDEWKWWNEWMLL_PDF ->Add(hDIEWKWWNEWMLL_PDF [i]);   
+  hDEWKWWNEWMLL_QCD ->Add(hDIEWKWWNEWMLL_QCD [i]);   
+  hDEWKWWNEWPTL1	 ->Add(hDIEWKWWNEWPTL1    [i]); 
+  hDEWKWWNEWPTL1_PDF->Add(hDIEWKWWNEWPTL1_PDF[i]);   
+  hDEWKWWNEWPTL1_QCD->Add(hDIEWKWWNEWPTL1_QCD[i]);   
+}
+
+diff[0] = 1000*(hDEWKWWNEWMJJ_PDF->GetSumOfWeights()-hDEWKWWNEWMJJ->GetSumOfWeights());
+diff[1] = 1000*(hDEWKWWNEWMJJ_QCD->GetSumOfWeights()-hDEWKWWNEWMJJ->GetSumOfWeights());
+printf("hDEWKWWNEWMJJ: %.2f %.2f %.2f (%.2f)\n",1000*hDEWKWWNEWMJJ->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDEWKWWNEWMJJ->GetNbinsX();i++){
+  diff[0] = 1000*(hDEWKWWNEWMJJ_PDF->GetBinContent(i)-hDEWKWWNEWMJJ->GetBinContent(i));
+  diff[1] = 1000*(hDEWKWWNEWMJJ_QCD->GetBinContent(i)-hDEWKWWNEWMJJ->GetBinContent(i));
+  printf("hDEWKWWNEWMJJ(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDEWKWWNEWMJJ->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+}
+
+diff[0] = 1000*(hDEWKWWNEWMLL_PDF->GetSumOfWeights()-hDEWKWWNEWMLL->GetSumOfWeights());
+diff[1] = 1000*(hDEWKWWNEWMLL_QCD->GetSumOfWeights()-hDEWKWWNEWMLL->GetSumOfWeights());
+printf("hDEWKWWNEWMLL: %.2f %.2f %.2f (%.2f)\n",1000*hDEWKWWNEWMLL->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDEWKWWNEWMLL->GetNbinsX();i++){
+  diff[0] = 1000*(hDEWKWWNEWMLL_PDF->GetBinContent(i)-hDEWKWWNEWMLL->GetBinContent(i));
+  diff[1] = 1000*(hDEWKWWNEWMLL_QCD->GetBinContent(i)-hDEWKWWNEWMLL->GetBinContent(i));
+  printf("hDEWKWWNEWMLL(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDEWKWWNEWMLL->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+}
+
+diff[0] = 1000*(hDEWKWWNEWPTL1_PDF->GetSumOfWeights()-hDEWKWWNEWPTL1->GetSumOfWeights());
+diff[1] = 1000*(hDEWKWWNEWPTL1_QCD->GetSumOfWeights()-hDEWKWWNEWPTL1->GetSumOfWeights());
+printf("hDEWKWWNEWPTL1: %.2f %.2f %.2f (%.2f)\n",1000*hDEWKWWNEWPTL1->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDEWKWWNEWPTL1->GetNbinsX();i++){
+  diff[0] = 1000*(hDEWKWWNEWPTL1_PDF->GetBinContent(i)-hDEWKWWNEWPTL1->GetBinContent(i));
+  diff[1] = 1000*(hDEWKWWNEWPTL1_QCD->GetBinContent(i)-hDEWKWWNEWPTL1->GetBinContent(i));
+  printf("hDEWKWWNEWPTL1(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDEWKWWNEWPTL1->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 }
 
 // EWKWW EWKCorr applied
@@ -176,6 +258,73 @@ for(int i=1; i<=hDEWKWZMJJ->GetNbinsX();i++){
   printf("hDEWKWZMJJ(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDEWKWZMJJ->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 }
 
+// EWKWWNEW NoEWKCorr applied
+TH1D *hDNoEWKCorrIEWKWWNEWMJJ[nFilesEWKWWNEW];  TH1D *hDNoEWKCorrIEWKWWNEWMJJ_PDF[nFilesEWKWWNEW];  TH1D *hDNoEWKCorrIEWKWWNEWMJJ_QCD[nFilesEWKWWNEW];	 
+TH1D *hDNoEWKCorrIEWKWWNEWMLL[nFilesEWKWWNEW];  TH1D *hDNoEWKCorrIEWKWWNEWMLL_PDF[nFilesEWKWWNEW];  TH1D *hDNoEWKCorrIEWKWWNEWMLL_QCD[nFilesEWKWWNEW];	 
+TH1D *hDNoEWKCorrIEWKWWNEWPTL1[nFilesEWKWWNEW]; TH1D *hDNoEWKCorrIEWKWWNEWPTL1_PDF[nFilesEWKWWNEW]; TH1D *hDNoEWKCorrIEWKWWNEWPTL1_QCD[nFilesEWKWWNEW];	 
+
+for(int i=0; i<nFilesEWKWWNEW; i++){
+  printf("EWKWWNEWNoEWKCorr(%d)\n",i);
+  hDNoEWKCorrIEWKWWNEWMJJ[i]      = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMJJ");      hDNoEWKCorrIEWKWWNEWMJJ[i]     ->Sumw2(); hDNoEWKCorrIEWKWWNEWMJJ[i]     ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWMJJ_PDF[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMJJ_PDF");  hDNoEWKCorrIEWKWWNEWMJJ_PDF[i] ->Sumw2(); hDNoEWKCorrIEWKWWNEWMJJ_PDF[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWMJJ_QCD[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMJJ_QCD");  hDNoEWKCorrIEWKWWNEWMJJ_QCD[i] ->Sumw2(); hDNoEWKCorrIEWKWWNEWMJJ_QCD[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWMLL[i]      = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMLL");      hDNoEWKCorrIEWKWWNEWMLL[i]     ->Sumw2(); hDNoEWKCorrIEWKWWNEWMLL[i]     ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWMLL_PDF[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMLL_PDF");  hDNoEWKCorrIEWKWWNEWMLL_PDF[i] ->Sumw2(); hDNoEWKCorrIEWKWWNEWMLL_PDF[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWMLL_QCD[i]  = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWMLL_QCD");  hDNoEWKCorrIEWKWWNEWMLL_QCD[i] ->Sumw2(); hDNoEWKCorrIEWKWWNEWMLL_QCD[i] ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWPTL1[i]     = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWPTL1");     hDNoEWKCorrIEWKWWNEWPTL1[i]    ->Sumw2(); hDNoEWKCorrIEWKWWNEWPTL1[i]    ->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWPTL1_PDF[i] = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWPTL1_PDF"); hDNoEWKCorrIEWKWWNEWPTL1_PDF[i]->Sumw2(); hDNoEWKCorrIEWKWWNEWPTL1_PDF[i]->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+  hDNoEWKCorrIEWKWWNEWPTL1_QCD[i] = (TH1D*)_filesEWKWWNEW[i]->Get("hDNoEWKCorrSSWWPTL1_QCD"); hDNoEWKCorrIEWKWWNEWPTL1_QCD[i]->Sumw2(); hDNoEWKCorrIEWKWWNEWPTL1_QCD[i]->Scale(xsEWKWWNEW[i]/hDITotalMCWeightEWKWWNEW[i]->GetSumOfWeights());
+}
+
+TH1D *hDNoEWKCorrEWKWWNEWMJJ      = (TH1D*)hDNoEWKCorrIEWKWWNEWMJJ     [0]->Clone("hDNoEWKCorrEWKWWNEWMJJ"     );
+TH1D *hDNoEWKCorrEWKWWNEWMJJ_PDF  = (TH1D*)hDNoEWKCorrIEWKWWNEWMJJ_PDF [0]->Clone("hDNoEWKCorrEWKWWNEWMJJ_PDF" );
+TH1D *hDNoEWKCorrEWKWWNEWMJJ_QCD  = (TH1D*)hDNoEWKCorrIEWKWWNEWMJJ_QCD [0]->Clone("hDNoEWKCorrEWKWWNEWMJJ_QCD" );
+TH1D *hDNoEWKCorrEWKWWNEWMLL      = (TH1D*)hDNoEWKCorrIEWKWWNEWMLL     [0]->Clone("hDNoEWKCorrEWKWWNEWMLL"     );
+TH1D *hDNoEWKCorrEWKWWNEWMLL_PDF  = (TH1D*)hDNoEWKCorrIEWKWWNEWMLL_PDF [0]->Clone("hDNoEWKCorrEWKWWNEWMLL_PDF" );
+TH1D *hDNoEWKCorrEWKWWNEWMLL_QCD  = (TH1D*)hDNoEWKCorrIEWKWWNEWMLL_QCD [0]->Clone("hDNoEWKCorrEWKWWNEWMLL_QCD" );
+TH1D *hDNoEWKCorrEWKWWNEWPTL1     = (TH1D*)hDNoEWKCorrIEWKWWNEWPTL1    [0]->Clone("hDNoEWKCorrEWKWWNEWPTL1"    );
+TH1D *hDNoEWKCorrEWKWWNEWPTL1_PDF = (TH1D*)hDNoEWKCorrIEWKWWNEWPTL1_PDF[0]->Clone("hDNoEWKCorrEWKWWNEWPTL1_PDF");
+TH1D *hDNoEWKCorrEWKWWNEWPTL1_QCD = (TH1D*)hDNoEWKCorrIEWKWWNEWPTL1_QCD[0]->Clone("hDNoEWKCorrEWKWWNEWPTL1_QCD");
+
+for(int i=1; i<nFilesEWKWWNEW; i++){
+  hDNoEWKCorrEWKWWNEWMJJ	  ->Add(hDNoEWKCorrIEWKWWNEWMJJ     [i]); 
+  hDNoEWKCorrEWKWWNEWMJJ_PDF ->Add(hDNoEWKCorrIEWKWWNEWMJJ_PDF [i]);   
+  hDNoEWKCorrEWKWWNEWMJJ_QCD ->Add(hDNoEWKCorrIEWKWWNEWMJJ_QCD [i]);   
+  hDNoEWKCorrEWKWWNEWMLL	  ->Add(hDNoEWKCorrIEWKWWNEWMLL     [i]); 
+  hDNoEWKCorrEWKWWNEWMLL_PDF ->Add(hDNoEWKCorrIEWKWWNEWMLL_PDF [i]);   
+  hDNoEWKCorrEWKWWNEWMLL_QCD ->Add(hDNoEWKCorrIEWKWWNEWMLL_QCD [i]);   
+  hDNoEWKCorrEWKWWNEWPTL1	  ->Add(hDNoEWKCorrIEWKWWNEWPTL1    [i]); 
+  hDNoEWKCorrEWKWWNEWPTL1_PDF->Add(hDNoEWKCorrIEWKWWNEWPTL1_PDF[i]);   
+  hDNoEWKCorrEWKWWNEWPTL1_QCD->Add(hDNoEWKCorrIEWKWWNEWPTL1_QCD[i]);   
+}
+
+diff[0] = 1000*(hDNoEWKCorrEWKWWNEWMJJ_PDF->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWMJJ->GetSumOfWeights());
+diff[1] = 1000*(hDNoEWKCorrEWKWWNEWMJJ_QCD->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWMJJ->GetSumOfWeights());
+printf("hDNoEWKCorrEWKWWNEWMJJ: %.2f %.2f %.2f (%.2f)\n",1000*hDNoEWKCorrEWKWWNEWMJJ->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDNoEWKCorrEWKWWNEWMJJ->GetNbinsX();i++){
+  diff[0] = 1000*(hDNoEWKCorrEWKWWNEWMJJ_PDF->GetBinContent(i)-hDNoEWKCorrEWKWWNEWMJJ->GetBinContent(i));
+  diff[1] = 1000*(hDNoEWKCorrEWKWWNEWMJJ_QCD->GetBinContent(i)-hDNoEWKCorrEWKWWNEWMJJ->GetBinContent(i));
+  printf("hDNoEWKCorrEWKWWNEWMJJ(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDNoEWKCorrEWKWWNEWMJJ->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+}
+
+diff[0] = 1000*(hDNoEWKCorrEWKWWNEWMLL_PDF->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWMLL->GetSumOfWeights());
+diff[1] = 1000*(hDNoEWKCorrEWKWWNEWMLL_QCD->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWMLL->GetSumOfWeights());
+printf("hDNoEWKCorrEWKWWNEWMLL: %.2f %.2f %.2f (%.2f)\n",1000*hDNoEWKCorrEWKWWNEWMLL->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDNoEWKCorrEWKWWNEWMLL->GetNbinsX();i++){
+  diff[0] = 1000*(hDNoEWKCorrEWKWWNEWMLL_PDF->GetBinContent(i)-hDNoEWKCorrEWKWWNEWMLL->GetBinContent(i));
+  diff[1] = 1000*(hDNoEWKCorrEWKWWNEWMLL_QCD->GetBinContent(i)-hDNoEWKCorrEWKWWNEWMLL->GetBinContent(i));
+  printf("hDNoEWKCorrEWKWWNEWMLL(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDNoEWKCorrEWKWWNEWMLL->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+}
+
+diff[0] = 1000*(hDNoEWKCorrEWKWWNEWPTL1_PDF->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWPTL1->GetSumOfWeights());
+diff[1] = 1000*(hDNoEWKCorrEWKWWNEWPTL1_QCD->GetSumOfWeights()-hDNoEWKCorrEWKWWNEWPTL1->GetSumOfWeights());
+printf("hDNoEWKCorrEWKWWNEWPTL1: %.2f %.2f %.2f (%.2f)\n",1000*hDNoEWKCorrEWKWWNEWPTL1->GetSumOfWeights(),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDNoEWKCorrEWKWWNEWPTL1->GetNbinsX();i++){
+  diff[0] = 1000*(hDNoEWKCorrEWKWWNEWPTL1_PDF->GetBinContent(i)-hDNoEWKCorrEWKWWNEWPTL1->GetBinContent(i));
+  diff[1] = 1000*(hDNoEWKCorrEWKWWNEWPTL1_QCD->GetBinContent(i)-hDNoEWKCorrEWKWWNEWPTL1->GetBinContent(i));
+  printf("hDNoEWKCorrEWKWWNEWPTL1(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDNoEWKCorrEWKWWNEWPTL1->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+}
+
 // EWKWW NoEWKCorr applied
 TH1D *hDNoEWKCorrIEWKWWMJJ[nFilesEWKWW];  TH1D *hDNoEWKCorrIEWKWWMJJ_PDF[nFilesEWKWW];  TH1D *hDNoEWKCorrIEWKWWMJJ_QCD[nFilesEWKWW];	 
 TH1D *hDNoEWKCorrIEWKWWMLL[nFilesEWKWW];  TH1D *hDNoEWKCorrIEWKWWMLL_PDF[nFilesEWKWW];  TH1D *hDNoEWKCorrIEWKWWMLL_QCD[nFilesEWKWW];	 
@@ -194,10 +343,10 @@ for(int i=0; i<nFilesEWKWW; i++){
   hDNoEWKCorrIEWKWWPTL1_QCD[i] = (TH1D*)_filesEWKWW[i]->Get("hDNoEWKCorrSSWWPTL1_QCD"); hDNoEWKCorrIEWKWWPTL1_QCD[i]->Sumw2(); hDNoEWKCorrIEWKWWPTL1_QCD[i]->Scale(xsEWKWW[i]/hDITotalMCWeightEWKWW[i]->GetSumOfWeights());
 }
 
-TH1D *hDNoEWKCorrEWKWWMJJ      = (TH1D*)hDNoEWKCorrIEWKWWMJJ     [0]->Clone("hDNoEWKCorrEWKWWMJJ"	  );
+TH1D *hDNoEWKCorrEWKWWMJJ      = (TH1D*)hDNoEWKCorrIEWKWWMJJ     [0]->Clone("hDNoEWKCorrEWKWWMJJ"     );
 TH1D *hDNoEWKCorrEWKWWMJJ_PDF  = (TH1D*)hDNoEWKCorrIEWKWWMJJ_PDF [0]->Clone("hDNoEWKCorrEWKWWMJJ_PDF" );
 TH1D *hDNoEWKCorrEWKWWMJJ_QCD  = (TH1D*)hDNoEWKCorrIEWKWWMJJ_QCD [0]->Clone("hDNoEWKCorrEWKWWMJJ_QCD" );
-TH1D *hDNoEWKCorrEWKWWMLL      = (TH1D*)hDNoEWKCorrIEWKWWMLL     [0]->Clone("hDNoEWKCorrEWKWWMLL"	  );
+TH1D *hDNoEWKCorrEWKWWMLL      = (TH1D*)hDNoEWKCorrIEWKWWMLL     [0]->Clone("hDNoEWKCorrEWKWWMLL"     );
 TH1D *hDNoEWKCorrEWKWWMLL_PDF  = (TH1D*)hDNoEWKCorrIEWKWWMLL_PDF [0]->Clone("hDNoEWKCorrEWKWWMLL_PDF" );
 TH1D *hDNoEWKCorrEWKWWMLL_QCD  = (TH1D*)hDNoEWKCorrIEWKWWMLL_QCD [0]->Clone("hDNoEWKCorrEWKWWMLL_QCD" );
 TH1D *hDNoEWKCorrEWKWWPTL1     = (TH1D*)hDNoEWKCorrIEWKWWPTL1    [0]->Clone("hDNoEWKCorrEWKWWPTL1"    );
