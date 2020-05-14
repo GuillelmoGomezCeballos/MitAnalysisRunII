@@ -52,21 +52,21 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   }
   histo->GetXaxis()->SetLabelFont  (   42);
   histo->GetXaxis()->SetLabelOffset(0.015);
-  histo->GetXaxis()->SetLabelSize  (0.138);
+  histo->GetXaxis()->SetLabelSize  (0.135);
   histo->GetXaxis()->SetNdivisions (  505);
   histo->GetXaxis()->SetTitleFont  (   42);
   histo->GetXaxis()->SetTitleOffset( 0.95);
-  histo->GetXaxis()->SetTitleSize  (0.140);
+  histo->GetXaxis()->SetTitleSize  (0.130);
   //histo->GetXaxis()->SetTickLength (0.07 );
 
   histo->GetYaxis()->SetTitle(ytitle.Data());
   histo->GetYaxis()->SetLabelFont  (   42);
   histo->GetYaxis()->SetLabelOffset(0.015);
-  histo->GetYaxis()->SetLabelSize  (0.138);
+  histo->GetYaxis()->SetLabelSize  (0.125);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
-  histo->GetYaxis()->SetTitleSize  (0.140);
+  histo->GetYaxis()->SetTitleSize  (0.130);
   //histo->GetYaxis()->SetTickLength (0.03 );
 
   histo->SetLineColor  (kBlack);
@@ -132,6 +132,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   if(outputName == "ssww_wzsel_aqgc_fullmtwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
   if(outputName == "ssww_wzsel_aqgc_fullmwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
   if(outputName.Contains("ssww_wzsel") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
+  //if(outputName.Contains("wz_")) {_hist[kPlotHiggs]->Scale(0);}
 
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
