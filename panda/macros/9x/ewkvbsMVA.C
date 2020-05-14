@@ -111,16 +111,16 @@ void ewkvbsMVA(
     dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');
     dataloader->AddVariable("mvaWpt"	 , "mvaMet"	, "", 'F');
     dataloader->AddVariable("mvaZpt"	 , "mvaZpt"	, "", 'F');
-    dataloader->AddVariable("mvaVVmt"    , "mvaVVmt"	, "", 'F');
+    //dataloader->AddVariable("mvaVVmt"    , "mvaVVmt"	, "", 'F');//13var
     dataloader->AddVariable("mvazep1"    , "mvazep1"	, "", 'F');
     dataloader->AddVariable("mvazep2"    , "mvazep2"	, "", 'F');
-    dataloader->AddVariable("mvaj1Zdr"   , "mvaj1Zdr"	, "", 'F');
-    dataloader->AddVariable("mvaj2Zdr"   , "mvaj2Zdr"	, "", 'F');
+    //dataloader->AddVariable("mvaj1Zdr"   , "mvaj1Zdr"	, "", 'F');//10var
+    //dataloader->AddVariable("mvaj2Zdr"   , "mvaj2Zdr"	, "", 'F');//10var
     dataloader->AddVariable("mvaleppt1"  , "mvaleppt1"  , "", 'F');
-    dataloader->AddVariable("mvaleppt2"  , "mvaleppt2"  , "", 'F');
-    dataloader->AddVariable("mvadphill"  , "mvadphill"  , "", 'F');
-    dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');
-    dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');
+    //dataloader->AddVariable("mvaleppt2"  , "mvaleppt2"  , "", 'F');//13var
+    //dataloader->AddVariable("mvadphill"  , "mvadphill"  , "", 'F');//13var
+    //dataloader->AddVariable("mvamll"	 , "mvamll"	, "", 'F');//10var
+    //dataloader->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)"  , "mvaptrel"  , "", 'F');//13var
     dataloader->AddVariable("mvamjj"	 , "mvamjj"	, "", 'F');
     dataloader->AddVariable("mvadetajj"  , "mvadetajj"  , "", 'F');
     //dataloader->AddVariable("mvajeteta1" , "mvajeteta1" , "", 'F');

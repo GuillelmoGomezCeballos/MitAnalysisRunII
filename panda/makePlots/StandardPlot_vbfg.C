@@ -75,14 +75,14 @@ void AxisFonts(TAxis*  axis,
 {
     axis->SetLabelFont  (   42);
     axis->SetLabelOffset(0.010);
-    axis->SetLabelSize  (0.040);
+    axis->SetLabelSize  (0.058);
     axis->SetNdivisions (  505);
     axis->SetTitleFont  (   42);
     axis->SetTitleOffset(  0.9);
-    axis->SetTitleSize  (0.045);
+    axis->SetTitleSize  (0.050);
 
-    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.10);
-    else if (coordinate == "y")                            axis->SetTitleOffset(1.10);
+    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.20);
+    else if (coordinate == "y")                            axis->SetTitleOffset(1.20);
 
     axis->SetTitle(title);
 }
@@ -117,11 +117,12 @@ void DrawLegend(Float_t x1,
             x1 + _xoffset,
             y1 + _yoffset);
 
-    legend->SetBorderSize(     0);
-    legend->SetFillColor (     0);
-    legend->SetTextAlign (    12);
-    legend->SetTextFont  (    62);
-    legend->SetTextSize  (_tsize);
+    legend->SetBorderSize  (     0);
+    legend->SetFillColor   (     0);
+    legend->SetTextAlign   (    12);
+    legend->SetTextFont    (    62);
+    legend->SetTextSize    (_tsize);
+    legend->SetShadowColor(      0);
 
     legend->AddEntry(hist, label.Data(), option.Data());
 

@@ -67,7 +67,7 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
-  histo->GetYaxis()->SetTitleSize  (0.130);
+  histo->GetYaxis()->SetTitleSize  (0.140);
   //histo->GetYaxis()->SetTickLength (0.03 );
 
   histo->SetLineColor  (kBlack);
@@ -92,7 +92,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   bool doApplyBinWidth = false;
   if(units.Contains("BinWidth")) {doApplyBinWidth = true; units = units.ReplaceAll("BinWidth","");}
 
-  //gInterpreter->ExecuteMacro("GoodStyle.C");
+  //gInterpreter->ExecuteMacro("MitAnalysisRunII/panda/makePlots/GoodStyle.C");
   //gROOT->LoadMacro("StandardPlot.C");
   gStyle->SetOptStat(0);
 
@@ -291,9 +291,9 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   bool showPulls = false;
   bool useGarwood = false;
   if(showPulls) atributes(hRatio,XTitle.Data(),"Pull",units.Data());
-  else          atributes(hRatio,XTitle.Data(),"Data/Bkg.",units.Data());
+  else          atributes(hRatio,XTitle.Data(),"Data/SM",units.Data());
   if(showPulls) atributes(hBand,XTitle.Data(),"Pull",units.Data());
-  else          atributes(hBand,XTitle.Data(),"Data/Bkg.",units.Data());
+  else          atributes(hBand,XTitle.Data(),"Data/SM",units.Data());
 
   TGraphAsymmErrors *gStatic = new TGraphAsymmErrors(hDataDivision);
   TGraphAsymmErrors *g = new TGraphAsymmErrors(hRatio);

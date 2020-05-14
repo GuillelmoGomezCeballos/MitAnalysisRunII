@@ -23,7 +23,7 @@ const bool showSyst = true;
 const bool produceMVAInputs = false;
 const bool isPseudoData = false;
 const double jetPtCut = 50;
-const bool useTwoBDTs = false;
+const bool useTwoBDTs = true;
 
 const int includeBSMAQGC = 0;
 
@@ -401,7 +401,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     xbinsWWLXBDT[1] = -0.215;xbinsWWLXBDT[2] = -0.003;xbinsWWLXBDT[3] = 0.161;
     xbinsWWLXBDT[4] =  0.312;xbinsWWLXBDT[5] =  0.474;xbinsWWLXBDT[6] = 1.000;
   }
-  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.122, 0.332, 0.640, 0.841, 1.000};
+  //const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.122, 0.332, 0.640, 0.841, 1.000}; // 17var
+  //const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.153, 0.275, 0.585, 0.796, 1.000}; // 13var
+  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.162, 0.257, 0.565, 0.784, 1.000}; // 10var
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
   int nBinMVAAux = 0;
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
@@ -505,7 +507,7 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
     else if(thePlot >= 148 && thePlot <= 148) {nBinPlot =  40; xminPlot = 0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >= 149 && thePlot <= 149) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 5.0;}
     else if(thePlot >= 150 && thePlot <= 150) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 2;}
-    //else if(thePlot >= 151 && thePlot <= 152) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
+    else if(thePlot >= 151 && thePlot <= 152) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
     if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(thePlot >=   0 && thePlot <=   4) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
     else if(thePlot >=  52 && thePlot <=  53) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
@@ -672,7 +674,9 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   if(fidAna == 9){
     bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v13.weights.xml";
   }
-  TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS_17var.weights.xml";
+  //TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS_17var.weights.xml";
+  //TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS_13var.weights.xml";
+  TString bdtWWWSWeights="MitAnalysisRunII/BDT/ssww_LX_TT/bdt_BDTG_v0_WS_10var.weights.xml";
 
   TMVA::Reader *theReaderWWLX = new TMVA::Reader("Silent");
   theReaderWWLX->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
@@ -698,16 +702,16 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   theReaderWWWS->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
   theReaderWWWS->AddVariable("mvaWpt"	  ,&mvaWWInputs[ 3]);
   theReaderWWWS->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
-  theReaderWWWS->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  //theReaderWWWS->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
   theReaderWWWS->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
   theReaderWWWS->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
-  theReaderWWWS->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
-  theReaderWWWS->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
+  //theReaderWWWS->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  //theReaderWWWS->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
   theReaderWWWS->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
-  theReaderWWWS->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
-  theReaderWWWS->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
-  theReaderWWWS->AddVariable("mvamll"     ,&mvaWWInputs[13]);
-  theReaderWWWS->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
+  //theReaderWWWS->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
+  //theReaderWWWS->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
+  //theReaderWWWS->AddVariable("mvamll"     ,&mvaWWInputs[13]);
+  //theReaderWWWS->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
   theReaderWWWS->AddVariable("mvamjj"     ,&mvaWWInputs[15]);
   theReaderWWWS->AddVariable("mvadetajj"  ,&mvaWWInputs[16]);
   //theReaderWWWS->AddVariable("mvajeteta1" ,&mvaWWInputs[17]);
