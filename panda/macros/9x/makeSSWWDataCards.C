@@ -114,32 +114,20 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("EWKCorrVV%s    shape     ",plotBaseNames[kPlotEWKSSWW].Data());
-  for (int ic=0; ic<nPlotCategories; ic++){
+  for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(!histo_Baseline[ic]) continue;
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotEWKSSWW) newcardShape << Form("- ");
-    else                   newcardShape << Form("1.0 ");
+    if(histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    if(!(ic == kPlotEWKSSWW || ic == kPlotEWKWZ   || ic == kPlotWZ      || ic == kPlotBSM ||
+         ic == kPlotSignal0 || ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3)) continue;
+    newcardShape << Form("EWKCorrVV%s    shape     ",plotBaseNames[ic].Data());
+    for(unsigned ic2=0; ic2<nPlotCategories; ic2++) {
+      if(!histo_Baseline[ic2]) continue;
+      if(ic2 == kPlotData || histo_Baseline[ic2]->GetSumOfWeights() <= 0) continue;
+      if(ic==ic2) newcardShape << Form("1.0  ");
+      else        newcardShape << Form("-  ");
+    }
+    newcardShape << Form("\n");
   }
-  newcardShape << Form("\n");
-
-  newcardShape << Form("EWKCorrVV%s    shape	 ",plotBaseNames[kPlotEWKWZ].Data());
-  for (int ic=0; ic<nPlotCategories; ic++){
-    if(!histo_Baseline[ic]) continue;
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotEWKWZ) newcardShape << Form("- ");
-    else		 newcardShape << Form("1.0 ");
-  }
-  newcardShape << Form("\n");
-
-  //newcardShape << Form("EWKCorrVV%s	 shape     ",plotBaseNames[kPlotWZ].Data());
-  //for (int ic=0; ic<nPlotCategories; ic++){
-  //  if(!histo_Baseline[ic]) continue;
-  //  if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-  //  if(ic != kPlotWZ) newcardShape << Form("- ");
-  //  else		newcardShape << Form("1.0 ");
-  //}
-  //newcardShape << Form("\n");
 
   newcardShape << Form("EWKqqZZCorr    shape	 ");
   for (int ic=0; ic<nPlotCategories; ic++){
@@ -184,10 +172,10 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
     for(unsigned ic2=0; ic2<nPlotCategories; ic2++) {
       if(!histo_Baseline[ic2]) continue;
       if(ic2 == kPlotData || histo_Baseline[ic2]->GetSumOfWeights() <= 0) continue;
-          if(ic==ic2) newcardShape << Form("1.0  ");
-          else        newcardShape << Form("-  ");
-      }
-      newcardShape << Form("\n");
+      if(ic==ic2) newcardShape << Form("1.0  ");
+      else        newcardShape << Form("-  ");
+    }
+    newcardShape << Form("\n");
   }
 
   newcardShape << Form("PDF    shape     ");
