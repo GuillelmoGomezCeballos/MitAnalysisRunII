@@ -339,7 +339,7 @@ int year
 
       int theCategory = infileCat_[ifile];
       bool isNotMCFake = thePandaFlat.looseGenLep1PdgId != 0 && thePandaFlat.looseGenLep2PdgId != 0 && thePandaFlat.looseGenLep3PdgId != 0 && thePandaFlat.looseGenLep4PdgId != 0;
-      if(theCategory != kPlotData && theCategory != kPlotVG && isNotMCFake == false && usePureMC == false) continue;
+      if(theCategory != kPlotData && infileName_[ifile].Contains("VG") == false && isNotMCFake == false && usePureMC == false) continue;
 
       bool passLooseLepId = ((looseLepSelBit[0] & kFake) == kFake) && ((looseLepSelBit[1] & kFake) == kFake) && ((looseLepSelBit[2] & kFake) == kFake) && ((looseLepSelBit[3] & kFake) == kFake);
       if(passLooseLepId == false && usePureMC == false) continue;
@@ -1206,11 +1206,11 @@ int year
 
   if(useZZWZEWKUnc == true){
     newcardShape << Form("CMS_hinv_vvnorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotZZ].Data());
-    newcardShape << Form("CMS_hinv_vvnorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotWZ].Data());
+    //newcardShape << Form("CMS_hinv_vvnorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotWZ].Data());
   }
   else {
     newcardShape << Form("CMS_hinv_zznorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotZZ].Data());
-    newcardShape << Form("CMS_hinv_wznorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotWZ].Data());
+    //newcardShape << Form("CMS_hinv_wznorm_bin_%d  rateParam * %s 1 [0.1,10]\n",year,plotBaseNames[kPlotWZ].Data());
   }
 
   newcardShape << Form("ch1 autoMCStats 0\n");

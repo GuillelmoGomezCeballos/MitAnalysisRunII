@@ -93,7 +93,7 @@ int year, TString WZName = "default"
       infileName_.push_back(Form("%sVVV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
       infileName_.push_back(Form("%sTTV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
       infileName_.push_back(Form("%sTTVV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
-      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotHiggs);
+      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVG);
     }
     else if(WZName == "WZ3l_powheg"){
       infileName_.push_back(Form("%sWZ3l_powheg.root" ,filesPath.Data()));           infileCat_.push_back(kPlotWZ);
@@ -132,7 +132,7 @@ int year, TString WZName = "default"
       infileName_.push_back(Form("%sVVV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
       infileName_.push_back(Form("%sTTV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
       infileName_.push_back(Form("%sTTVV.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVVV);
-      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotHiggs);
+      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));	             infileCat_.push_back(kPlotVG);
     } 
     else if(WZName == "WZ3l_powheg"){
       infileName_.push_back(Form("%sWZ3l_powheg.root" ,filesPath.Data()));           infileCat_.push_back(kPlotWZ);
@@ -185,7 +185,7 @@ int year, TString WZName = "default"
       infileName_.push_back(Form("%sggZZ.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotZZ);
       infileName_.push_back(Form("%sVVV.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotVVV);
       infileName_.push_back(Form("%sTTV.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotVVV);
-      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotHiggs);
+      infileName_.push_back(Form("%sH125.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotVG);
     }
   }
   else {
@@ -405,7 +405,7 @@ int year, TString WZName = "default"
 
       int theCategory = infileCat_[ifile];
       bool isNotMCFake = thePandaFlat.looseGenLep1PdgId != 0 && thePandaFlat.looseGenLep2PdgId != 0 && thePandaFlat.looseGenLep3PdgId != 0;
-      if(theCategory != kPlotData && theCategory != kPlotVG && isNotMCFake == false && usePureMC == false) continue;
+      if(theCategory != kPlotData && infileName_[ifile].Contains("VG") == false && isNotMCFake == false && usePureMC == false) continue;
 
       bool passLooseLepId = ((looseLepSelBit[0] & kFake) == kFake) && ((looseLepSelBit[1] & kFake) == kFake) && ((looseLepSelBit[2] & kFake) == kFake);
       if(passLooseLepId == false && usePureMC == false) continue;

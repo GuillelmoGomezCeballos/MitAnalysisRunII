@@ -396,16 +396,23 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
   //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,0.266, 0.542, 0.719, 0.827, 0.900, 1.000}; // DNN
   //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000, 0.458, 0.572, 0.663, 0.738, 0.805, 1.000}; // BDTG_v30GeV
   //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.234, 0.103, 0.336, 0.512, 0.665, 1.000}; // v5 prune
-  const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.203, 0.084, 0.296, 0.471, 0.633, 1.000}; // v6 prune default
+  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.203, 0.084, 0.296, 0.471, 0.633, 1.000}; // v6 prune default QCD corr
+  const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.202, 0.085, 0.296, 0.472, 0.633, 1.000}; // v6 prune default QCD+EW corr
 
-  if(fidAna == 9){
+  //if(fidAna == 9){ // v13 default QCD corr
+  //  xbinsWWLXBDT[0] = -1.000;
+  //  xbinsWWLXBDT[1] = -0.055;xbinsWWLXBDT[2] =  0.184;xbinsWWLXBDT[3] = 0.338;
+  //  xbinsWWLXBDT[4] =  0.465;xbinsWWLXBDT[5] =  0.589;xbinsWWLXBDT[6] = 1.000;
+  //}
+  if(fidAna == 9){ // v13 default QCD+EW corr
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.055;xbinsWWLXBDT[2] =  0.184;xbinsWWLXBDT[3] = 0.338;
-    xbinsWWLXBDT[4] =  0.465;xbinsWWLXBDT[5] =  0.589;xbinsWWLXBDT[6] = 1.000;
+    xbinsWWLXBDT[1] = -0.053;xbinsWWLXBDT[2] =  0.185;xbinsWWLXBDT[3] = 0.339;
+    xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  0.590;xbinsWWLXBDT[6] = 1.000;
   }
   //const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.122, 0.332, 0.640, 0.841, 1.000}; // 17var
   //const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.153, 0.275, 0.585, 0.796, 1.000}; // 13var
-  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.177, 0.242, 0.557, 0.780, 1.000}; // 10var
+  //const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.177, 0.242, 0.557, 0.780, 1.000}; // 10var QCD corr
+  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.201, 0.214, 0.536, 0.771, 1.000}; // 10var QCD+EW corr
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
   int nBinMVAAux = 0;
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
@@ -1446,8 +1453,10 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	if((infileCat_[ifile] == kPlotEWKWZ || infileCat_[ifile] == kPlotEWKWZ_dim8)
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
+	//if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
+	//  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
-	  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         else if(isVBS[0])
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1])
@@ -2742,9 +2751,12 @@ int year, int fidAna = 0, bool isDesk014 = false, TString WZName = "WZ3l_MG"
 	if(theCategory == kPlotZZ && 
 	   (infileName_[ifile].Contains("qqZZ") == true || infileName_[ifile].Contains("ZZJJQCD") == true)) sf_ewkcorrzz_unc = thePandaFlat.sf_zzUnc;
 	else if(theCategory == kPlotZZ && infileName_[ifile].Contains("ggZZ") == true) sf_ggcorrzz_unc = 1.10;
+	//if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
+        //             sf_ewkcorrvv_unc = hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
+        //                                hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
-                     sf_ewkcorrvv_unc = hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
-                                        hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+                     sf_ewkcorrvv_unc = hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
+                                        hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0])
                      sf_ewkcorrvv_unc = hWW_KF_CMSUp->GetBinContent(hWW_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));

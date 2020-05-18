@@ -98,9 +98,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     infileName_.push_back(Form("%sTW.root" ,filesPath.Data()));		         infileCat_.push_back(kPlotEM);
     infileName_.push_back(Form("%sH125.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotEM);
     infileName_.push_back(Form("%sDYJetsToLL_M-10to50.root" ,filesPath.Data())); infileCat_.push_back(kPlotDY);
-    //infileName_.push_back(Form("%sDYJetsToLL_M-50_LO.root",filesPath.Data()));   infileCat_.push_back(kPlotDY);
     infileName_.push_back(Form("%sDYNJetsToLL_NLO.root",filesPath.Data()));      infileCat_.push_back(kPlotDY);
-    //infileName_.push_back(Form("%sVG.root" ,filesPath.Data()));                  infileCat_.push_back(kPlotVG);
     infileName_.push_back(Form("%sWZ3l_amcnlo.root" ,filesPath.Data()));         infileCat_.push_back(kPlotWZ);
     infileName_.push_back(Form("%sqqZZ.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotZZ);
     infileName_.push_back(Form("%sggZZ.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotZZ);
@@ -125,7 +123,6 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     infileName_.push_back(Form("%sDYJetsToLL_Pt250To400.root",filesPath.Data())); infileCat_.push_back(kPlotDY);
     infileName_.push_back(Form("%sDYJetsToLL_Pt400To650.root",filesPath.Data())); infileCat_.push_back(kPlotDY);
     infileName_.push_back(Form("%sDYJetsToLL_Pt650ToInf.root",filesPath.Data())); infileCat_.push_back(kPlotDY);
-    //infileName_.push_back(Form("%sVG.root" ,filesPath.Data()));                   infileCat_.push_back(kPlotVG);
     infileName_.push_back(Form("%sWZ.root" ,filesPath.Data()));	                  infileCat_.push_back(kPlotWZ);
     infileName_.push_back(Form("%sWGstar.root" ,filesPath.Data()));               infileCat_.push_back(kPlotWZ);
     infileName_.push_back(Form("%sqqZZ.root" ,filesPath.Data())); 	          infileCat_.push_back(kPlotZZ);
@@ -148,8 +145,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     infileName_.push_back(Form("%s%s.root" ,filesPath.Data(),whichBSMName.Data())); infileCat_.push_back(kPlotBSM);
   }
 
-  infileName_.clear();infileCat_.clear();
-  infileName_.push_back(Form("%sADDMonoZ_MD_2_d_4.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
+  //infileName_.clear();infileCat_.clear();
+  //infileName_.push_back(Form("%sADDMonoZ_MD_2_d_4.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data()));               infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data()));	       infileCat_.push_back(kPlotBSM);
 
@@ -419,7 +416,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
       int theCategory = infileCat_[ifile];
       bool isNotMCFake = thePandaFlat.looseGenLep1PdgId != 0 && thePandaFlat.looseGenLep2PdgId != 0;
-      if(theCategory != kPlotData && theCategory != kPlotVG && isNotMCFake == false && usePureMC == false) continue;
+      if(theCategory != kPlotData && infileName_[ifile].Contains("VG") == false && isNotMCFake == false && usePureMC == false) continue;
 
       vector<TLorentzVector> vLoose;
       vector<int> idLep;

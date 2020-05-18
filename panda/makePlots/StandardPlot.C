@@ -332,7 +332,7 @@ class StandardPlot {
             }
 
             if (gPad->GetLogy()) {
-            	hstack->SetMaximum(10000 * theMax);
+            	hstack->SetMaximum(1000 * theMax);
             	hstack->SetMinimum(TMath::Max(0.9 * theMin,0.005));
             } else {
               hstack->SetMaximum(2.0 * theMax);
@@ -407,10 +407,10 @@ class StandardPlot {
         void setUnits(const TString &s) { _units = s; }
         void setBreakdown(const bool &b = true) { _breakdown = b; }
         void addLabel(const std::string &s) {
-            _extraLabel = new TLatex(0.21, 0.75, TString(s));
+            _extraLabel = new TLatex(0.23, 0.75, TString(s));
             _extraLabel->SetNDC();
             _extraLabel->SetTextAlign(12);
-            _extraLabel->SetTextFont(42);
+            _extraLabel->SetTextFont(62);
             _extraLabel->SetTextSize(0.040);
         }
 
