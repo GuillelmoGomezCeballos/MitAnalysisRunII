@@ -102,6 +102,9 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WZJJ_interference
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_long_new
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_lt_new
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_tt_new
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_long_wwframe
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_lt_wwframe
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 WWjj_SS_tt_wwframe
 
 elif [ $NSEL == 'da' ]; then
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2018 data_2018_overlaps

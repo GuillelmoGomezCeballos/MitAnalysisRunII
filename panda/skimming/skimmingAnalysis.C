@@ -145,6 +145,9 @@ void skimmingAnalysis(int year, int specialMC = 0)
     infileName_.push_back(Form("WWjj_SS_long_new.root"));
     infileName_.push_back(Form("WWjj_SS_lt_new.root"));
     infileName_.push_back(Form("WWjj_SS_tt_new.root"));
+    infileName_.push_back(Form("WWjj_SS_long_wwframe.root"));
+    infileName_.push_back(Form("WWjj_SS_lt_wwframe.root"));
+    infileName_.push_back(Form("WWjj_SS_tt_wwframe.root"));
   }
 
   for(UInt_t ifile=0; ifile<infileName_.size(); ifile++) {
