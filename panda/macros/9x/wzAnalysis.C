@@ -227,7 +227,7 @@ int year, TString WZName = "default"
   //delete fNPVFile;
 
   const float metCut = 70;
-  const int nBinMVA = 11; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 1000};
+  const int nBinMVA = 11; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 800};
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;

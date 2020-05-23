@@ -208,10 +208,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   //const int nBinMVA = 26; Float_t xbins[nBinMVA+1] = {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 500, 600,1000,
   //						        1080,1100,1125,1150,1175,1200,1250,1300,1350,1400,1500,1600,2000};
   const int nBinMVA = 12; Float_t xbins[nBinMVA+1] =      {0,  metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600,1000};
-  const int nBin1DMET = 11; Float_t xbins1DMET[nBin1DMET+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600,1000};
+  const int nBin1DMET = 11; Float_t xbins1DMET[nBin1DMET+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 800};
   const int nBin1DMT  = 10; Float_t xbins1DMT[nBin1DMT+1] = {200, 250, 300, 350, 400, 500, 600, 700, 800,1000,1200};
-
-  const double metMax = 999.999;
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
@@ -702,8 +700,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passNMinusOne[ 8])       histo[lepType+ 39][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,3.499),totalWeight);
       if(passNMinusOne[ 9])       histo[lepType+ 42][theCategory]->Fill(TMath::Min((double)drll,3.999),totalWeight);
       for(int i=0; i<10; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[lepType+45][theCategory]->Fill((double)i,totalWeight);}
-      if(passAllCuts[ZHSEL] && lepType != 2 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
-      if(passAllCuts[ZHSEL] && lepType == 2 && passMET &&  passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),metMax),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType != 2 && passMET &&  passDPhiZMETTight) histo[48][theCategory]->Fill(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),totalWeight);
+      if(passAllCuts[ZHSEL] && lepType == 2 && passMET &&  passDPhiZMETTight) histo[49][theCategory]->Fill(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),totalWeight);
       if(passNMinusOne[1]){
         if(lepType != 2 && thePandaFlat.nJot == 1) histo[50][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
         if(lepType == 2 && thePandaFlat.nJot == 1) histo[51][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
@@ -728,16 +726,15 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       if(passAllCuts[DYSEL] && lepType != 2){
 	  bool passA = dilepJet.Pt()/sumHT > 0.60 && passMETTight;
 	  bool passB = passDPhiZMETTight && passDRLL;
-	  if     ( passA &&  passB)  histo[75][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
-	  else if( passA && !passB)  histo[76][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
-	  else if(!passA &&  passB)  histo[77][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
-	  else if(!passA && !passB)  histo[78][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),metMax),100.001),totalWeight);
+	  if     ( passA &&  passB)  histo[75][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),100.001),totalWeight);
+	  else if( passA && !passB)  histo[76][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),100.001),totalWeight);
+	  else if(!passA &&  passB)  histo[77][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),100.001),totalWeight);
+	  else if(!passA && !passB)  histo[78][theCategory]->Fill(TMath::Max(TMath::Min(vMet.Pt(),xbins1DMET[nBin1DMET]-0.001),100.001),totalWeight);
       }
       if(passAllCuts[ZHTIGHTSEL] && lepType != 2) histo[79][theCategory]->Fill(TMath::Min(TMath::Max(vLoose[0].Pt(),vLoose[1].Pt()),424.999),totalWeight);
       if(passAllCuts[ZHTIGHTSEL] && lepType != 2) histo[80][theCategory]->Fill(TMath::Min(TMath::Min(vLoose[0].Pt(),vLoose[1].Pt()),219.999),totalWeight);
 
-      //double MVAVar = TMath::Min(vMet.Pt(),xbins[nBinMVA]-0.0001); double MVAVarUp = TMath::Min(vMetUp.Pt(),xbins[nBinMVA]-0.0001); double MVAVarDown = TMath::Min(vMetDown.Pt(),xbins[nBinMVA]-0.0001);
-      double MVAVar = TMath::Min(vMet.Pt(),metMax); double MVAVarUp = TMath::Min(vMetUp.Pt(),metMax); double MVAVarDown = TMath::Min(vMetDown.Pt(),metMax);
+      double MVAVar = TMath::Min(vMet.Pt(),xbins[nBinMVA]-0.001); double MVAVarUp = TMath::Min(vMetUp.Pt(),xbins[nBinMVA]-0.001); double MVAVarDown = TMath::Min(vMetDown.Pt(),xbins[nBinMVA]-0.001);
       if     (lepType == 2) {MVAVar = 0.5; MVAVarUp = 0.5; MVAVarDown = 0.5; }
       //if(thePandaFlat.nJot              == 1) MVAVar     = MVAVar     + 1000;
       //if(thePandaFlat.nJot_JESTotalUp   == 1) MVAVarUp   = MVAVarUp   + 1000;
