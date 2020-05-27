@@ -176,19 +176,9 @@ double mcCorrection(int type, TString infileName, int year, int infileCat, doubl
   }
 
   if     (type == 0){ // VBFG
-/*
-    if     (year == 2016 && infileCat == kPlotWG) totalWeight = totalWeight * 0.65;
-    else if(year == 2017 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 1.00;
-    else if(year == 2017 && infileCat == kPlotWG && triggerCat == 1) totalWeight = totalWeight * 1.10;
-    else if(year == 2018 && infileCat == kPlotWG && triggerCat == 0) totalWeight = totalWeight * 1.30;
-    else if(year == 2018 && infileCat == kPlotWG && triggerCat == 1) totalWeight = totalWeight * 0.75;
 
-    else if(year == 2016 && infileCat == kPlotWJ0) totalWeight = totalWeight * 2.1;
-    else if(year == 2017 && infileCat == kPlotWJ0) totalWeight = totalWeight * 1.2;
-    else if(year == 2018 && infileCat == kPlotWJ0) totalWeight = totalWeight * 1.1;
+    if(infileCat == kPlotWJ2 || infileCat == kPlotWJ5) totalWeight = totalWeight * 2.0;
 
-    else if(infileCat == kPlotGJ0) totalWeight = totalWeight * 2.3;
-*/
  }
 
   return totalWeight;

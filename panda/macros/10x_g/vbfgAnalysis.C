@@ -1008,10 +1008,6 @@ int year, int triggerCat, int mH = 125
            (theCategory == kPlotDY && theMinSelType == MMGSEL)) totalWeight = 0.0;
         if(theCategory == kPlotZG && theMinSelType == MMGSEL && totalWeight < 0) totalWeight = 0.0;
 
-        if(theCategory != kPlotData){
-          totalWeight = totalWeight * mcCorrection(0, infileName_[ifile].Data(), year, theCategory, massJJ, mTGMET, triggerCat);
-        }
-
         if(theCategory == kPlotGJ0){
 	  double addFactor = 2.0;
 	  if(year != 2016 && triggerCat == 0) addFactor = 3.0;
@@ -1044,9 +1040,13 @@ int year, int triggerCat, int mH = 125
 	  if     (splitVar0 <  mjjSplit) theCategory = kPlotGJ0;
 	  else if(splitVar0 >= mjjSplit) theCategory = kPlotGJ1;
         }
-        else if(theCategory == kPlotWG0){
-	  if     (splitVar0 <  mjjSplit) theCategory = kPlotWG0;
-	  else if(splitVar0 >= mjjSplit) theCategory = kPlotWG1;
+        //else if(theCategory == kPlotWG0){
+	//  if     (splitVar0 <  mjjSplit) theCategory = kPlotWG0;
+	//  else if(splitVar0 >= mjjSplit) theCategory = kPlotWG1;
+        //}
+
+        if(theCategory != kPlotData){
+          totalWeight = totalWeight * mcCorrection(0, infileName_[ifile].Data(), year, theCategory, massJJ, mTGMET, triggerCat);
         }
 
 	if(passPhoSel == 1) {
@@ -1851,8 +1851,7 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("CMS_vbfg_zgnorm rateParam * %s 1 [0,20]\n",plotBaseNames[kPlotZG].Data());
 
-  newcardShape << Form("CMS_vbfg_wg0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG0].Data());
-  newcardShape << Form("CMS_vbfg_wg1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWG1].Data());
+  newcardShape << Form("CMS_vbfg_wgnorm_%d rateParam * %s 1 [0,20]\n",year,plotBaseNames[kPlotWG0].Data());
 
   if(histo_Baseline[kPlotGJ0]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ0].Data());
   if(histo_Baseline[kPlotGJ1]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ1].Data());

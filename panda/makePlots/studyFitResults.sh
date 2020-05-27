@@ -633,45 +633,45 @@ rm -f studyFitResults*.txt;
 
 #grep -e POST -e background log|awk '{if($1=="POST"&&$3~"BSM")printf("%20s %6.1f pm %6.1f\n",$3,$16,$18);else if($1=="POST")printf("%20s %6.1f pm %6.1f\n",$3,$20,$22);else printf("\n%20s %6.1f pm %6.1f\n",$2,$10,$12);}'
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(0, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2016")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2016")';
 mv studyFitResults.txt studyFitResults_zhmt_0jBSM_2016.txt;
-mv histoDatacard_0.root histoDatacard_zhmt_0jBSM_2016.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(0, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2017")';
+mv histoDatacard_2.root histoDatacard_zhmt_0jBSM_2016.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2017")';
 mv studyFitResults.txt studyFitResults_zhmt_0jBSM_2017.txt;
-mv histoDatacard_0.root histoDatacard_zhmt_0jBSM_2017.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(0, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2018")';
+mv histoDatacard_2.root histoDatacard_zhmt_0jBSM_2017.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2018")';
 mv studyFitResults.txt studyFitResults_zhmt_0jBSM_2018.txt;
-mv histoDatacard_0.root histoDatacard_zhmt_0jBSM_2018.root
+mv histoDatacard_2.root histoDatacard_zhmt_0jBSM_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2016")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(3, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2016")';
 mv studyFitResults.txt studyFitResults_zhmt_1jBSM_2016.txt;
-mv histoDatacard_1.root histoDatacard_zhmt_1jBSM_2016.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2017")';
+mv histoDatacard_3.root histoDatacard_zhmt_1jBSM_2016.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(3, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2017")';
 mv studyFitResults.txt studyFitResults_zhmt_1jBSM_2017.txt;
-mv histoDatacard_1.root histoDatacard_zhmt_1jBSM_2017.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2018")';
+mv histoDatacard_3.root histoDatacard_zhmt_1jBSM_2017.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(3, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "chBSM2018")';
 mv studyFitResults.txt studyFitResults_zhmt_1jBSM_2018.txt;
-mv histoDatacard_1.root histoDatacard_zhmt_1jBSM_2018.root
+mv histoDatacard_3.root histoDatacard_zhmt_1jBSM_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2016")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2016")';
 mv studyFitResults.txt studyFitResults_zhmt_cat3L_2016.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat3L_2016.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2017")';
+mv histoDatacard_1.root histoDatacard_zhmt_cat3L_2016.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2017")';
 mv studyFitResults.txt studyFitResults_zhmt_cat3L_2017.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat3L_2017.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2018")';
+mv histoDatacard_1.root histoDatacard_zhmt_cat3L_2017.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat3L2018")';
 mv studyFitResults.txt studyFitResults_zhmt_cat3L_2018.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat3L_2018.root
+mv histoDatacard_1.root histoDatacard_zhmt_cat3L_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2016")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2016")';
 mv studyFitResults.txt studyFitResults_zhmt_cat4L_2016.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat4L_2016.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2017")';
+mv histoDatacard_1.root histoDatacard_zhmt_cat4L_2016.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2017")';
 mv studyFitResults.txt studyFitResults_zhmt_cat4L_2017.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat4L_2017.root
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(2, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2018")';
+mv histoDatacard_1.root histoDatacard_zhmt_cat4L_2017.root
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(1, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "cat4L2018")';
 mv studyFitResults.txt studyFitResults_zhmt_cat4L_2018.txt;
-mv histoDatacard_2.root histoDatacard_zhmt_cat4L_2018.root
+mv histoDatacard_1.root histoDatacard_zhmt_cat4L_2018.root
 
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_mt.C+'(0, "ana_zh_frozen/fitDiagnostics2HDM_MT.root", "catEM2016")';
 mv studyFitResults.txt studyFitResults_zhmt_catEM_2016.txt;

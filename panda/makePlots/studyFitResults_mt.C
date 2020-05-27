@@ -51,18 +51,21 @@ std::map<int, int> cTokPlotBase={
 
 void studyFitResults_mt(int nsel = 0,  TString mlfitResult = "comb/fitDiagnostics2HDM_MT.root", TString channelName = "chBSM2016") {
 
-  const int nBinMT0 = 11; Float_t xbinsMT0[nBinMT0+1] = {0,100,200,250,300,350,400,500,600,700,1000,1500};
-  const int nBinMT1 = 10; Float_t xbinsMT1[nBinMT1+1] = {  100,200,250,300,350,400,500,600,700,1000,1500};
+  const int nBinMTEMCR = 11; Float_t xbinsMTEMCR[nBinMTEMCR+1] = {0,100,200,250,300,350,400,500,600,700,1000,1500};
+  const int nBinMTVVCR = 10; Float_t xbinsMTVVCR[nBinMTVVCR+1] = {  100,200,250,300,350,400,500,600,700,1000,1500};
+  const int nBinMTSR   =  9; Float_t xbinsMTSR  [nBinMTSR  +1] = {      200,250,300,350,400,500,600,700,1000,1500};
 
   int nBinMVAAux = 0;
-  if     (nsel == 0) nBinMVAAux = nBinMT0;
-  else if(nsel == 1) nBinMVAAux = nBinMT1;
-  else if(nsel == 2) nBinMVAAux = nBinMT1;
+  if     (nsel == 0) nBinMVAAux = nBinMTEMCR;
+  else if(nsel == 1) nBinMVAAux = nBinMTVVCR;
+  else if(nsel == 2) nBinMVAAux = nBinMTSR;
+  else if(nsel == 3) nBinMVAAux = nBinMTSR;
 
   const int nBinMVA = nBinMVAAux; Float_t xbins[nBinMVA+1];
-  if     (nsel == 0) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT0[nb];
-  else if(nsel == 1) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT1[nb];
-  else if(nsel == 2) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMT1[nb];
+  if     (nsel == 0) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMTEMCR[nb];
+  else if(nsel == 1) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMTVVCR[nb];
+  else if(nsel == 2) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMTSR[nb];
+  else if(nsel == 3) for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = xbinsMTSR[nb];
   
 
   TH1F* _histPostFit[nPlotCategories];
@@ -84,16 +87,20 @@ void studyFitResults_mt(int nsel = 0,  TString mlfitResult = "comb/fitDiagnostic
   const int allExcludeBins = 60;
   int excludeBins[allExcludeBins];
   for(int i=0; i<allExcludeBins; i++) excludeBins[i] = -1;
-  if     (nsel == 0){ // 0j SR and EM CR
+  if     (nsel == 0){ // EM CR
     for(int i=11; i<22; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 1){ // 1j SR
-    for(int i=0; i<11; i++) excludeBins[i] = i+1;
-    for(int i=11; i<12; i++) excludeBins[i] = i+1;
-  }
-  else if(nsel == 2){ // CR
+  else if(nsel == 1){ // VV CR
     for(int i=0; i<1; i++) excludeBins[i] = i+1;
     for(int i=11; i<22; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 2){ // 0j SR
+    for(int i=0; i<2; i++) excludeBins[i] = i+1;
+    for(int i=11; i<22; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 3){ // 1j SR
+    for(int i=0; i<11; i++) excludeBins[i] = i+1;
+    for(int i=11; i<13; i++) excludeBins[i] = i+1;
   }
   printf("Bins to exclude:");
   for(int i=0; i<allExcludeBins; i++) if(excludeBins[i] != -1) printf(" %d",excludeBins[i]);
