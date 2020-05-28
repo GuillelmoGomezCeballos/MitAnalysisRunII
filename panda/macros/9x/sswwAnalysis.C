@@ -400,8 +400,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.179;xbinsWWLXBDT[2] =  0.082;xbinsWWLXBDT[3] = 0.258;
-    xbinsWWLXBDT[4] =  0.401;xbinsWWLXBDT[5] =  0.548;xbinsWWLXBDT[6] = 1.000;
+    xbinsWWLXBDT[1] = -0.182;xbinsWWLXBDT[2] =  0.088;xbinsWWLXBDT[3] = 0.268;
+    xbinsWWLXBDT[4] =  0.419;xbinsWWLXBDT[5] =  0.573;xbinsWWLXBDT[6] = 1.000;
   }
 
   if(fidAna == 9){ // v13 default QCD+EW corr
