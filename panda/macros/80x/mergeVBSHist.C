@@ -1,5 +1,5 @@
 
-void mergeVBSHist() {
+void mergeVBSHist(TString wwPath = "wwframe") {
 
 double diff[2];
 
@@ -7,9 +7,9 @@ TString inputFolder = "/data/t3home000/ceballos/panda/v_001_0";
 
 const int nFilesEWKWWNEW = 3;
 TFile *_filesEWKWWNEW[nFilesEWKWWNEW];
-_filesEWKWWNEW[0] = TFile::Open(Form("%s/WWjj_SS_long_new.root", inputFolder.Data()));
-_filesEWKWWNEW[1] = TFile::Open(Form("%s/WWjj_SS_lt_new.root"  , inputFolder.Data()));
-_filesEWKWWNEW[2] = TFile::Open(Form("%s/WWjj_SS_tt_new.root"  , inputFolder.Data()));
+_filesEWKWWNEW[0] = TFile::Open(Form("%s/WWjj_SS_long_%s.root", inputFolder.Data(),wwPath.Data()));
+_filesEWKWWNEW[1] = TFile::Open(Form("%s/WWjj_SS_lt_%s.root"  , inputFolder.Data(),wwPath.Data()));
+_filesEWKWWNEW[2] = TFile::Open(Form("%s/WWjj_SS_tt_%s.root"  , inputFolder.Data(),wwPath.Data()));
 
 const int nFilesEWKWW = 2;
 TFile *_filesEWKWW[nFilesEWKWW];
@@ -43,6 +43,13 @@ double xsEWKWWNEW[nFilesEWKWWNEW] = {0.002119,
                                      0.01087,
                                      0.0161
                                     };
+if(wwPath.Contains("wwframe")){
+  printf("wwframe\n");
+  xsEWKWWNEW[0] = 0.003193; // ll
+  xsEWKWWNEW[1] = 0.009288; // lt
+  xsEWKWWNEW[2] = 0.016670; // tt
+}
+
 
 double xsEWKWW[nFilesEWKWW] = {0.0258,
                                0.00192
@@ -180,6 +187,27 @@ for(int i=1; i<=hDEWKWWNEWPTL1->GetNbinsX();i++){
   diff[1] = 1000*(hDEWKWWNEWPTL1_QCD->GetBinContent(i)-hDEWKWWNEWPTL1->GetBinContent(i));
   printf("hDEWKWWNEWPTL1(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDEWKWWNEWPTL1->GetBinContent(i),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 }
+
+// Polarization modes analysis
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+printf("hDEWKXX: %.2f %.2f %.2f (%.2f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()));
+printf("hDEWKLL: %.2f %.2f %.2f (%.2f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
+printf("hDEWKTX: %.2f %.2f %.2f (%.2f)\n",1000*(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
+printf("hDEWKLX: %.2f %.2f %.2f (%.2f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+printf("hDEWKTT: %.2f %.2f %.2f (%.2f)\n",1000*(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 
 // EWKWW EWKCorr applied
 TH1D *hDIEWKWWMJJ[nFilesEWKWW];  TH1D *hDIEWKWWMJJ_PDF[nFilesEWKWW];  TH1D *hDIEWKWWMJJ_QCD[nFilesEWKWW];	 

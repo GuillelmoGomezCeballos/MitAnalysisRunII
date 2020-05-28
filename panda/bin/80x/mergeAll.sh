@@ -37,6 +37,9 @@ PandaAnalysis/T3/merging/merge_Leptonic.py WpWp_EWK
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_long_new
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_lt_new
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_tt_new
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_long_wwframe
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_lt_wwframe
+PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_tt_wwframe
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_long
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_lttt
 PandaAnalysis/T3/merging/merge_Leptonic.py WWjj_SS_interference
