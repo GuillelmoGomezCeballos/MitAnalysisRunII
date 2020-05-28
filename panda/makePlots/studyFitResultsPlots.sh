@@ -204,7 +204,7 @@ elif [ $NSEL == 'zhmt' ]; then
   export YEAR=2018;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
   export YEAR=2019;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"3l category",1,'${APPLYSCALING}',"","")';
 
   export YEAR=2016;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
@@ -213,7 +213,7 @@ elif [ $NSEL == 'zhmt' ]; then
   export YEAR=2018;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
   export YEAR=2019;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"4l category",1,'${APPLYSCALING}',"","")';
 
   export YEAR=2016;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"m_{H},m_{A} = 1200,300 GeV",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
