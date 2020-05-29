@@ -20,7 +20,7 @@ Bool_t isBSMOverlaid = true;
 float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40}; 
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
-const Float_t _tsize   = 0.045;
+const Float_t _tsize   = 0.040;
 const Float_t _xoffset = 0.200;
 const Float_t _yoffset = 0.051;
 
@@ -288,6 +288,12 @@ class StandardPlot {
                     g->SetPoint      (i, g->GetX()[i], g->GetY()[i]/_hist[kPlotData]->GetBinWidth(i+1)*SFBinWidth);
   		  }
 		}
+  		for (int i = 0; i < gc->GetN(); ++i) {
+                  double x,y;
+                  g->GetPoint(i, x, y);
+                  _hist[kPlotData]->SetBinContent(i+1,y);
+                  _hist[kPlotData]->SetBinError(i+1,TMath::Sqrt(y));
+                }
 		g->Draw("P");
   		}
 	      }
@@ -411,7 +417,7 @@ class StandardPlot {
             _extraLabel->SetNDC();
             _extraLabel->SetTextAlign(12);
             _extraLabel->SetTextFont(62);
-            _extraLabel->SetTextSize(0.040);
+            _extraLabel->SetTextSize(0.050);
         }
 
     private: 

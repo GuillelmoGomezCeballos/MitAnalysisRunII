@@ -177,7 +177,8 @@ double mcCorrection(int type, TString infileName, int year, int infileCat, doubl
 
   if     (type == 0){ // VBFG
 
-    if(infileCat == kPlotWJ2 || infileCat == kPlotWJ5) totalWeight = totalWeight * 2.0;
+    if     (year == 2016 && (infileCat == kPlotWJ2 || infileCat == kPlotWJ5)) totalWeight = totalWeight * 2.0;
+    else if(year != 2016 && (infileCat == kPlotWJ2 || infileCat == kPlotWJ5)) totalWeight = totalWeight * 2.5;
 
  }
 

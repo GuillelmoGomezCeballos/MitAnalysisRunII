@@ -230,16 +230,9 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   if(plotExtraName != ""){
      fileExtra = new TFile(plotExtraName, "read");
       _hist[kPlotSignal0] = (TH1F*)fileExtra->Get(Form("histo%d",kPlotBSM));
+     _hist[kPlotSignal0]->SetNameTitle(Form("histo%d",kPlotSignal0),Form("histo%d",kPlotSignal0));
+      for(int i=1; i<=_hist[kPlotSignal0]->GetNbinsX(); i++) if(_hist[kPlotSignal0]->GetBinContent(i)<0) _hist[kPlotSignal0]->SetBinContent(i,0);
      myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);
-  }
-
-  myPlot.setOverlaid(false);
-  if(isSignalStack == true){
-    //if(_hist[kPlotSignal0]->GetSumOfWeights() > 0 &&
-    //   _hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(_hist[kPlotBSM],-1); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
-    if(_hist[kPlotSignal0]->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(hBck); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
-    if(_hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotBSM    ]->Add(hBck); myPlot.setMCHist(kPlotBSM,     _hist[kPlotBSM    ]);}
-    //myPlot.setOverlaid(true);
   }
 
   if(hBck->GetSumOfWeights() == 0) return;
@@ -255,6 +248,15 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     if(applyScaling == true && ic != kPlotData && ic != kPlotBSM) _hist[ic]->Scale(scale);
     if(ic == kPlotBSM && higgsLabel == "W_{L}W_{L}") {_hist[ic]->Scale(10.0); myPlot.setHiggsLabel("W_{L}W_{L} x 10");}
     if(_hist[ic]->GetSumOfWeights() > 0) myPlot.setMCHist(ic, _hist[ic]);
+  }
+
+  myPlot.setOverlaid(false);
+  if(isSignalStack == true){
+    //if(_hist[kPlotSignal0]->GetSumOfWeights() > 0 &&
+    //   _hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(_hist[kPlotBSM],-1); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
+    if(_hist[kPlotSignal0]->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(hBck); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
+    if(_hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotBSM    ]->Add(hBck); myPlot.setMCHist(kPlotBSM,     _hist[kPlotBSM    ]);}
+    //myPlot.setOverlaid(true);
   }
 
   TCanvas* c1 = new TCanvas("c1", "c1",5,5,500,500);
@@ -419,11 +421,13 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
       TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
-      hBck->Write();
+      hBck->Scale(0.0);
       for(int ic=0; ic<nPlotCategories; ic++){
         if(!_hist[ic]) continue;
         _hist[ic]->Write();
+        if(ic != kPlotData && ic != kPlotBSM)  hBck->Add(_hist[ic]);
       }
+      hBck->Write();
       output.Close();
     }
   }
