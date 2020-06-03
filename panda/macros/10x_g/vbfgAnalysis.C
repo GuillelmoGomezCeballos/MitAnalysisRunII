@@ -331,7 +331,7 @@ int year, int triggerCat, int mH = 125
   trg_VBFG_detajj_eff->Divide(trg_VBFG_detajj_base);
   fTrg_effjj_VBFG->Close();
 
-  // (mjj<=X/>=X) 0: SR , 1: passMGSEL, 2: passESEL, 3: passGJSel, 4: passMMGSEL
+  // (mjj<=X/>=X) 0: SR , 1: passESEL, 2: passMGSEL, 3: passGJSel, 4: passMMGSEL
   const int nBinMVA1DHVBFG    = 3; Double_t xbins1DHVBFG[nBinMVA1DHVBFG+1]       = {0, mtgSplit0, mtgSplit1, 1000};
   const int nBinMVA1DTrigger0 = 6; Double_t xbins1DTrigger0[nBinMVA1DTrigger0+1] = {0,   30,   60,   mtgSplit0, 170, mtgSplit1, 1000};
   const int nBinMVA1DTrigger1 = 6; Double_t xbins1DTrigger1[nBinMVA1DTrigger1+1] = {0,   30,   60,   mtgSplit0, 170, mtgSplit1, 1000};
