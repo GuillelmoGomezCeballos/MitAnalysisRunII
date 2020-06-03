@@ -395,8 +395,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
 
   if(fidAna == 9){ // v13 default QCD+EW corr
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.053;xbinsWWLXBDT[2] =  0.185;xbinsWWLXBDT[3] = 0.339;
-    xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  0.590;xbinsWWLXBDT[6] = 1.000;
+    xbinsWWLXBDT[1] = -0.213;xbinsWWLXBDT[2] = -0.001;xbinsWWLXBDT[3] = 0.163;
+    xbinsWWLXBDT[4] =  0.314;xbinsWWLXBDT[5] =  0.475;xbinsWWLXBDT[6] = 1.000;
   }
   if(wwPath.Contains("wwframe") && fidAna == 9){ // wwframe
     printf("xbinsWWLXBDT fid9 for %s\n",wwPath.Data());
@@ -404,6 +404,27 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     xbinsWWLXBDT[1] = -0.202;xbinsWWLXBDT[2] = -0.011;xbinsWWLXBDT[3] = 0.140;
     xbinsWWLXBDT[4] =  0.303;xbinsWWLXBDT[5] =  0.514;xbinsWWLXBDT[6] = 1.000;
   }
+/*
+  const int nBinWWLXBDT = 5; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.135, 0.175, 0.405, 0.600, 1.000}; // v6 prune default QCD+EW corr
+  if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
+    printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
+    xbinsWWLXBDT[0] = -1.000;
+    xbinsWWLXBDT[1] = -0.118;xbinsWWLXBDT[2] =  0.166;xbinsWWLXBDT[3] = 0.359;
+    xbinsWWLXBDT[4] =  0.539;xbinsWWLXBDT[5] =  1.000;
+  }
+
+  if(fidAna == 9){ // v13 default QCD+EW corr
+    xbinsWWLXBDT[0] = -1.000;
+    xbinsWWLXBDT[1] = -0.163;xbinsWWLXBDT[2] =  0.067;xbinsWWLXBDT[3] = 0.254;
+    xbinsWWLXBDT[4] =  0.440;xbinsWWLXBDT[5] =  1.000;
+  }
+  if(wwPath.Contains("wwframe") && fidAna == 9){ // wwframe
+    printf("xbinsWWLXBDT fid9 for %s\n",wwPath.Data());
+    xbinsWWLXBDT[0] = -1.000;
+    xbinsWWLXBDT[1] = -0.156;xbinsWWLXBDT[2] =  0.049;xbinsWWLXBDT[3] = 0.233;
+    xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  1.000;
+  }
+*/
 
   const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.201, 0.214, 0.536, 0.771, 1.000}; // 10var QCD+EW corr new
   if(wwPath.Contains("wwframe")){ // 10var QCD+EW corr new
