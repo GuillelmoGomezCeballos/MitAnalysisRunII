@@ -384,18 +384,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
   const int nBinMJJ = 8; Float_t xbinsMJJ[nBinMJJ+1] = {500,650,800,1000,1200,1500,1800,2300,3000};
   const int nBinMJJCR = 4; Float_t xbinsMJJCR[nBinMJJCR+1] = {500,800,1200,1800,3000};
   const int nBinMLL = 4; Float_t xbinsMLL[nBinMLL+1] = {20, 80, 140, 240, 500};
-  //const int nBinWZBDT =  4; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.000, 0.430, 0.750, 1.000}; // ptj > 50
-  //const int nBinWZBDT =  6; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.180, 0.160, 0.430, 0.660, 0.830, 1.000}; // ptj > 50
   const int nBinWZBDT =  8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.280,-0.000, 0.230, 0.430, 0.600, 0.740, 0.860, 1.000}; // ptj > 50 default
-  //const int nBinWZBDT = 10; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.350,-0.100, 0.100, 0.270, 0.430, 0.570, 0.700, 0.800, 0.890, 1.000}; // ptj > 50
-  //const int nBinWZBDT = 8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.230, 0.100, 0.330, 0.520, 0.670, 0.790, 0.890, 1.000}; // ptj > 30
-  //const int nBinWZBDT = 8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.510,-0.260,-0.040, 0.170, 0.380, 0.580, 0.760, 1.000}; // 20var_ptj50
-  //const int nBinWWLXBDT = 7; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.243, 0.041, 0.244, 0.402, 0.536, 0.662, 1.000}; // V6
-  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.188, 0.116, 0.327, 0.494, 0.641, 1.000}; // v6 old-default
-  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,0.266, 0.542, 0.719, 0.827, 0.900, 1.000}; // DNN
-  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000, 0.458, 0.572, 0.663, 0.738, 0.805, 1.000}; // BDTG_v30GeV
-  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.234, 0.103, 0.336, 0.512, 0.665, 1.000}; // v5 prune
-  //const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.203, 0.084, 0.296, 0.471, 0.633, 1.000}; // v6 prune default QCD corr
   const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.202, 0.085, 0.296, 0.472, 0.633, 1.000}; // v6 prune default QCD+EW corr
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
