@@ -12,9 +12,8 @@
 #include "TSystem.h"
 #include "CMS_lumi.C"
 #include "TRandom.h"
-//#include "MitAnalysisRunII/panda/macros/9x/common.h"
 #include "MitAnalysisRunII/panda/macros/10x_g/common.h"
-#include "StandardPlot_vbfg.C"
+#include "StandardPlot.C"
 #include "GoodStyle.C"
 
 double scaling[8] = {1,1,1,1,1,1,1,1};
@@ -53,21 +52,21 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   }
   histo->GetXaxis()->SetLabelFont  (   42);
   histo->GetXaxis()->SetLabelOffset(0.015);
-  histo->GetXaxis()->SetLabelSize  (0.138);
+  histo->GetXaxis()->SetLabelSize  (0.135);
   histo->GetXaxis()->SetNdivisions (  505);
   histo->GetXaxis()->SetTitleFont  (   42);
   histo->GetXaxis()->SetTitleOffset( 0.95);
-  histo->GetXaxis()->SetTitleSize  (0.140);
+  histo->GetXaxis()->SetTitleSize  (0.130);
   //histo->GetXaxis()->SetTickLength (0.07 );
 
   histo->GetYaxis()->SetTitle(ytitle.Data());
   histo->GetYaxis()->SetLabelFont  (   42);
   histo->GetYaxis()->SetLabelOffset(0.015);
-  histo->GetYaxis()->SetLabelSize  (0.138);
+  histo->GetYaxis()->SetLabelSize  (0.125);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
-  histo->GetYaxis()->SetTitleSize  (0.140);
+  histo->GetYaxis()->SetTitleSize  (0.130);
   //histo->GetYaxis()->SetTickLength (0.03 );
 
   histo->SetLineColor  (kBlack);
@@ -83,7 +82,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   if(isBlind) show2D = false;
 
-  bool makeRootFile = true; if(plotName.Contains("2019")) makeRootFile = false;
+  bool makeRootFile = false; if(!plotName.Contains("2019") && plotName.Contains("VBFG")) makeRootFile = true;
   if(units.Contains("ROOT")) {makeRootFile = true; units = units.ReplaceAll("ROOT","");}
   bool isSignalStack = false;
   if(units.Contains("Stack")) {isSignalStack = true; units = units.ReplaceAll("Stack","");}
@@ -93,6 +92,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(units.Contains("BinWidth")) {doApplyBinWidth = true; units = units.ReplaceAll("BinWidth","");}
 
   //gInterpreter->ExecuteMacro("MitAnalysisRunII/panda/makePlots/GoodStyle.C");
+  GoodStyle();
   //gROOT->LoadMacro("StandardPlot.C");
   gStyle->SetOptStat(0);
 
@@ -120,15 +120,22 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   TH1F* hBck = 0;
   for(int ic=0; ic<nPlotCategories; ic++){
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
-    if(isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
+  }
+
+  for(int ic=0; ic<nPlotCategories; ic++){
+    if(!_hist[ic]) continue;
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));
+    // begin btaging study
+    //_hist[ic]->SetBinContent(1,0);
+    //if(ic != kPlotNonPrompt && ic != kPlotTVX && ic != kPlotWS && ic != kPlotData) {hData->Add(_hist[ic],-1);_hist[ic]->Scale(0);}
+    // end btaging study
     for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetBinContent(i)<0) _hist[ic]->SetBinContent(i,0);
     if(ic == kPlotData) {
       //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++){
       //  if(i>20)_hist[ic]->SetBinContent(i,0);
       //}
       hData = (TH1F*)_hist[ic]->Clone();
-      hBck  = (TH1F*)_hist[ic]->Clone(); hBck->Scale(0);
+      hBck  = (TH1F*)_hist[ic]->Clone("hBck"); hBck->Scale(0);
     }
     else if(applySmoothing && _hist[ic]->GetSumOfWeights() > 0 && ic != kPlotBSM && ic != kPlotWG0 && ic != kPlotWG1) 
     {double scale = _hist[ic]->GetSumOfWeights(); _hist[ic]->Smooth(); if(_hist[ic]->GetSumOfWeights() > 0) _hist[ic]->Scale(scale/_hist[ic]->GetSumOfWeights());}
@@ -175,6 +182,14 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
     if(ic == kPlotDY) _hist[ic]->Scale(lumi);
 
+    if(printYieldsBinByBin && _hist[ic]->GetSumOfWeights() > 0){
+      printf("Yields(%s) = %.3f\n",plotBaseNames[ic].Data(),_hist[ic]->GetSumOfWeights());
+      for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",_hist[ic]->GetBinContent(i),_hist[ic]->GetBinError(i));
+    }
+  }
+  
+  for(int ic=0; ic<nPlotCategories; ic++){
+    if(!_hist[ic]) continue;
     if(ic != kPlotData && ic != kPlotBSM) {
       hBck->Add(_hist[ic]);
       if(mlfitResult==""){
@@ -182,11 +197,6 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
           totalStatUnc = totalStatUnc + TMath::Power(_hist[ic]->GetBinError(i),2);
         }
       }
-    }
-
-    if(printYieldsBinByBin && _hist[ic]->GetSumOfWeights() > 0){
-      printf("Yields(%s) = %.3f\n",plotBaseNames[ic].Data(),_hist[ic]->GetSumOfWeights());
-      for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",_hist[ic]->GetBinContent(i),_hist[ic]->GetBinError(i));
     }
   }
 
@@ -206,20 +216,13 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   _hist[kPlotPhotonE0]->Add(_hist[kPlotPhotonE1]);_hist[kPlotPhotonE1]->Scale(0.0);
 
-  /*TFile* fileExtra;
+  TFile* fileExtra;
   if(plotExtraName != ""){
      fileExtra = new TFile(plotExtraName, "read");
       _hist[kPlotSignal0] = (TH1F*)fileExtra->Get(Form("histo%d",kPlotBSM));
+     _hist[kPlotSignal0]->SetNameTitle(Form("histo%d",kPlotSignal0),Form("histo%d",kPlotSignal0));
+      for(int i=1; i<=_hist[kPlotSignal0]->GetNbinsX(); i++) if(_hist[kPlotSignal0]->GetBinContent(i)<0) _hist[kPlotSignal0]->SetBinContent(i,0);
      myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);
-  }*/
-
-  myPlot.setOverlaid(false);
-  if(isSignalStack == true){
-    //if(_hist[kPlotSignal0]->GetSumOfWeights() > 0 &&
-    //   _hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(_hist[kPlotBSM],-1); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
-    //if(_hist[kPlotSignal0]->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(hBck); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
-    if(_hist[kPlotBSM]->GetSumOfWeights() > 0) { _hist[kPlotBSM]->Add(hBck); myPlot.setMCHist(kPlotBSM,_hist[kPlotBSM]);}
-    //myPlot.setOverlaid(true);
   }
 
   if(hBck->GetSumOfWeights() == 0) return;
@@ -230,9 +233,19 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(applyScaling == true) hBck->Scale(scale);
 
   for(int ic=0; ic<nPlotCategories; ic++){
+    if(!_hist[ic]) continue;
     if(isBlind == true && ic == kPlotData) continue;
     if(applyScaling == true && ic != kPlotData && ic != kPlotBSM) _hist[ic]->Scale(scale);
     if(_hist[ic]->GetSumOfWeights() > 0) myPlot.setMCHist(ic, _hist[ic]);
+  }
+
+  myPlot.setOverlaid(false);
+  if(isSignalStack == true){
+    //if(_hist[kPlotSignal0]->GetSumOfWeights() > 0 &&
+    //   _hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(_hist[kPlotBSM],-1); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
+    if(_hist[kPlotSignal0]->GetSumOfWeights() > 0) { _hist[kPlotSignal0]->Add(hBck); myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);}
+    if(_hist[kPlotBSM]    ->GetSumOfWeights() > 0) { _hist[kPlotBSM    ]->Add(hBck); myPlot.setMCHist(kPlotBSM,     _hist[kPlotBSM    ]);}
+    //myPlot.setOverlaid(true);
   }
 
   TCanvas* c1 = new TCanvas("c1", "c1",5,5,500,500);
@@ -377,7 +390,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
-  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.301),TMath::Min( TMath::Max(maxRatio+0.1,1.699),4.999));
+  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.401),TMath::Min( TMath::Max(maxRatio+0.1,1.499),4.999));
   hRatio->GetYaxis()->CenterTitle();
   eraselabel(pad1,hData->GetXaxis()->GetLabelSize());
   }
@@ -396,17 +409,15 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
-      outputName = plotName;
-      outputName = outputName.ReplaceAll("done_vbfg","plots");
-      if(outputName != plotName){ // Avoid overwriting input
-        TFile output(Form("%s",outputName.Data()),"RECREATE");
-        hBck->Write();
-        for(int ic=0; ic<nPlotCategories; ic++){
-          if(!_hist[ic]) continue;
-          _hist[ic]->Write();
-        }
-        output.Close();
+      TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
+      hBck->Scale(0.0);
+      for(int ic=0; ic<nPlotCategories; ic++){
+        if(!_hist[ic]) continue;
+        _hist[ic]->Write();
+        if(ic != kPlotData && ic != kPlotBSM)  hBck->Add(_hist[ic]);
       }
+      hBck->Write();
+      output.Close();
     }
   }
 

@@ -50,7 +50,7 @@ int year, int triggerCat, int mH = 125
     printf("isHVBFGAna!\n");
     mjjSplit = 1500;
     mtgSplit0 = 4.5*100;
-    mtgSplit1 = 999.99999;
+    mtgSplit1 = 499.99999;
   }
 
   //*******************************************************
@@ -340,7 +340,7 @@ int year, int triggerCat, int mH = 125
   const int nBinMVA1DAddTrigger0 =  6; Double_t xbins1DAddTrigger0[nBinMVA1DAddTrigger0+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,3000,4000,5000};
   const int nBinMVA1DAddTrigger1 =  6; Double_t xbins1DAddTrigger1[nBinMVA1DAddTrigger1+1] = {1000,1000+mtgSplit0,1000+mtgSplit1,2000,3000,4000,5000};
 
-  const int nBinMVACR = 3; Double_t xbinsMVACR[nBinMVACR+1] = {0,mtgSplit0,mtgSplit1,1000};
+  const int nBinMVACR = 3; Double_t xbinsMVACR[nBinMVACR+1] = {0,mtgSplit0,mtgSplit1,500}; // careful here 1000 --> 500
 
   int nBinMVA1DAux    = 0; Double_t xbins1DAux   [TMath::Max(TMath::Max(nBinMVA1DTrigger0,   nBinMVA1DTrigger1)   ,nBinMVA1DHVBFG)+1];
   int nBinMVA1DAddAux = 0; Double_t xbins1DAddAux[TMath::Max(TMath::Max(nBinMVA1DAddTrigger0,nBinMVA1DAddTrigger1),nBinMVA1DHVBFG)+1];
@@ -374,7 +374,7 @@ int year, int triggerCat, int mH = 125
   for(int i=0; i<=nBinMVA1DAdd; i++) xbins[i+2*nBinMVA1D+1*nBinMVA1DAdd] = xbins1DAdd[i]+5000;
   xbins[nBinMVA] = 10000;
   for(int i=0; i<=nBinMVA; i++) printf("(%d,%.0f) ",i,xbins[i]); printf("\n");
-  const int nBinMT1D = 7; Double_t xbinsMT1D[nBinMT1D+1] = {0, 25, 50, 75, 100, 200, 300, 1000};
+  const int nBinMT1D = 6; Double_t xbinsMT1D[nBinMT1D+1] = {0,   30,   60,   mtgSplit0, 170, mtgSplit1, 500}; // careful here 1000 --> 500
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
@@ -385,7 +385,8 @@ int year, int triggerCat, int mH = 125
     bool is1DCard = false;
     bool is1DMT = false;
     int the1DFit = 0;
-    if     (thePlot >=   0 && thePlot <=   9) {is1DCard = true;}
+    if     ((thePlot >=   0 && thePlot <=   9) && mH != 115) {is1DMT = true;}
+    else if((thePlot >=   0 && thePlot <=   9) && mH == 115) {is1DCard = true;}
     //if     (thePlot >=   0 && thePlot <=   9) {nBinPlot = 40;  xminPlot =  0.0; xmaxPlot = 1000;}
     else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 20;  xminPlot = 60.0; xmaxPlot = 460;}
     else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 4;   xminPlot =  1.5; xmaxPlot = 5.5;}
@@ -989,7 +990,8 @@ int year, int triggerCat, int mH = 125
 	else if(infileCat_[ifile] == kPlotDY)  nloKfactor = (1.539043*TMath::Exp(-0.001721*thePandaFlat.trueGenBosonPt)+0.391421);
 	else if(infileCat_[ifile] == kPlotGJ0) {
 	  double ptNLO = TMath::Max(TMath::Min(thePandaFlat.trueGenBosonPt,1000.0f),80.0f);
-	  double xVal[6] = {8.01627316e-14,-2.37457824e-10,2.59442718e-07,-1.27589087e-04,2.62074469e-02,2.23357748e-01};
+	  //double xVal[6] = {8.01627316e-14,-2.37457824e-10,2.59442718e-07,-1.27589087e-04,2.62074469e-02,2.23357748e-01};
+	  double xVal[6] = {3.74923578e-14,-1.26232115e-10,1.57263595e-07,-8.75070209e-05,1.97795090e-02,6.30233994e-01};
 	  nloKfactor =  xVal[0]*TMath::Power(ptNLO,5)+
 	                xVal[1]*TMath::Power(ptNLO,4)+
 			xVal[2]*TMath::Power(ptNLO,3)+
@@ -1130,7 +1132,7 @@ int year, int triggerCat, int mH = 125
         MVAVarDown = TMath::Min(100*deltaEtaJJDown,999.999);
       }
 
-      if(dataCardSel >= 0) histo[ 0+dataCardSel][theCategory]  ->Fill(MVAVar,totalWeight);
+      if(dataCardSel >= 0) histo[ 0+dataCardSel][theCategory]  ->Fill(TMath::Min(MVAVar,xbinsMT1D[nBinMT1D]-0.001),totalWeight);
       if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),459.999),totalWeight);
       if(dataCardSel >= 0) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
       if(passNMinusOne[2]) histo[20+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
@@ -1156,8 +1158,8 @@ int year, int triggerCat, int mH = 125
       if(dataCardSel >= 0) histo[ 95+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Min(photonR9,0.999),0.701),totalWeight);
       if(dataCardSel >= 0) histo[100+theMinSelType][theCategory]->Fill(TMath::Min(ratio_allJetPt_vs_allJetHT,0.999),totalWeight);
       if(dataCardSel >= 0) histo[105+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(vMet.Pt()-thePandaFlat.trkmet)/vMet.Pt(),0.999),totalWeight);
-      if(dataCardSel == 1) histo[110][theCategory]->Fill(MVAVar,totalWeight);
-      if(dataCardSel == 6) histo[111][theCategory]->Fill(MVAVar,totalWeight);
+      if(dataCardSel == 1) histo[110][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
+      if(dataCardSel == 6) histo[111][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
       if(dataCardSel == 2 || dataCardSel == 7) histo[112][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
       if(dataCardSel == 3 || dataCardSel == 8) histo[113][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
       if(dataCardSel == 4 || dataCardSel == 9) histo[114][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
@@ -1260,8 +1262,12 @@ int year, int triggerCat, int mH = 125
   histo_GJPhotonE1Up           ->Scale(normPhotonE1/histo_GJPhotonE1Up		 ->GetSumOfWeights());
   histo_GJPhotonE1Down         ->Scale(normPhotonE1/histo_GJPhotonE1Down 	 ->GetSumOfWeights());
 
-  histo[VBFGSEL+0][kPlotPhotonE0]->Add(histoMTGMET0p50); histo[VBFGSEL+0][kPlotPhotonE0]->Scale(normPhotonE0/histo[VBFGSEL+0][kPlotPhotonE0]->GetSumOfWeights());
-  histo[VBFGSEL+5][kPlotPhotonE1]->Add(histoMTGMET0p50); histo[VBFGSEL+5][kPlotPhotonE1]->Scale(normPhotonE1/histo[VBFGSEL+5][kPlotPhotonE1]->GetSumOfWeights());
+  for(int nb=1; nb<=histo_Baseline[kPlotPhotonE0]->GetNbinsX(); nb++){
+    histo[VBFGSEL+0][kPlotPhotonE0]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+0][kPlotPhotonE0]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
+    histo[VBFGSEL+5][kPlotPhotonE1]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+5][kPlotPhotonE1]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
+  }
+  histo[VBFGSEL+0][kPlotPhotonE0]->Scale(normPhotonE0/histo[VBFGSEL+0][kPlotPhotonE0]->GetSumOfWeights());
+  histo[VBFGSEL+5][kPlotPhotonE1]->Scale(normPhotonE1/histo[VBFGSEL+5][kPlotPhotonE1]->GetSumOfWeights());
   histoMTGMETMJJ[0][kPlotPhotonE0]->Add(histoMTGMETFit); histoMTGMETMJJ[0][kPlotPhotonE0]->Scale(normPhotonE0/histoMTGMETMJJ[0][kPlotPhotonE0]->GetSumOfWeights());
   histoMTGMETMJJ[1][kPlotPhotonE1]->Add(histoMTGMETFit); histoMTGMETMJJ[1][kPlotPhotonE1]->Scale(normPhotonE1/histoMTGMETMJJ[1][kPlotPhotonE1]->GetSumOfWeights());
 

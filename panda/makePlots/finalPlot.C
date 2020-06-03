@@ -80,10 +80,9 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 		TString mlfitResult = "", TString channelName = "", bool applyBBBBSF = false,
 		TString plotExtraName = "", TString higgs2Label = "", bool applySmoothing = false) {
 
-  int isVBS[2] = {0, 0};
   if(isBlind) show2D = false;
 
-  bool makeRootFile = false;
+  bool makeRootFile = false; if(!plotName.Contains("2019") && plotName.Contains("VBFG")) makeRootFile = true;
   if(units.Contains("ROOT")) {makeRootFile = true; units = units.ReplaceAll("ROOT","");}
   bool isSignalStack = false;
   if(units.Contains("Stack")) {isSignalStack = true; units = units.ReplaceAll("Stack","");}
@@ -123,6 +122,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
+  int isVBS[2] = {0, 0};
   if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = 1;
   else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = 2;
   else if(_hist[kPlotSignal2] && _hist[kPlotSignal2]->GetSumOfWeights() > 0) isVBS[0] = 3;
@@ -143,9 +143,6 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     // end btaging study
     for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetBinContent(i)<0) _hist[ic]->SetBinContent(i,0);
     if(ic == kPlotData) {
-    //_hist[ic]->SetBinContent(_hist[ic]->GetNbinsX()-11,_hist[ic]->GetBinContent(_hist[ic]->GetNbinsX()-11)+7);
-    //_hist[ic]->SetBinContent(_hist[ic]->GetNbinsX()-7,_hist[ic]->GetBinContent(_hist[ic]->GetNbinsX()-7)-2);
-    //_hist[ic]->SetBinContent(_hist[ic]->GetNbinsX()-15,_hist[ic]->GetBinContent(_hist[ic]->GetNbinsX()-15)+5);
       //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++){
       //  if(i>20)_hist[ic]->SetBinContent(i,0);
       //}

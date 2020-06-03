@@ -73,6 +73,7 @@ enum plotCategory {
   kPlotPhotonE0  , //21
   kPlotPhotonE1  , //22
   kPlotBSM	 , //23
+  kPlotSignal0	 , //24
   nPlotCategories
 };
 
@@ -100,7 +101,8 @@ std::map<int, TString> plotBaseNames={
   { kPlotNonPrompt , "NonPrompt" },
   { kPlotPhotonE0  , "PhotonE0" },
   { kPlotPhotonE1  , "PhotonE1" },
-  { kPlotBSM	   , "BSM" }
+  { kPlotBSM	   , "BSM" },
+  { kPlotSignal0   , "Signal0" }
 }; 
 
 std::map<int, int> plotColors={
@@ -127,7 +129,8 @@ std::map<int, int> plotColors={
   { kPlotNonPrompt , kAzure-9},
   { kPlotPhotonE0  , TColor::GetColor(155,152,204)},
   { kPlotPhotonE1  , 809},
-  { kPlotBSM	   , kGreen}
+  { kPlotBSM	   , kGreen},
+  { kPlotSignal0   , kBlue}
 }; 
 
 std::map<int, TString> plotNames={
@@ -154,7 +157,8 @@ std::map<int, TString> plotNames={
     { kPlotNonPrompt , "Nonprompt"},
     { kPlotPhotonE0  , "Mismeasured #bf{#gamma}"},
     { kPlotPhotonE1  , "Mismeasured #bf{#gamma} high m_{jj}"},
-    { kPlotBSM       , "BSM"}
+    { kPlotBSM       , "BSM"},
+    { kPlotSignal0   , "Signal 0"}
 };
 
 const double mass_el = 0.000510998928;
