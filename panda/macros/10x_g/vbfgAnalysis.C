@@ -17,8 +17,8 @@
 
 const int debug = 0;
 const bool showSyst = true;
-enum selType                     { VBFGSEL,   ESEL,   MGSEL,   GJSEL,   MMGSEL, nSelTypes};
-TString selTypeName[nSelTypes]=  {"VBFGSEL", "ESEL", "MGSEL", "GJSEL", "MMGSEL"};
+enum selType                     { VBFGSEL,   ESEL,   MGSEL,   GJSEL,   MMGSEL,   MSEL, nSelTypes};
+TString selTypeName[nSelTypes]=  {"VBFGSEL", "ESEL", "MGSEL", "GJSEL", "MMGSEL", "MSEL"};
 enum systType                     {JESUP=0, JESDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN"};
 
@@ -379,7 +379,7 @@ int year, int triggerCat, int mH = 125
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 116;
+  const int allPlots = 118;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
@@ -412,6 +412,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >= 112 && thePlot <= 112) {the1DFit = 2;}
     else if(thePlot >= 113 && thePlot <= 113) {the1DFit = 2;}
     else if(thePlot >= 114 && thePlot <= 114) {the1DFit = 2;}
+    else if(thePlot >= 115 && thePlot <= 116) {the1DFit = 1;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
@@ -537,7 +538,7 @@ int year, int triggerCat, int mH = 125
 
       if(debug == 3) printf("DEBUG%d STEP0 %d %d %llu\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber);
 
-      bool passTrigger[2] = {false, false};
+      bool passTrigger[3] = {false, false, false};
       bool passSinglePhotonTrigger = false;
       if(year == 2016 && triggerCat == 0){
         if(infileCat_[ifile] == kPlotData || infileCat_[ifile] == kPlotNonPrompt) passTrigger[0] = (thePandaFlat.trigger & (1<<kVBFPhoTrig)) != 0;
@@ -550,7 +551,8 @@ int year, int triggerCat, int mH = 125
         passTrigger[1] = passTrigger[0];
 	passSinglePhotonTrigger = (thePandaFlat.trigger & (1<<kSinglePhoTrig)) != 0;
       }
-      if(passTrigger[0] == false && passTrigger[1] == false) continue;
+      passTrigger[2] = (thePandaFlat.trigger & (1<<kSingleMuTrig)) != 0;
+      if(passTrigger[0] == false && passTrigger[1] == false && passTrigger[2] == false) continue;
       if(thePandaFlat.metFilter == 0) continue;
 
       if(debug == 3) printf("DEBUG%d STEP1 %d %d %llu\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber);
@@ -711,18 +713,26 @@ int year, int triggerCat, int mH = 125
 	theG = vLoose[0];
 	photonR9 = 0.95;
       }
+      else if(passPhoSel == 0 && vLoose.size() == 1 && thePandaFlat.nLooseMuon == 1 && TMath::Abs(vLoose[0].Eta()) < etaPhotonCut){ // 0 gamma + 1 muon
+        theMinSelType = MSEL;
+        //theG = vPhoton;
+	theG = vLoose[0];
+	photonR9 = 0.95;
+      }
 
       if(debug == 3) printf("DEBUG%d STEP2 %d %d %llu %d %d %zu\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,theMinSelType,passPhoSel,vLoose.size());
 
       if(theMinSelType == -1) continue;
 
-      if((theMinSelType != ESEL && passTrigger[0] == false) || (theMinSelType == ESEL && passTrigger[1] == false)) continue;
+      if((theMinSelType != ESEL && passTrigger[0] == false) || (theMinSelType == ESEL && passTrigger[1] == false) || (theMinSelType == MSEL && passTrigger[2] == false)) continue;
 
       if(debug == 3) printf("DEBUG%d STEP3 %d %d %llu %d %f\n",ifile,thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,passSinglePhotonTrigger,theG.Pt());
 
       bool isPhoSel = passSinglePhotonTrigger == true && theG.Pt() > 230;
-      if(year != 2016 && triggerCat == 0 &&  isPhoSel) continue;
-      if(year != 2016 && triggerCat == 1 && !isPhoSel) continue;
+      if(year != 2016 && triggerCat == 0 &&  isPhoSel && theMinSelType != MSEL) continue;
+      if(year != 2016 && triggerCat == 1 && !isPhoSel && theMinSelType != MSEL) continue;
+      if(year != 2016 && triggerCat == 0 && theG.Pt() >  230 && theMinSelType == MSEL) continue;
+      if(year != 2016 && triggerCat == 1 && theG.Pt() <= 230 && theMinSelType == MSEL) continue;
 
       double dPhiJetG = 100.0; double dRJetG = 100.0;
       for(int i=0; i<TMath::Min(thePandaFlat.nJot,2); i++){
@@ -844,7 +854,7 @@ int year, int triggerCat, int mH = 125
         passHEM1516 = passHEM1516 && 
         !(thePandaFlat.jotPhi[0]<-0.87 && thePandaFlat.jotPhi[0]>-1.57 && thePandaFlat.jotEta[0]<-1.3 && thePandaFlat.jotEta[0]>-3.0) &&
         !(thePandaFlat.jotPhi[1]<-0.87 && thePandaFlat.jotPhi[1]>-1.57 && thePandaFlat.jotEta[1]<-1.3 && thePandaFlat.jotEta[1]>-3.0);
-        if(theMinSelType == ESEL){
+        if(theMinSelType == ESEL || theMinSelType == MSEL){
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
       }
@@ -890,7 +900,8 @@ int year, int triggerCat, int mH = 125
      theMinSelType == ESEL    && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == MGSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
      theMinSelType == GJSEL   && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
-     theMinSelType == MMGSEL  && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot
+     theMinSelType == MMGSEL  && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot,
+     theMinSelType == MSEL    && passZMass && passMET && passNjets && passDPhiJetMET && passMJJ && passDEtaJJ && passgZep && passPtTot
                                     };
 
       bool passNMinusOne[7] = {
@@ -964,7 +975,10 @@ int year, int triggerCat, int mH = 125
 
 	//double npvWeight = nPUScaleFactor(fhDNPV, thePandaFlat.npv);
 
-        if(!(year == 2016 && theMinSelType == ESEL)){
+        if(theMinSelType == MSEL){
+          triggerWeights[1] = 1.03;
+        }
+        else if(!(year == 2016 && theMinSelType == ESEL)){
           trigger_eff_sf(triggerWeights  , vMet.Pt(), photonR9, theG.Pt(), massJJ, deltaEtaJJ, year, triggerCat, trg_VBFG_r9_eff, trg_VBFG_pth_eff, trg_VBFG_mjj_eff, trg_VBFG_detajj_eff, false);
           if((year == 2017 || year == 2018) && triggerCat == 0){
           trigger_eff_sf(triggerWeightsEl, vMet.Pt(), photonR9, theG.Pt(), massJJ, deltaEtaJJ, year, triggerCat, trg_VBFG_r9_eff, trg_VBFG_pth_eff, trg_VBFG_mjj_eff, trg_VBFG_detajj_eff, true);
@@ -1088,7 +1102,7 @@ int year, int triggerCat, int mH = 125
         photonSFUnc[1] = TMath::Min(0.000625/2*vPhoton.Pt()+1.025,1.15);
 	if     (year == 2016) totalWeight = totalWeight * 3.60167797932 * TMath::Exp(-0.0508590637067*vPhoton.Pt())+0.164430014756;
 	else if(year == 2017) totalWeight = totalWeight * 6.54397693239 * TMath::Exp(-0.0521365327166*vPhoton.Pt())+0.245878324881;
-	else if(year == 2018) totalWeight = totalWeight * 3.05432591588 * TMath::Exp(-0.0424254500630*vPhoton.Pt())+0.272151820071;
+	else if(year == 2018) totalWeight = totalWeight * 7.17000000000 * TMath::Exp(-0.0525360000000*vPhoton.Pt())+0.271000000000;
       }
       else if(theCategory == kPlotData){
       }
@@ -1132,37 +1146,43 @@ int year, int triggerCat, int mH = 125
         MVAVarDown = TMath::Min(100*deltaEtaJJDown,999.999);
       }
 
-      if(dataCardSel >= 0) histo[ 0+dataCardSel][theCategory]  ->Fill(TMath::Min(MVAVar,xbinsMT1D[nBinMT1D]-0.001),totalWeight);
-      if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),459.999),totalWeight);
-      if(dataCardSel >= 0) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
-      if(passNMinusOne[2]) histo[20+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
-      if(dataCardSel >= 0) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
-      if(dataCardSel >= 0)  histo[30+theMinSelType][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
-      if(passNMinusOne[5]) histo[35+theMinSelType][theCategory]->Fill(gZep,totalWeight);
-      if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
-      for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
-      if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
-      if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(theG.Pt(),totalWeight);
-      if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 65+theMinSelType][theCategory]->Fill(TMath::Min(dRJetG,4.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 70+dataCardSel][theCategory]->Fill(TMath::Min(dPhiGMET,2.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot1.Eta()),totalWeight);
-      if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot2.Eta()),totalWeight);
-      if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot1.Pt(),449.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot2.Pt(),449.999),totalWeight);
-      if(dataCardSel >= 0) histo[ 90][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight);
-      if(dataCardSel >= 0) histo[ 91][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight);
-      if(dataCardSel >= 0) histo[ 92][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight*puStdWeight);
-      if     (passVBFGSel     ) histo[ 93][theCategory]->Fill(theG.Phi(),totalWeight);
-      else if(dataCardSel >= 0) histo[ 94][theCategory]->Fill(theG.Phi(),totalWeight);
-      if(dataCardSel >= 0) histo[ 95+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Min(photonR9,0.999),0.701),totalWeight);
-      if(dataCardSel >= 0) histo[100+theMinSelType][theCategory]->Fill(TMath::Min(ratio_allJetPt_vs_allJetHT,0.999),totalWeight);
-      if(dataCardSel >= 0) histo[105+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(vMet.Pt()-thePandaFlat.trkmet)/vMet.Pt(),0.999),totalWeight);
-      if(dataCardSel == 1) histo[110][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
-      if(dataCardSel == 6) histo[111][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
-      if(dataCardSel == 2 || dataCardSel == 7) histo[112][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
-      if(dataCardSel == 3 || dataCardSel == 8) histo[113][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
-      if(dataCardSel == 4 || dataCardSel == 9) histo[114][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+      if(theMinSelType != MSEL){
+	if(dataCardSel >= 0) histo[ 0+dataCardSel][theCategory]  ->Fill(TMath::Min(MVAVar,xbinsMT1D[nBinMT1D]-0.001),totalWeight);
+	if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),459.999),totalWeight);
+	if(dataCardSel >= 0) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
+	if(passNMinusOne[2]) histo[20+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
+	if(dataCardSel >= 0) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+	if(dataCardSel >= 0)  histo[30+theMinSelType][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
+	if(passNMinusOne[5]) histo[35+theMinSelType][theCategory]->Fill(gZep,totalWeight);
+	if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
+	for(int i=0; i<numberOfCuts; i++) {passCutEvolAll = passCutEvolAll && passCutEvol[i]; if(passCutEvolAll) histo[45+theMinSelType][theCategory]->Fill((double)i,totalWeight);}
+	if(dataCardSel >= 0) histo[ 50+theMinSelType][theCategory]->Fill(TMath::Abs(theG.Eta()),totalWeight);
+	if(dataCardSel >= 0) histo[ 55+theMinSelType][theCategory]->Fill(theG.Pt(),totalWeight);
+	if(dataCardSel >= 0) histo[ 60+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetG,2.999),totalWeight);
+	if(dataCardSel >= 0) histo[ 65+theMinSelType][theCategory]->Fill(TMath::Min(dRJetG,4.999),totalWeight);
+	if(dataCardSel >= 0) histo[ 70+dataCardSel][theCategory]->Fill(TMath::Min(dPhiGMET,2.999),totalWeight);
+	if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot1.Eta()),totalWeight);
+	if(dataCardSel >= 0) histo[ 80+theMinSelType][theCategory]->Fill(TMath::Abs(vJot2.Eta()),totalWeight);
+	if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot1.Pt(),449.999),totalWeight);
+	if(dataCardSel >= 0) histo[ 85+theMinSelType][theCategory]->Fill(TMath::Min(vJot2.Pt(),449.999),totalWeight);
+	if(dataCardSel >= 0) histo[ 90][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight);
+	if(dataCardSel >= 0) histo[ 91][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight);
+	if(dataCardSel >= 0) histo[ 92][theCategory]->Fill(TMath::Min((double)thePandaFlat.npv,79.499),totalWeight/puWeight*puStdWeight);
+	if     (passVBFGSel     ) histo[ 93][theCategory]->Fill(theG.Phi(),totalWeight);
+	else if(dataCardSel >= 0) histo[ 94][theCategory]->Fill(theG.Phi(),totalWeight);
+	if(dataCardSel >= 0) histo[ 95+theMinSelType][theCategory]->Fill(TMath::Max(TMath::Min(photonR9,0.999),0.701),totalWeight);
+	if(dataCardSel >= 0) histo[100+theMinSelType][theCategory]->Fill(TMath::Min(ratio_allJetPt_vs_allJetHT,0.999),totalWeight);
+	if(dataCardSel >= 0) histo[105+theMinSelType][theCategory]->Fill(TMath::Min(TMath::Abs(vMet.Pt()-thePandaFlat.trkmet)/vMet.Pt(),0.999),totalWeight);
+	if(dataCardSel == 1) histo[110][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
+	if(dataCardSel == 6) histo[111][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
+	if(dataCardSel == 2 || dataCardSel == 7) histo[112][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+	if(dataCardSel == 3 || dataCardSel == 8) histo[113][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+	if(dataCardSel == 4 || dataCardSel == 9) histo[114][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+      }
+
+      if(passAllCuts[MSEL] && massJJ <= mjjSplit) histo[115][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
+      if(passAllCuts[MSEL] && massJJ >  mjjSplit) histo[116][theCategory]->Fill(TMath::Min(MVAVar,xbinsMVACR[nBinMVACR]-0.001),totalWeight);
+
       if(dataCardSel == 0) histoMTGMETMJJ[0][theCategory]->Fill(mTGMET,totalWeight);
       if(dataCardSel == 5) histoMTGMETMJJ[1][theCategory]->Fill(mTGMET,totalWeight);
 

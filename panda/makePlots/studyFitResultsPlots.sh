@@ -95,6 +95,7 @@ elif [ $NSEL == 'ssww' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Output","","done_datacards/histoDatacard_ssww_wz_'${YEAR}'.root","ssww_wz_bdt",0,'${YEAR}',"X",'${sf_dy}','${isBlinded}',"WZ category",1,'${APPLYSCALING}',"","")';
 
 elif [ $NSEL == 'vbfg' ]; then
+  hadd -f done_vbfg/histoVBFG_2019_trigger2_mH125_05.root done_vbfg/histoVBFG_201?_trigger?_mH1000_[0,5].root;
   export isBlinded=0;
   export YEAR=2016; export TRIG=0;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"card","","done_datacards/histoDatacard_vbfg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_trigger'${TRIG}'_sel_card",1,'${YEAR}',"qqH_{125}(inv.+#gamma)",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
