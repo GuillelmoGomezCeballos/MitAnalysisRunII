@@ -179,7 +179,7 @@ std::map<int, int> plotColors={
   { kPlotBSM	     , kGreen-4},
   { kPlotSignal0     , kBlue},
   { kPlotSignal1     , kMagenta+1},
-  { kPlotSignal2     , TColor::GetColor(248,206,104)},
+  { kPlotSignal2     , kGreen-4},
   { kPlotSignal3     , kAzure-4},
   { kPlotEWKSSWW_dim8, kMagenta+4},
   { kPlotEWKWZ_dim8  , kMagenta+5}
@@ -207,9 +207,9 @@ std::map<int, TString> plotNames={
     { kPlotOther       , "Other bkg."},
     { kPlotBSM         , "BSM"},
     { kPlotSignal0     , "Signal 0"},
-    { kPlotSignal1     , "W_{X}W_{T}"},
-    { kPlotSignal2     , "W_{T}W_{T}"},
-    { kPlotSignal3     , "W_{L}W_{X}"},
+    { kPlotSignal1     , "W_{L}W_{L}"},
+    { kPlotSignal2     , "W_{L}W_{T}"},
+    { kPlotSignal3     , "W_{T}W_{T}"},
     { kPlotEWKSSWW_dim8, "EWKSSWW_dim8"},
     { kPlotEWKWZ_dim8  , "EWKWZ_dim8"}
 };

@@ -206,6 +206,9 @@ class StandardPlot {
                 // signal gets overlaid
                 if (ic == kPlotBSM && isBSMOverlaid == false) continue;
                 if (ic == kPlotSignal0 && isBSMOverlaid == false) continue;
+                if (ic == kPlotSignal1 && isBSMOverlaid == false) continue;
+                if (ic == kPlotSignal2 && isBSMOverlaid == false) continue;
+                if (ic == kPlotSignal3 && isBSMOverlaid == false) continue;
 
                 _hist[ic]->SetFillColor(plotColors[ic]);
                 _hist[ic]->SetFillStyle(1001);
@@ -214,12 +217,24 @@ class StandardPlot {
 		hSum  ->Add(_hist[ic]);
             }
 
-            if(_hist[kPlotBSM] ) _hist[kPlotBSM]->SetLineWidth(4);
-            if(_hist[kPlotSignal0] ) _hist[kPlotSignal0]->SetLineWidth(4);
-            if(_hist[kPlotBSM] ) _hist[kPlotBSM]->SetFillColor(0);
-            if(_hist[kPlotSignal0] ) _hist[kPlotSignal0]->SetFillColor(0);
-            if(_hist[kPlotBSM] ) _hist[kPlotBSM]->SetFillStyle(3001);
-            if(_hist[kPlotSignal0] ) _hist[kPlotSignal0]->SetFillStyle(3002);
+            if(_hist[kPlotBSM]    ) _hist[kPlotBSM    ]->SetLineWidth(4);
+            if(_hist[kPlotSignal0]) _hist[kPlotSignal0]->SetLineWidth(4);
+            if(_hist[kPlotSignal1]) _hist[kPlotSignal1]->SetLineWidth(4);
+            if(_hist[kPlotSignal2]) _hist[kPlotSignal2]->SetLineWidth(4);
+            if(_hist[kPlotSignal3]) _hist[kPlotSignal3]->SetLineWidth(4);
+
+            if(_hist[kPlotBSM]    ) _hist[kPlotBSM    ]->SetFillColor(0);
+            if(_hist[kPlotSignal0]) _hist[kPlotSignal0]->SetFillColor(0);
+            if(_hist[kPlotSignal1]) _hist[kPlotSignal1]->SetFillColor(0);
+            if(_hist[kPlotSignal2]) _hist[kPlotSignal2]->SetFillColor(0);
+            if(_hist[kPlotSignal3]) _hist[kPlotSignal3]->SetFillColor(0);
+
+            if(_hist[kPlotBSM]    ) _hist[kPlotBSM    ]->SetFillStyle(3001);
+            if(_hist[kPlotSignal0]) _hist[kPlotSignal0]->SetFillStyle(3002);
+            if(_hist[kPlotSignal1]) _hist[kPlotSignal1]->SetFillStyle(3002);
+            if(_hist[kPlotSignal2]) _hist[kPlotSignal2]->SetFillStyle(3002);
+            if(_hist[kPlotSignal3]) _hist[kPlotSignal3]->SetFillStyle(3002);
+
             if(_hist[kPlotData]) _hist[kPlotData]->Rebin(rebin);
             if(_hist[kPlotData]) _hist[kPlotData]->SetLineColor  (kBlack);
             if(_hist[kPlotData]) _hist[kPlotData]->SetMarkerSize(0.8);
@@ -252,8 +267,11 @@ class StandardPlot {
               //setex1->Draw();
 	    }
 
-            if(_hist[kPlotBSM] && isBSMOverlaid == false) _hist[kPlotBSM]->Draw("hist,same");
+            if(_hist[kPlotBSM    ] && isBSMOverlaid == false) _hist[kPlotBSM    ]->Draw("hist,same");
             if(_hist[kPlotSignal0] && isBSMOverlaid == false) _hist[kPlotSignal0]->Draw("hist,same");
+            if(_hist[kPlotSignal1] && isBSMOverlaid == false) _hist[kPlotSignal1]->Draw("hist,same");
+            if(_hist[kPlotSignal2] && isBSMOverlaid == false) _hist[kPlotSignal2]->Draw("hist,same");
+            if(_hist[kPlotSignal3] && isBSMOverlaid == false) _hist[kPlotSignal3]->Draw("hist,same");
 
             if(_hist[kPlotData]) {
 	      bool plotCorrectErrorBars = true;
@@ -327,6 +345,22 @@ class StandardPlot {
                 if (_hist[kPlotBSM]->GetMaximum() > theMax) theMax = _hist[kPlotBSM]->GetMaximum();
                 if (_hist[kPlotBSM]->GetMinimum() < theMin) theMin = _hist[kPlotBSM]->GetMinimum();
             }
+            if (_hist[kPlotSignal0]) {
+                if (_hist[kPlotSignal0]->GetMaximum() > theMax) theMax = _hist[kPlotSignal0]->GetMaximum();
+                if (_hist[kPlotSignal0]->GetMinimum() < theMin) theMin = _hist[kPlotSignal0]->GetMinimum();
+            }
+            if (_hist[kPlotSignal1]) {
+                if (_hist[kPlotSignal1]->GetMaximum() > theMax) theMax = _hist[kPlotSignal1]->GetMaximum();
+                if (_hist[kPlotSignal1]->GetMinimum() < theMin) theMin = _hist[kPlotSignal1]->GetMinimum();
+            }
+            if (_hist[kPlotSignal2]) {
+                if (_hist[kPlotSignal2]->GetMaximum() > theMax) theMax = _hist[kPlotSignal2]->GetMaximum();
+                if (_hist[kPlotSignal2]->GetMinimum() < theMin) theMin = _hist[kPlotSignal2]->GetMinimum();
+            }
+            if (_hist[kPlotSignal3]) {
+                if (_hist[kPlotSignal3]->GetMaximum() > theMax) theMax = _hist[kPlotSignal3]->GetMaximum();
+                if (_hist[kPlotSignal3]->GetMinimum() < theMin) theMin = _hist[kPlotSignal3]->GetMinimum();
+            }
 
             if (_hist[kPlotData]) {
 
@@ -387,8 +421,12 @@ class StandardPlot {
                 else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "l" ); j++; }
 	      }
 	      else if(ic == kPlotSignal0){
-                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.15, _hist[ic], higgs2Label, "f" ); j++; }
-                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.15, _hist[ic], higgs2Label, "l" ); j++; }
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], higgs2Label, "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], higgs2Label, "l" ); j++; }
+	      }
+	      else if(ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3){
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], plotNames[ic].Data(), "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], plotNames[ic].Data(), "l" ); j++; }
 	      }
 	      else {
 	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "f"); j++;}

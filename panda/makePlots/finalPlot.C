@@ -124,8 +124,9 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
   int isVBS[2] = {0, 0};
   if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = 1;
-  else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = 2;
-  else if(_hist[kPlotSignal2] && _hist[kPlotSignal2]->GetSumOfWeights() > 0) isVBS[0] = 3;
+  else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = 1;
+  else if(_hist[kPlotSignal2] && _hist[kPlotSignal2]->GetSumOfWeights() > 0) isVBS[0] = 1;
+  else if(_hist[kPlotSignal3] && _hist[kPlotSignal3]->GetSumOfWeights() > 0) isVBS[0] = 1;
   if(_hist[kPlotEWKWZ] && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = 1;
 
   if(outputName == "ssww_wzsel_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
@@ -201,19 +202,19 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     }
 
     if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
+
     else if(isVBS[0] == 1 && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
     else if(isVBS[0] == 1 && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 2 && ic == kPlotqqWW)    {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 2 && ic == kPlotQCDSSWW) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 2 && ic == kPlotSignal2) {_hist[kPlotSignal1]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 3 && ic == kPlotqqWW)    {_hist[kPlotSignal2]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 3 && ic == kPlotQCDSSWW) {_hist[kPlotSignal2]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotSignal1) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+    else if(isVBS[0] == 1 && ic == kPlotSignal2) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+    else if(isVBS[0] == 1 && ic == kPlotSignal3) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+
     else if(isVBS[1] == 1 && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
   }
   
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
-    if(ic != kPlotData && ic != kPlotBSM) {
+    if(ic != kPlotData && ic != kPlotBSM && ic != kPlotSignal0 && ic != kPlotSignal1 && ic != kPlotSignal2 && ic != kPlotSignal3) {
       hBck->Add(_hist[ic]);
       if(mlfitResult==""){
         for(int i=1; i<=_hist[ic]->GetNbinsX(); i++){

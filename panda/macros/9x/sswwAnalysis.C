@@ -23,7 +23,6 @@ const bool showSyst = true;
 const bool produceMVAInputs = false;
 const bool isPseudoData = false;
 const double jetPtCut = 50;
-const bool useTwoBDTs = true;
 
 const int includeBSMAQGC = 0;
 
@@ -35,7 +34,7 @@ enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystType
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
 void sswwAnalysis(
-int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
+int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TString WZName = "WZ3l_MG"
 ){
   int nTypeLepSel[2] = {-1, -1};
   int whichYear = -1;
@@ -86,17 +85,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     if     (WZName == "WZ3l_MG"){
       infileName_.push_back(Form("%sdata.root",filesPath.Data()));  	          infileCat_.push_back(kPlotData);
 
-      if(fidAna == 5) {
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotBSM);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotBSM);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      }
-      else if(fidAna == 9) {
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      if(fidAna == 5 || fidAna == 9) {
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -160,17 +154,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     if     (WZName == "WZ3l_MG"){
       infileName_.push_back(Form("%sdata.root",filesPath.Data()));  	          infileCat_.push_back(kPlotData);
 
-      if(fidAna == 5) {
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotBSM);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotBSM);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      }
-      else if(fidAna == 9) {
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      if(fidAna == 5 || fidAna == 9) {
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -236,17 +225,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     if     (WZName == "WZ3l_MG"){
       infileName_.push_back(Form("%sdata.root",filesPath.Data()));		  infileCat_.push_back(kPlotData);
 
-      if(fidAna == 5) {
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotBSM);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotBSM);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
-      }
-      else if(fidAna == 9) {
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      if(fidAna == 5 || fidAna == 9) {
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal1);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));     infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -385,6 +369,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
   const int nBinMJJCR = 4; Float_t xbinsMJJCR[nBinMJJCR+1] = {500,800,1200,1800,3000};
   const int nBinMLL = 4; Float_t xbinsMLL[nBinMLL+1] = {20, 80, 140, 240, 500};
   const int nBinWZBDT =  8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.280,-0.000, 0.230, 0.430, 0.600, 0.740, 0.860, 1.000}; // ptj > 50 default
+/*
   const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.202, 0.085, 0.296, 0.472, 0.633, 1.000}; // v6 prune default QCD+EW corr
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
@@ -404,7 +389,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     xbinsWWLXBDT[1] = -0.202;xbinsWWLXBDT[2] = -0.011;xbinsWWLXBDT[3] = 0.140;
     xbinsWWLXBDT[4] =  0.303;xbinsWWLXBDT[5] =  0.514;xbinsWWLXBDT[6] = 1.000;
   }
-/*
+*/
   const int nBinWWLXBDT = 5; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.135, 0.175, 0.405, 0.600, 1.000}; // v6 prune default QCD+EW corr
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
@@ -424,10 +409,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", TString WZName = "WZ3l_MG"
     xbinsWWLXBDT[1] = -0.156;xbinsWWLXBDT[2] =  0.049;xbinsWWLXBDT[3] = 0.233;
     xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  1.000;
   }
-*/
 
   const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.201, 0.214, 0.536, 0.771, 1.000}; // 10var QCD+EW corr new
-  if(wwPath.Contains("wwframe")){ // 10var QCD+EW corr new
+  if(wwPath.Contains("wwframe")){ // 10var QCD+EW corr wwframe
     printf("xbinsWWWSBDT for %s\n",wwPath.Data());
     xbinsWWWSBDT[0] = -1.000;
     xbinsWWWSBDT[1] = -0.175;xbinsWWWSBDT[2] =  0.218;xbinsWWWSBDT[3] = 0.524;
