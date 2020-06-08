@@ -60,20 +60,18 @@ enum plotCategory {
   kPlotDY	 , // 8
   kPlotTop	 , // 9
   kPlotVVV	 , //10
-  kPlotWG0	 , //11
-  kPlotWG1	 , //12
-  kPlotZG	 , //13
-  kPlotGJ0	 , //14
-  kPlotGJ1	 , //15
-  kPlotGJ2	 , //16
-  kPlotGJ3	 , //17
-  kPlotGJ4	 , //18
-  kPlotGJ5	 , //19
-  kPlotNonPrompt , //20
-  kPlotPhotonE0  , //21
-  kPlotPhotonE1  , //22
-  kPlotBSM	 , //23
-  kPlotSignal0	 , //24
+  kPlotWG 	 , //11
+  kPlotZG	 , //12
+  kPlotGJ0	 , //13
+  kPlotGJ1	 , //14
+  kPlotNonPrompt , //15
+  kPlotPhotonE0  , //16
+  kPlotPhotonE1  , //17
+  kPlotBSM	 , //18
+  kPlotSignal0	 , //19
+  kPlotSignal1	 , //20
+  kPlotSignal2	 , //21
+  kPlotSignal3	 , //22
   nPlotCategories
 };
 
@@ -89,20 +87,18 @@ std::map<int, TString> plotBaseNames={
   { kPlotDY	   , "DY" },
   { kPlotTop	   , "Top" },
   { kPlotVVV	   , "VVV" },
-  { kPlotWG0	   , "WG0" },
-  { kPlotWG1	   , "WG1" },
-  { kPlotZG        , "ZG" },
+  { kPlotWG 	   , "WG" },
+  { kPlotZG	   , "ZG" },
   { kPlotGJ0	   , "GJ0" },
   { kPlotGJ1	   , "GJ1" },
-  { kPlotGJ2	   , "GJ2" },
-  { kPlotGJ3	   , "GJ3" },
-  { kPlotGJ4	   , "GJ4" },
-  { kPlotGJ5	   , "GJ5" },
   { kPlotNonPrompt , "NonPrompt" },
   { kPlotPhotonE0  , "PhotonE0" },
   { kPlotPhotonE1  , "PhotonE1" },
   { kPlotBSM	   , "BSM" },
-  { kPlotSignal0   , "Signal0" }
+  { kPlotSignal0   , "Signal0" },
+  { kPlotSignal1   , "Signal1" },
+  { kPlotSignal2   , "Signal2" },
+  { kPlotSignal3   , "Signal3" }
 }; 
 
 std::map<int, int> plotColors={
@@ -117,20 +113,18 @@ std::map<int, int> plotColors={
   { kPlotDY	   , kYellow},
   { kPlotTop	   , kAzure-2},
   { kPlotVVV	   , TColor::GetColor(248,206,104)},
-  { kPlotWG0	   , TColor::GetColor(250,202,255)},
-  { kPlotWG1	   , TColor::GetColor(250,202,255)},
+  { kPlotWG 	   , TColor::GetColor(250,202,255)},
   { kPlotZG	   , kCyan+3},
   { kPlotGJ0	   , TColor::GetColor(222,90,106)},
   { kPlotGJ1	   , kMagenta+4},
-  { kPlotGJ2	   , kMagenta+5},
-  { kPlotGJ3	   , kMagenta+6},
-  { kPlotGJ4	   , kMagenta+7},
-  { kPlotGJ5	   , kMagenta+8},
   { kPlotNonPrompt , kAzure-9},
   { kPlotPhotonE0  , TColor::GetColor(155,152,204)},
   { kPlotPhotonE1  , 809},
   { kPlotBSM	   , kGreen},
-  { kPlotSignal0   , kBlue}
+  { kPlotSignal0   , kBlue},
+  { kPlotSignal1   , kBlue},
+  { kPlotSignal2   , kBlue},
+  { kPlotSignal3   , kBlue}
 }; 
 
 std::map<int, TString> plotNames={
@@ -145,20 +139,18 @@ std::map<int, TString> plotNames={
     { kPlotDY	     , "Z+jets"},
     { kPlotTop       , "Top quark"},
     { kPlotVVV       , "VVV"},
-    { kPlotWG0       , "W#bf{#gamma}"},
-    { kPlotWG1       , "W#bf{#gamma}1"},
+    { kPlotWG        , "W#bf{#gamma}"},
     { kPlotZG	     , "Z#bf{#gamma}"},
     { kPlotGJ0       , "#bf{#gamma}+jets"},
     { kPlotGJ1       , "#bf{#gamma}+jets1"},
-    { kPlotGJ2       , "#bf{#gamma}+jets2"},
-    { kPlotGJ3       , "#bf{#gamma}+jets3"},
-    { kPlotGJ4       , "#bf{#gamma}+jets4"},
-    { kPlotGJ5       , "#bf{#gamma}+jets5"},
     { kPlotNonPrompt , "Nonprompt"},
     { kPlotPhotonE0  , "Mismeasured #bf{#gamma}"},
     { kPlotPhotonE1  , "Mismeasured #bf{#gamma} high m_{jj}"},
     { kPlotBSM       , "BSM"},
-    { kPlotSignal0   , "Signal 0"}
+    { kPlotSignal0   , "Signal 0"},
+    { kPlotSignal1   , "Signal 1"},
+    { kPlotSignal2   , "Signal 2"},
+    { kPlotSignal3   , "Signal 3"}
 };
 
 const double mass_el = 0.000510998928;

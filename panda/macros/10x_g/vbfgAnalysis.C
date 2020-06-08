@@ -113,8 +113,8 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sWZG.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotVVV);
 
-    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotWG0);
-    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK_CP5.root" ,filesPath.Data()));      infileCat_.push_back(kPlotWG0);
+    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotWG);
+    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK_CP5.root" ,filesPath.Data()));      infileCat_.push_back(kPlotWG);
 
     infileName_.push_back(Form("%sZGToNuNuG_nlo_CP5.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
     infileName_.push_back(Form("%sZGTo2LG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
@@ -177,8 +177,8 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sWZG.root" ,filesPath.Data()));		      infileCat_.push_back(kPlotVVV);
 
-    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotWG0);
-    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK_CP5.root" ,filesPath.Data()));      infileCat_.push_back(kPlotWG0);
+    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotWG);
+    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK_CP5.root" ,filesPath.Data()));      infileCat_.push_back(kPlotWG);
 
     infileName_.push_back(Form("%sZGToNuNuG_nlo.root" ,filesPath.Data()));            infileCat_.push_back(kPlotZG);
     infileName_.push_back(Form("%sZGTo2LG_nlo.root" ,filesPath.Data())); 	      infileCat_.push_back(kPlotZG);
@@ -242,8 +242,8 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sWZG.root" ,filesPath.Data()));		  infileCat_.push_back(kPlotVVV);
 
-    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotWG0);
-    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotWG0);
+    infileName_.push_back(Form("%sWGtoLNuG_nlo.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotWG);
+    infileName_.push_back(Form("%sWGtoLNuG_lo_EWK.root" ,filesPath.Data())); 	  infileCat_.push_back(kPlotWG);
 
     infileName_.push_back(Form("%sZGToNuNuG_nlo.root" ,filesPath.Data()));        infileCat_.push_back(kPlotZG);
     infileName_.push_back(Form("%sZGTo2LG_nlo.root" ,filesPath.Data()));          infileCat_.push_back(kPlotZG);
@@ -1044,22 +1044,10 @@ int year, int triggerCat, int mH = 125
 	  else if(splitVar0 >= mjjSplit && splitVar1 <  mtgSplit1) theCategory = kPlotWJ4;
 	  else if(splitVar0 >= mjjSplit && splitVar1 >= mtgSplit1) theCategory = kPlotWJ5;
         }
-        /*else if(theCategory == kPlotGJ0 &&  isHVBFGAna){
-	  if     (splitVar0 <  mjjSplit && splitVar1 <  mtgSplit0) theCategory = kPlotGJ0;
-	  else if(splitVar0 <  mjjSplit && splitVar1 <  mtgSplit1) theCategory = kPlotGJ1;
-	  else if(splitVar0 <  mjjSplit && splitVar1 >= mtgSplit1) theCategory = kPlotGJ2;
-	  else if(splitVar0 >= mjjSplit && splitVar1 <  mtgSplit0) theCategory = kPlotGJ3;
-	  else if(splitVar0 >= mjjSplit && splitVar1 <  mtgSplit1) theCategory = kPlotGJ4;
-	  else if(splitVar0 >= mjjSplit && splitVar1 >= mtgSplit1) theCategory = kPlotGJ5;
-        }*/
         else if(theCategory == kPlotGJ0){
 	  if     (splitVar0 <  mjjSplit) theCategory = kPlotGJ0;
 	  else if(splitVar0 >= mjjSplit) theCategory = kPlotGJ1;
         }
-        //else if(theCategory == kPlotWG0){
-	//  if     (splitVar0 <  mjjSplit) theCategory = kPlotWG0;
-	//  else if(splitVar0 >= mjjSplit) theCategory = kPlotWG1;
-        //}
 
         if(theCategory != kPlotData){
           totalWeight = totalWeight * mcCorrection(0, infileName_[ifile].Data(), year, theCategory, massJJ, mTGMET, triggerCat);
@@ -1121,7 +1109,7 @@ int year, int triggerCat, int mH = 125
       //  printf("DATA: %d %llu %f %f %d %f %f %f %f %f %f\n",thePandaFlat.runNumber,thePandaFlat.eventNumber,mTGMET,vMet.Pt(),thePandaFlat.nJot,dPhiJetMET,massJJ,deltaEtaJJ,gZep,dRJetG,dPhiGMET);
       //}
 
-      if((theMinSelType == VBFGSEL || theMinSelType == GJSEL) && passNjets && passMJJ && passDEtaJJ && passgZep && (theCategory == kPlotGJ0 || theCategory == kPlotGJ1 || theCategory == kPlotGJ2 || theCategory == kPlotGJ3 || theCategory == kPlotGJ4 || theCategory == kPlotGJ5)){
+      if((theMinSelType == VBFGSEL || theMinSelType == GJSEL) && passNjets && passMJJ && passDEtaJJ && passgZep && (theCategory == kPlotGJ0 || theCategory == kPlotGJ1)){
         TLorentzVector vMet0p75 = vMet + 0.40 * theG;
         TLorentzVector vMet0p50 = vMet + 0.65 * theG;
         TLorentzVector vMet0p25 = vMet + 0.90 * theG;
@@ -1360,15 +1348,15 @@ int year, int triggerCat, int mH = 125
       histo_ElToPhAltBoundingDown [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhAltBoundingDown[ic]->GetBinContent(nb),0.0f));
     }
     if(ic == kPlotBSM || ic == kPlotZG ||
-       ic == kPlotGJ0 || ic == kPlotGJ1 || ic == kPlotGJ2 || ic == kPlotGJ3 || ic == kPlotGJ4 || ic == kPlotGJ5 ||
-       ic == kPlotWG0 || ic == kPlotWG1 ||
+       ic == kPlotGJ0 || ic == kPlotGJ1 ||
+       ic == kPlotWG  ||
        ic == kPlotWJ0 || ic == kPlotWJ1 || ic == kPlotWJ2 || ic == kPlotWJ3 || ic == kPlotWJ4 || ic == kPlotWJ5) {
       histo_QCDScaleUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp  [ic]->GetSumOfWeights());
       histo_QCDScaleDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown[ic]->GetSumOfWeights());
     }
     if(ic == kPlotZG ||
-       ic == kPlotGJ0 || ic == kPlotGJ1 || ic == kPlotGJ2 || ic == kPlotGJ3 || ic == kPlotGJ4 || ic == kPlotGJ5 ||
-       ic == kPlotWG0 || ic == kPlotWG1 ||
+       ic == kPlotGJ0 || ic == kPlotGJ1 ||
+       ic == kPlotWG  ||
        ic == kPlotWJ0 || ic == kPlotWJ1 || ic == kPlotWJ2 || ic == kPlotWJ3 || ic == kPlotWJ4 || ic == kPlotWJ5) {
       for(int nj=0; nj<nJESTypes; nj++){
         histo_JESBoundingUp  [nj][ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_JESBoundingUp  [nj][ic]->GetSumOfWeights());
@@ -1877,14 +1865,10 @@ int year, int triggerCat, int mH = 125
 
   newcardShape << Form("CMS_vbfg_zgnorm rateParam * %s 1 [0,20]\n",plotBaseNames[kPlotZG].Data());
 
-  newcardShape << Form("CMS_vbfg_wgnorm_%d rateParam * %s 1 [0,20]\n",year,plotBaseNames[kPlotWG0].Data());
+  newcardShape << Form("CMS_vbfg_wgnorm_%d rateParam * %s 1 [0,20]\n",year,plotBaseNames[kPlotWG].Data());
 
   if(histo_Baseline[kPlotGJ0]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ0].Data());
   if(histo_Baseline[kPlotGJ1]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ1].Data());
-  if(histo_Baseline[kPlotGJ2]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj2norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ2].Data());
-  if(histo_Baseline[kPlotGJ3]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj3norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ3].Data());
-  if(histo_Baseline[kPlotGJ4]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj4norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ4].Data());
-  if(histo_Baseline[kPlotGJ5]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_gj5norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotGJ5].Data());
 
   if(histo_Baseline[kPlotWJ0]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_wj0norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ0].Data());
   if(histo_Baseline[kPlotWJ1]->GetSumOfWeights() > 0) newcardShape << Form("CMS_vbfg_wj1norm_%d_trigger%d  rateParam * %s 1 [0,20]\n",year,triggerCat,plotBaseNames[kPlotWJ1].Data());
