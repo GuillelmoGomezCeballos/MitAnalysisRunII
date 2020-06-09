@@ -28,24 +28,24 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   TGraph* scan1 = (TGraph*)file1->Get(Form("scan"));
   TGraph* scan2 = (TGraph*)file2->Get(Form("scan"));
 
-  scan0->SetTitle("");
-  scan0->GetXaxis()->SetLabelFont  (   42);
-  scan0->GetXaxis()->SetLabelOffset(0.010);
-  scan0->GetXaxis()->SetLabelSize  (0.040);
-  scan0->GetXaxis()->SetNdivisions (  505);
-  scan0->GetXaxis()->SetTitleFont  (   42);
-  scan0->GetXaxis()->SetTitleOffset(  0.9);
-  scan0->GetXaxis()->SetTitleSize  (0.050);
-  scan0->GetXaxis()->SetTitle("#sigma_{W_{L}W_{L}} [fb]");
-  scan0->GetYaxis()->SetLabelFont  (   42);
-  scan0->GetYaxis()->SetLabelOffset(0.010);
-  scan0->GetYaxis()->SetLabelSize  (0.040);
-  scan0->GetYaxis()->SetNdivisions (  505);
-  scan0->GetYaxis()->SetTitleFont  (   42);
-  scan0->GetYaxis()->SetTitleSize  (0.050);
-  scan0->GetYaxis()->SetTitleOffset(  1.2);
-  scan0->GetYaxis()->SetTitle("- 2 #Delta ln L");
-  scan0->SetMinimum(0);
+  scan2->SetTitle("");
+  scan2->GetXaxis()->SetLabelFont  (   42);
+  scan2->GetXaxis()->SetLabelOffset(0.010);
+  scan2->GetXaxis()->SetLabelSize  (0.040);
+  scan2->GetXaxis()->SetNdivisions (  505);
+  scan2->GetXaxis()->SetTitleFont  (   42);
+  scan2->GetXaxis()->SetTitleOffset(  0.9);
+  scan2->GetXaxis()->SetTitleSize  (0.050);
+  scan2->GetXaxis()->SetTitle("#sigma_{W_{L}W_{L}} [fb]");
+  scan2->GetYaxis()->SetLabelFont  (   42);
+  scan2->GetYaxis()->SetLabelOffset(0.010);
+  scan2->GetYaxis()->SetLabelSize  (0.040);
+  scan2->GetYaxis()->SetNdivisions (  505);
+  scan2->GetYaxis()->SetTitleFont  (   42);
+  scan2->GetYaxis()->SetTitleSize  (0.050);
+  scan2->GetYaxis()->SetTitleOffset(  1.2);
+  scan2->GetYaxis()->SetTitle("- 2 #Delta ln L");
+  scan2->GetYaxis()->SetRangeUser(0.0,7.0);
 
   scan0->SetLineColor(2);
   scan0->SetLineStyle(1);
@@ -73,10 +73,9 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   pad1->Draw();
   pad1->cd();
   pad1->RedrawAxis();
-  scan1->Draw("");
-  scan0->Draw("AL");
+  scan2->Draw("AL");
   scan1->Draw("LSAME");
-  scan2->Draw("LSAME");
+  scan0->Draw("LSAME");
   CMS_lumi( pad1, 2019, 11 );
 
   TLegend* leg = new TLegend(0.2, 0.7, 0.4, 0.9);
@@ -84,15 +83,18 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   leg->SetFillColor (    0);
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
-  leg->SetTextSize  (0.035);
+  leg->SetTextSize  (0.030);
   leg->AddEntry(scan1, "Expected stat only","l");
   leg->AddEntry(scan0, "Expected stat+syst","l");
   leg->AddEntry(scan2, "Observed","l");
   leg->Draw("same");
 
   double theLines[2] = {1.00, 3.84};
-  TLine* baseline0 = new TLine(scan0->GetXaxis()->GetXmin(), theLines[0],
-                               scan0->GetXaxis()->GetXmax(), theLines[0]);
+  printf("%f %f\n",scan0->GetXaxis()->GetXmin(),scan0->GetXaxis()->GetXmax());
+  printf("%f %f\n",scan1->GetXaxis()->GetXmin(),scan1->GetXaxis()->GetXmax());
+  printf("%f %f\n",scan2->GetXaxis()->GetXmin(),scan2->GetXaxis()->GetXmax());
+  TLine* baseline0 = new TLine(scan2->GetXaxis()->GetXmin(), theLines[0],
+                               scan2->GetXaxis()->GetXmax(), theLines[0]);
   baseline0->SetLineStyle(kDashed);
   baseline0->Draw();
   TLatex* extraLabel0 = new TLatex(0.80, 0.32,"68\% CL");
@@ -102,8 +104,8 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   extraLabel0->SetTextSize(0.035);
   extraLabel0->Draw();
 
-  TLine* baseline1 = new TLine(scan0->GetXaxis()->GetXmin(), theLines[1],
-                               scan0->GetXaxis()->GetXmax(), theLines[1]);
+  TLine* baseline1 = new TLine(scan2->GetXaxis()->GetXmin(), theLines[1],
+                               scan2->GetXaxis()->GetXmax(), theLines[1]);
   baseline1->SetLineStyle(kDashed);
   baseline1->Draw();
   TLatex* extraLabel1 = new TLatex(0.80, 0.57,"95\% CL");
