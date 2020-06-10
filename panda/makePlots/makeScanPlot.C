@@ -83,7 +83,7 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   leg->SetFillColor (    0);
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
-  leg->SetTextSize  (0.030);
+  leg->SetTextSize  (0.040);
   leg->AddEntry(scan1, "Expected stat only","l");
   leg->AddEntry(scan0, "Expected stat+syst","l");
   leg->AddEntry(scan2, "Observed","l");
@@ -97,7 +97,7 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
                                scan2->GetXaxis()->GetXmax(), theLines[0]);
   baseline0->SetLineStyle(kDashed);
   baseline0->Draw();
-  TLatex* extraLabel0 = new TLatex(0.80, 0.32,"68\% CL");
+  TLatex* extraLabel0 = new TLatex(0.80, 0.33,"68\% CL");
   extraLabel0->SetNDC();
   extraLabel0->SetTextAlign(12);
   extraLabel0->SetTextFont(62);
@@ -108,7 +108,7 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
                                scan2->GetXaxis()->GetXmax(), theLines[1]);
   baseline1->SetLineStyle(kDashed);
   baseline1->Draw();
-  TLatex* extraLabel1 = new TLatex(0.80, 0.57,"95\% CL");
+  TLatex* extraLabel1 = new TLatex(0.80, 0.62,"95\% CL");
   extraLabel1->SetNDC();
   extraLabel1->SetTextAlign(12);
   extraLabel1->SetTextFont(62);
