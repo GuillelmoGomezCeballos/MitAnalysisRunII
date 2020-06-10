@@ -1,4 +1,11 @@
-void zPtUnc(TString input = "/data/t3home000/ceballos/panda/v_001_0/genZpt_NLO.root", int ana = 0){
+
+void zPtUnc(int ana = 0){
+
+TString input = "";
+
+if     (ana==0) input = "/data/t3home000/ceballos/panda/v_001_0/genZpt_NLO.root";
+else if(ana==1) input = "/data/t3home000/ceballos/panda/v_001_0/genZNuNupt_NLO.root";
+else return;
 
 TFile *_file = TFile::Open(input.Data());
 
@@ -55,16 +62,24 @@ if(ana == 0){  // ZLL analysis
 
   printf("---------------------------------------------------------------------\n");
   for(int i=1; i<=hDIDilHighPtIncMM->GetNbinsX(); i++){
-    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f\n",i,
+    double res[3] = {1000*(hDIDilHighPtMM       ->GetBinContent(i)   +    hDIDilHighPtEE    ->GetBinContent(i))/2,
+                     100*(abs(hDIDilHighPtMM_PDF->GetBinContent(i)-1)+abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1))/2,
+		     100*(abs(hDIDilHighPtMM_QCD->GetBinContent(i)-1)+abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1))/2};
+    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f ||| LL = %8.2f / %5.2f / %5.2f\n",i,
        1000*hDIDilHighPtMM->GetBinContent(i),100*abs(hDIDilHighPtMM_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtMM_QCD->GetBinContent(i)-1),
-       1000*hDIDilHighPtEE->GetBinContent(i),100*abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1)); 
+       1000*hDIDilHighPtEE->GetBinContent(i),100*abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1),
+       res[0],res[1],res[2]); 
   }
 
   printf("---------------------------------------------------------------------\n");
   for(int i=1; i<=hDIDilHighPtIncMM->GetNbinsX(); i++){
-    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f\n",i,
+    double res[3] = {1000*(hDIDilHighPtIncMM       ->GetBinContent(i)   +    hDIDilHighPtIncEE    ->GetBinContent(i))/2,
+                     100*(abs(hDIDilHighPtIncMM_PDF->GetBinContent(i)-1)+abs(hDIDilHighPtIncEE_PDF->GetBinContent(i)-1))/2,
+		     100*(abs(hDIDilHighPtIncMM_QCD->GetBinContent(i)-1)+abs(hDIDilHighPtIncEE_QCD->GetBinContent(i)-1))/2};
+    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f ||| LL = %8.2f / %5.2f / %5.2f\n",i,
        1000*hDIDilHighPtIncMM->GetBinContent(i),100*abs(hDIDilHighPtIncMM_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtIncMM_QCD->GetBinContent(i)-1),
-       1000*hDIDilHighPtIncEE->GetBinContent(i),100*abs(hDIDilHighPtIncEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtIncEE_QCD->GetBinContent(i)-1)); 
+       1000*hDIDilHighPtIncEE->GetBinContent(i),100*abs(hDIDilHighPtIncEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtIncEE_QCD->GetBinContent(i)-1),
+       res[0],res[1],res[2]); 
   }
 
   // tight / loose
@@ -75,9 +90,13 @@ if(ana == 0){  // ZLL analysis
   
   printf("---------------------------------------------------------------------\n");
   for(int i=1; i<=hDIDilHighPtIncMM->GetNbinsX(); i++){
-    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f\n",i,
+    double res[3] = {1000*(hDIDilHighPtIncMM    ->GetBinContent(i)+hDIDilHighPtIncEE        ->GetBinContent(i))/2,
+                     100*(abs(hDIDilHighPtMM_PDF->GetBinContent(i)-1)+abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1))/2,
+		     100*(abs(hDIDilHighPtMM_QCD->GetBinContent(i)-1)+abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1))/2};
+    printf("(%d) MM pdf/qcd = %8.2f / %5.2f / %5.2f ||| EE = %8.2f / %5.2f / %5.2f ||| LL = %8.2f / %5.2f / %5.2f\n",i,
        1000*hDIDilHighPtIncMM->GetBinContent(i),100*abs(hDIDilHighPtMM_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtMM_QCD->GetBinContent(i)-1),
-       1000*hDIDilHighPtIncEE->GetBinContent(i),100*abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1));
+       1000*hDIDilHighPtIncEE->GetBinContent(i),100*abs(hDIDilHighPtEE_PDF->GetBinContent(i)-1),100*abs(hDIDilHighPtEE_QCD->GetBinContent(i)-1),
+       res[0],res[1],res[2]);
   
   }
 }
