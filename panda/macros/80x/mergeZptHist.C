@@ -904,15 +904,15 @@ TH1D *hDIDilHighPtNoEWKNN[nFiles];
 for(int i=0; i<nFiles; i++){
   hDITotalMCWeight[i] = (TH1D*)_file[i]->Get("hDTotalMCWeight");	 
 
-  hDIDilHighPtNoEWKNN[i]   = (TH1D*)_file[i]->Get("hDDilHighPtNoEWKNN"); hDIDilHighPtNoEWKNN[i]->Sumw2(); hDIDilHighPtNoEWKNN[i] ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIDilHighPtNoEWKNN[i] = (TH1D*)_file[i]->Get("hDDilHighPtNoEWKNN"); hDIDilHighPtNoEWKNN[i]->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
 
-  hDIDilHighPtNN[i]     = (TH1D*)_file[i]->Get("hDDilHighPtNN");     hDIDilHighPtNN[i]    ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
-  hDIDilHighPtNN_PDF[i] = (TH1D*)_file[i]->Get("hDDilHighPtNN_PDF"); hDIDilHighPtNN_PDF[i]->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
-  hDIDilHighPtNN_QCD[i] = (TH1D*)_file[i]->Get("hDDilHighPtNN_QCD"); hDIDilHighPtNN_QCD[i]->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIDilHighPtNN[i]      = (TH1D*)_file[i]->Get("hDDilHighPtNN");      hDIDilHighPtNN[i]     ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIDilHighPtNN_PDF[i]  = (TH1D*)_file[i]->Get("hDDilHighPtNN_PDF");  hDIDilHighPtNN_PDF[i] ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIDilHighPtNN_QCD[i]  = (TH1D*)_file[i]->Get("hDDilHighPtNN_QCD");  hDIDilHighPtNN_QCD[i] ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
 
-  hDIExtHighPtNN[i]     = (TH1D*)_file[i]->Get("hDExtHighPtNN");     hDIExtHighPtNN[i]    ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
-  hDIExtHighPtNN_PDF[i] = (TH1D*)_file[i]->Get("hDExtHighPtNN_PDF"); hDIExtHighPtNN_PDF[i]->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
-  hDIExtHighPtNN_QCD[i] = (TH1D*)_file[i]->Get("hDExtHighPtNN_QCD"); hDIExtHighPtNN_QCD[i]->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIExtHighPtNN[i]      = (TH1D*)_file[i]->Get("hDFidHighPtNN");      hDIExtHighPtNN[i]     ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIExtHighPtNN_PDF[i]  = (TH1D*)_file[i]->Get("hDFidHighPtNN_PDF");  hDIExtHighPtNN_PDF[i] ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
+  hDIExtHighPtNN_QCD[i]  = (TH1D*)_file[i]->Get("hDFidHighPtNN_QCD");  hDIExtHighPtNN_QCD[i] ->Scale(xs[i]/hDITotalMCWeight[i]->GetSumOfWeights());  
 }
 
 TH1D *hDDilHighPtNoEWKNN  = (TH1D*)hDIDilHighPtNoEWKNN[0]->Clone();
@@ -921,9 +921,9 @@ TH1D *hDDilHighPtNN      = (TH1D*)hDIDilHighPtNN    [0]->Clone();
 TH1D *hDDilHighPtNN_PDF  = (TH1D*)hDIDilHighPtNN_PDF[0]->Clone();
 TH1D *hDDilHighPtNN_QCD  = (TH1D*)hDIDilHighPtNN_QCD[0]->Clone();
 
-TH1D *hDExtHighPtNN      = (TH1D*)hDIExtHighPtNN    [0]->Clone();
-TH1D *hDExtHighPtNN_PDF  = (TH1D*)hDIExtHighPtNN_PDF[0]->Clone();
-TH1D *hDExtHighPtNN_QCD  = (TH1D*)hDIExtHighPtNN_QCD[0]->Clone();
+TH1D *hDFidHighPtNN      = (TH1D*)hDIExtHighPtNN    [0]->Clone();
+TH1D *hDFidHighPtNN_PDF  = (TH1D*)hDIExtHighPtNN_PDF[0]->Clone();
+TH1D *hDFidHighPtNN_QCD  = (TH1D*)hDIExtHighPtNN_QCD[0]->Clone();
 
 for(int i=1; i<nFiles; i++){
   hDDilHighPtNoEWKNN	->Add(hDIDilHighPtNoEWKNN [i]);   
@@ -932,30 +932,44 @@ for(int i=1; i<nFiles; i++){
   hDDilHighPtNN_PDF ->Add(hDIDilHighPtNN_PDF [i]);   
   hDDilHighPtNN_QCD ->Add(hDIDilHighPtNN_QCD [i]);   
 
-  hDExtHighPtNN	    ->Add(hDIExtHighPtNN     [i]);   
-  hDExtHighPtNN_PDF ->Add(hDIExtHighPtNN_PDF [i]);   
-  hDExtHighPtNN_QCD ->Add(hDIExtHighPtNN_QCD [i]);   
+  hDFidHighPtNN	    ->Add(hDIExtHighPtNN     [i]);   
+  hDFidHighPtNN_PDF ->Add(hDIExtHighPtNN_PDF [i]);   
+  hDFidHighPtNN_QCD ->Add(hDIExtHighPtNN_QCD [i]);   
 }
 
 double diff[2];
 diff[0] = 1000*(hDDilHighPtNN_PDF->GetSumOfWeights()-hDDilHighPtNN->GetSumOfWeights())/6;
 diff[1] = 1000*(hDDilHighPtNN_QCD->GetSumOfWeights()-hDDilHighPtNN->GetSumOfWeights())/6;
-printf("hDDilHighPtNN: %.2f %.2f %.2f (%.2f)\n",1000*hDDilHighPtNN->GetSumOfWeights()/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+printf("hDDilHighPtNN: %.2f %.2f %.2f (%.2f) - NoEWK: %.2f\n",1000*hDDilHighPtNN->GetSumOfWeights()/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)),1000*hDDilHighPtNoEWKNN->GetSumOfWeights()/6);
 for(int i=1; i<=hDDilHighPtNN->GetNbinsX();i++){
   diff[0] = 1000*(hDDilHighPtNN_PDF->GetBinContent(i)-hDDilHighPtNN->GetBinContent(i))/6;
   diff[1] = 1000*(hDDilHighPtNN_QCD->GetBinContent(i)-hDDilHighPtNN->GetBinContent(i))/6;
-  printf("hDDilHighPtNN(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDDilHighPtNN->GetBinContent(i)/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+  printf("hDDilHighPtNN(%d): %.2f %.2f %.2f (%.2f) - NoEWK: %.2f\n",i,1000*hDDilHighPtNN->GetBinContent(i)/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)),1000*hDDilHighPtNoEWKNN->GetBinContent(i)/6);
+}
+
+diff[0] = 1000*(hDFidHighPtNN_PDF->GetSumOfWeights()-hDFidHighPtNN->GetSumOfWeights())/6;
+diff[1] = 1000*(hDFidHighPtNN_QCD->GetSumOfWeights()-hDFidHighPtNN->GetSumOfWeights())/6;
+printf("hDFidHighPtNN: %.2f %.2f %.2f (%.2f)\n",1000*hDFidHighPtNN->GetSumOfWeights()/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+for(int i=1; i<=hDFidHighPtNN->GetNbinsX();i++){
+  diff[0] = 1000*(hDFidHighPtNN_PDF->GetBinContent(i)-hDFidHighPtNN->GetBinContent(i))/6;
+  diff[1] = 1000*(hDFidHighPtNN_QCD->GetBinContent(i)-hDFidHighPtNN->GetBinContent(i))/6;
+  printf("hDFidHighPtNN(%d): %.2f %.2f %.2f (%.2f)\n",i,1000*hDFidHighPtNN->GetBinContent(i)/6,diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 }
 
 double extDiff[3] = {
-hDExtHighPtNN->GetBinContent(1)/hDExtHighPtNN->GetBinContent(2),
-TMath::Abs((hDExtHighPtNN_PDF->GetBinContent(1)/hDExtHighPtNN->GetBinContent(1))/(hDExtHighPtNN_PDF->GetBinContent(2)/hDExtHighPtNN->GetBinContent(2))-1.0),
-TMath::Abs((hDExtHighPtNN_QCD->GetBinContent(1)/hDExtHighPtNN->GetBinContent(1))/(hDExtHighPtNN_QCD->GetBinContent(2)/hDExtHighPtNN->GetBinContent(2))-1.0)
+hDDilHighPtNN->GetSumOfWeights()/hDFidHighPtNN->GetSumOfWeights(),
+TMath::Abs((hDDilHighPtNN_PDF->GetSumOfWeights()/hDDilHighPtNN->GetSumOfWeights())/(hDFidHighPtNN_PDF->GetSumOfWeights()/hDFidHighPtNN->GetSumOfWeights())-1.0),
+TMath::Abs((hDDilHighPtNN_QCD->GetSumOfWeights()/hDDilHighPtNN->GetSumOfWeights())/(hDFidHighPtNN_QCD->GetSumOfWeights()/hDFidHighPtNN->GetSumOfWeights())-1.0)
 };
-
-printf("(200-300): %f %f %f\n",hDExtHighPtNN->GetBinContent(1)/6,hDExtHighPtNN_PDF->GetBinContent(1)/hDExtHighPtNN->GetBinContent(1),hDExtHighPtNN_QCD->GetBinContent(1)/hDExtHighPtNN->GetBinContent(1));
-printf("(250-300): %f %f %f\n",hDExtHighPtNN->GetBinContent(2)/6,hDExtHighPtNN_PDF->GetBinContent(2)/hDExtHighPtNN->GetBinContent(2),hDExtHighPtNN_QCD->GetBinContent(2)/hDExtHighPtNN->GetBinContent(2));
 printf("Diff: %f %f %f %f\n",extDiff[0],extDiff[1],extDiff[2],TMath::Sqrt(TMath::Power(extDiff[1],2)+TMath::Power(extDiff[2],2)));
+for(int i=1; i<=hDFidHighPtNN->GetNbinsX();i++){
+  double extDiff[3] = {
+  hDDilHighPtNN->GetBinContent(i)/hDFidHighPtNN->GetBinContent(i),
+  TMath::Abs((hDDilHighPtNN_PDF->GetBinContent(i)/hDDilHighPtNN->GetBinContent(i))/(hDFidHighPtNN_PDF->GetBinContent(i)/hDFidHighPtNN->GetBinContent(i))-1.0),
+  TMath::Abs((hDDilHighPtNN_QCD->GetBinContent(i)/hDDilHighPtNN->GetBinContent(i))/(hDFidHighPtNN_QCD->GetBinContent(i)/hDFidHighPtNN->GetBinContent(i))-1.0)
+  };
+printf("Diff(%d): %f %f %f %f\n",i,extDiff[0],extDiff[1],extDiff[2],TMath::Sqrt(TMath::Power(extDiff[1],2)+TMath::Power(extDiff[2],2)));
+}
 
 TFile myOutputFile("genZNuNupt_NLO.root","RECREATE");
   hDDilHighPtNoEWKNN->Write(); 
