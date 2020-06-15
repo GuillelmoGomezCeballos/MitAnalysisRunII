@@ -203,11 +203,11 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
     if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
 
-    else if(isVBS[0] == 1 && ic == kPlotqqWW)    {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 1 && ic == kPlotQCDSSWW) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
-    else if(isVBS[0] == 1 && ic == kPlotSignal1) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
-    else if(isVBS[0] == 1 && ic == kPlotSignal2) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
-    else if(isVBS[0] == 1 && ic == kPlotSignal3) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+    else if(isVBS[0] == 1 && ic == kPlotqqWW)                     {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotQCDSSWW)                  {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
+    else if(isVBS[0] == 1 && ic == kPlotSignal1 && !makeRootFile) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+    else if(isVBS[0] == 1 && ic == kPlotSignal2 && !makeRootFile) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
+    else if(isVBS[0] == 1 && ic == kPlotSignal3 && !makeRootFile) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
 
     else if(isVBS[1] == 1 && ic == kPlotggWW)    {_hist[kPlotEWKWZ]  ->Add(_hist[ic]); _hist[ic]->Scale(0);}
   }
@@ -418,6 +418,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
+      for(int i=1; i<=_hist[kPlotData]->GetNbinsX(); i++) if(_hist[kPlotData]->GetBinContent(i)<0) {_hist[kPlotData]->SetBinContent(i,0); _hist[kPlotData]->SetBinError(i,0);}
       TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
       hBck->Scale(0.0);
       for(int ic=0; ic<nPlotCategories; ic++){
