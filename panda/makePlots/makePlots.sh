@@ -1029,6 +1029,9 @@ elif [ $NSEL == 'ww' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,5,"p_{T}^{WW}","GeV","done_ana/histoWW_'${YEAR}'_165.root","wwmm_topsel_ptww",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,5,"p_{T}^{WW}","GeV","done_ana/histoWW_'${YEAR}'_166.root","wwee_topsel_ptww",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,5,"p_{T}^{WW}","GeV","done_ana/histoWW_'${YEAR}'_167.root","wwem_topsel_ptww",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Channel","","done_ana/histoWW_'${YEAR}'_168.root","ww_datacard",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}',"done_ana/../ana_ww/fitDiagnosticsww_'${YEAR}'_obs.root","ch1",1)';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"N_{j}","","done_ana/histoWW_'${YEAR}'_168.root","wwmm_zsel_njets",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"N_{j}","","done_ana/histoWW_'${YEAR}'_169.root","wwee_zsel_njets",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"N_{j}","","done_ana/histoWW_'${YEAR}'_170.root","wwem_zsel_njets",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Channel","","done_ana/histoWW_'${YEAR}'_171.root","ww_datacard",0,'${YEAR}',"H_{125}",'${sf_dy}',0,"",1,'${APPLYSCALING}',"done_ana/../ana_ww/fitDiagnosticsww_'${YEAR}'_obs.root","ch1",1)';
 
 fi
