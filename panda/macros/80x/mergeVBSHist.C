@@ -189,21 +189,21 @@ for(int i=1; i<=hDEWKWWNEWPTL1->GetNbinsX();i++){
 }
 
 // Polarization modes analysis
-diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
-diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
-printf("hDEWKXX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+diff[0] = 1000*((hDIEWKWWNEWMJJQCD_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_PDF[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJQCD_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_QCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
+printf("hDEWKXX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()+hDIEWKWWNEWMJJ[2]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 
-diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()));
-diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()));
-printf("hDEWKLL: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+diff[0] = 1000*((hDIEWKWWNEWMJJQCD_PDF[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJQCD_QCD[0]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()));
+printf("hDEWKLL: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 
-diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
-diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
-printf("hDEWKTX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()));
+printf("hDEWKTX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 
-diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
-diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()));
-printf("hDEWKLX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJ[0]->GetSumOfWeights()+hDIEWKWWNEWMJJ[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
+diff[0] = 1000*((hDIEWKWWNEWMJJQCD_PDF[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_PDF[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()));
+diff[1] = 1000*((hDIEWKWWNEWMJJQCD_QCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD_QCD[1]->GetSumOfWeights())-(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()));
+printf("hDEWKLX: %.3f %.3f %.3f (%.3f)\n",1000*(hDIEWKWWNEWMJJQCD[0]->GetSumOfWeights()+hDIEWKWWNEWMJJQCD[1]->GetSumOfWeights()),diff[0],diff[1],TMath::Sqrt(TMath::Power(diff[0],2)+TMath::Power(diff[1],2)));
 
 diff[0] = 1000*((hDIEWKWWNEWMJJ_PDF[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
 diff[1] = 1000*((hDIEWKWWNEWMJJ_QCD[2]->GetSumOfWeights())-(hDIEWKWWNEWMJJ[2]->GetSumOfWeights()));
