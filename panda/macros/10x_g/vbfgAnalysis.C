@@ -391,7 +391,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 20;  xminPlot = 60.0; xmaxPlot = 460;}
     else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 4;   xminPlot =  1.5; xmaxPlot = 5.5;}
     else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot = 10;  xminPlot =500.0; xmaxPlot = 2500;}
+    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot =  5;  xminPlot =500.0; xmaxPlot = 3000;}
     else if(thePlot >=  30 && thePlot <=  34) {nBinPlot = 10;  xminPlot =  3.0; xmaxPlot = 8;}
     else if(thePlot >=  35 && thePlot <=  39) {nBinPlot = 10;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 14;  xminPlot =  0.0; xmaxPlot = 210;}
@@ -789,12 +789,12 @@ int year, int triggerCat, int mH = 125
       bool passNjets     = thePandaFlat.nJot              >= 2 && thePandaFlat.nJot              <= 5 && thePandaFlat.jotPt[0]  	    > 50 && thePandaFlat.jotPt[1]	       > 50;
       bool passNjetsUp   = thePandaFlat.nJot_JESTotalUp   >= 2 && thePandaFlat.nJot_JESTotalUp   <= 5 && thePandaFlat.jotPt_JESTotalUp[0]   > 50 && thePandaFlat.jotPt_JESTotalUp[1]   > 50;
       bool passNjetsDown = thePandaFlat.nJot_JESTotalDown >= 2 && thePandaFlat.nJot_JESTotalDown <= 5 && thePandaFlat.jotPt_JESTotalDown[0] > 50 && thePandaFlat.jotPt_JESTotalDown[1] > 50;
-      TLorentzVector vJot1;     vJot1.SetPtEtaPhiM    (thePandaFlat.jotPt[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
-      TLorentzVector vJot2;     vJot2.SetPtEtaPhiM    (thePandaFlat.jotPt[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
-      TLorentzVector vJot1Up;   vJot1Up.SetPtEtaPhiM  (thePandaFlat.jotPt_JESTotalUp[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
-      TLorentzVector vJot2Up;   vJot2Up.SetPtEtaPhiM  (thePandaFlat.jotPt_JESTotalUp[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
-      TLorentzVector vJot1Down; vJot1Down.SetPtEtaPhiM(thePandaFlat.jotPt_JESTotalDown[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
-      TLorentzVector vJot2Down; vJot2Down.SetPtEtaPhiM(thePandaFlat.jotPt_JESTotalDown[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
+      TLorentzVector vJot1;     if(thePandaFlat.jotPt[0]>10) vJot1.SetPtEtaPhiM    (thePandaFlat.jotPt[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
+      TLorentzVector vJot2;     if(thePandaFlat.jotPt[1]>10) vJot2.SetPtEtaPhiM    (thePandaFlat.jotPt[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
+      TLorentzVector vJot1Up;   if(thePandaFlat.jotPt_JESTotalUp[0]>10) vJot1Up.SetPtEtaPhiM  (thePandaFlat.jotPt_JESTotalUp[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
+      TLorentzVector vJot2Up;   if(thePandaFlat.jotPt_JESTotalUp[1]>10) vJot2Up.SetPtEtaPhiM  (thePandaFlat.jotPt_JESTotalUp[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
+      TLorentzVector vJot1Down; if(thePandaFlat.jotPt_JESTotalDown[0]>10) vJot1Down.SetPtEtaPhiM(thePandaFlat.jotPt_JESTotalDown[0],thePandaFlat.jotEta[0],thePandaFlat.jotPhi[0],0.0);
+      TLorentzVector vJot2Down; if(thePandaFlat.jotPt_JESTotalDown[1]>10) vJot2Down.SetPtEtaPhiM(thePandaFlat.jotPt_JESTotalDown[1],thePandaFlat.jotEta[1],thePandaFlat.jotPhi[1],0.0);
       totSystem     = totSystem     + vJot1     + vJot2;
       totSystemUp   = totSystemUp   + vJot1Up   + vJot2Up;
       totSystemDown = totSystemDown + vJot1Down + vJot2Down;
@@ -1139,7 +1139,7 @@ int year, int triggerCat, int mH = 125
 	if(passNMinusOne[0]) histo[10+theMinSelType][theCategory]->Fill(TMath::Min(vMet.Pt(),459.999),totalWeight);
 	if(dataCardSel >= 0) histo[15+theMinSelType][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.499),totalWeight);
 	if(passNMinusOne[2]) histo[20+theMinSelType][theCategory]->Fill(TMath::Min(dPhiJetMET,2.999),totalWeight);
-	if(dataCardSel >= 0) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
+	if(dataCardSel >= 0) histo[25+theMinSelType][theCategory]->Fill(TMath::Min(massJJ,2999.999),totalWeight);
 	if(dataCardSel >= 0)  histo[30+theMinSelType][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
 	if(passNMinusOne[5]) histo[35+theMinSelType][theCategory]->Fill(gZep,totalWeight);
 	if(passNMinusOne[6]) histo[40+theMinSelType][theCategory]->Fill(TMath::Min(totSystem.Pt(),209.999),totalWeight);
@@ -1253,31 +1253,33 @@ int year, int triggerCat, int mH = 125
   } // end chain loop
 
   // Mismeasured photon
-  for(int i=1; i<=nBinMVA1D; i++) {
-    histo_Baseline[kPlotPhotonE0]->SetBinContent(i+        0,histoMTGMET0p50->GetBinContent(i));
-    histo_GJPhotonE0Up           ->SetBinContent(i+        0,histoMTGMET0p75->GetBinContent(i));
-    histo_GJPhotonE0Down         ->SetBinContent(i+        0,histoMTGMET0p25->GetBinContent(i));
-    histo_Baseline[kPlotPhotonE1]->SetBinContent(i+nBinMVA/2,histoMTGMET0p50->GetBinContent(i));
-    histo_GJPhotonE1Up           ->SetBinContent(i+nBinMVA/2,histoMTGMET0p75->GetBinContent(i));
-    histo_GJPhotonE1Down         ->SetBinContent(i+nBinMVA/2,histoMTGMET0p25->GetBinContent(i));
-  }
-  double normPhotonE0 = 25.0; if(year != 2016) normPhotonE0 = 1.0; if(isHVBFGAna) normPhotonE0 = 0.0;
-  histo_Baseline[kPlotPhotonE0]->Scale(normPhotonE0/histo_Baseline[kPlotPhotonE0]->GetSumOfWeights());
-  histo_GJPhotonE0Up           ->Scale(normPhotonE0/histo_GJPhotonE0Up		 ->GetSumOfWeights());
-  histo_GJPhotonE0Down         ->Scale(normPhotonE0/histo_GJPhotonE0Down 	 ->GetSumOfWeights());
-  double normPhotonE1 = 10.0; if(year != 2016) normPhotonE1 = 1.0; if(isHVBFGAna) normPhotonE1 = 0.0;
-  histo_Baseline[kPlotPhotonE1]->Scale(normPhotonE1/histo_Baseline[kPlotPhotonE1]->GetSumOfWeights());
-  histo_GJPhotonE1Up           ->Scale(normPhotonE1/histo_GJPhotonE1Up		 ->GetSumOfWeights());
-  histo_GJPhotonE1Down         ->Scale(normPhotonE1/histo_GJPhotonE1Down 	 ->GetSumOfWeights());
+  if(histoMTGMET0p50->GetSumOfWeights() > 0){
+    for(int i=1; i<=nBinMVA1D; i++) {
+      histo_Baseline[kPlotPhotonE0]->SetBinContent(i+        0,histoMTGMET0p50->GetBinContent(i));
+      histo_GJPhotonE0Up           ->SetBinContent(i+        0,histoMTGMET0p75->GetBinContent(i));
+      histo_GJPhotonE0Down         ->SetBinContent(i+        0,histoMTGMET0p25->GetBinContent(i));
+      histo_Baseline[kPlotPhotonE1]->SetBinContent(i+nBinMVA/2,histoMTGMET0p50->GetBinContent(i));
+      histo_GJPhotonE1Up           ->SetBinContent(i+nBinMVA/2,histoMTGMET0p75->GetBinContent(i));
+      histo_GJPhotonE1Down         ->SetBinContent(i+nBinMVA/2,histoMTGMET0p25->GetBinContent(i));
+    }
+    double normPhotonE0 = 25.0; if(year != 2016) normPhotonE0 = 1.0; if(isHVBFGAna) normPhotonE0 = 0.0;
+    histo_Baseline[kPlotPhotonE0]->Scale(normPhotonE0/histo_Baseline[kPlotPhotonE0]->GetSumOfWeights());
+    histo_GJPhotonE0Up           ->Scale(normPhotonE0/histo_GJPhotonE0Up		 ->GetSumOfWeights());
+    histo_GJPhotonE0Down         ->Scale(normPhotonE0/histo_GJPhotonE0Down 	 ->GetSumOfWeights());
+    double normPhotonE1 = 10.0; if(year != 2016) normPhotonE1 = 1.0; if(isHVBFGAna) normPhotonE1 = 0.0;
+    histo_Baseline[kPlotPhotonE1]->Scale(normPhotonE1/histo_Baseline[kPlotPhotonE1]->GetSumOfWeights());
+    histo_GJPhotonE1Up           ->Scale(normPhotonE1/histo_GJPhotonE1Up		 ->GetSumOfWeights());
+    histo_GJPhotonE1Down         ->Scale(normPhotonE1/histo_GJPhotonE1Down 	 ->GetSumOfWeights());
 
-  for(int nb=1; nb<=histo_Baseline[kPlotPhotonE0]->GetNbinsX(); nb++){
-    histo[VBFGSEL+0][kPlotPhotonE0]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+0][kPlotPhotonE0]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
-    histo[VBFGSEL+5][kPlotPhotonE1]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+5][kPlotPhotonE1]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
+    for(int nb=1; nb<=histo_Baseline[kPlotPhotonE0]->GetNbinsX(); nb++){
+      histo[VBFGSEL+0][kPlotPhotonE0]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+0][kPlotPhotonE0]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
+      histo[VBFGSEL+5][kPlotPhotonE1]->SetBinContent(nb,histoMTGMET0p50->GetBinContent(nb)); histo[VBFGSEL+5][kPlotPhotonE1]->SetBinError(nb,histoMTGMET0p50->GetBinError(nb));
+    }
+    histo[VBFGSEL+0][kPlotPhotonE0]->Scale(normPhotonE0/histo[VBFGSEL+0][kPlotPhotonE0]->GetSumOfWeights());
+    histo[VBFGSEL+5][kPlotPhotonE1]->Scale(normPhotonE1/histo[VBFGSEL+5][kPlotPhotonE1]->GetSumOfWeights());
+    histoMTGMETMJJ[0][kPlotPhotonE0]->Add(histoMTGMETFit); histoMTGMETMJJ[0][kPlotPhotonE0]->Scale(normPhotonE0/histoMTGMETMJJ[0][kPlotPhotonE0]->GetSumOfWeights());
+    histoMTGMETMJJ[1][kPlotPhotonE1]->Add(histoMTGMETFit); histoMTGMETMJJ[1][kPlotPhotonE1]->Scale(normPhotonE1/histoMTGMETMJJ[1][kPlotPhotonE1]->GetSumOfWeights());
   }
-  histo[VBFGSEL+0][kPlotPhotonE0]->Scale(normPhotonE0/histo[VBFGSEL+0][kPlotPhotonE0]->GetSumOfWeights());
-  histo[VBFGSEL+5][kPlotPhotonE1]->Scale(normPhotonE1/histo[VBFGSEL+5][kPlotPhotonE1]->GetSumOfWeights());
-  histoMTGMETMJJ[0][kPlotPhotonE0]->Add(histoMTGMETFit); histoMTGMETMJJ[0][kPlotPhotonE0]->Scale(normPhotonE0/histoMTGMETMJJ[0][kPlotPhotonE0]->GetSumOfWeights());
-  histoMTGMETMJJ[1][kPlotPhotonE1]->Add(histoMTGMETFit); histoMTGMETMJJ[1][kPlotPhotonE1]->Scale(normPhotonE1/histoMTGMETMJJ[1][kPlotPhotonE1]->GetSumOfWeights());
 
   for(int ic=1; ic<nPlotCategories; ic++) if(histo_Baseline[ic]->GetSumOfWeights() < 0) histo_Baseline[ic]->Scale(0.0);
   for(int ic=0; ic<nPlotCategories; ic++) histo[allPlots-1][ic]->Add(histo_Baseline[ic]);

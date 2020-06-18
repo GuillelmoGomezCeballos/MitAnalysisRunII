@@ -370,52 +370,52 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
   const int nBinMLL = 4; Float_t xbinsMLL[nBinMLL+1] = {20, 80, 140, 240, 500};
   const int nBinWZBDT =  8; Float_t xbinsWZBDT[nBinWZBDT+1] = {-1.000,-0.280,-0.000, 0.230, 0.430, 0.600, 0.740, 0.860, 1.000}; // ptj > 50 default
 /*
-  const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.202, 0.085, 0.296, 0.472, 0.633, 1.000}; // v6 prune default QCD+EW corr
+  const int nBinWWLXBDT = 6; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.203, 0.084, 0.296, 0.471, 0.633, 1.000}; // v6 prune default QCD+EW corr
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.182;xbinsWWLXBDT[2] =  0.088;xbinsWWLXBDT[3] = 0.268;
+    xbinsWWLXBDT[1] = -0.183;xbinsWWLXBDT[2] =  0.088;xbinsWWLXBDT[3] = 0.268;
     xbinsWWLXBDT[4] =  0.419;xbinsWWLXBDT[5] =  0.573;xbinsWWLXBDT[6] = 1.000;
   }
 
   if(fidAna == 9){ // v13 default QCD+EW corr
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.213;xbinsWWLXBDT[2] = -0.001;xbinsWWLXBDT[3] = 0.163;
-    xbinsWWLXBDT[4] =  0.314;xbinsWWLXBDT[5] =  0.475;xbinsWWLXBDT[6] = 1.000;
+    xbinsWWLXBDT[1] = -0.214;xbinsWWLXBDT[2] = -0.002;xbinsWWLXBDT[3] = 0.162;
+    xbinsWWLXBDT[4] =  0.313;xbinsWWLXBDT[5] =  0.474;xbinsWWLXBDT[6] = 1.000;
   }
   if(wwPath.Contains("wwframe") && fidAna == 9){ // wwframe
     printf("xbinsWWLXBDT fid9 for %s\n",wwPath.Data());
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.202;xbinsWWLXBDT[2] = -0.011;xbinsWWLXBDT[3] = 0.140;
+    xbinsWWLXBDT[1] = -0.202;xbinsWWLXBDT[2] = -0.012;xbinsWWLXBDT[3] = 0.140;
     xbinsWWLXBDT[4] =  0.303;xbinsWWLXBDT[5] =  0.514;xbinsWWLXBDT[6] = 1.000;
   }
 */
-  const int nBinWWLXBDT = 5; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.135, 0.175, 0.405, 0.600, 1.000}; // v6 prune default QCD+EW corr
+  const int nBinWWLXBDT = 5; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.135, 0.174, 0.404, 0.600, 1.000}; // v6 prune default QCD+EW corr
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.118;xbinsWWLXBDT[2] =  0.166;xbinsWWLXBDT[3] = 0.359;
+    xbinsWWLXBDT[1] = -0.119;xbinsWWLXBDT[2] =  0.166;xbinsWWLXBDT[3] = 0.358;
     xbinsWWLXBDT[4] =  0.539;xbinsWWLXBDT[5] =  1.000;
   }
 
   if(fidAna == 9){ // v13 default QCD+EW corr
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.163;xbinsWWLXBDT[2] =  0.067;xbinsWWLXBDT[3] = 0.254;
-    xbinsWWLXBDT[4] =  0.440;xbinsWWLXBDT[5] =  1.000;
+    xbinsWWLXBDT[1] = -0.164;xbinsWWLXBDT[2] =  0.066;xbinsWWLXBDT[3] = 0.253;
+    xbinsWWLXBDT[4] =  0.439;xbinsWWLXBDT[5] =  1.000;
   }
   if(wwPath.Contains("wwframe") && fidAna == 9){ // wwframe
     printf("xbinsWWLXBDT fid9 for %s\n",wwPath.Data());
     xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.156;xbinsWWLXBDT[2] =  0.049;xbinsWWLXBDT[3] = 0.233;
+    xbinsWWLXBDT[1] = -0.157;xbinsWWLXBDT[2] =  0.049;xbinsWWLXBDT[3] = 0.233;
     xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  1.000;
   }
 
-  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.201, 0.214, 0.536, 0.771, 1.000}; // 10var QCD+EW corr new
+  const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.193, 0.224, 0.543, 0.774, 1.000}; // 10var QCD+EW corr new
   if(wwPath.Contains("wwframe")){ // 10var QCD+EW corr wwframe
     printf("xbinsWWWSBDT for %s\n",wwPath.Data());
     xbinsWWWSBDT[0] = -1.000;
-    xbinsWWWSBDT[1] = -0.175;xbinsWWWSBDT[2] =  0.218;xbinsWWWSBDT[3] = 0.524;
-    xbinsWWWSBDT[4] =  0.754;xbinsWWWSBDT[5] =  1.000;
+    xbinsWWWSBDT[1] = -0.166;xbinsWWWSBDT[2] =  0.229;xbinsWWWSBDT[3] = 0.531;
+    xbinsWWWSBDT[4] =  0.757;xbinsWWWSBDT[5] =  1.000;
   }
 
   const int nBinPTL1 = 8; Float_t xbinsPTL1[nBinPTL1+1] = {20.000,50.000,65.000,80.000,100.000,120.000,150.000,200.000,300.000};
@@ -1458,11 +1458,13 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
         if(!(fidAna == 5 || fidAna == 9)) {isVBS[0] = false; isVBS[1] = false;}
-
-	//if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
-	//  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
-	if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
+isVBS[0] = false; isVBS[1] = false;
+	if     (isVBS[0] && (fidAna == 5 || fidAna == 9) && (infileName_[ifile].Contains("WWjj_SS_long") || infileName_[ifile].Contains("WWjj_SS_lt")))
+	  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	else if(isVBS[0] && (fidAna == 5 || fidAna == 9) && infileName_[ifile].Contains("WWjj_SS_tt"))
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
+	 {totalWeight = totalWeight * 0; return;}
         else if(isVBS[0])
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1])
@@ -2757,12 +2759,14 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 	if(theCategory == kPlotZZ && 
 	   (infileName_[ifile].Contains("qqZZ") == true || infileName_[ifile].Contains("ZZJJQCD") == true)) sf_ewkcorrzz_unc = thePandaFlat.sf_zzUnc;
 	else if(theCategory == kPlotZZ && infileName_[ifile].Contains("ggZZ") == true) sf_ggcorrzz_unc = 1.10;
-	//if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
-        //             sf_ewkcorrvv_unc = hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
-        //                                hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
-	if     (isVBS[0] && (fidAna == 5 || fidAna == 9))
-                     sf_ewkcorrvv_unc = hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
-                                        hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	if     (isVBS[0] && (fidAna == 5 || fidAna == 9) && (infileName_[ifile].Contains("WWjj_SS_long") || infileName_[ifile].Contains("WWjj_SS_lt")))
+        	     sf_ewkcorrvv_unc = hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
+        				hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	else if(isVBS[0] && (fidAna == 5 || fidAna == 9) && infileName_[ifile].Contains("WWjj_SS_tt"))
+                     sf_ewkcorrvv_unc = hWW_KF_CMSUp->GetBinContent(hWW_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
+                                        hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
+	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
+                    {sf_ewkcorrvv_unc = 1; return;}
 	else if(isVBS[0])
                      sf_ewkcorrvv_unc = hWW_KF_CMSUp->GetBinContent(hWW_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));

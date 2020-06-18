@@ -224,6 +224,11 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
     }
   }
 
+  if(printYieldsBinByBin && hBck->GetSumOfWeights() > 0){
+    printf("Yields(Bck) = %.3f\n",hBck->GetSumOfWeights());
+    for(int i=1; i<=hBck->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",hBck->GetBinContent(i),hBck->GetBinError(i));
+  }
+
   TFile* fileExtra;
   if(plotExtraName != ""){
      fileExtra = new TFile(plotExtraName, "read");

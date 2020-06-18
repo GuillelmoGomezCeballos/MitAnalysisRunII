@@ -499,7 +499,9 @@ mv histoDatacard_43.root histoDatacard_vbfg_sr_mtg_mjj1_trigger1_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
-hadd -f histoDatacard_vbfg_sr_mtg_trigger2_2019.root histoDatacard_vbfg_sr_mtg_mjj?_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_sr_mtg_mjj0_trigger2_2019.root histoDatacard_vbfg_sr_mtg_mjj0_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_sr_mtg_mjj1_trigger2_2019.root histoDatacard_vbfg_sr_mtg_mjj1_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_sr_mtg_trigger2_2019.root      histoDatacard_vbfg_sr_mtg_mjj?_trigger?_201[6-8].root
 
 rm -f studyFitResults*.txt;
 
@@ -545,7 +547,9 @@ mv histoDatacard_53.root histoDatacard_vbfg_wj_mtg_mjj1_trigger1_2018.root
 
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 
-hadd -f histoDatacard_vbfg_wj_mtg_trigger2_2019.root histoDatacard_vbfg_wj_mtg_mjj?_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_wj_mtg_mjj0_trigger2_2019.root histoDatacard_vbfg_wj_mtg_mjj0_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_wj_mtg_mjj1_trigger2_2019.root histoDatacard_vbfg_wj_mtg_mjj1_trigger?_201[6-8].root
+hadd -f histoDatacard_vbfg_wj_mtg_trigger2_2019.root      histoDatacard_vbfg_wj_mtg_mjj?_trigger?_201[6-8].root
 
 rm -f studyFitResults*.txt;
 

@@ -16,6 +16,12 @@ if [ $NSEL == 'vbfg' ]; then
   #export APPLYSCALING=1;
   fi
 
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_25.root","vbfg_trigger'${TRIG}'_sel0_mjj",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_26.root","vbfg_trigger'${TRIG}'_sel1_mjj",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_27.root","vbfg_trigger'${TRIG}'_sel2_mjj",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_28.root","vbfg_trigger'${TRIG}'_sel3_mjj",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_29.root","vbfg_trigger'${TRIG}'_sel4_mjj",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+exit;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFGMTGMETMJJ_'${YEAR}'_trigger'${TRIG}'_mH125_0.root","vbfg_trigger'${TRIG}'_sel_mtg0",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeV","done_vbfg/histoVBFGMTGMETMJJ_'${YEAR}'_trigger'${TRIG}'_mH125_1.root","vbfg_trigger'${TRIG}'_sel_mtg1",0,'${YEAR}',"qqH_{125}(inv.+#gamma) x 0.1",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
 

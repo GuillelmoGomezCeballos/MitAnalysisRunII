@@ -135,7 +135,7 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
 	    _histPostFit[ic]->SetBinContent(countUsedBins,((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinContent(i));
 	    _histPostFit[ic]->SetBinError  (countUsedBins,((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i));
 	  }
-	  else if(nsel >= 10 && nsel < 20){
+	  else if((nsel >= 10 && nsel < 20) || (nsel >= 30 && nsel < 40)){
 	    _histPostFit[ic]->SetBinContent(countUsedBins,((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinContent(i));
 	    _histPostFit[ic]->SetBinError  (countUsedBins,((TH1F*)mlfit->Get(Form("shapes_fit_s/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i));
 	  }

@@ -177,6 +177,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
         totalStatUnc = totalStatUnc + TMath::Power(_hist[ic]->GetBinError(i)*SF_yield[ic],2);
         //_hist[ic]->SetBinContent(i,_hist[ic]->GetBinContent(i)*SF_yield[ic]);
         _hist[ic]->SetBinError(i,TMath::Sqrt(TMath::Power(_hist[ic]->GetBinError(i)*SF_yield[ic],2)+TMath::Power(_hist[ic]->GetBinContent(i)*SF_yield_unc[ic],2)));
+        //_hist[ic]->SetBinError(i,_hist[ic]->GetBinContent(i)*SF_yield_unc[ic]);
       }
     } // mltFit result
 
@@ -198,6 +199,11 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
         }
       }
     }
+  }
+
+  if(printYieldsBinByBin && hBck->GetSumOfWeights() > 0){
+    printf("Yields(Bck) = %.3f\n",hBck->GetSumOfWeights());
+    for(int i=1; i<=hBck->GetNbinsX(); i++) printf("%7.3f +/- %.3f\n",hBck->GetBinContent(i),hBck->GetBinError(i));
   }
 
   _hist[kPlotGJ0]->Add(_hist[kPlotGJ1]);_hist[kPlotGJ1]->Scale(0.0);
@@ -403,7 +409,8 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     myOutputFile = Form("plots/%s.pdf",outputName.Data());
     c1->SaveAs(myOutputFile.Data());
     if(makeRootFile) {
-      TFile output(Form("plots/%s.root",outputName.Data()),"RECREATE");
+      for(int i=1; i<=_hist[kPlotData]->GetNbinsX(); i++) if(_hist[kPlotData]->GetBinContent(i)<0) {_hist[kPlotData]->SetBinContent(i,0); _hist[kPlotData]->SetBinError(i,0);}
+      TFile output(Form("plots/%s",plotName.ReplaceAll("done_vbfg/","").Data()),"RECREATE");
       hBck->Scale(0.0);
       for(int ic=0; ic<nPlotCategories; ic++){
         if(!_hist[ic]) continue;

@@ -210,7 +210,7 @@ int year
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 169;
+  const int allPlots = 172;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     if     (thePlot >=   0 && thePlot <=  44) {nBinPlot = 200; xminPlot =  0.0; xmaxPlot = 200;}
@@ -222,6 +222,7 @@ int year
     else if(thePlot >= 126 && thePlot <= 152) {nBinPlot = 200; xminPlot =  0.0; xmaxPlot = 200;}
     else if(thePlot >= 153 && thePlot <= 161) {nBinPlot =  90; xminPlot =  0.0; xmaxPlot = 180;}
     else if(thePlot >= 162 && thePlot <= 167) {nBinPlot = 300; xminPlot =  0.0; xmaxPlot = 300;}
+    else if(thePlot >= 168 && thePlot <= 170) {nBinPlot =   6; xminPlot = -0.5; xmaxPlot = 5.5;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else                           for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
@@ -479,6 +480,8 @@ int year
       bool passNoPTLLSel   =  passZeroQ && passZVeto &&                 passMET     &&  passBtagVeto     && passNjets	 ;
       bool passNoBtagSel   =  passZeroQ && passZVeto &&  passPTLLCut && passMET                          && passNjets    ;
 
+      bool passZllSel      =  passZeroQ && fabs(dilep.M()-91.1876) < 15;
+
       int dataCardSel = -1; int dataCardSelUp = -1;int dataCardSelDown = -1;
       if     (passWWSel)   dataCardSel = 0;
       else if(passTopSel)  dataCardSel = 1;
@@ -593,6 +596,7 @@ int year
       if(passTopSel)   histo[lepType+153][theCategory]->Fill(TMath::Abs(vLoose[0].DeltaPhi(vMet))*180/TMath::Pi(),totalWeight);
       if(passWWSel)    histo[lepTypeOri+162][theCategory]->Fill(TMath::Min(vWW.Pt(),299.999),totalWeight);
       if(passTopSel)   histo[lepTypeOri+165][theCategory]->Fill(TMath::Min(vWW.Pt(),299.999),totalWeight);
+      if(passZllSel)   histo[lepTypeOri+168][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.4999),totalWeight);
 
       if(lepTypeOri == 2){
         int typeSelAux = 0;
