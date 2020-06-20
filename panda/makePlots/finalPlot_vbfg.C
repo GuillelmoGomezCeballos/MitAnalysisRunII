@@ -174,10 +174,10 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
       _hist[ic]->Scale(SF_yield[ic]);
       totalSystUnc = totalSystUnc + TMath::Power(_hist[ic]->GetSumOfWeights()*SF_yield_unc[ic],2);
       for(int i=1; i<=_hist[ic]->GetNbinsX(); i++){
-        totalStatUnc = totalStatUnc + TMath::Power(_hist[ic]->GetBinError(i)*SF_yield[ic],2);
-        //_hist[ic]->SetBinContent(i,_hist[ic]->GetBinContent(i)*SF_yield[ic]);
-        _hist[ic]->SetBinError(i,TMath::Sqrt(TMath::Power(_hist[ic]->GetBinError(i)*SF_yield[ic],2)+TMath::Power(_hist[ic]->GetBinContent(i)*SF_yield_unc[ic],2)));
-        //_hist[ic]->SetBinError(i,_hist[ic]->GetBinContent(i)*SF_yield_unc[ic]);
+        double theStat = _hist[ic]->GetBinError(i);
+        double theSyst = _hist[ic]->GetBinContent(i)*SF_yield_unc[ic];
+        totalStatUnc = totalStatUnc + TMath::Power(theStat,2);
+        _hist[ic]->SetBinError(i,TMath::Min(TMath::Sqrt(TMath::Power(theStat,2)+TMath::Power(theSyst,2)),_hist[ic]->GetBinContent(i)));
       }
     } // mltFit result
 

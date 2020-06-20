@@ -391,7 +391,7 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >=  10 && thePlot <=  14) {nBinPlot = 20;  xminPlot = 60.0; xmaxPlot = 460;}
     else if(thePlot >=  15 && thePlot <=  19) {nBinPlot = 4;   xminPlot =  1.5; xmaxPlot = 5.5;}
     else if(thePlot >=  20 && thePlot <=  24) {nBinPlot = 12;  xminPlot =  0.0; xmaxPlot = 3.0;}
-    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot =  5;  xminPlot =500.0; xmaxPlot = 3000;}
+    else if(thePlot >=  25 && thePlot <=  29) {nBinPlot = 10;  xminPlot =500.0; xmaxPlot = 3000;}
     else if(thePlot >=  30 && thePlot <=  34) {nBinPlot = 10;  xminPlot =  3.0; xmaxPlot = 8;}
     else if(thePlot >=  35 && thePlot <=  39) {nBinPlot = 10;  xminPlot =  0.0; xmaxPlot = 1.0;}
     else if(thePlot >=  40 && thePlot <=  44) {nBinPlot = 14;  xminPlot =  0.0; xmaxPlot = 210;}
@@ -1016,9 +1016,9 @@ int year, int triggerCat, int mH = 125
 	totalWeight = totalWeight * nloKfactor;
 
         // EWK K-factors
-	//if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
-	//else if(infileCat_[ifile] == kPlotDY)  totalWeight = totalWeight * thePandaFlat.sf_ewkV;
-	//else if(infileCat_[ifile] == kPlotGJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	else if(infileCat_[ifile] == kPlotDY)  totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	else if(infileCat_[ifile] == kPlotGJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
 
         if((theCategory == kPlotWJ0 && theMinSelType == MGSEL) ||
            (theCategory == kPlotDY && theMinSelType == MMGSEL)) totalWeight = 0.0;

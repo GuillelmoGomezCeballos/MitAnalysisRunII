@@ -217,7 +217,6 @@ mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_35.root histoDatacard_long_all_2019.root
 
 rm -f studyFitResults*.txt;
-rm -f histoDatacard_*.root
 
 echo "***************LONG WW SR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(30, "done_ana/histossww_2016_0_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2016")';
@@ -239,7 +238,6 @@ mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_30.root histoDatacard_long_wwsr_2019.root
 
 rm -f studyFitResults*.txt;
-rm -f histoDatacard_*.root
 
 echo "***************LONG BTAG CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(31, "done_ana/histossww_2016_1_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2016")';
@@ -261,7 +259,6 @@ mv studyFitResults.txt studyFitResults_2019.txt;
 mv histoDatacard_31.root histoDatacard_long_btag_2019.root
 
 rm -f studyFitResults*.txt;
-rm -f histoDatacard_*.root
 
 echo "***************LONG ZZ CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(32, "done_ana/histossww_2016_2_fiducial5.root", "ana_long/fitDiagnosticsssww_2019_fiducial5_obs.root", "SSWW_2016")';
