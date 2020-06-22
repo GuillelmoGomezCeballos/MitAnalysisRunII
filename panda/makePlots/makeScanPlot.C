@@ -83,9 +83,9 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   leg->SetFillColor (    0);
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
-  leg->SetTextSize  (0.040);
-  leg->AddEntry(scan1, "Expected stat only","l");
-  leg->AddEntry(scan0, "Expected stat+syst","l");
+  leg->SetTextSize  (0.031);
+  leg->AddEntry(scan1, "Expected bkg. only stat","l");
+  leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
   leg->AddEntry(scan2, "Observed","l");
   leg->Draw("same");
 

@@ -390,7 +390,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
-  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.401),TMath::Min( TMath::Max(maxRatio+0.1,1.499),4.999));
+  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.501),TMath::Min( TMath::Max(maxRatio+0.1,1.499),4.999));
   hRatio->GetYaxis()->CenterTitle();
   eraselabel(pad1,hData->GetXaxis()->GetLabelSize());
   }

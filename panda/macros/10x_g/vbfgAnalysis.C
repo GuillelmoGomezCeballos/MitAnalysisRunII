@@ -379,7 +379,7 @@ int year, int triggerCat, int mH = 125
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 118;
+  const int allPlots = 124;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     bool is1DCard = false;
@@ -413,6 +413,9 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >= 113 && thePlot <= 113) {the1DFit = 2;}
     else if(thePlot >= 114 && thePlot <= 114) {the1DFit = 2;}
     else if(thePlot >= 115 && thePlot <= 116) {the1DFit = 1;}
+    else if(thePlot >= 117 && thePlot <= 119) {nBinPlot = 40; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
+    else if(thePlot >= 120 && thePlot <= 121) {nBinPlot = 40; xminPlot = -4.5; xmaxPlot = 4.5;}
+    else if(thePlot >= 122 && thePlot <= 122) {nBinPlot = 40; xminPlot = -2.5; xmaxPlot = 2.5;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
@@ -858,12 +861,6 @@ int year, int triggerCat, int mH = 125
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
       }
-      /*if(thePandaFlat.nJot >= 2 && theMinSelType == GJSEL && year  != 2016){
-        passHEM1516 = passHEM1516 &&  
-        !(TMath::Abs(thePandaFlat.jotEta[0]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[0]) < 3.2) &&
-        !(TMath::Abs(thePandaFlat.jotEta[1]) > 2.6 && TMath::Abs(thePandaFlat.jotEta[1]) < 3.2);
-      }*/
-      if(passHEM1516 == false) continue;
 
       double dPhiJetCutVal = 1.0;
       bool passDPhiJetMET     = dPhiJetMET     >= dPhiJetCutVal || theMinSelType == GJSEL;
@@ -1099,6 +1096,19 @@ int year, int triggerCat, int mH = 125
       }
 
       if(totalWeight == 0) continue;
+
+      if(passAllCuts[VBFGSEL] && thePandaFlat.jotEta[0]<-1.3 && thePandaFlat.jotEta[0]>-3.0) histo[117][theCategory]->Fill(thePandaFlat.jotPhi[0],totalWeight);
+      if(passAllCuts[VBFGSEL] && thePandaFlat.jotEta[1]<-1.3 && thePandaFlat.jotEta[1]>-3.0) histo[117][theCategory]->Fill(thePandaFlat.jotPhi[1],totalWeight);
+      if(passAllCuts[GJSEL] && thePandaFlat.jotEta[0]<-1.3 && thePandaFlat.jotEta[0]>-3.0)   histo[118][theCategory]->Fill(thePandaFlat.jotPhi[0],totalWeight);
+      if(passAllCuts[GJSEL] && thePandaFlat.jotEta[1]<-1.3 && thePandaFlat.jotEta[1]>-3.0)   histo[118][theCategory]->Fill(thePandaFlat.jotPhi[1],totalWeight);
+      if(passAllCuts[ESEL] && theG.Eta()<-1.3 && theG.Eta()>-3.0)                            histo[119][theCategory]->Fill(theG.Phi(),totalWeight);
+      if(passAllCuts[VBFGSEL] && thePandaFlat.jotPhi[0]<-0.87 && thePandaFlat.jotPhi[0]>-1.57) histo[120][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+      if(passAllCuts[VBFGSEL] && thePandaFlat.jotPhi[1]<-0.87 && thePandaFlat.jotPhi[1]>-1.57) histo[120][theCategory]->Fill(thePandaFlat.jotEta[1],totalWeight);
+      if(passAllCuts[GJSEL] && thePandaFlat.jotPhi[0]<-0.87 && thePandaFlat.jotPhi[0]>-1.57)   histo[121][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+      if(passAllCuts[GJSEL] && thePandaFlat.jotPhi[1]<-0.87 && thePandaFlat.jotPhi[1]>-1.5)    histo[121][theCategory]->Fill(thePandaFlat.jotEta[1],totalWeight);
+      if(passAllCuts[ESEL] && theG.Phi()<-0.87 && theG.Phi()>-1.57)                            histo[122][theCategory]->Fill(theG.Eta(),totalWeight);
+
+      if(passHEM1516 == false) continue;
 
       if(passAllCuts[VBFGSEL] && passPhoSel == 1) {
         srYields [thePandaFlat.looseGenPho1PdgId] = srYields [thePandaFlat.looseGenPho1PdgId] + totalWeight;
