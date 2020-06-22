@@ -15,10 +15,13 @@
 #include "CMS_lumi.C"
 #include "TRandom.h"
 #include "GoodStyle.C"
-void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.root", 
-                  TString scanName1 = "/home/ceballos/ana_area/ana_long/scan1.root", 
-		  TString scanName2 = "/home/ceballos/ana_area/ana_long/scan2.root", 
-		  TString outputName = "likscan"){
+void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
+  TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.root"; if(nsel == 1) scanName0 = "/home/ceballos/ana_area/ana_zh/scan0.root"; // exp stat
+  TString scanName1 = "/home/ceballos/ana_area/ana_long/scan1.root"; if(nsel == 1) scanName1 = "/home/ceballos/ana_area/ana_zh/scan1.root"; // exp syst+stat
+  TString scanName2 = "/home/ceballos/ana_area/ana_long/scan2.root"; if(nsel == 1) scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root"; // obs
+
+  TString xName = "#sigma_{W_{L}W_{L}} [fb]"; if(nsel == 1) xName = "B(H #rightarrow inv)";
+  double textSize = 0.031; if(nsel == 1) textSize = 0.0215;
 
   TFile* file0 = new TFile(scanName0, "read");  if(!file0) {printf("File %s does not exist\n",scanName0.Data()); return;}
   TFile* file1 = new TFile(scanName1, "read");  if(!file1) {printf("File %s does not exist\n",scanName1.Data()); return;}
@@ -36,7 +39,7 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   scan2->GetXaxis()->SetTitleFont  (   42);
   scan2->GetXaxis()->SetTitleOffset(  0.9);
   scan2->GetXaxis()->SetTitleSize  (0.050);
-  scan2->GetXaxis()->SetTitle("#sigma_{W_{L}W_{L}} [fb]");
+  scan2->GetXaxis()->SetTitle(xName.Data());
   scan2->GetYaxis()->SetLabelFont  (   42);
   scan2->GetYaxis()->SetLabelOffset(0.010);
   scan2->GetYaxis()->SetLabelSize  (0.040);
@@ -83,7 +86,7 @@ void makeScanPlot(TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.ro
   leg->SetFillColor (    0);
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
-  leg->SetTextSize  (0.031);
+  leg->SetTextSize  (textSize);
   leg->AddEntry(scan1, "Expected bkg. only stat","l");
   leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
   leg->AddEntry(scan2, "Observed","l");
