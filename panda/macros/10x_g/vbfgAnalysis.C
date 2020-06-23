@@ -413,9 +413,9 @@ int year, int triggerCat, int mH = 125
     else if(thePlot >= 113 && thePlot <= 113) {the1DFit = 2;}
     else if(thePlot >= 114 && thePlot <= 114) {the1DFit = 2;}
     else if(thePlot >= 115 && thePlot <= 116) {the1DFit = 1;}
-    else if(thePlot >= 117 && thePlot <= 119) {nBinPlot = 40; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
-    else if(thePlot >= 120 && thePlot <= 121) {nBinPlot = 40; xminPlot = -4.5; xmaxPlot = 4.5;}
-    else if(thePlot >= 122 && thePlot <= 122) {nBinPlot = 40; xminPlot = -2.5; xmaxPlot = 2.5;}
+    else if(thePlot >= 117 && thePlot <= 119) {nBinPlot = 30; xminPlot = -TMath::Pi();  xmaxPlot = TMath::Pi();}
+    else if(thePlot >= 120 && thePlot <= 121) {nBinPlot = 30; xminPlot = -4.5; xmaxPlot = 4.5;}
+    else if(thePlot >= 122 && thePlot <= 122) {nBinPlot = 30; xminPlot = -1.5; xmaxPlot = 1.5;}
     if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(is1DCard == true)      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA1D, xbins1D);
     else if(is1DMT == true)        for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMT1D, xbinsMT1D);
