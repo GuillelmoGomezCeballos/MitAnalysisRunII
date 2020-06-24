@@ -12,16 +12,30 @@
 #include "TGraphAsymmErrors.h"
 #include "TSystem.h"
 #include "TLatex.h"
+#include "TPaveText.h"
 #include "CMS_lumi.C"
 #include "TRandom.h"
 #include "GoodStyle.C"
 void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
-  TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.root"; if(nsel == 1) scanName0 = "/home/ceballos/ana_area/ana_zh/scan0.root"; // exp stat
-  TString scanName1 = "/home/ceballos/ana_area/ana_long/scan1.root"; if(nsel == 1) scanName1 = "/home/ceballos/ana_area/ana_zh/scan1.root"; // exp syst+stat
-  TString scanName2 = "/home/ceballos/ana_area/ana_long/scan2.root"; if(nsel == 1) scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root"; // obs
-
-  TString xName = "#sigma_{W_{L}W_{L}} [fb]"; if(nsel == 1) xName = "B(H #rightarrow inv)";
-  double textSize = 0.031; if(nsel == 1) textSize = 0.0215;
+  TString scanName0 = "/home/ceballos/ana_area/ana_long/scan0.root"; // exp stat
+  TString scanName1 = "/home/ceballos/ana_area/ana_long/scan1.root"; // exp syst+stat
+  TString scanName2 = "/home/ceballos/ana_area/ana_long/scan2.root"; // obs
+  TString xName = "#sigma_{W_{L}W_{L}} [fb]";
+  double textSize = 0.0310;
+  if     (nsel == 1) {
+    scanName0 = "/home/ceballos/ana_area/ana_zh/scan0.root";
+    scanName1 = "/home/ceballos/ana_area/ana_zh/scan1.root";
+    scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root";
+    xName = "B(H #rightarrow inv)";
+    textSize = 0.0215;
+  }
+  else if(nsel == 2) {
+    scanName0 = "/home/ceballos/ana_area/ana_znn/scan.root";
+    scanName1 = "/home/ceballos/ana_area/ana_znn/scan.root";
+    scanName2 = "/home/ceballos/ana_area/ana_znn/scan.root";
+    xName = "#sigma_{Z} (fb)";
+    textSize = 0.0310;
+  }
 
   TFile* file0 = new TFile(scanName0, "read");  if(!file0) {printf("File %s does not exist\n",scanName0.Data()); return;}
   TFile* file1 = new TFile(scanName1, "read");  if(!file1) {printf("File %s does not exist\n",scanName1.Data()); return;}
@@ -77,8 +91,8 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   pad1->cd();
   pad1->RedrawAxis();
   scan2->Draw("AL");
-  scan1->Draw("LSAME");
-  scan0->Draw("LSAME");
+  if(nsel!=2)scan1->Draw("LSAME");
+  if(nsel!=2)scan0->Draw("LSAME");
   CMS_lumi( pad1, 2019, 11 );
 
   TLegend* leg = new TLegend(0.2, 0.7, 0.4, 0.9);
@@ -87,8 +101,8 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
   leg->SetTextSize  (textSize);
-  leg->AddEntry(scan1, "Expected bkg. only stat","l");
-  leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
+  if(nsel!=2)leg->AddEntry(scan1, "Expected bkg. only stat","l");
+  if(nsel!=2)leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
   leg->AddEntry(scan2, "Observed","l");
   leg->Draw("same");
 
@@ -96,6 +110,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   printf("%f %f\n",scan0->GetXaxis()->GetXmin(),scan0->GetXaxis()->GetXmax());
   printf("%f %f\n",scan1->GetXaxis()->GetXmin(),scan1->GetXaxis()->GetXmax());
   printf("%f %f\n",scan2->GetXaxis()->GetXmin(),scan2->GetXaxis()->GetXmax());
+  
   TLine* baseline0 = new TLine(scan2->GetXaxis()->GetXmin(), theLines[0],
                                scan2->GetXaxis()->GetXmax(), theLines[0]);
   baseline0->SetLineStyle(kDashed);
@@ -107,16 +122,23 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   extraLabel0->SetTextSize(0.035);
   extraLabel0->Draw();
 
-  TLine* baseline1 = new TLine(scan2->GetXaxis()->GetXmin(), theLines[1],
-                               scan2->GetXaxis()->GetXmax(), theLines[1]);
-  baseline1->SetLineStyle(kDashed);
-  baseline1->Draw();
-  TLatex* extraLabel1 = new TLatex(0.80, 0.62,"95\% CL");
-  extraLabel1->SetNDC();
-  extraLabel1->SetTextAlign(12);
-  extraLabel1->SetTextFont(62);
-  extraLabel1->SetTextSize(0.035);
-  extraLabel1->Draw();
+  if(nsel!=2){
+    TLine* baseline1 = new TLine(scan2->GetXaxis()->GetXmin(), theLines[1],
+                                 scan2->GetXaxis()->GetXmax(), theLines[1]);
+   baseline1->SetLineStyle(kDashed);
+    baseline1->Draw();
+    TLatex* extraLabel1 = new TLatex(0.80, 0.62,"95\% CL");
+    extraLabel1->SetNDC();
+    extraLabel1->SetTextAlign(12);
+    extraLabel1->SetTextFont(62);
+    extraLabel1->SetTextSize(0.035);
+    extraLabel1->Draw();
+  }
+  else {
+    TPaveText *pt = new TPaveText(0.5, 0.8, 0.8, 0.9, "NDCNB");
+    pt->AddText("#sigma_{Z} = 3019^{#plus 177}_{#minus 166} fb");
+    pt->Draw();
+  }
 
   if(strcmp(outputName.Data(),"") != 0){
     TString myOutputFile;
