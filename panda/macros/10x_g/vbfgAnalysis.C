@@ -861,6 +861,7 @@ int year, int triggerCat, int mH = 125
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
       }
+      passHEM1516 = true;
 
       double dPhiJetCutVal = 1.0;
       bool passDPhiJetMET     = dPhiJetMET     >= dPhiJetCutVal || theMinSelType == GJSEL;
@@ -1013,9 +1014,9 @@ int year, int triggerCat, int mH = 125
 	totalWeight = totalWeight * nloKfactor;
 
         // EWK K-factors
-	if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
-	else if(infileCat_[ifile] == kPlotDY)  totalWeight = totalWeight * thePandaFlat.sf_ewkV;
-	else if(infileCat_[ifile] == kPlotGJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	//if     (infileCat_[ifile] == kPlotWJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	//else if(infileCat_[ifile] == kPlotDY)  totalWeight = totalWeight * thePandaFlat.sf_ewkV;
+	//else if(infileCat_[ifile] == kPlotGJ0) totalWeight = totalWeight * thePandaFlat.sf_ewkV;
 
         if((theCategory == kPlotWJ0 && theMinSelType == MGSEL) ||
            (theCategory == kPlotDY && theMinSelType == MMGSEL)) totalWeight = 0.0;
@@ -1209,7 +1210,7 @@ int year, int triggerCat, int mH = 125
         }
         else if(theCategory != kPlotData){
 	  if(dataCardSel >= 0) {
-	    double pdf_error = pdfUncs[0]; if(theCategory == kPlotBSM) pdf_error = pdfUncs[1];
+	    double pdf_error = pdfUncs[0]+(gRandom->Uniform()-0.5)*0.01; if(theCategory == kPlotBSM) pdf_error = pdfUncs[1]+(gRandom->Uniform()-0.5)*0.01;
 	    histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
 	    histo_QCDScaleBounding[theCategory][0]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[0])/maxQCDscale);
 	    histo_QCDScaleBounding[theCategory][1]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[1])/maxQCDscale);

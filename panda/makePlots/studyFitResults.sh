@@ -427,23 +427,23 @@ elif [ $NSEL == 'vbfg' ]; then
 rm -f studyFitResults*.txt;
 #grep -e POST -e background log|awk '{if($1=="POST"&&$3~"BSM")printf("%20s %6.1f pm %6.1f\n",$3,$16,$18);else if($1=="POST")printf("%20s %6.1f pm %6.1f\n",$3,$20,$22);else printf("\n%20s %6.1f pm %6.1f\n",$2,$10,$12);}'
 echo "***************VBFG SR*****"
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2016_trigger0_mH125_117.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2016_trigger0_mH125_123.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2016_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2016.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2016.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger0_mH125_117.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger0_mH125_123.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2017.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger1_mH125_117.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2017_trigger1_mH125_123.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2017_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger1_2017.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger1_2017.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger0_mH125_117.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger0_mH125_123.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger0")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger0_2018.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger0_2018.root
 
-root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger1_mH125_117.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults_vbfg.C+'(99, "done_vbfg/histoVBFG_2018_trigger1_mH125_123.root", "done_vbfg/fitDiagnosticsvbfg125_obs.root", "VBFG_2018_trigger1")';
 mv studyFitResults.txt studyFitResults_vbfg_trigger1_2018.txt;
 mv histoDatacard_99.root histoDatacard_vbfg_trigger1_2018.root
 
