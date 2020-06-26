@@ -1458,7 +1458,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
         if(!(fidAna == 5 || fidAna == 9)) {isVBS[0] = false; isVBS[1] = false;}
-isVBS[0] = false; isVBS[1] = false;
+
 	if     (isVBS[0] && (fidAna == 5 || fidAna == 9) && (infileName_[ifile].Contains("WWjj_SS_long") || infileName_[ifile].Contains("WWjj_SS_lt")))
 	  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0] && (fidAna == 5 || fidAna == 9) && infileName_[ifile].Contains("WWjj_SS_tt"))
