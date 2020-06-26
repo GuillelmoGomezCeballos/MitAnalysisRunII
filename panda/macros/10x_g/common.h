@@ -44,9 +44,11 @@ enum TriggerBits {
     kMuFakeTrig,
     kEleFakeTrig,
     kVBFPhoTrig,
+    kPhoFakeRate,
+    kMetTrigSlim100,
+    kMetTrigSlim120,
     kNTrig
 };
-
 
 enum plotCategory {
   kPlotData	 , // 0
