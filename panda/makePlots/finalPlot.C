@@ -123,7 +123,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   }
 
   int isVBS[2] = {0, 0};
-  if     (_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = 1;
+  if     (plotName.Contains("fiducial6"))                                    isVBS[0] = 2;
+  else if(_hist[kPlotEWKSSWW] && _hist[kPlotEWKSSWW]->GetSumOfWeights() > 0) isVBS[0] = 1;
   else if(_hist[kPlotSignal1] && _hist[kPlotSignal1]->GetSumOfWeights() > 0) isVBS[0] = 1;
   else if(_hist[kPlotSignal2] && _hist[kPlotSignal2]->GetSumOfWeights() > 0) isVBS[0] = 1;
   else if(_hist[kPlotSignal3] && _hist[kPlotSignal3]->GetSumOfWeights() > 0) isVBS[0] = 1;
@@ -156,7 +157,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
     if(isBlind == true && ic == kPlotData) continue;
 
-    if(mlfitResult!="" && ic != kPlotData && ic != kPlotBSM) {
+    if(!(mlfitResult=="" || ic == kPlotData || ic == kPlotBSM || (ic == kPlotSignal1 && isVBS[0] == 2))) {
       SF_yield[ic]     = 1.0;
       SF_yield_unc[ic] = 0.0;
       if     ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data()))) {
@@ -204,6 +205,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
     if     (isRemoveBSM && ic == kPlotBSM) _hist[ic]->Scale(0);
 
+    else if(isVBS[0] == 2 && ic == kPlotSignal1)                  {_hist[kPlotBSM]->Add(_hist[ic]);_hist[ic]->Scale(0);}
     else if(isVBS[0] == 1 && ic == kPlotqqWW)                     {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
     else if(isVBS[0] == 1 && ic == kPlotQCDSSWW)                  {_hist[kPlotEWKSSWW]->Add(_hist[ic]); _hist[ic]->Scale(0);}
     else if(isVBS[0] == 1 && ic == kPlotSignal1 && !makeRootFile) {_hist[kPlotEWKSSWW]->Add(_hist[ic]); /*_hist[ic]->Scale(0);*/}
@@ -235,7 +237,12 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
      fileExtra = new TFile(plotExtraName, "read");
       _hist[kPlotSignal0] = (TH1F*)fileExtra->Get(Form("histo%d",kPlotBSM));
      _hist[kPlotSignal0]->SetNameTitle(Form("histo%d",kPlotSignal0),Form("histo%d",kPlotSignal0));
-      for(int i=1; i<=_hist[kPlotSignal0]->GetNbinsX(); i++) if(_hist[kPlotSignal0]->GetBinContent(i)<0) _hist[kPlotSignal0]->SetBinContent(i,0);
+     for(int i=1; i<=_hist[kPlotSignal0]->GetNbinsX(); i++) if(_hist[kPlotSignal0]->GetBinContent(i)<0) _hist[kPlotSignal0]->SetBinContent(i,0);
+     if(isVBS[0] == 2){
+       _hist[kPlotSignal1] = (TH1F*)fileExtra->Get(Form("histo%d",kPlotSignal1));
+       for(int i=1; i<=_hist[kPlotSignal1]->GetNbinsX(); i++) if(_hist[kPlotSignal1]->GetBinContent(i)<0) _hist[kPlotSignal1]->SetBinContent(i,0);
+       _hist[kPlotSignal0]->Add(_hist[kPlotSignal1]);
+     }
      myPlot.setMCHist(kPlotSignal0, _hist[kPlotSignal0]);
   }
 

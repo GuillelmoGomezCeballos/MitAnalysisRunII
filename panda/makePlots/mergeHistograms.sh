@@ -52,6 +52,16 @@ do
   fi
 done
 
+elif [ $# == 1 ] && [ $1 == "higgs" ]; then
+
+for i in `seq 0 200`;
+do
+  ls done_ana/histossww_2016_${i}_fiducial6_mH500.root done_ana/histossww_2017_${i}_fiducial6_mH500.root done_ana/histossww_2018_${i}_fiducial6_mH500.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_ana/histossww_2019_${i}_fiducial6_mH500.root done_ana/histossww_2016_${i}_fiducial6_mH500.root done_ana/histossww_2017_${i}_fiducial6_mH500.root done_ana/histossww_2018_${i}_fiducial6_mH500.root
+  fi
+done
+
 elif [ $# == 2 ] && [ $1 == "vbfg" ]; then
 
 for i in `seq 0 1`;

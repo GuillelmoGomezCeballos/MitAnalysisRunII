@@ -1117,7 +1117,7 @@ int year, int triggerCat, int mH = 125
       }
 
       //if(passAllCuts[VBFGSEL] && theCategory == kPlotData) {
-      //  printf("DATA: %d %llu %f %f %d %f %f %f %f %f %f\n",thePandaFlat.runNumber,thePandaFlat.eventNumber,mTGMET,vMet.Pt(),thePandaFlat.nJot,dPhiJetMET,massJJ,deltaEtaJJ,gZep,dRJetG,dPhiGMET);
+      //  printf("DATA: %d %d %llu %f %f %d %f %f %f %f %f %f\n",thePandaFlat.runNumber,thePandaFlat.lumiNumber,thePandaFlat.eventNumber,mTGMET,vMet.Pt(),thePandaFlat.nJot,dPhiJetMET,massJJ,deltaEtaJJ,gZep,dRJetG,dPhiGMET);
       //}
 
       if((theMinSelType == VBFGSEL || theMinSelType == GJSEL) && passNjets && passMJJ && passDEtaJJ && passgZep && (theCategory == kPlotGJ0 || theCategory == kPlotGJ1)){

@@ -149,6 +149,30 @@ void skimmingAnalysis(int year, int specialMC = 0)
     infileName_.push_back(Form("WWjj_SS_lt_wwframe.root"));
     infileName_.push_back(Form("WWjj_SS_tt_wwframe.root"));
   }
+  else if(specialMC == 3){
+    infileName_.push_back(Form("qq_cH_WZ200.root"));
+    infileName_.push_back(Form("qq_cH_WZ300.root"));
+    infileName_.push_back(Form("qq_cH_WZ400.root"));
+    infileName_.push_back(Form("qq_cH_WZ500.root"));
+    infileName_.push_back(Form("qq_cH_WZ600.root"));
+    infileName_.push_back(Form("qq_cH_WZ700.root"));
+    infileName_.push_back(Form("qq_cH_WZ800.root"));
+    infileName_.push_back(Form("qq_cH_WZ900.root"));
+    infileName_.push_back(Form("qq_cH_WZ1000.root"));
+    infileName_.push_back(Form("qq_cH_WZ1500.root"));
+    infileName_.push_back(Form("qq_cH_WZ2000.root"));
+    infileName_.push_back(Form("qq_cH_WW200.root"));
+    infileName_.push_back(Form("qq_cH_WW300.root"));
+    infileName_.push_back(Form("qq_cH_WW400.root"));
+    infileName_.push_back(Form("qq_cH_WW500.root"));
+    infileName_.push_back(Form("qq_cH_WW600.root"));
+    infileName_.push_back(Form("qq_cH_WW700.root"));
+    infileName_.push_back(Form("qq_cH_WW800.root"));
+    infileName_.push_back(Form("qq_cH_WW900.root"));
+    infileName_.push_back(Form("qq_cH_WW1000.root"));
+    infileName_.push_back(Form("qq_cH_WW1500.root"));
+    infileName_.push_back(Form("qq_cH_WW2000.root"));
+  }
 
   for(UInt_t ifile=0; ifile<infileName_.size(); ifile++) {
     printf("sampleNames(%d): %s\n",ifile,infileName_[ifile].Data());

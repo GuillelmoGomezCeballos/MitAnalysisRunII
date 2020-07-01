@@ -14,10 +14,11 @@
 #include "pandaFlat.C"
 #include "common.h"
 
-void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna = 0){
+void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna = 0, int mHVal = 0){
 
   TString fidAnaName = "";
-  if(fidAna > 0) fidAnaName = Form("_fiducial%d",fidAna);
+  if     (fidAna == 6) fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal);
+  else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
   double qcdScaleTotal[2] = {0.035, 0.231};
   double pdfTotal[2] = {0.016, 0.051};
@@ -233,7 +234,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
     }
     newcardShape << Form("\n");
 
-    if(fidAna == 6){
+    if(fidAna == 999){
       newcardShape << Form("CMS_fakeMP_%d  shape   ",ny);
       for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;

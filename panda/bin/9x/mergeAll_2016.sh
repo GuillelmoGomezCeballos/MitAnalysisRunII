@@ -99,6 +99,30 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 ADDMonoZ_MD_3_d_7
 #PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 DoubleEG     
 #PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 DoubleMuon
 
+elif [ $NSEL == 'higgs' ]; then
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ200
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ300
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ400
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ500
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ600
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ700
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ800
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ900
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ1000
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ1500
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WZ2000
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW200
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW300
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW400
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW500
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW600
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW700
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW800
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW900
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW1000
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW1500
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 qq_cH_WW2000
+
 elif [ $NSEL == 'specialmc' ]; then
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 ZH_ZToLL_HToGDarkG_M125
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2016 ZH_ZToLL_HToGDarkG_M200

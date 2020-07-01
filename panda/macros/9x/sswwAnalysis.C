@@ -28,13 +28,13 @@ const int includeBSMAQGC = 0;
 
 double syst_WZl[2] = {1.010, 1.012};
 
-// fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(charge), 7 (PTL1), 8 (SM, EWK-INT-QCD WW), 9(lx-tt)
+// fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(Higgs), 7 (PTL1), 8 (SM, EWK-INT-QCD WW), 9(lx-tt)
 
 enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
 void sswwAnalysis(
-int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TString WZName = "WZ3l_MG"
+int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, int mHVal = 0, TString WZName = "WZ3l_MG"
 ){
   int nTypeLepSel[2] = {-1, -1};
   int whichYear = -1;
@@ -44,7 +44,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
   else {printf("Wrong year (%d)!\n",year); return;}
 
   TString fidAnaName = "";
-  if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
+  if     (fidAna == 6) fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal);
+  else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
   TString inputFolder = "/data/t3home000";
 
@@ -91,6 +92,15 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
       infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
       infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
+      }
+      else if(fidAna == 6){
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sqq_cH_WW%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotBSM);
+      infileName_.push_back(Form("%sqq_cH_WZ%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotSignal1);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -160,6 +170,15 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
       infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
       infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
+      }
+      else if(fidAna == 6){
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sqq_cH_WW%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotBSM);
+      infileName_.push_back(Form("%sqq_cH_WZ%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotSignal1);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -231,6 +250,16 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal1);
       infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal2);
       infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotSignal3);
+      }
+      else if(fidAna == 6){
+      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sqq_cH_WW%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotBSM);
+      infileName_.push_back(Form("%sqq_cH_WZ%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotSignal1);
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
@@ -425,7 +454,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
   else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 2*5;
   else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
   else if(useTwoBDTs == true  && (fidAna == 5 || fidAna == 9)) nBinMVAAux = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
-  else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + 3;
+  else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + 2*nBinAQGCMTWW;
   else if(fidAna == 7) nBinMVAAux = nBinMJJCR*nBinPTL1 + 3*nBinMJJCR + nBinWZBDT;
   const int nBinMVA = nBinMVAAux; Float_t xbins[nBinMVA+1];
   for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = -0.5 + nb;
@@ -433,7 +462,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 154;
+  const int allPlots = 155;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     if     (thePlot >=   0 && thePlot <=   4) {nBinPlot =2500; xminPlot = 500.0; xmaxPlot = 3000.0;}
@@ -521,7 +550,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
     else if(thePlot >= 148 && thePlot <= 148) {nBinPlot =  40; xminPlot = 0.0; xmaxPlot = TMath::Pi();}
     else if(thePlot >= 149 && thePlot <= 149) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 5.0;}
     else if(thePlot >= 150 && thePlot <= 150) {nBinPlot =  40; xminPlot =   0.0; xmaxPlot = 2;}
-    else if(thePlot >= 151 && thePlot <= 152) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
+    else if(thePlot >= 151 && thePlot <= 153) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
     if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(thePlot >=   0 && thePlot <=   4) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
     else if(thePlot >=  52 && thePlot <=  53) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
@@ -539,6 +568,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
     else if(thePlot >= 138 && thePlot <= 138) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTWZ, xbinsAQGCMTWZ);
     else if(thePlot >= 139 && thePlot <= 139) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMWZ, xbinsAQGCMWZ);
     else if(thePlot >= 151 && thePlot <= 152) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWWSBDT, xbinsWWWSBDT);
+    else if(thePlot >= 153 && thePlot <= 153) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
     else                                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
 
@@ -927,7 +957,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       if(debug == 2) printf("STEP4 %llu %d %d %d %zu\n",thePandaFlat.eventNumber,passLooseLepId,qTot,countLeptonTight,idLep.size());
       if(passLooseLepId == false) continue;
       if(usePureMC == true && countLeptonTight != idLep.size()) continue;
-      if(infileName_[ifile].Contains("dim8") && countLeptonTight != idLep.size()) continue;
+      if((infileName_[ifile].Contains("dim8") || infileName_[ifile].Contains("qq_cH")) && countLeptonTight != idLep.size()) continue;
       if(debug == 2) printf("STEP5 %llu\n",thePandaFlat.eventNumber);
 
       int lepType = -1; double muSFUnc = 1.0; double elSFUnc = 1.0; double theLepSFUnc = 1.012;
@@ -1326,7 +1356,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       else if(passEWKWZSelJERDown) dataCardSelJERDown = 4;
       else if(passQCDWZSelJERDown) dataCardSelJERDown = 5;
 
-      if(fidAna != 6){
+      if(1){
         if(dataCardSel        == 5) dataCardSel        = -1;
         if(dataCardSelJESUp   == 5) dataCardSelJESUp   = -1;
         if(dataCardSelJESDown == 5) dataCardSelJESDown = -1;
@@ -1457,7 +1487,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 	if((infileCat_[ifile] == kPlotEWKWZ || infileCat_[ifile] == kPlotEWKWZ_dim8)
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
-        if(!(fidAna == 5 || fidAna == 9)) {isVBS[0] = false; isVBS[1] = false;}
+        if(!(fidAna == 5 || fidAna == 9 || fidAna == 6)) {isVBS[0] = false; isVBS[1] = false;}
 
 	if     (isVBS[0] && (fidAna == 5 || fidAna == 9) && (infileName_[ifile].Contains("WWjj_SS_long") || infileName_[ifile].Contains("WWjj_SS_lt")))
 	  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
@@ -1465,13 +1495,19 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
 	 {totalWeight = totalWeight * 0; return;}
-        else if(isVBS[0])
+        else if(isVBS[0] && infileName_[ifile].Contains("qq_cH") == false)
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1])
 	  totalWeight = totalWeight * hWZ_KF_CMS   ->GetBinContent(hWZ_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)));
 
         if     (includeBSMAQGC == 1) totalWeight = totalWeight * (thePandaFlat.rw_ft2_2p9-thePandaFlat.rw_ft2_0);
         else if(includeBSMAQGC == 2) totalWeight = totalWeight * (thePandaFlat.rw_fs0_20-thePandaFlat.rw_fs0_0p0);
+
+        //BEGIN HACK
+	if     (fidAna == 6 && year == 2017 && infileName_[ifile].Contains("qq_cH_WW")) totalWeight = totalWeight * 6.0;
+	else if(fidAna == 6 && year == 2018 && infileName_[ifile].Contains("qq_cH_WW")) totalWeight = totalWeight * 5.5;
+        //END HACK
+
 
         double effSF = 1.0;
         for(unsigned int nl=0; nl<idLep.size(); nl++){
@@ -1485,7 +1521,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
         bool isRS = thePandaFlat.looseGenLep1PdgId > 0 && thePandaFlat.looseGenLep2PdgId > 0;
         if(thePandaFlat.nLooseLep >= 3) isRS = isRS && thePandaFlat.looseGenLep3PdgId > 0;
         if(thePandaFlat.nLooseLep >= 4) isRS = isRS && thePandaFlat.looseGenLep4PdgId > 0;
-	if     (!isRS && infileName_[ifile].Contains("dim8")) totalWeight = 0.0;
+	if     (!isRS && (infileName_[ifile].Contains("dim8") || infileName_[ifile].Contains("qq_cH"))) totalWeight = 0.0;
 	else if(!isRS && theCategory != kPlotVG) {
 	  theCategory = kPlotWS;
 	  int theWSLepton = -1;
@@ -1882,10 +1918,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
         bdtWZValueJERDown = TMath::Min(theReaderWZ->EvaluateMVA("BDT"),0.999);
       }
 
-      if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 7) && (theCategory == kPlotQCDSSWW || theCategory == kPlotqqWW)) theCategory = kPlotEWKSSWW;
+      if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 7 || fidAna == 6) && (theCategory == kPlotQCDSSWW || theCategory == kPlotqqWW)) theCategory = kPlotEWKSSWW;
       else if(fidAna == 1 && (theCategory == kPlotWZ || theCategory == kPlotggWW)) theCategory = kPlotEWKWZ;
-      else if((fidAna == 5 || fidAna == 9) && (theCategory == kPlotEWKWZ || theCategory == kPlotggWW)) theCategory = kPlotWZ;
-      else if((fidAna == 5 || fidAna == 9) && (theCategory == kPlotWS || theCategory == kPlotVG)) theCategory = kPlotOther;
+      else if((fidAna == 5 || fidAna == 9 || fidAna == 6) && (theCategory == kPlotEWKWZ || theCategory == kPlotggWW)) theCategory = kPlotWZ;
+      else if((fidAna == 5 || fidAna == 9 || fidAna == 6) && (theCategory == kPlotWS || theCategory == kPlotVG)) theCategory = kPlotOther;
 
       if((theCategory == kPlotEWKSSWW || theCategory == kPlotQCDSSWW || theCategory == kPlotqqWW) &&
          (fidAna == 2 || fidAna == 3 || fidAna == 7) &&
@@ -2073,6 +2109,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
       }
       if(passWWSel)   histo[151][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
       if(passBtagSel) histo[152][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
+      if(passWWSel && bdtWWWSValue[0] > 0) histo[153][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
 
       if((theCategory == kPlotData && (passWWSel || passEWKWZSel) && debug == 1) || debug == 2){
         printf("DATA %d %d %llu | %d %d | %d %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %f\n",
@@ -2561,124 +2598,102 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
           }
         }
         else if(fidAna == 6){
-          double typeSelAux0 = 0;
-	  for(int ib=0; ib<nBinMLL; ib++){
-	     if(TMath::Min(mllZ,xbinsMLL[nBinMLL]-0.001) < xbinsMLL[ib+1]) {typeSelAux0 = ib; break;}
+          double typeSelAux0[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
+	     if((alllep+vMet).Mt()     < xbinsAQGCMTWW[ib+1]) {typeSelAux0[0] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
+	     if((alllep+vMetUp).Mt()   < xbinsAQGCMTWW[ib+1]) {typeSelAux0[1] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
+	     if((alllep+vMetDown).Mt() < xbinsAQGCMTWW[ib+1]) {typeSelAux0[2] = ib; break;}
+	  }
+          typeSelAux0[3] = typeSelAux0[0];
+          typeSelAux0[4] = typeSelAux0[0];
+          double bdtWWWSValueBin[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinWWWSBDT; ib++){
+	     if(bdtWWWSValue[0]        < xbinsWWWSBDT[ib+1]) {bdtWWWSValueBin[0] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWWSBDT; ib++){
+	     if(bdtWWWSValueJESUp[0]   < xbinsWWWSBDT[ib+1]) {bdtWWWSValueBin[1] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWWSBDT; ib++){
+	     if(bdtWWWSValueJESDown[0] < xbinsWWWSBDT[ib+1]) {bdtWWWSValueBin[2] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWWSBDT; ib++){
+	     if(bdtWWWSValueJERUp[0]   < xbinsWWWSBDT[ib+1]) {bdtWWWSValueBin[3] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWWSBDT; ib++){
+	     if(bdtWWWSValueJERDown[0] < xbinsWWWSBDT[ib+1]) {bdtWWWSValueBin[4] = ib; break;}
+	  }
+          double typeSelAux1CR[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinMJJCR; ib++){
+	     if(TMath::Min(massJJ       ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1CR[0] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinMJJCR; ib++){
+	     if(TMath::Min(massJJJESUp  ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1CR[1] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinMJJCR; ib++){
+	     if(TMath::Min(massJJJESDown,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1CR[2] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinMJJCR; ib++){
+	     if(TMath::Min(massJJJERUp  ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1CR[3] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinMJJCR; ib++){
+	     if(TMath::Min(massJJJERDown,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1CR[4] = ib; break;}
 	  }
           double typeSelAux1[5] = {0,0,0,0,0};
-	  for(int ib=0; ib<nBinMJJCR; ib++){
-	     if(TMath::Min(massJJ       ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1[0] = ib; break;}
+	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
+	     if((alllep+vMet).Mt()     < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[0] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinMJJCR; ib++){
-	     if(TMath::Min(massJJJESUp  ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1[1] = ib; break;}
+	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
+	     if((alllep+vMetUp).Mt()   < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[1] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinMJJCR; ib++){
-	     if(TMath::Min(massJJJESDown,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1[2] = ib; break;}
+	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
+	     if((alllep+vMetDown).Mt() < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[2] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinMJJCR; ib++){
-	     if(TMath::Min(massJJJERUp  ,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1[3] = ib; break;}
-	  }
-	  for(int ib=0; ib<nBinMJJCR; ib++){
-	     if(TMath::Min(massJJJERDown,xbinsMJJCR[nBinMJJCR]-0.001) < xbinsMJJCR[ib+1]) {typeSelAux1[4] = ib; break;}
-	  }
-          double typeSelAux2[5] = {0,0,0,0,0};
-          if     (deltaEtaJJ     < 4.5) typeSelAux2[0] = 0;
-          else                          typeSelAux2[0] = 1;
-          if     (deltaEtaJJ     < 4.5) typeSelAux2[1] = 0;
-          else                          typeSelAux2[1] = 1;
-          if     (deltaEtaJJ     < 4.5) typeSelAux2[2] = 0;
-          else                          typeSelAux2[2] = 1;
-          typeSelAux2[3] = typeSelAux2[0];
-          typeSelAux2[4] = typeSelAux2[0];
-          double typeSelAux3[5] = {0,0,0,0,0};
-          if     (massJJ        < 1000) typeSelAux3[0] = 0;
-          else if(massJJ        < 1500) typeSelAux3[0] = 1;
-          else if(massJJ        < 2000) typeSelAux3[0] = 2;
-          else                          typeSelAux3[0] = 3;
-          if     (massJJJESUp   < 1000) typeSelAux3[1] = 0;
-          else if(massJJJESUp   < 1500) typeSelAux3[1] = 1;
-          else if(massJJJESUp   < 2000) typeSelAux3[1] = 2;
-          else                          typeSelAux3[1] = 3;
-          if     (massJJJESDown < 1000) typeSelAux3[2] = 0;
-          else if(massJJJESDown < 1500) typeSelAux3[2] = 1;
-          else if(massJJJESDown < 2000) typeSelAux3[2] = 2;
-          else                          typeSelAux3[2] = 3;
-          if     (massJJJERUp   < 1000) typeSelAux3[3] = 0;
-          else if(massJJJERUp   < 1500) typeSelAux3[3] = 1;
-          else if(massJJJERUp   < 2000) typeSelAux3[3] = 2;
-          else                          typeSelAux3[3] = 3;
-          if     (massJJJERDown < 1000) typeSelAux3[4] = 0;
-          else if(massJJJERDown < 1500) typeSelAux3[4] = 1;
-          else if(massJJJERDown < 2000) typeSelAux3[4] = 2;
-          else                          typeSelAux3[4] = 3;
-          double typeSelAux4[5] = {0,0,0,0,0};
-          if     (deltaEtaJJ     < 4.0) typeSelAux4[0] = 0;
-          else if(deltaEtaJJ     < 5.0) typeSelAux4[0] = 1;
-	  else                          typeSelAux4[0] = 2;
-          if     (deltaEtaJJUp   < 4.0) typeSelAux4[1] = 0;
-          else if(deltaEtaJJUp   < 5.0) typeSelAux4[1] = 1;
-	  else                          typeSelAux4[1] = 2;
-          if     (deltaEtaJJDown < 4.0) typeSelAux4[2] = 0;
-          else if(deltaEtaJJDown < 5.0) typeSelAux4[2] = 1;
-	  else                          typeSelAux4[2] = 2;
-          typeSelAux4[3] = typeSelAux4[0];
-          typeSelAux4[4] = typeSelAux4[0];
-          double typeSelAux5[5] = {0,0,0,0,0};
-          if     (massJJ        < 300) typeSelAux5[0] = 0;
-	  else if(massJJ        < 400) typeSelAux5[0] = 1;
-	  else                         typeSelAux5[0] = 2;
-          if     (massJJJESUp   < 300) typeSelAux5[1] = 0;
-	  else if(massJJJESUp   < 400) typeSelAux5[1] = 1;
-	  else                         typeSelAux5[1] = 2;
-          if     (massJJJESDown < 300) typeSelAux5[2] = 0;
-	  else if(massJJJESDown < 400) typeSelAux5[2] = 1;
-	  else                         typeSelAux5[2] = 2;
-          if     (massJJJERUp   < 300) typeSelAux5[3] = 0;
-	  else if(massJJJERUp   < 400) typeSelAux5[3] = 1;
-	  else                         typeSelAux5[3] = 2;
-          if     (massJJJERDown < 300) typeSelAux5[4] = 0;
-	  else if(massJJJERDown < 400) typeSelAux5[4] = 1;
-	  else                         typeSelAux5[4] = 2;
+          typeSelAux1[3] = typeSelAux1[0];
+          typeSelAux1[4] = typeSelAux1[0];
+	  if(massJJ        > 1200) typeSelAux1[0] += nBinAQGCMTWZ;
+	  if(massJJJESUp   > 1200) typeSelAux1[1] += nBinAQGCMTWZ;
+	  if(massJJJESDown > 1200) typeSelAux1[2] += nBinAQGCMTWZ;
+	  if(massJJJERUp   > 1200) typeSelAux1[3] += nBinAQGCMTWZ;
+	  if(massJJJERDown > 1200) typeSelAux1[4] += nBinAQGCMTWZ;
 
           int whichBin = 0;
-          if     (dataCardSel        == 0) MVAVar        = typeSelAux0 + nBinMLL*typeSelAux1[whichBin] + nBinMJJCR*nBinMLL*typeSelAux2[whichBin];
-          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinMLL*2 + typeSelAux1[whichBin];
-          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 1;
-          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2;
-          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + typeSelAux3[whichBin] + nBinMJJCR*typeSelAux4[whichBin];
-          else if(dataCardSel        == 5) MVAVar        = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + typeSelAux5[whichBin];
+          if     (dataCardSel        == 0) MVAVar        = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    //typeSelAux0[whichBin] + nBinAQGCMTWW*bdtWWWSValueBin[whichBin];
+          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinAQGCMTWW +               typeSelAux1CR[whichBin];//nBinAQGCMTWW*nBinWWWSBDT +               typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];//nBinAQGCMTWW*nBinWWWSBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];//nBinAQGCMTWW*nBinWWWSBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  //nBinAQGCMTWW*nBinWWWSBDT + 3*nBinMJJCR + typeSelAux1[whichBin];
 
           whichBin = 1;
-          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux0 + nBinMLL*typeSelAux1[whichBin] + nBinMJJCR*nBinMLL*typeSelAux2[whichBin];
-          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinMLL*2 + typeSelAux1[whichBin];
-          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 1;
-          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2;
-          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + typeSelAux3[whichBin] + nBinMJJCR*typeSelAux4[whichBin];
-          else if(dataCardSelJESUp   == 5) MVAVarJESUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + typeSelAux5[whichBin];
+          if     (dataCardSelJESUp   == 0) MVAVarJESUp   =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJESUp   == 1) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 2) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 3) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 4) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 2;
-          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux0 + nBinMLL*typeSelAux1[whichBin] + nBinMJJCR*nBinMLL*typeSelAux2[whichBin];
-          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinMLL*2 + typeSelAux1[whichBin];
-          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 1;
-          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2;
-          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + typeSelAux3[whichBin] + nBinMJJCR*typeSelAux4[whichBin];
-          else if(dataCardSelJESDown == 5) MVAVarJESDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + typeSelAux5[whichBin];
+          if     (dataCardSelJESDown == 0) MVAVarJESDown =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJESDown == 1) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 2) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 3) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 4) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 3;
-          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux0 + nBinMLL*typeSelAux1[whichBin] + nBinMJJCR*nBinMLL*typeSelAux2[whichBin];
-          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinMJJCR*nBinMLL*2 + typeSelAux1[whichBin];
-          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 1;
-          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2;
-          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + typeSelAux3[whichBin] + nBinMJJCR*typeSelAux4[whichBin];
-          else if(dataCardSelJERUp   == 5) MVAVarJERUp   = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + typeSelAux5[whichBin];
+          if     (dataCardSelJERUp   == 0) MVAVarJERUp   =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJERUp   == 1) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 2) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 3) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 4) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 4;
-          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux0 + nBinMLL*typeSelAux1[whichBin] + nBinMJJCR*nBinMLL*typeSelAux2[whichBin];
-          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinMLL*2 + typeSelAux1[whichBin];
-          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 1;
-          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2;
-          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + typeSelAux3[whichBin] + nBinMJJCR*typeSelAux4[whichBin];
-          else if(dataCardSelJERDown == 5) MVAVarJERDown = nBinMJJCR*nBinMLL*2 + nBinMJJCR + 2 + 12 + typeSelAux5[whichBin];
+          if     (dataCardSelJERDown == 0) MVAVarJERDown =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJERDown == 1) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 2) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 3) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 4) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];
         }
         else if(fidAna == 7){
           double typeSelAux0 = 0;
@@ -2767,7 +2782,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
                     {sf_ewkcorrvv_unc = 1; return;}
-	else if(isVBS[0])
+	else if(isVBS[0] && infileName_[ifile].Contains("qq_cH") == false)
                      sf_ewkcorrvv_unc = hWW_KF_CMSUp->GetBinContent(hWW_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1]) sf_ewkcorrvv_unc = hWZ_KF_CMSUp->GetBinContent(hWZ_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)))/
@@ -2963,7 +2978,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 
   double mean, diff;
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    if(ic == kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     for(int nb=1; nb<=histo_Baseline[ic]->GetNbinsX(); nb++){
 
       if(ic == kPlotNonPrompt){
@@ -3704,7 +3719,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, TS
 
   // Writing standard histograms
   char output[200];
-  if(fidAna == 0 || fidAna == 5 || fidAna == 9){
+  if(fidAna == 0 || fidAna == 5 || fidAna == 9 || fidAna == 6){
     for(int thePlot=0; thePlot<allPlots; thePlot++){
       sprintf(output,"histossww_%d_%d%s.root",year,thePlot,fidAnaName.Data());
       TFile* outFilePlotsNote = new TFile(output,"recreate");
