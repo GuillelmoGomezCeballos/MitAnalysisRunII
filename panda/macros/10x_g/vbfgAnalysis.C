@@ -861,7 +861,6 @@ int year, int triggerCat, int mH = 125
           passHEM1516 = passHEM1516 && !(theG.Phi()<-0.87 && theG.Phi()>-1.57 && theG.Eta()<-1.3 && theG.Eta()>-3.0);
         }
       }
-      passHEM1516 = true;
 
       double dPhiJetCutVal = 1.0;
       bool passDPhiJetMET     = dPhiJetMET     >= dPhiJetCutVal || theMinSelType == GJSEL;
