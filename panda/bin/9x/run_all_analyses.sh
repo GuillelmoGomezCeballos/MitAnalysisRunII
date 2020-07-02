@@ -97,6 +97,8 @@ elif [ $NSEL == 60 ]; then
   root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',5)' >& log_ssww_fid5_${YEAR} &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',9)' >& log_ssww_fid9_${YEAR} &
+  #root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_3d.C+
+  #nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_3d.C+'('${YEAR}',5,"wwframe")' >& log_ssww_fid5_${YEAR} &
 
 elif [ $NSEL == 61 ]; then
   root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+

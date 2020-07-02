@@ -163,6 +163,7 @@ double mcCorrection(int type, TString infileName, int year, int infileCat, doubl
 
   if(infileCat == kPlotBSM) {
     if     (infileName.Contains("VBF_HinvG")) totalWeight = totalWeight * 1.0;
+    else if(infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 4.520;
     else if(infileName.Contains("125"))  totalWeight = totalWeight * 0.392500;
     else if(infileName.Contains("150"))  totalWeight = totalWeight * 0.323900;
     else if(infileName.Contains("200"))  totalWeight = totalWeight * 0.228200;

@@ -62,7 +62,7 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   histo->GetYaxis()->SetTitle(ytitle.Data());
   histo->GetYaxis()->SetLabelFont  (   42);
   histo->GetYaxis()->SetLabelOffset(0.015);
-  histo->GetYaxis()->SetLabelSize  (0.125);
+  histo->GetYaxis()->SetLabelSize  (0.090);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
   histo->GetYaxis()->SetTitleOffset(  0.4);
@@ -412,7 +412,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
-  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.501),TMath::Min( TMath::Max(maxRatio+0.1,1.499),4.999));
+  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.501),TMath::Min( TMath::Max(maxRatio+0.1,1.550),4.999));
   hRatio->GetYaxis()->CenterTitle();
   eraselabel(pad1,hData->GetXaxis()->GetLabelSize());
   }
