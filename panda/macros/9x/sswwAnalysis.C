@@ -104,11 +104,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));   infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));   infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
@@ -182,11 +182,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));   infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));   infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
@@ -263,11 +263,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       }
       else {
       //infileName_.push_back(Form("%sWpWp_EWK.root" ,filesPath.Data()));       infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      //infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_long.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      infileName_.push_back(Form("%sWWjj_SS_lttt.root" ,filesPath.Data()));	infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
+      //infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       }
       infileName_.push_back(Form("%sWZ3l_MG_EWK.root" ,filesPath.Data()));	  infileCat_.push_back(kPlotEWKWZ);
       if(fidAna == 4) {
