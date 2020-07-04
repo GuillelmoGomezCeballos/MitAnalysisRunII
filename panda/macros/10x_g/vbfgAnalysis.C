@@ -1603,6 +1603,8 @@ int year, int triggerCat, int mH = 125
 
   }
 
+  //histo_Baseline[kPlotData]->Add(histo_Baseline[kPlotBSM],0.350);
+
   // Filling datacards input root file
   char outputLimits[200];
   sprintf(outputLimits,"vbfg_%d_trigger%d_mH%d_input.root",year,triggerCat,mH);

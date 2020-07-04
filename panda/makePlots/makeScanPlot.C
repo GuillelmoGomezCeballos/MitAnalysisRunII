@@ -148,7 +148,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   }
   else {
     TPaveText *pt = new TPaveText(0.5, 0.8, 0.8, 0.9, "NDCNB");
-    pt->AddText("#sigma_{Z} = 3019^{#plus 177}_{#minus 166} fb");
+    pt->AddText("#sigma_{Z} = 3036^{#plus 177}_{#minus 166} fb");
     pt->Draw();
   }
 
