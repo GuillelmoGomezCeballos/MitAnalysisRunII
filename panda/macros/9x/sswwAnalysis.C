@@ -30,6 +30,9 @@ double syst_WZl[2] = {1.010, 1.012};
 
 // fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(Higgs), 7 (PTL1), 8 (SM, EWK-INT-QCD WW), 9(lx-tt)
 
+// kPlotqqWW: WW interference, kPlotqqWW/kPlotTop/kPlotDY: kPlotSignal1/kPlotSignal2/kPlotSignal3
+// kPlotggWW: WZ interference
+
 enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
@@ -48,6 +51,16 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
   TString inputFolder = "/data/t3home000";
+
+  double wwFrac[3] = {0.002119, 0.01087, 0.0161};
+  if(wwPath.Contains("wwframe")){ // wwframe
+    wwFrac[0] = 0.003193;
+    wwFrac[1] = 0.009288;
+    wwFrac[2] = 0.01667;
+  }
+  double totalWW = wwFrac[0] + wwFrac[1] + wwFrac[2];
+  for(int i=0; i<3; i++) wwFrac[i] = wwFrac[i]/totalWW;
+  printf("WW-%s: %f (%f,%f,%f)\n",wwPath.Data(),totalWW,wwFrac[0],wwFrac[1],wwFrac[2]);
 
   //*******************************************************
   //Inputs
@@ -1923,6 +1936,13 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       else if((fidAna == 5 || fidAna == 9 || fidAna == 6) && (theCategory == kPlotEWKWZ || theCategory == kPlotggWW)) theCategory = kPlotWZ;
       else if((fidAna == 5 || fidAna == 9 || fidAna == 6) && (theCategory == kPlotWS || theCategory == kPlotVG)) theCategory = kPlotOther;
 
+      //if((fidAna == 5 || fidAna == 9) && theCategory == kPlotqqWW){
+      //  double theUnf = gRandom->Uniform();
+      //  if     (theUnf < wwFrac[0])           theCategory = kPlotqqWW;
+      //  else if(theUnf < wwFrac[0]+wwFrac[1]) theCategory = kPlotTop;
+      //  else                                  theCategory = kPlotDY;
+      //}
+
       if((theCategory == kPlotEWKSSWW || theCategory == kPlotQCDSSWW || theCategory == kPlotqqWW) &&
          (fidAna == 2 || fidAna == 3 || fidAna == 7) &&
          thePandaFlat.genLep1Pt > 0 && TMath::Abs(thePandaFlat.genLep1Eta) < 5.0 && // TMath::Abs(thePandaFlat.genLep1PdgId) != 15 &&
@@ -3059,7 +3079,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     histo_PUBoundingUp	[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingUp  [ic]->GetSumOfWeights());
     histo_PUBoundingDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingDown[ic]->GetSumOfWeights());
-    if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 5 || fidAna == 7 || fidAna == 8 || fidAna == 9) && (ic == kPlotEWKWZ || ic == kPlotEWKSSWW || ic == kPlotQCDSSWW || ic == kPlotqqWW || ic == kPlotggWW ||
+    if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 5 || fidAna == 7 || fidAna == 8 || fidAna == 9) && (ic == kPlotEWKWZ || ic == kPlotEWKSSWW || ic == kPlotQCDSSWW || ic == kPlotqqWW || ic == kPlotTop || ic == kPlotDY || ic == kPlotggWW ||
        ic == kPlotSignal0 || ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3 || ic == kPlotBSM)) {
       histo_QCDScaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp   [ic]->GetSumOfWeights());
       histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());
