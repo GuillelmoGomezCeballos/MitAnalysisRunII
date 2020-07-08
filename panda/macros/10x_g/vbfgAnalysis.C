@@ -126,7 +126,11 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sGJets_ht400to600_CP5.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
     infileName_.push_back(Form("%sGJets_ht600toinf_CP5.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
 
-    if(isHVBFGAna == false){
+    if(mH == 120){
+    infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    }
+    else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
     }
     else {
@@ -190,7 +194,11 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sGJets_ht400to600_CP5.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
     infileName_.push_back(Form("%sGJets_ht600toinf_CP5.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
 
-    if(isHVBFGAna == false){
+    if(mH == 120){
+    infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    }
+    else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
     }
     else {
@@ -255,7 +263,11 @@ int year, int triggerCat, int mH = 125
     infileName_.push_back(Form("%sGJets_ht400to600.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
     infileName_.push_back(Form("%sGJets_ht600toinf.root" ,filesPath.Data()));     infileCat_.push_back(kPlotGJ0);
 
-    if(isHVBFGAna == false){
+    if(mH == 120){
+    infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    }
+    else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
     }
     else {
