@@ -22,7 +22,7 @@ TString selTypeName[nSelTypes]=  {"VBFGSEL", "ESEL", "MGSEL", "GJSEL", "MMGSEL",
 enum systType                     {JESUP=0, JESDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN"};
 
-const double pdfUncs[2] = {1.010, 1.016};
+const double pdfUncs[3] = {1.010, 1.019, 1.032}; // bkg, VBF, ggH
 
 void vbfgAnalysis(
 int year, int triggerCat, int mH = 125
@@ -128,7 +128,7 @@ int year, int triggerCat, int mH = 125
 
     if(mH == 120){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
-    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotSignal1);
     }
     else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
@@ -196,7 +196,7 @@ int year, int triggerCat, int mH = 125
 
     if(mH == 120){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
-    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotSignal1);
     }
     else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
@@ -265,7 +265,7 @@ int year, int triggerCat, int mH = 125
 
     if(mH == 120){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),125)); infileCat_.push_back(kPlotBSM);
-    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sDarkPhotonggHM%d.root" ,filesPath.Data(),125));  infileCat_.push_back(kPlotSignal1);
     }
     else if(isHVBFGAna == false){
     infileName_.push_back(Form("%sDarkPhotonVBFHM%d.root" ,filesPath.Data(),mH)); infileCat_.push_back(kPlotBSM);
@@ -1221,7 +1221,9 @@ int year, int triggerCat, int mH = 125
         }
         else if(theCategory != kPlotData){
 	  if(dataCardSel >= 0) {
-	    double pdf_error = pdfUncs[0]+(gRandom->Uniform()-0.5)*0.01; if(theCategory == kPlotBSM) pdf_error = pdfUncs[1]+(gRandom->Uniform()-0.5)*0.01;
+	    double pdf_error = pdfUncs[0]+(gRandom->Uniform()-0.5)*0.01;
+	    if(theCategory == kPlotBSM) pdf_error = pdfUncs[1]+(gRandom->Uniform()-0.5)*0.01;
+	    if(theCategory == kPlotSignal1) pdf_error = pdfUncs[2]+(gRandom->Uniform()-0.5)*0.01;
 	    histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
 	    histo_QCDScaleBounding[theCategory][0]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[0])/maxQCDscale);
 	    histo_QCDScaleBounding[theCategory][1]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[1])/maxQCDscale);
@@ -1306,7 +1308,7 @@ int year, int triggerCat, int mH = 125
   for(int ic=1; ic<nPlotCategories; ic++) if(histo_Baseline[ic]->GetSumOfWeights() < 0) histo_Baseline[ic]->Scale(0.0);
   for(int ic=0; ic<nPlotCategories; ic++) histo[allPlots-1][ic]->Add(histo_Baseline[ic]);
 
-  double qcdScaleTotal = 0.004;
+  double qcdScaleTotal[2] = {1.005, 1.021}; // VBF, ggH
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -1371,7 +1373,7 @@ int year, int triggerCat, int mH = 125
       histo_ElToPhAltBoundingUp   [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhAltBoundingUp  [ic]->GetBinContent(nb),0.0f));
       histo_ElToPhAltBoundingDown [ic]->SetBinContent(nb, TMath::Max((float)histo_ElToPhAltBoundingDown[ic]->GetBinContent(nb),0.0f));
     }
-    if(ic == kPlotBSM || ic == kPlotZG ||
+    if(ic == kPlotBSM || ic == kPlotSignal1 || ic == kPlotZG ||
        ic == kPlotGJ0 || ic == kPlotGJ1 ||
        ic == kPlotWG  ||
        ic == kPlotWJ0 || ic == kPlotWJ1 || ic == kPlotWJ2 || ic == kPlotWJ3 || ic == kPlotWJ4 || ic == kPlotWJ5) {
@@ -1615,7 +1617,8 @@ int year, int triggerCat, int mH = 125
 
   }
 
-  //histo_Baseline[kPlotData]->Add(histo_Baseline[kPlotBSM],0.350);
+  //histo_Baseline[kPlotData]->Add(histo_Baseline[kPlotBSM],0.300);
+  //histo_Baseline[kPlotData]->Add(histo_Baseline[kPlotSignal1],0.300);
 
   // Filling datacards input root file
   char outputLimits[200];
@@ -1725,18 +1728,28 @@ int year, int triggerCat, int mH = 125
   newcardShape << Form("UEPS    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic != kPlotBSM) newcardShape << Form(" - ");
-    else               newcardShape << Form("%f  ", 1.02);
+    if(ic != kPlotBSM && ic != kPlotSignal1) newcardShape << Form(" - ");
+    else                                     newcardShape << Form("%f  ", 1.02);
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("QCDscaleTotal    lnN     ");
+  newcardShape << Form("QCDscaleVBFTotal    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic != kPlotBSM) newcardShape << Form("- ");
-    else               newcardShape << Form("%f ",1.0+qcdScaleTotal);
+    else               newcardShape << Form("%f ",qcdScaleTotal[0]);
   }
   newcardShape << Form("\n");
+
+  if(histo_Baseline[kPlotSignal1]->GetSumOfWeights() > 0){
+    newcardShape << Form("QCDscaleggHTotal    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic != kPlotSignal1) newcardShape << Form("- ");
+      else                   newcardShape << Form("%f ",qcdScaleTotal[1]);
+    }
+    newcardShape << Form("\n");
+  }
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -1934,7 +1947,7 @@ int year, int triggerCat, int mH = 125
     outFilePlotsNote->cd();
     double totBck = 0;
     for(int i=1; i<nPlotCategories; i++) if(histo[thePlot][i]->GetSumOfWeights() < 0) histo[thePlot][i]->Scale(0.0);
-    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM) totBck = totBck + histo[thePlot][i]->GetSumOfWeights();
+    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM && i != kPlotSignal1) totBck = totBck + histo[thePlot][i]->GetSumOfWeights();
     printf("(%2d) %7.1f vs. %7.1f ",thePlot,histo[thePlot][0]->GetSumOfWeights(),totBck);
     printf("(");
     for(int i=1; i<nPlotCategories; i++) printf("%7.1f ",histo[thePlot][i]->GetSumOfWeights());
@@ -1948,7 +1961,7 @@ int year, int triggerCat, int mH = 125
     outFilePlotsNote->cd();
     double totBck = 0;
     for(int i=1; i<nPlotCategories; i++) if(histoMTGMETMJJ[thePlot][i]->GetSumOfWeights() < 0) histoMTGMETMJJ[thePlot][i]->Scale(0.0);
-    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM) totBck = totBck + histoMTGMETMJJ[thePlot][i]->GetSumOfWeights();
+    for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM && i != kPlotSignal1) totBck = totBck + histoMTGMETMJJ[thePlot][i]->GetSumOfWeights();
     printf("(%d) %7.1f vs. %7.1f ",thePlot,histoMTGMETMJJ[thePlot][0]->GetSumOfWeights(),totBck);
     printf("(");
     for(int i=1; i<nPlotCategories; i++) printf("%7.1f ",histoMTGMETMJJ[thePlot][i]->GetSumOfWeights());

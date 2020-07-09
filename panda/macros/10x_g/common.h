@@ -161,7 +161,7 @@ const double mass_mu = 0.10566;
 double mcCorrection(int type, TString infileName, int year, int infileCat, double mjj, double mtg, int triggerCat){
   double totalWeight = 1.0;
 
-  if(infileCat == kPlotBSM) {
+  if(infileCat == kPlotBSM || infileCat == kPlotSignal1) {
     if     (infileName.Contains("VBF_HinvG")) totalWeight = totalWeight * 1.0;
     else if(infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 4.520;
     else if(infileName.Contains("125"))  totalWeight = totalWeight * 0.392500;
