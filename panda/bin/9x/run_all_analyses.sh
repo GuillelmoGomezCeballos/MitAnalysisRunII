@@ -122,8 +122,8 @@ elif [ $NSEL == 7 ]; then
 
 elif [ $NSEL == 8 ]; then
   root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+
-  nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',0,120)'  >& log_vbfg_${YEAR}_trigger0_mh120  &
-  nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',1,120)'  >& log_vbfg_${YEAR}_trigger1_mh120  &
+  nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',0,125)'  >& log_vbfg_${YEAR}_trigger0_mh125  &
+  nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',1,125)'  >& log_vbfg_${YEAR}_trigger1_mh125  &
   if [ $# == 3 ] && [ $3 == 1 ]; then
     nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',0,115)'  >& log_vbfg_${YEAR}_trigger0_mh115  &
     nohup time root -l -q -b MitAnalysisRunII/panda/macros/10x_g/vbfgAnalysis.C+'('${YEAR}',1,115)'  >& log_vbfg_${YEAR}_trigger1_mh115  &
