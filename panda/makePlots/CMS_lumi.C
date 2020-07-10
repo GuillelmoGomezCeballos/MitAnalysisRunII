@@ -9,6 +9,7 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
     {
       outOfFrame = true;
     }
+  //printf("outOfFrame: %d %d %d\n",outOfFrame,iPosX,iPosX/10);
   int alignY_=3;
   int alignX_=2;
   if( iPosX/10==0 ) alignX_=1;

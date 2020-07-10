@@ -17,7 +17,8 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40}; 
+//float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40};
+float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45};
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
 const Float_t _tsize   = 0.040;
@@ -81,8 +82,8 @@ void AxisFonts(TAxis*  axis,
     axis->SetTitleOffset(  0.9);
     axis->SetTitleSize  (0.050);
 
-    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.20);
-    else if (coordinate == "y")                            axis->SetTitleOffset(1.20);
+    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.30);
+    else if (coordinate == "y")                            axis->SetTitleOffset(1.30);
 
     axis->SetTitle(title);
 }
@@ -416,17 +417,20 @@ class StandardPlot {
               }
 	      else if(ic == kPlotBSM){
 	        double furtherXOffSet = 0.0;
-		if(higgsLabel.Contains("m_{H},m_{A}")) furtherXOffSet = -0.05;
+		if(higgsLabel.Contains("m_{H},m_{a}")) furtherXOffSet = -0.05;
+		if(higgsLabel.Contains("Z(ll)h_{125}")) furtherXOffSet = -0.05;
                 if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "f" ); j++; }
                 else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset, _hist[ic], higgsLabel, "l" ); j++; }
 	      }
 	      else if(ic == kPlotSignal0){
-                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], higgs2Label, "f" ); j++; }
-                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], higgs2Label, "l" ); j++; }
+	        double furtherXOffSet = 0.0;
+		if(higgs2Label.Contains("ADD")) furtherXOffSet = -0.05;
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], higgs2Label, "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], higgs2Label, "l" ); j++; }
 	      }
 	      else if(ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3){
-                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], plotNames[ic].Data(), "f" ); j++; }
-                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.05, _hist[ic], plotNames[ic].Data(), "l" ); j++; }
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], plotNames[ic].Data(), "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], plotNames[ic].Data(), "l" ); j++; }
 	      }
 	      else {
 	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "f"); j++;}
@@ -451,9 +455,9 @@ class StandardPlot {
         void setUnits(const TString &s) { _units = s; }
         void setBreakdown(const bool &b = true) { _breakdown = b; }
         void addLabel(const std::string &s) {
-            _extraLabel = new TLatex(0.23, 0.75, TString(s));
+            _extraLabel = new TLatex(0.216, 0.75, TString(s));
             _extraLabel->SetNDC();
-            _extraLabel->SetTextAlign(12);
+            _extraLabel->SetTextAlign(13);
             _extraLabel->SetTextFont(62);
             _extraLabel->SetTextSize(0.050);
         }
