@@ -216,6 +216,9 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   _hist[kPlotPhotonE0]->Add(_hist[kPlotPhotonE1]);_hist[kPlotPhotonE1]->Scale(0.0);
 
+  _hist[kPlotBSM]->Add(_hist[kPlotSignal1]);_hist[kPlotSignal1]->Scale(0.0);
+  _hist[kPlotBSM]->Scale(0.5); // 0.05 X sigma
+
   TFile* fileExtra;
   if(plotExtraName != ""){
      fileExtra = new TFile(plotExtraName, "read");
