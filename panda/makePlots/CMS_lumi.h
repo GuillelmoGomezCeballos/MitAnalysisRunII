@@ -18,7 +18,7 @@ float extraTextFont = 52;  // default is helvetica-italics
 // text sizes and text offsets with respect to the top frame
 // in unit of the top margin size
 float lumiTextSize     = 0.6;
-float lumiTextOffset   = 0.2;
+float lumiTextOffset   = 0.45;
 float cmsTextSize      = 0.75;
 float cmsTextOffset    = 0.1;  // only used in outOfFrame version
 
@@ -33,6 +33,7 @@ TString lumi_13TeV_2016 = "35.9 fb^{-1}";
 TString lumi_13TeV_2017 = "41.5 fb^{-1}";
 TString lumi_13TeV_2018 = "60.0 fb^{-1}";
 TString lumi_13TeV_2019 = "137 fb^{-1}";
+TString lumi_13TeV_VBFG = "130 fb^{-1}";
 TString lumi_8TeV       = "19.4 fb^{-1}";
 TString lumi_7TeV       = "4.9 fb^{-1}";
 TString lumi_sqrtS      = "";

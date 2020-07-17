@@ -447,7 +447,7 @@ int year, int triggerCat, int mH = 125
 
   TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbins); histo_MVA->Sumw2();
 
-  const int nJESTypes = 6;
+  const int nJESTypes = 8;
   TH1D *histo_Baseline[nPlotCategories];
   TH1D *histo_QCDScaleBounding[nPlotCategories][6];
   TH1D *histo_QCDScaleUp[nPlotCategories];
@@ -859,10 +859,12 @@ int year, int triggerCat, int mH = 125
 
       int theJESType = -1;
       if     (TMath::Abs(vJot1.Eta()) <  2.4 && TMath::Abs(vJot2.Eta()) <  2.4) theJESType = 0;
-      else if(TMath::Abs(vJot1.Eta()) >= 2.4 && TMath::Abs(vJot2.Eta()) >= 2.4) theJESType = 2;
-      else                                                                      theJESType = 1;
+      else if(TMath::Abs(vJot1.Eta()) >= 2.4 && TMath::Abs(vJot2.Eta()) >= 2.4) theJESType = 1;
+      else if(vJot1.Eta() >= 2.4 || vJot2.Eta() >= 2.4                        ) theJESType = 2;
+      else if(vJot1.Eta() <= 2.4 || vJot2.Eta() <= 2.4                        ) theJESType = 3;
+      else                                                                      theJESType = -1;
       if     (massJJ < 1500) theJESType = theJESType + 0;
-      else                   theJESType = theJESType + 3;
+      else                   theJESType = theJESType + 4;
 
       bool passHEM1516 = true;
       if(year == 2018 && thePandaFlat.nJot >= 2){

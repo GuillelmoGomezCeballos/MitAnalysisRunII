@@ -9,7 +9,6 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
     {
       outOfFrame = true;
     }
-  //printf("outOfFrame: %d %d %d\n",outOfFrame,iPosX,iPosX/10);
   int alignY_=3;
   int alignX_=2;
   if( iPosX/10==0 ) alignX_=1;
@@ -70,6 +69,11 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
       lumiText += lumi_13TeV_2019;
       lumiText += " (13 TeV)";
     }
+  else if ( iPeriod==2020 )
+    {
+      lumiText += lumi_13TeV_VBFG;
+      lumiText += " (13 TeV)";
+    }
   else if ( iPeriod==2000 )
     {
       lumiText += "13 TeV";
@@ -107,7 +111,8 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
 
   latex.SetTextFont(42);
   latex.SetTextAlign(31); 
-  latex.SetTextSize(lumiTextSize*t);    
+  latex.SetTextSize(lumiTextSize*t);
+  cout << t << " " << lumiTextOffset<<" " <<1-t+lumiTextOffset*t<<endl;
   latex.DrawLatex(1-r,1-t+lumiTextOffset*t,lumiText);
 
   if( outOfFrame )
@@ -171,13 +176,13 @@ CMS_lumi( TPad* pad, int iPeriod, int iPosX )
     {
       if( iPosX==11) 
 	{
-	  posX_ =   l +  0.11*(1-l-r);
+	  posX_ =   l +  0.11*(1-l-r)+0.04;
 	  posY_ =   1-t+lumiTextOffset*t;
 	}
       latex.SetTextFont(extraTextFont);
       latex.SetTextSize(extraTextSize*t);
       latex.SetTextAlign(11);
-      latex.DrawLatex(posX_, posY_, extraText);      
+      latex.DrawLatex(posX_, posY_, extraText);
     }
   return;
 }
