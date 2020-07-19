@@ -861,9 +861,7 @@ int year, int triggerCat, int mH = 125
       if     (TMath::Abs(vJot1.Eta()) <  2.4 && TMath::Abs(vJot2.Eta()) <  2.4) theJESType = 0;
       else if(TMath::Abs(vJot1.Eta()) >= 2.4 && TMath::Abs(vJot2.Eta()) >= 2.4) theJESType = 1;
       else                                                                      theJESType = 2;
-      //else if(vJot1.Eta() >= 2.4 || vJot2.Eta() >= 2.4                        ) theJESType = 2;
-      //else if(vJot1.Eta() <= 2.4 || vJot2.Eta() <= 2.4                        ) theJESType = 3;
-      //else                                                                      theJESType = -1;
+
       if     (massJJ < 1500) theJESType = theJESType + 0;
       else                   theJESType = theJESType + 3;
 
