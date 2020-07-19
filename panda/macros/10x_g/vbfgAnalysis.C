@@ -1043,22 +1043,47 @@ int year, int triggerCat, int mH = 125
           if(TMath::Abs(vJot2.Eta()) > 2.6 && TMath::Abs(vJot2.Eta()) < 3.2) totalWeight = totalWeight * addFactor;
         }
 
-        double splitVar0 = massJJ; double splitVar1 = mTGMET;
+        double splitVar0[3] = {massJJ, massJJUp, massJJDown}; double splitVar1[3] = {mTGMET, mTGMETUp, mTGMETDown};
 	if(isHVBFGAna){
-          splitVar0 = massJJ; splitVar1 = 100*deltaEtaJJ;
+          splitVar0[0] = massJJ;         splitVar0[1] = massJJUp;         splitVar0[2] = massJJDown;
+	  splitVar1[0] = 100*deltaEtaJJ; splitVar1[1] = 100*deltaEtaJJUp; splitVar1[2] = 100*deltaEtaJJDown;
 	}
 
         if     (theCategory == kPlotWJ0){
-	  if     (splitVar0 <  mjjSplit && splitVar1 <  mtgSplit0) theCategory = kPlotWJ0;
-	  else if(splitVar0 <  mjjSplit && splitVar1 <  mtgSplit1) theCategory = kPlotWJ1;
-	  else if(splitVar0 <  mjjSplit && splitVar1 >= mtgSplit1) theCategory = kPlotWJ2;
-	  else if(splitVar0 >= mjjSplit && splitVar1 <  mtgSplit0) theCategory = kPlotWJ3;
-	  else if(splitVar0 >= mjjSplit && splitVar1 <  mtgSplit1) theCategory = kPlotWJ4;
-	  else if(splitVar0 >= mjjSplit && splitVar1 >= mtgSplit1) theCategory = kPlotWJ5;
+	  if     (splitVar0[0] <  mjjSplit && splitVar1[0] <  mtgSplit0) theCategory = kPlotWJ0;
+	  else if(splitVar0[0] <  mjjSplit && splitVar1[0] <  mtgSplit1) theCategory = kPlotWJ1;
+	  else if(splitVar0[0] <  mjjSplit && splitVar1[0] >= mtgSplit1) theCategory = kPlotWJ2;
+	  else if(splitVar0[0] >= mjjSplit && splitVar1[0] <  mtgSplit0) theCategory = kPlotWJ3;
+	  else if(splitVar0[0] >= mjjSplit && splitVar1[0] <  mtgSplit1) theCategory = kPlotWJ4;
+	  else if(splitVar0[0] >= mjjSplit && splitVar1[0] >= mtgSplit1) theCategory = kPlotWJ5;
+	  //int theCategoryUp = kPlotWJ0;
+	  //if     (splitVar0[1] <  mjjSplit && splitVar1[1] <  mtgSplit0) theCategoryUp = kPlotWJ0;
+	  //else if(splitVar0[1] <  mjjSplit && splitVar1[1] <  mtgSplit1) theCategoryUp = kPlotWJ1;
+	  //else if(splitVar0[1] <  mjjSplit && splitVar1[1] >= mtgSplit1) theCategoryUp = kPlotWJ2;
+	  //else if(splitVar0[1] >= mjjSplit && splitVar1[1] <  mtgSplit0) theCategoryUp = kPlotWJ3;
+	  //else if(splitVar0[1] >= mjjSplit && splitVar1[1] <  mtgSplit1) theCategoryUp = kPlotWJ4;
+	  //else if(splitVar0[1] >= mjjSplit && splitVar1[1] >= mtgSplit1) theCategoryUp = kPlotWJ5;
+	  //if(theCategory != theCategoryUp) dataCardSelUp = -1;
+	  //int theCategoryDown = kPlotWJ0;
+	  //if     (splitVar0[2] <  mjjSplit && splitVar1[2] <  mtgSplit0) theCategoryDown = kPlotWJ0;
+	  //else if(splitVar0[2] <  mjjSplit && splitVar1[2] <  mtgSplit1) theCategoryDown = kPlotWJ1;
+	  //else if(splitVar0[2] <  mjjSplit && splitVar1[2] >= mtgSplit1) theCategoryDown = kPlotWJ2;
+	  //else if(splitVar0[2] >= mjjSplit && splitVar1[2] <  mtgSplit0) theCategoryDown = kPlotWJ3;
+	  //else if(splitVar0[2] >= mjjSplit && splitVar1[2] <  mtgSplit1) theCategoryDown = kPlotWJ4;
+	  //else if(splitVar0[2] >= mjjSplit && splitVar1[2] >= mtgSplit1) theCategoryDown = kPlotWJ5;
+	  //if(theCategory != theCategoryDown) dataCardSelDown = -1;
         }
         else if(theCategory == kPlotGJ0){
-	  if     (splitVar0 <  mjjSplit) theCategory = kPlotGJ0;
-	  else if(splitVar0 >= mjjSplit) theCategory = kPlotGJ1;
+	  if     (splitVar0[0] <  mjjSplit) theCategory = kPlotGJ0;
+	  else if(splitVar0[0] >= mjjSplit) theCategory = kPlotGJ1;
+	  //int theCategoryUp = kPlotGJ0;
+	  //if     (splitVar0[1] <  mjjSplit) theCategoryUp = kPlotGJ0;
+	  //else if(splitVar0[1] >= mjjSplit) theCategoryUp = kPlotGJ1;
+	  //if(theCategory != theCategoryUp) dataCardSelUp = -1;
+	  //int theCategoryDown = kPlotGJ0;
+	  //if     (splitVar0[2] <  mjjSplit) theCategoryDown = kPlotGJ0;
+	  //else if(splitVar0[2] >= mjjSplit) theCategoryDown = kPlotGJ1;
+	  //if(theCategory != theCategoryDown) dataCardSelDown = -1;
         }
 
         if(theCategory != kPlotData){
