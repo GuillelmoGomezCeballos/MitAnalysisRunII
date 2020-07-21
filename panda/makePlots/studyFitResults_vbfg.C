@@ -221,10 +221,10 @@ void studyFitResults_vbfg(int nsel = 0,  TString plotName = "done_ana/histoZHG_m
   for(int ic=0; ic<nPlotCategories; ic++){
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
     _histPostFit[ic] = (TH1F*)_hist[ic]->Clone(Form("histoPostFit%d",ic));
-    if(ic == kPlotData || _hist[ic]->GetSumOfWeights() <= 0) continue;
+    if(ic == kPlotData || !_hist[ic]) continue;
     if(mlfitResult!="" && ic != kPlotData) {
       double sum[6] = {0, 0, 0, 0, 0, 0};
-      if     ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data()))) {
+      if     ((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/%s",channelName.Data(),plotBaseNames[ic].Data()))) {
         int countUsedBins = 0;
         for(int i=1; i<=((TH1F*)mlfit->Get(Form("shapes_fit_b/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetNbinsX(); i++){
 	  bool binToExclude = false;
