@@ -29,7 +29,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root";
     scanName3 = "/home/ceballos/ana_area/ana_zh/scan3.root";
     xName = "B(H #rightarrow inv)";
-    textSize = 0.0215;
+    textSize = 0.0310;
   }
   else if(nsel == 2) {
     scanName0 = "/home/ceballos/ana_area/ana_znn/scan.root";
@@ -103,7 +103,6 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   if(nsel!=2)scan1->Draw("LSAME");
   if(nsel!=2)scan0->Draw("LSAME");
   if(nsel!=2)scan3->Draw("LSAME");
-  CMS_lumi( pad1, 2019, 11 );
 
   TLegend* leg = new TLegend(0.2, 0.7, 0.4, 0.9);
   leg->SetBorderSize(    0);
@@ -111,9 +110,15 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   leg->SetFillStyle (    0);
   leg->SetTextFont  (   62);
   leg->SetTextSize  (textSize);
-  if(nsel!=2)leg->AddEntry(scan1, "Expected bkg. only stat","l");
-  if(nsel!=2)leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
-  if(nsel!=2)leg->AddEntry(scan3, "Expected signal+bkg.","l");
+  if     (nsel == 0){
+    leg->AddEntry(scan1, "Expected bkg. only stat","l");
+    leg->AddEntry(scan0, "Expected bkg. only stat+syst","l");
+    leg->AddEntry(scan3, "Expected signal+bkg.","l");
+  }
+  else if(nsel == 1){
+    leg->AddEntry(scan1, "#splitline{Expected}{bkg. only stat}","l");
+    leg->AddEntry(scan0, "#splitline{Expected}{bkg. only stat+syst}","l");
+  }
   leg->AddEntry(scan2, "Observed","l");
   leg->Draw("same");
 
@@ -127,7 +132,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
                                scan2->GetXaxis()->GetXmax(), theLines[0]);
   baseline0->SetLineStyle(kDashed);
   baseline0->Draw();
-  TLatex* extraLabel0 = new TLatex(0.25, 0.33,"68\% CL");
+  TLatex* extraLabel0 = new TLatex(0.21, 0.33,"68\% CL");
   extraLabel0->SetNDC();
   extraLabel0->SetTextAlign(12);
   extraLabel0->SetTextFont(62);
@@ -139,7 +144,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
                                  scan2->GetXaxis()->GetXmax(), theLines[1]);
    baseline1->SetLineStyle(kDashed);
     baseline1->Draw();
-    TLatex* extraLabel1 = new TLatex(0.25, 0.62,"95\% CL");
+    TLatex* extraLabel1 = new TLatex(0.21, 0.62,"95\% CL");
     extraLabel1->SetNDC();
     extraLabel1->SetTextAlign(12);
     extraLabel1->SetTextFont(62);
@@ -151,6 +156,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     pt->AddText("#sigma_{Z} = 3036^{#plus 177}_{#minus 166} fb");
     pt->Draw();
   }
+  CMS_lumi( c1, 2019, 11 );
 
   if(strcmp(outputName.Data(),"") != 0){
     TString myOutputFile;
