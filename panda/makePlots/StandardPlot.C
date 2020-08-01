@@ -192,7 +192,8 @@ class StandardPlot {
 	    for(int ic=0; ic<nPlotCategories; ic++) if(_hist[ic]) {hSum = (TH1D*)_hist[ic]->Clone(); break;}
 	    hSum->Rebin(rebin);
 	    hSum->Scale(0.0);
-            for (int ic=0; ic<nPlotCategories; ic++) {
+            //for (int ic=0; ic<nPlotCategories; ic++) {
+            for (int ic=nPlotCategories-1; ic>=0; ic--) {
 
                 // in case the user doesn't set it
                 if( !_hist[ic] || ic == kPlotData) continue;
@@ -412,7 +413,7 @@ class StandardPlot {
 
             for (int ic=0; ic<nPlotCategories; ic++) {
 	      if     (ic==kPlotData){
-	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "epl"); j++;}
+	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "ep"); j++;}
                 if(plotSystErrorBars == true) {DrawLegendTG(xPos[j], 0.84 - yOff[j]*_yoffset,gsyst, "Bkg. unc.",  "f" ); j++;isThereSignal = true;}
               }
 	      else if(ic == kPlotBSM){
@@ -425,8 +426,8 @@ class StandardPlot {
 	      else if(ic == kPlotSignal0){
 	        double furtherXOffSet = 0.0;
 		if(higgs2Label.Contains("ADD")) furtherXOffSet = -0.05;
-                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], higgs2Label, "f" ); j++; }
-                else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], higgs2Label, "l" ); j++; }
+                if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.15, _hist[ic], higgs2Label, "f" ); j++; }
+                else if(_hist[ic])		    { DrawLegend(xPos[j]+furtherXOffSet, 0.84 - yOff[j]*_yoffset*1.15, _hist[ic], higgs2Label, "l" ); j++; }
 	      }
 	      else if(ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3){
                 if     (_hist[ic] && isBSMOverlaid) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset*1.09, _hist[ic], plotNames[ic].Data(), "f" ); j++; }

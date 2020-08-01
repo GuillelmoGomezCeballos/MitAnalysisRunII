@@ -168,7 +168,7 @@ std::map<int, int> plotColors={
   { kPlotWZ	     , TColor::GetColor(222,90,106)},
   { kPlotZZ	     , kAzure-9},
   { kPlotNonPrompt   , TColor::GetColor(155,152,204)},
-  { kPlotVVV	     , 809},
+  { kPlotVVV	     , 840},
   { kPlotTVX	     , kViolet+6},
   { kPlotVG	     , kGreen-8},
   { kPlotHiggs       , 842},

@@ -28,7 +28,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     scanName1 = "/home/ceballos/ana_area/ana_zh/scan1.root";
     scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root";
     scanName3 = "/home/ceballos/ana_area/ana_zh/scan3.root";
-    xName = "B(H #rightarrow inv)";
+    xName = "B(h #rightarrow inv)";
     textSize = 0.0310;
   }
   else if(nsel == 2) {
@@ -152,9 +152,12 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     extraLabel1->Draw();
   }
   else {
-    TPaveText *pt = new TPaveText(0.5, 0.8, 0.8, 0.9, "NDCNB");
-    pt->AddText("#sigma_{Z} = 3036^{#plus 177}_{#minus 166} fb");
-    pt->Draw();
+    TPaveText *pt0 = new TPaveText(0.5, 0.80, 0.8, 0.85, "NDCNB");
+    pt0->AddText("#sigma_{Z}^{Observed} = 3036^{#plus 177}_{#minus 166} fb");
+    pt0->Draw();
+    TPaveText *pt1 = new TPaveText(0.5, 0.75, 0.8, 0.80, "NDCNB");
+    pt1->AddText("#sigma_{Z}^{Expected} = 2725 #pm 441 fb");
+    pt1->Draw();
   }
   CMS_lumi( c1, 2019, 11 );
 

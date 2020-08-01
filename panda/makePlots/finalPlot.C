@@ -411,8 +411,10 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   // Set the y-axis range symmetric around y=0
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
+  minRatio = TMath::Min(TMath::Max(minRatio-0.1,0.0),0.501);
+  maxRatio = TMath::Min(TMath::Max(maxRatio+0.1,1.550),4.999);
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
-  else          hBand->GetYaxis()->SetRangeUser(TMath::Min(minRatio,0.501),TMath::Min( TMath::Max(maxRatio+0.1,1.550),4.999));
+  else          hBand->GetYaxis()->SetRangeUser(minRatio,maxRatio);
   hRatio->GetYaxis()->CenterTitle();
   eraselabel(pad1,hData->GetXaxis()->GetLabelSize());
   }
