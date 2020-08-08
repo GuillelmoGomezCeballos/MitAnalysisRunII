@@ -60,6 +60,14 @@ const double lumiV[nYears] = {35.9, 41.5, 60.0};
 const double lumiE[nYears] = {1.025, 1.023, 1.025};
 const double totalLumiV = lumiV[Y2016] + lumiV[Y2017] + lumiV[Y2018];
 
+const double lumiE_UnCorr[nYears] = {1.022, 1.020, 1.015};
+const double lumiE_Factor[nYears] = {1.009, 1.008, 1.020};
+const double lumiE_Length[nYears] = {1.000, 1.003, 1.002};
+const double lumiE_Deflec[nYears] = {1.004, 1.004, 1.000};
+const double lumiE_DynBet[nYears] = {1.005, 1.005, 1.000};
+const double lumiE_BeamCu[nYears] = {1.000, 1.003, 1.002};
+const double lumiE_Ghosts[nYears] = {1.004, 1.001, 1.000};
+
 enum LepSelectionBit {
  kLoose   =(1<<0),
  kFake    =(1<<1),

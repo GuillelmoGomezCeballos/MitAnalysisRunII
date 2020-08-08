@@ -6,6 +6,13 @@ const double lumiV[nYears] = {35.9, 41.5, 60.0};
 const double lumiE[nYears] = {1.025, 1.023, 1.025};
 const double totalLumiV = lumiV[Y2016] + lumiV[Y2017] + lumiV[Y2018];
 
+const double lumiE_UnCorr[nYears] = {1.022, 1.020, 1.015};
+const double lumiE_Factor[nYears] = {1.009, 1.008, 1.020};
+const double lumiE_Length[nYears] = {1.000, 1.003, 1.002};
+const double lumiE_Deflec[nYears] = {1.004, 1.004, 1.000};
+const double lumiE_DynBet[nYears] = {1.005, 1.005, 1.000};
+const double lumiE_BeamCu[nYears] = {1.000, 1.003, 1.002};
+const double lumiE_Ghosts[nYears] = {1.004, 1.001, 1.000};
 
 enum LepSelectionBit {
    kLoose   =(1<<0),
@@ -105,7 +112,7 @@ std::map<int, TString> plotBaseNames={
 
 std::map<int, int> plotColors={
   { kPlotData	   , kBlack},
-  { kPlotVV	   , kAzure-9},
+  { kPlotVV	   , TColor::GetColor(248,206,104)},
   { kPlotWJ0	   , 901},
   { kPlotWJ1	   , kMagenta+1},
   { kPlotWJ2	   , kMagenta+2},
@@ -114,7 +121,7 @@ std::map<int, int> plotColors={
   { kPlotWJ5	   , kMagenta+5},
   { kPlotDY	   , kYellow},
   { kPlotTop	   , kAzure-2},
-  { kPlotVVV	   , TColor::GetColor(248,206,104)},
+  { kPlotVVV	   , kAzure-5},
   { kPlotWG 	   , TColor::GetColor(250,202,255)},
   { kPlotZG	   , kCyan+3},
   { kPlotGJ0	   , TColor::GetColor(222,90,106)},
@@ -131,7 +138,7 @@ std::map<int, int> plotColors={
 
 std::map<int, TString> plotNames={
     { kPlotData      , "Data"},
-    { kPlotVV	     , "VV"},
+    { kPlotVV	     , "Other bkg."},
     { kPlotWJ0       , "W+jets"},
     { kPlotWJ1       , "W+jets1"},
     { kPlotWJ2       , "W+jets2"},

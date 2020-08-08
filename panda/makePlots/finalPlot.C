@@ -399,7 +399,7 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   hBand->SetMarkerSize(0);
   hBand->SetLineWidth(0);
   hBand->Draw("E2");
-  g->Draw("P,same");
+  g->Draw("P,same,z");
 
   // Draw a line throgh y=0
   double theLines[2] = {1.0, 0.5};
@@ -411,8 +411,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   // Set the y-axis range symmetric around y=0
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
-  minRatio = TMath::Min(TMath::Max(minRatio-0.1,0.0),0.501);
-  maxRatio = TMath::Min(TMath::Max(maxRatio+0.1,1.550),4.999);
+  minRatio = TMath::Min(TMath::Max(minRatio-0.10,0.000),0.501);
+  maxRatio = TMath::Min(TMath::Max(maxRatio+0.15,1.550),4.999);
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
   else          hBand->GetYaxis()->SetRangeUser(minRatio,maxRatio);
   hRatio->GetYaxis()->CenterTitle();

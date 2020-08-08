@@ -22,6 +22,7 @@ TString selTypeName[nSelTypes]=  {"VBFGSEL", "ESEL", "MGSEL", "GJSEL", "MMGSEL",
 enum systType                     {JESUP=0, JESDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN"};
 const bool makeUseNorm = true;
+const bool splitLumi = false;
 
 const double pdfUncs[3] = {1.010, 1.019, 1.032}; // bkg, VBF, ggH
 
@@ -1838,13 +1839,76 @@ int year, int triggerCat, int mH = 125
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("lumi_13TeV_%d    lnN     ",year);
-  for (int ic=0; ic<nPlotCategories; ic++){
-    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
-    else                                                                   newcardShape << Form("%6.3f ",lumiE[whichYear]);
+  if(splitLumi == false){
+
+    newcardShape << Form("lumi_13TeV_%d    lnN     ",year);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+  } else {
+
+    newcardShape << Form("lumi_13TeV_%d    lnN     ",year);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_UnCorr[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_Factor    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_Factor[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_Length    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_Length[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_Deflec    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_Deflec[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_DynBet    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_DynBet[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_BeamCu    lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_BeamCu[whichYear]);
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("lumi_13TeV_Ghosts   lnN     ");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1) newcardShape << Form("- ");
+      else                                                                   newcardShape << Form("%6.3f ",lumiE_Ghosts[whichYear]);
+    }
+    newcardShape << Form("\n");
+
   }
-  newcardShape << Form("\n");
+
 
   newcardShape << Form("UEPS    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){

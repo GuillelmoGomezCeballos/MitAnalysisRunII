@@ -314,7 +314,7 @@ class StandardPlot {
                   _hist[kPlotData]->SetBinContent(i+1,y);
                   _hist[kPlotData]->SetBinError(i+1,TMath::Sqrt(y));
                 }
-		g->Draw("P");
+		g->Draw("P,z");
   		}
 	      }
 	      else {
