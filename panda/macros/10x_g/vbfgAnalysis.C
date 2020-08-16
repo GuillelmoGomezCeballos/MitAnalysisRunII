@@ -1065,6 +1065,9 @@ int year, int triggerCat, int mH = 125
           splitVar0 = massJJ; splitVar1 = 100*deltaEtaJJ;
 	}
 
+        //if(theCategory == kPlotWJ0 && thePandaFlat.genPho1Pt > 10) totalWeight = 0.0;
+        //if(theCategory == kPlotDY && thePandaFlat.genPho1Pt > 80) totalWeight = 0.0;
+
         if(makeUseNorm == true){
           if     (theCategory == kPlotWJ0){
 	    if     (splitVar0 <  mjjSplit && splitVar1 <  mtgSplit0) theCategory = kPlotWJ0;
