@@ -150,6 +150,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     extraLabel1->SetTextFont(62);
     extraLabel1->SetTextSize(0.035);
     extraLabel1->Draw();
+    CMS_lumi( c1, 2019, 11 );
   }
   else {
     TPaveText *pt0 = new TPaveText(0.5, 0.80, 0.8, 0.85, "NDCNB");
@@ -158,8 +159,8 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     TPaveText *pt1 = new TPaveText(0.5, 0.75, 0.8, 0.80, "NDCNB");
     pt1->AddText("#sigma_{Z}^{Expected} = 2725 #pm 441 fb");
     pt1->Draw();
+    CMS_lumi( c1, 2016, 11 );
   }
-  CMS_lumi( c1, 2019, 11 );
 
   if(strcmp(outputName.Data(),"") != 0){
     TString myOutputFile;
