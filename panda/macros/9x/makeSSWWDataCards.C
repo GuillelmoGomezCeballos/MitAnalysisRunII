@@ -20,6 +20,11 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   if     (fidAna == 6) fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal);
   else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
+  double uncLum;
+
+  bool splitLumi = false;
+  if(fidAna == 6) splitLumi = true;
+
   double qcdScaleTotal[2] = {0.035, 0.231};
   double pdfTotal[2] = {0.016, 0.051};
   double syst_WZl[2] = {1.010, 1.012};
@@ -86,15 +91,110 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   }
   newcardShape << Form("\n");
 
-  for(int ny=2016; ny<2016+nYears; ny++){
-    newcardShape << Form("lumi_13TeV_%d    lnN     ",ny);
+  if(splitLumi == false){
+
+    for(int ny=2016; ny<2016+nYears; ny++){
+      newcardShape << Form("lumi_13TeV_%d    lnN     ",ny);
+      for (int ic=0; ic<nPlotCategories; ic++){
+	if(!histo_Baseline[ic]) continue;
+	if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+	if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+	else                     newcardShape << Form("%6.3f ",lumiV[ny-2016]/totalLumiV * (lumiE[ny-2016]-1.0)+1.0);
+      }
+      newcardShape << Form("\n");
+    }
+
+  } else {
+
+    for(int ny=2016; ny<2016+nYears; ny++){
+      newcardShape << Form("lumi_13TeV_%d    lnN     ",ny);
+      for (int ic=0; ic<nPlotCategories; ic++){
+	if(!histo_Baseline[ic]) continue;
+	if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+	if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+	else                     newcardShape << Form("%6.3f ",lumiV[ny-2016]/totalLumiV * (lumiE_UnCorr[ny-2016]-1.0)+1.0);
+      }
+      newcardShape << Form("\n");
+    }
+
+    uncLum = 
+        lumiV[0]/totalLumiV * (lumiE_Factor[0]-1.0) +
+	lumiV[1]/totalLumiV * (lumiE_Factor[1]-1.0) +
+	lumiV[2]/totalLumiV * (lumiE_Factor[2]-1.0);
+    newcardShape << Form("lumi_13TeV_Factor    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
-      else                     newcardShape << Form("%6.3f ",TMath::Sqrt(lumiV[ny-2016]/totalLumiV) * (lumiE[ny-2016]-1.0)+1.0);
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
     }
     newcardShape << Form("\n");
+
+    uncLum = 
+        lumiV[0]/totalLumiV * (lumiE_Length[0]-1.0) +
+	lumiV[1]/totalLumiV * (lumiE_Length[1]-1.0) +
+	lumiV[2]/totalLumiV * (lumiE_Length[2]-1.0);
+    newcardShape << Form("lumi_13TeV_Length    lnN");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
+    }
+    newcardShape << Form("\n");
+
+    uncLum = 
+        lumiV[0]/totalLumiV * (lumiE_Deflec[0]-1.0) +
+	lumiV[1]/totalLumiV * (lumiE_Deflec[1]-1.0) +
+	lumiV[2]/totalLumiV * (lumiE_Deflec[2]-1.0);
+    newcardShape << Form("lumi_13TeV_Deflec    lnN");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
+    }
+    newcardShape << Form("\n");
+
+    uncLum = 
+       lumiV[0]/totalLumiV * (lumiE_DynBet[0]-1.0) +
+       lumiV[1]/totalLumiV * (lumiE_DynBet[1]-1.0) +
+       lumiV[2]/totalLumiV * (lumiE_DynBet[2]-1.0);
+    newcardShape << Form("lumi_13TeV_DynBet    lnN");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
+    }
+    newcardShape << Form("\n");
+
+    uncLum = 
+        lumiV[0]/totalLumiV * (lumiE_BeamCu[0]-1.0) +
+	lumiV[1]/totalLumiV * (lumiE_BeamCu[1]-1.0) +
+	lumiV[2]/totalLumiV * (lumiE_BeamCu[2]-1.0);
+    newcardShape << Form("lumi_13TeV_BeamCu    lnN");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
+    }
+    newcardShape << Form("\n");
+
+    uncLum = 
+        lumiV[0]/totalLumiV * (lumiE_Ghosts[0]-1.0) +
+	lumiV[1]/totalLumiV * (lumiE_Ghosts[1]-1.0) +
+	lumiV[2]/totalLumiV * (lumiE_Ghosts[2]-1.0);
+    newcardShape << Form("lumi_13TeV_Ghosts    lnN");
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("- ");
+      else		       newcardShape << Form("%6.3f ",uncLum+1.0);
+    }
+    newcardShape << Form("\n");
+
   }
 
   newcardShape << Form("CMS_momres_m    lnN     ");

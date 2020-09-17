@@ -56,7 +56,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   scan2->GetXaxis()->SetLabelSize  (0.040);
   scan2->GetXaxis()->SetNdivisions (  505);
   scan2->GetXaxis()->SetTitleFont  (   42);
-  scan2->GetXaxis()->SetTitleOffset(  0.9);
+  scan2->GetXaxis()->SetTitleOffset(  1.0);
   scan2->GetXaxis()->SetTitleSize  (0.050);
   scan2->GetXaxis()->SetTitle(xName.Data());
   scan2->GetYaxis()->SetLabelFont  (   42);

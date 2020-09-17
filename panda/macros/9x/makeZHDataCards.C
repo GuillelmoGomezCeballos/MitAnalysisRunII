@@ -80,7 +80,7 @@ void makeZHDataCards(TString outputLimits = "zh_comb_input.root", int jetValue =
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic == kPlotNonPrompt) newcardShape << Form("%.3f ",TMath::Sqrt(lumiV[ny-2016]/totalLumiV) * (1.15-1.0)+1.0);
+      if(ic == kPlotNonPrompt) newcardShape << Form("%.3f ",lumiV[ny-2016]/totalLumiV * (1.15-1.0)+1.0);
       else                     newcardShape << Form("- ");
     }
     newcardShape << Form("\n");
@@ -88,7 +88,7 @@ void makeZHDataCards(TString outputLimits = "zh_comb_input.root", int jetValue =
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic == kPlotNonPrompt) newcardShape << Form("%.3f ",TMath::Sqrt(lumiV[ny-2016]/totalLumiV) * (1.15-1.0)+1.0);
+      if(ic == kPlotNonPrompt) newcardShape << Form("%.3f ",lumiV[ny-2016]/totalLumiV * (1.15-1.0)+1.0);
       else                     newcardShape << Form("- ");
     }
     newcardShape << Form("\n");
@@ -100,7 +100,7 @@ void makeZHDataCards(TString outputLimits = "zh_comb_input.root", int jetValue =
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
-      else                     newcardShape << Form("%6.3f ",TMath::Sqrt(lumiV[ny-2016]/totalLumiV) * (lumiE[ny-2016]-1.0)+1.0);
+      else                     newcardShape << Form("%6.3f ",lumiV[ny-2016]/totalLumiV * (lumiE[ny-2016]-1.0)+1.0);
     }
     newcardShape << Form("\n");
   }

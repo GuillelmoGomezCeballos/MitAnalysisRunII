@@ -80,7 +80,7 @@ void makeZHGDataCards(TString outputLimits = "zhg_comb_input.root"){
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      newcardShape << Form("%6.3f ",TMath::Sqrt(lumiV[ny-2016]/totalLumiV) * (lumiE[ny-2016]-1.0)+1.0);
+      newcardShape << Form("%6.3f ",lumiV[ny-2016]/totalLumiV * (lumiE[ny-2016]-1.0)+1.0);
     }
     newcardShape << Form("\n");
   }

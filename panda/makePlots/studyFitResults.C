@@ -103,6 +103,24 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   }
   else if(nsel == 35){ // long all regions
   }
+  else if(nsel == 40){ // higgs WW SR
+    for(int i=32; i<58; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 41){ // higgs btagged CR
+    for(int i=0; i<32; i++) excludeBins[i] = i+1;
+    for(int i=36; i<58; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 42){ // higgs ZZ CR
+    for(int i=0; i<36; i++) excludeBins[i] = i+1;
+    for(int i=40; i<58; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 43){ // higgs WZb CR
+    for(int i=0; i<40; i++) excludeBins[i] = i+1;
+    for(int i=44; i<58; i++) excludeBins[i] = i+1;
+  }
+  else if(nsel == 44){ // higgs WZ SR
+    for(int i=0; i<44; i++) excludeBins[i] = i+1;
+  }
   else if(nsel == 99){ // no region to exclude
   }
   printf("Bins to exclude:");
@@ -121,7 +139,8 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   for(int ic=0; ic<nPlotCategories; ic++){
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
     _histPostFit[ic] = (TH1F*)_hist[ic]->Clone(Form("histoPostFit%d",ic));
-    if(ic == kPlotData || _hist[ic]->GetSumOfWeights() <= 0) continue;
+    if(!((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))) continue;
+    if(ic == kPlotData || ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetSumOfWeights() <= 0) continue;
     if(mlfitResult!="" && ic != kPlotData) {
       double sum[6] = {0, 0, 0, 0, 0, 0};
       if     ((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data()))) {

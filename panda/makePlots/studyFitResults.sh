@@ -323,6 +323,32 @@ mv histoDatacard_34.root histoDatacard_long_wz_2019.root
 
 rm -f studyFitResults*.txt;
 
+elif [ $NSEL == 'higgs' ]; then
+echo "***************HIGGS WW SR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(40, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************HIGGS BTAG CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(41, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************HIGGS ZZ CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(42, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************HIGGS WZb CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(43, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+
+echo "***************HIGGS WZ CR*****"
+root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(44, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
+python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
+rm -f studyFitResults*.txt;
+rm histoDatacard_*;
 
 elif [ $NSEL == 'zh' ]; then
 #grep -e POST -e background log|awk '{if($1=="POST"&&$3~"BSM")printf("%20s %6.1f pm %6.1f\n",$3,$16,$18);else if($1=="POST")printf("%20s %6.1f pm %6.1f\n",$3,$20,$22);else printf("\n%20s %6.1f pm %6.1f\n",$2,$10,$12);}'

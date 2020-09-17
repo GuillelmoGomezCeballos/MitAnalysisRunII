@@ -22,8 +22,6 @@ const int debug = 0;
 const bool showSyst = true;
 const bool produceMVAInputs = false;
 const bool isPseudoData = false;
-const double jetPtCut = 50;
-const bool splitLumi = false;
 const int includeBSMAQGC = 0;
 
 double syst_WZl[2] = {1.010, 1.012};
@@ -46,11 +44,15 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   else if(year == 2018) {whichYear = Y2018; nTypeLepSel[0] = 15; nTypeLepSel[1] = 7;}
   else {printf("Wrong year (%d)!\n",year); return;}
 
+  double jetPtCut = 50;
   TString fidAnaName = "";
-  if     (fidAna == 6) fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal);
+  if     (fidAna == 6) {fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal); if(year == 2016) jetPtCut = 30.;}
   else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
   TString inputFolder = "/data/t3home000";
+
+  bool splitLumi = false;
+  if(fidAna == 6) splitLumi = true;
 
   double wwFrac[3] = {0.002119, 0.01087, 0.0161};
   if(wwPath.Contains("wwframe")){ // wwframe
@@ -270,7 +272,6 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       infileName_.push_back(Form("%sWWjj_SS_long_%s.root",filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
-      infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotEWKSSWW);
       infileName_.push_back(Form("%sqq_cH_WW%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotBSM);
       infileName_.push_back(Form("%sqq_cH_WZ%d.root"     ,filesPath.Data(),mHVal));         infileCat_.push_back(kPlotSignal1);
       }
@@ -402,8 +403,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 
   const int nBinAQGCMLL = 5; Float_t xbinsAQGCMLL[nBinAQGCMLL+1] = {0,150,300,450,600,750};
   const int nBinAQGCMTW = 3; Float_t xbinsAQGCMTW[nBinAQGCMTW+1] = {0,300,600,900};
-  const int nBinAQGCMTWW = 5; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,350,650, 850,1050,1300};
-  const int nBinAQGCMTWZ = 5; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,400,750,1050,1350,1600};
+  const int nBinAQGCMTWW = 8; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,250,350,450,550,650, 850,1050,1300};
+  const int nBinAQGCMTWZ = 7; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,325,450,550,650,850,1350,1600};
   const int nBinAQGCMWW = 5; Float_t xbinsAQGCMWW[nBinAQGCMWW+1] = {0,300,550, 750, 950,1200};
   const int nBinAQGCMWZ = 5; Float_t xbinsAQGCMWZ[nBinAQGCMWZ+1] = {0,400,750,1050,1250,1500};
 
@@ -467,7 +468,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 2*5;
   else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
   else if(useTwoBDTs == true  && (fidAna == 5 || fidAna == 9)) nBinMVAAux = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
-  else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + 2*nBinAQGCMTWW;
+  else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + 2*nBinAQGCMTWZ;
   else if(fidAna == 7) nBinMVAAux = nBinMJJCR*nBinPTL1 + 3*nBinMJJCR + nBinWZBDT;
   const int nBinMVA = nBinMVAAux; Float_t xbins[nBinMVA+1];
   for(int nb=0; nb<=nBinMVA; nb++) xbins[nb] = -0.5 + nb;
@@ -1454,7 +1455,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 					thePandaFlat.rw_fs1_7p5, thePandaFlat.rw_fs1_10, thePandaFlat.rw_fs1_15, thePandaFlat.rw_fs1_20, thePandaFlat.rw_fs1_25, 
 					thePandaFlat.rw_fs1_30, thePandaFlat.rw_fs1_33, thePandaFlat.rw_fs1_35};
       double totalWeight = 1.0; double puWeight = 1.0; double puWeightUp = 1.0; double puWeightDown = 1.0; double effWSUnc = 1.0; double sf_l1PrefireE = 1.0;
-      double theQCDScale[6] = {1,1,1,1,1,1}; double thePDFScale[2] = {1,1}; double bTagSyst[4] = {1,1,1,1};
+      double theQCDScale[6] = {1,1,1,1,1,1}; double thePDFScale = 1.0; double bTagSyst[4] = {1,1,1,1};
       double triggerWeights[2] = {1.0, 0.0};double fakeWeight[4] = {0,0,0,0}; bool isVBS[2] = {false, false};
       if(theCategory != kPlotData){
         // Avoid QCD scale weights that are anomalous high
@@ -1462,7 +1463,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                               TMath::Abs(thePandaFlat.scale[3])+TMath::Abs(thePandaFlat.scale[4])+TMath::Abs(thePandaFlat.scale[5]))/6.0;
         if(maxQCDscale == 0) maxQCDscale = 1;
         for(int i=0; i<6; i++) theQCDScale[i] = TMath::Abs(thePandaFlat.scale[i])/maxQCDscale;
-        thePDFScale[0] = thePandaFlat.pdfUp; thePDFScale[1] = thePandaFlat.pdfDown;
+        thePDFScale = 1.01+(gRandom->Uniform()-0.5)*0.01;
         bTagSyst[0] = thePandaFlat.sf_btag0BUp  /thePandaFlat.sf_btag0;
         bTagSyst[1] = thePandaFlat.sf_btag0BDown/thePandaFlat.sf_btag0;
         bTagSyst[2] = thePandaFlat.sf_btag0MUp  /thePandaFlat.sf_btag0;
@@ -1501,6 +1502,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
         if(!(fidAna == 5 || fidAna == 9 || fidAna == 6)) {isVBS[0] = false; isVBS[1] = false;}
+        if(infileName_[ifile].Contains("qq_cH") == true) {isVBS[0] = false; isVBS[1] = false;}
 
 	if     (isVBS[0] && (fidAna == 5 || fidAna == 9) && (infileName_[ifile].Contains("WWjj_SS_long") || infileName_[ifile].Contains("WWjj_SS_lt")))
 	  totalWeight = totalWeight * hWWQCD_KF_CMS->GetBinContent(hWWQCD_KF_CMS->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
@@ -1508,7 +1510,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
 	 {totalWeight = totalWeight * 0; return;}
-        else if(isVBS[0] && infileName_[ifile].Contains("qq_cH") == false)
+        else if(isVBS[0])
 	  totalWeight = totalWeight * hWW_KF_CMS   ->GetBinContent(hWW_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1])
 	  totalWeight = totalWeight * hWZ_KF_CMS   ->GetBinContent(hWZ_KF_CMS   ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)));
@@ -2674,11 +2676,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	  }
           typeSelAux1[3] = typeSelAux1[0];
           typeSelAux1[4] = typeSelAux1[0];
-	  if(massJJ        > 1200) typeSelAux1[0] += nBinAQGCMTWZ;
-	  if(massJJJESUp   > 1200) typeSelAux1[1] += nBinAQGCMTWZ;
-	  if(massJJJESDown > 1200) typeSelAux1[2] += nBinAQGCMTWZ;
-	  if(massJJJERUp   > 1200) typeSelAux1[3] += nBinAQGCMTWZ;
-	  if(massJJJERDown > 1200) typeSelAux1[4] += nBinAQGCMTWZ;
+	  if(massJJ        > 1500) typeSelAux1[0] += nBinAQGCMTWZ;
+	  if(massJJJESUp   > 1500) typeSelAux1[1] += nBinAQGCMTWZ;
+	  if(massJJJESDown > 1500) typeSelAux1[2] += nBinAQGCMTWZ;
+	  if(massJJJERUp   > 1500) typeSelAux1[3] += nBinAQGCMTWZ;
+	  if(massJJJERDown > 1500) typeSelAux1[4] += nBinAQGCMTWZ;
 
           int whichBin = 0;
           if     (dataCardSel        == 0) MVAVar        = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    //typeSelAux0[whichBin] + nBinAQGCMTWW*bdtWWWSValueBin[whichBin];
@@ -2802,7 +2804,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
 	else if(isVBS[0] && (fidAna == 5 || fidAna == 9))
                     {sf_ewkcorrvv_unc = 1; return;}
-	else if(isVBS[0] && infileName_[ifile].Contains("qq_cH") == false)
+	else if(isVBS[0])
                      sf_ewkcorrvv_unc = hWW_KF_CMSUp->GetBinContent(hWW_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)))/
                                         hWW_KF_CMS  ->GetBinContent(hWW_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,1999.999f)));
         if(isVBS[1]) sf_ewkcorrvv_unc = hWZ_KF_CMSUp->GetBinContent(hWZ_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)))/
@@ -2883,8 +2885,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	    histo_QCDScaleBounding[theCategory][3]->Fill(MVAVar,totalWeight*theQCDScale[3]);
 	    histo_QCDScaleBounding[theCategory][4]->Fill(MVAVar,totalWeight*theQCDScale[4]);
 	    histo_QCDScaleBounding[theCategory][5]->Fill(MVAVar,totalWeight*theQCDScale[5]);
-	    histo_PDFBoundingUp[theCategory]  ->Fill(MVAVar,totalWeight*TMath::Max(thePDFScale[0],1.01));
-	    histo_PDFBoundingDown[theCategory]->Fill(MVAVar,totalWeight*TMath::Min(thePDFScale[1],0.99));
+	    histo_PDFBoundingUp[theCategory]  ->Fill(MVAVar,totalWeight*thePDFScale);
+	    histo_PDFBoundingDown[theCategory]->Fill(MVAVar,totalWeight/thePDFScale);
             histo_LepEffMBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*muSFUnc); histo_LepEffEBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*elSFUnc);
             histo_LepEffMBoundingDown[theCategory]->Fill(MVAVar,totalWeight/muSFUnc); histo_LepEffEBoundingDown[theCategory]->Fill(MVAVar,totalWeight/elSFUnc);
             histo_PUBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*puWeightUp  /puWeight);
@@ -3086,7 +3088,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_EWKCorrVVUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVUp  [ic]->GetSumOfWeights());
       histo_EWKCorrVVDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVDown[ic]->GetSumOfWeights());
     }
-    else if(ic == kPlotZZ || ic == kPlotTVX || ic == kPlotWZ) {
+    else if(ic == kPlotZZ || ic == kPlotTVX || (ic == kPlotWZ && fidAna != 6)) {
       histo_QCDScaleUp     [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp	  [ic]->GetSumOfWeights());
       histo_QCDScaleDown   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown   [ic]->GetSumOfWeights());
       histo_EWKCorrVVUp    [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVUp    [ic]->GetSumOfWeights());
@@ -3794,6 +3796,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   if(fidAna == 5 || fidAna == 9){
   newcardShape << Form("CMS_ssww_wznorm  rateParam * %s 1 [0.1,3]\n",plotBaseNames[kPlotWZ].Data());
   }
+  //if(fidAna == 6){
+  //newcardShape << Form("CMS_ssww_wwnorm  rateParam * %s 1 [0.1,3]\n",plotBaseNames[kPlotEWKSSWW].Data());
+  //newcardShape << Form("CMS_ssww_wznorm  rateParam * %s 1 [0.1,3]\n",plotBaseNames[kPlotWZ].Data());
+  //}
 
   newcardShape << Form("ch1 autoMCStats 0\n");
 

@@ -170,14 +170,14 @@ double mcCorrection(int type, TString infileName, int year, int infileCat, doubl
 
   if(infileCat == kPlotBSM || infileCat == kPlotSignal1) {
     if     (infileName.Contains("VBF_HinvG")) totalWeight = totalWeight * 1.0;
-    else if(infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 4.520;
-    else if(infileName.Contains("125"))  totalWeight = totalWeight * 0.392500;
-    else if(infileName.Contains("150"))  totalWeight = totalWeight * 0.323900;
-    else if(infileName.Contains("200"))  totalWeight = totalWeight * 0.228200;
-    else if(infileName.Contains("300"))  totalWeight = totalWeight * 0.125600;
-    else if(infileName.Contains("500"))  totalWeight = totalWeight * 0.048720;
-    else if(infileName.Contains("800"))  totalWeight = totalWeight * 0.016220;
-    else if(infileName.Contains("1000")) totalWeight = totalWeight * 0.008732;
+    else if(infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 45.20*0.05;
+    else if(infileName.Contains("125"))  totalWeight = totalWeight * 3.92500*0.05;
+    else if(infileName.Contains("150"))  totalWeight = totalWeight * 3.23900*0.05;
+    else if(infileName.Contains("200"))  totalWeight = totalWeight * 2.28200*0.05;
+    else if(infileName.Contains("300"))  totalWeight = totalWeight * 1.25600*0.05;
+    else if(infileName.Contains("500"))  totalWeight = totalWeight * 0.48720*0.05;
+    else if(infileName.Contains("800"))  totalWeight = totalWeight * 0.16220*0.05;
+    else if(infileName.Contains("1000")) totalWeight = totalWeight * 0.08732*0.05;
     else {printf("XS NOT FOUND!\n"); totalWeight = 0.0;}
   }
 
