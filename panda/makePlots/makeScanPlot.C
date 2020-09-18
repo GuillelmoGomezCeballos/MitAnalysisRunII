@@ -70,11 +70,11 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   scan2->GetYaxis()->SetRangeUser(0.0,7.0);
 
   scan0->SetLineColor(2);
-  scan0->SetLineStyle(1);
+  scan0->SetLineStyle(3);
   scan0->SetLineWidth(4);
 
   scan1->SetLineColor(9);
-  scan1->SetLineStyle(1);
+  scan1->SetLineStyle(2);
   scan1->SetLineWidth(4);
 
   scan2->SetLineColor(1);
@@ -82,7 +82,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   scan2->SetLineWidth(4);
 
   scan3->SetLineColor(8);
-  scan3->SetLineStyle(1);
+  scan3->SetLineStyle(4);
   scan3->SetLineWidth(4);
 
   GoodStyle();

@@ -13,7 +13,7 @@
 #include "CMS_lumi.C"
 #include "TRandom.h"
 #include "MitAnalysisRunII/panda/macros/10x_g/common.h"
-#include "StandardPlot.C"
+#include "StandardPlot_vbfg.C"
 #include "GoodStyle.C"
 
 double scaling[8] = {1,1,1,1,1,1,1,1};
@@ -93,11 +93,11 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   //gInterpreter->ExecuteMacro("MitAnalysisRunII/panda/makePlots/GoodStyle.C");
   GoodStyle();
-  //gROOT->LoadMacro("StandardPlot.C");
+  //gROOT->LoadMacro("StandardPlot_vbfg.C");
   gStyle->SetOptStat(0);
 
   TH1F* _hist[nPlotCategories];
-  StandardPlot myPlot;
+  StandardPlot_vbfg myPlot;
   myPlot.setDoApplyBinWidth(doApplyBinWidth);
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
@@ -216,8 +216,10 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
 
   _hist[kPlotPhotonE0]->Add(_hist[kPlotPhotonE1]);_hist[kPlotPhotonE1]->Scale(0.0);
 
-  _hist[kPlotVV]->Add(_hist[kPlotVVV]);_hist[kPlotVVV]->Scale(0.0);
-  _hist[kPlotVV]->Add(_hist[kPlotTop]);_hist[kPlotTop]->Scale(0.0);
+  _hist[kPlotVV]->Add(_hist[kPlotVVV]);       _hist[kPlotVVV]       ->Scale(0.0);
+  _hist[kPlotVV]->Add(_hist[kPlotTop]);       _hist[kPlotTop]       ->Scale(0.0);
+  _hist[kPlotVV]->Add(_hist[kPlotDY]);        _hist[kPlotDY]        ->Scale(0.0);
+  _hist[kPlotVV]->Add(_hist[kPlotNonPrompt]); _hist[kPlotNonPrompt] ->Scale(0.0);
 
   _hist[kPlotBSM]->Add(_hist[kPlotSignal1]);_hist[kPlotSignal1]->Scale(0.0);
 
@@ -262,7 +264,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(isLogY == true) c1->SetLogy();
   if(isLogX == true) c1->SetLogx();
   myPlot.Draw(ReBin);  // Can pass a rebin 
-  if(year==2019) CMS_lumi( c1, 2020, 1); else CMS_lumi( c1, year, 1);
+  if(year==2019) CMS_lumi( c1, 2020, 1, 0.45); else CMS_lumi( c1, year, 1, 0.45);
   } else {
   c1->SetBottomMargin(0.1);
   c1->cd();
@@ -284,7 +286,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
   if(isLogSpecial) {c1->SetLogx();pad1->SetLogx();pad2->SetLogx();}
 
   myPlot.Draw(ReBin);
-  if(year==2019) CMS_lumi( c1, 2020, 1); else CMS_lumi( c1, year, 1);
+  if(year==2019) CMS_lumi( c1, 2020, 1, 0.45); else CMS_lumi( c1, year, 1, 0.45);
 
   pad2->cd();
   pad2->RedrawAxis();

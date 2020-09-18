@@ -18,7 +18,7 @@ float extraTextFont = 52;  // default is helvetica-italics
 // text sizes and text offsets with respect to the top frame
 // in unit of the top margin size
 float lumiTextSize     = 0.6;
-float lumiTextOffset   = 0.2; // 0.45; // 0.2 sometimes
+//float lumiTextOffset   = 0.2; // 0.45; // 0.2 sometimes
 float cmsTextSize      = 0.75;
 float cmsTextOffset    = 0.1;  // only used in outOfFrame version
 
@@ -40,4 +40,4 @@ TString lumi_sqrtS      = "";
 
 bool drawLogo      = false;
 
-void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10 );
+void CMS_lumi( TPad* pad, int iPeriod=3, int iPosX=10, double lumiTextOffset = 0.2);

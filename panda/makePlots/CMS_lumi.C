@@ -2,8 +2,8 @@
 #include <iostream>
 
 void 
-CMS_lumi( TPad* pad, int iPeriod, int iPosX )
-{            
+CMS_lumi( TPad* pad, int iPeriod, int iPosX, double lumiTextOffset)
+{
   bool outOfFrame    = false;
   if( iPosX/10==1 ) 
     {

@@ -13,7 +13,7 @@
 #include "CMS_lumi.C"
 #include "TRandom.h"
 #include "MitAnalysisRunII/panda/macros/9x/common.h"
-#include "StandardPlot.C"
+#include "StandardPlot_smp20006.C"
 #include "GoodStyle.C"
 
 double scaling[8] = {1,1,1,1,1,1,1,1};
@@ -65,7 +65,7 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   histo->GetYaxis()->SetLabelSize  (0.090);
   histo->GetYaxis()->SetNdivisions (  505);
   histo->GetYaxis()->SetTitleFont  (   42);
-  histo->GetYaxis()->SetTitleOffset(  0.4);
+  histo->GetYaxis()->SetTitleOffset( 0.35);
   histo->GetYaxis()->SetTitleSize  (0.160);
   //histo->GetYaxis()->SetTickLength (0.03 );
 
@@ -74,7 +74,7 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   histo->SetMarkerStyle(kFullCircle);
 }
 
-void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString units = "", TString plotName = "histoWW_56.root", TString outputName = "njets",
+void finalPlot_smp20006(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString units = "", TString plotName = "histoWW_56.root", TString outputName = "njets",
                 bool isLogY = false, int year = 2017, TString higgsLabel = "", double lumi = 1.0, bool isBlind = false, TString extraLabel = "",
 		bool show2D = true, bool applyScaling = false,
 		TString mlfitResult = "", TString channelName = "", bool applyBBBBSF = false,
@@ -93,11 +93,11 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
   //gInterpreter->ExecuteMacro("MitAnalysisRunII/panda/makePlots/GoodStyle.C");
   GoodStyle();
-  //gROOT->LoadMacro("StandardPlot.C");
+  //gROOT->LoadMacro("StandardPlot_smp20006.C");
   gStyle->SetOptStat(0);
 
   TH1F* _hist[nPlotCategories];
-  StandardPlot myPlot;
+  StandardPlot_smp20006 myPlot;
   myPlot.setDoApplyBinWidth(doApplyBinWidth);
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
@@ -384,8 +384,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
       //hRatio->SetBinContent(i,pull);
       //hRatio->SetBinError(i,pullerr);
       //if(pull<0.97||pull>1.03)
-      if(pull+pullerr > maxRatio) maxRatio = pull;
-      if(pull-pullerr < minRatio) minRatio = pull;
+      if(pull+pullerr > maxRatio) maxRatio = pull+pullerr;
+      if(pull-pullerr < minRatio) minRatio = pull-pullerr;
       if(printRatios) printf("ratio(%3d): %f +/- %f --> da: %f +/- %f (%f) pred: %f +/- %f\n",i,pull,pullerr,hDataDivision ->GetBinContent(i),hDataDivision ->GetBinError(i),(diffUp+diffDown)/2,hTotalDivision->GetBinContent(i),hTotalDivision->GetBinError(i));
     }
   }
@@ -411,8 +411,8 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   // Set the y-axis range symmetric around y=0
   Double_t dy = TMath::Max(TMath::Abs(hRatio->GetMaximum()),
                            TMath::Abs(hRatio->GetMinimum())) + theLines[1];
-  minRatio = TMath::Min(TMath::Max(minRatio-0.10,0.000),0.501);
-  maxRatio = TMath::Min(TMath::Max(maxRatio+0.15,1.550),4.999);
+  minRatio = TMath::Max(minRatio-0.10,0.000);
+  maxRatio = maxRatio+0.15;
   if(showPulls) hBand->GetYaxis()->SetRangeUser(-dy, +dy);
   else          hBand->GetYaxis()->SetRangeUser(minRatio,maxRatio);
   hRatio->GetYaxis()->CenterTitle();

@@ -146,9 +146,9 @@ elif [ $NSEL == 'vbfg' ]; then
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_125_1000_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}',"","",0,"done_vbfg/histoVBFG_2019_trigger2_mH125_05.root","qqH_{1000}(inv.+#gamma)")';
   export YEAR=2019; export MJJ=0; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"m_{jj} < 1500 GeV",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"#splitline{SR}{m_{jj} < 1500 GeV}",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=1; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"m_{jj} > 1500 GeV",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_sr_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"#splitline{SR}{m_{jj} > 1500 GeV}",1,'${APPLYSCALING}')';
 
   export isBlinded=0;
 
@@ -175,9 +175,9 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2019; export MJJ=0; export TRIG=2;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_wj_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wj_mtg_trigger'${TRIG}'",1,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=0; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",1,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"m_{jj} < 1500 GeV",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",1,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"#splitline{W+jets CR}{m_{jj} < 1500 GeV}",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=1; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",1,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"m_{jj} > 1500 GeV",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_datacards/histoDatacard_vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",1,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"#splitline{W+jets CR}{m_{jj} > 1500 GeV}",1,'${APPLYSCALING}')';
 
   export YEAR=2016; export MJJ=0; export TRIG=0;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_wg_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wg_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
@@ -190,7 +190,7 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2018; export MJJ=0; export TRIG=1;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_wg_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wg_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=0; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_wg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_wg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_wg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"W#gamma CR",1,'${APPLYSCALING}')';
 
   export YEAR=2016; export MJJ=0; export TRIG=0;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_gj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_gj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
@@ -203,7 +203,7 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2018; export MJJ=0; export TRIG=1;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_gj_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_gj_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=0; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_gj_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_gj_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_gj_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_gj_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"#gamma+jets CR",1,'${APPLYSCALING}')';
 
   export YEAR=2016; export MJJ=0; export TRIG=0;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
@@ -216,7 +216,7 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2018; export MJJ=0; export TRIG=1;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_mjj'${MJJ}'_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_mjj'${MJJ}'_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
   export YEAR=2019; export MJJ=0; export TRIG=2;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"",1,'${APPLYSCALING}')';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125}(inv.+#gamma) x 0.05",1,'${isBlinded}',"Z#gamma CR",1,'${APPLYSCALING}')';
 
 elif [ $NSEL == 'zhmt' ]; then
   export YEAR=2016;

@@ -17,12 +17,13 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.45,0.45,0.45,0.45,0.45,0.45};
-float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   7,   8,   2,   3,   4,   5,   6,   7};
+//float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40};
+float xPos[nPlotCategories] = {0.65,0.65,0.65,0.65,0.65,0.65,0.65,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40};
+float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
-const Float_t _tsize   = 0.055;
+const Float_t _tsize   = 0.060;
 const Float_t _xoffset = 0.200;
-const Float_t _yoffset = 0.051;
+const Float_t _yoffset = 0.065;
 
 const double SFBinWidth = 1;
 
@@ -81,8 +82,8 @@ void AxisFonts(TAxis*  axis,
     axis->SetTitleOffset(  0.9);
     axis->SetTitleSize  (0.070);
 
-    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(1.10);
-    else if (coordinate == "y")                            axis->SetTitleOffset(1.10);
+    if      (coordinate == "y" && doApplyBinWidth == true) axis->SetTitleOffset(0.90);
+    else if (coordinate == "y")                            axis->SetTitleOffset(0.90);
 
     axis->SetTitle(title);
 }
@@ -151,10 +152,10 @@ void DrawLegendTG(Float_t x1,
     legend->Draw();
 }
 
-class StandardPlot_vbfg {
+class StandardPlot_smp20006 {
 
     public: 
-        StandardPlot_vbfg() { _doApplyBinWidth = false; _hist.resize(nPlotCategories,0); _hist[kPlotData] = 0; _breakdown = false; _HiggsLabel = ""; _Higgs2Label = "";_labelEM = " Nonprompt";_labelVVV = " VVV";}
+        StandardPlot_smp20006() { _doApplyBinWidth = false; _hist.resize(nPlotCategories,0); _hist[kPlotData] = 0; _breakdown = false; _HiggsLabel = ""; _Higgs2Label = "";_labelEM = " Nonprompt";_labelVVV = " VVV";}
         void setMCHist   (int s, TH1F * h)  { _hist[s] = h;} 
         void setOverlaid  (bool b)   { isBSMOverlaid = b;   }
         void setLabelEM   (TString s){ _labelEM  = s.Data();}
@@ -373,7 +374,7 @@ class StandardPlot_vbfg {
             }
 
             if (gPad->GetLogy()) {
-                hstack->SetMaximum(500 * theMax);
+                hstack->SetMaximum(100 * theMax);
                 hstack->SetMinimum(TMath::Max(0.9 * theMin,0.001));
             } else {
               hstack->SetMaximum(2.0 * theMax);
