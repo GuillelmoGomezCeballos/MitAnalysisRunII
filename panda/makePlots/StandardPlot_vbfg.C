@@ -17,7 +17,7 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.57,0.45,0.45,0.45,0.45,0.45,0.45};
+float xPos[nPlotCategories] = {0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.49,0.45,0.45,0.45,0.45,0.45,0.45};
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   7,   8,   2,   3,   4,   5,   6,   7};
 
 const Float_t _tsize   = 0.055;
@@ -373,7 +373,7 @@ class StandardPlot_vbfg {
             }
 
             if (gPad->GetLogy()) {
-                hstack->SetMaximum(500 * theMax);
+                hstack->SetMaximum(1500 * theMax);
                 hstack->SetMinimum(TMath::Max(0.9 * theMin,0.001));
             } else {
               hstack->SetMaximum(2.0 * theMax);
