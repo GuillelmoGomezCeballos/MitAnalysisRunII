@@ -1518,12 +1518,6 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
         if     (includeBSMAQGC == 1) totalWeight = totalWeight * (thePandaFlat.rw_ft2_2p9-thePandaFlat.rw_ft2_0);
         else if(includeBSMAQGC == 2) totalWeight = totalWeight * (thePandaFlat.rw_fs0_20-thePandaFlat.rw_fs0_0p0);
 
-        //BEGIN HACK
-	if     (fidAna == 6 && year == 2017 && infileName_[ifile].Contains("qq_cH_WW")) totalWeight = totalWeight * 6.0;
-	else if(fidAna == 6 && year == 2018 && infileName_[ifile].Contains("qq_cH_WW")) totalWeight = totalWeight * 5.5;
-        //END HACK
-
-
         double effSF = 1.0;
         for(unsigned int nl=0; nl<idLep.size(); nl++){
           if(idLep[nl] == 0) continue;
