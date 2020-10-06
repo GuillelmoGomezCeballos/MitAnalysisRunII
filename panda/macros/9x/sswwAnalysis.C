@@ -2684,32 +2684,32 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
           else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  //nBinAQGCMTWW*nBinWWWSBDT + 3*nBinMJJCR + typeSelAux1[whichBin];
 
           whichBin = 1;
-          if     (dataCardSelJESUp   == 0) MVAVarJESUp   =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
-          else if(dataCardSelJESUp   == 1) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 2) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 3) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 4) MVAVarJESUp   =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
+          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinAQGCMTWW +		  typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 2;
-          if     (dataCardSelJESDown == 0) MVAVarJESDown =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
-          else if(dataCardSelJESDown == 1) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 2) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 3) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 4) MVAVarJESDown =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
+          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinAQGCMTWW +		  typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 3;
-          if     (dataCardSelJERUp   == 0) MVAVarJERUp   =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
-          else if(dataCardSelJERUp   == 1) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 2) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 3) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 4) MVAVarJERUp   =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
+          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinMJJCR*nBinAQGCMTWW +		  typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];  
 
           whichBin = 4;
-          if     (dataCardSelJERDown == 0) MVAVarJERDown =  typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
-          else if(dataCardSelJERDown == 1) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 2) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 3) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 4) MVAVarJERDown =  nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];
+          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux1CR[whichBin]  + nBinMJJCR*typeSelAux0[whichBin];    
+          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinAQGCMTWW +		  typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinAQGCMTWW +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinAQGCMTWW + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + typeSelAux1[whichBin];
         }
         else if(fidAna == 7){
           double typeSelAux0 = 0;
