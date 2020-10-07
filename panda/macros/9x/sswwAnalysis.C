@@ -405,6 +405,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   const int nBinAQGCMTW = 3; Float_t xbinsAQGCMTW[nBinAQGCMTW+1] = {0,300,600,900};
   const int nBinAQGCMTWW = 8; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,250,350,450,550,650, 850,1050,1300};
   const int nBinAQGCMTWZ = 7; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,325,450,550,650,850,1350,1600};
+  //const int nBinAQGCMTWW = 10; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,250,300,400,500,600,700,800,900,1050,1300};
+  //const int nBinAQGCMTWZ = 9; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,300,400,500,600,700,800,1000,1350,1600};
+  //const int nBinAQGCMTWW = 6; Float_t xbinsAQGCMTWW[nBinAQGCMTWW+1] = {0,300,500,700,900,1050,1300};
+  //const int nBinAQGCMTWZ = 5; Float_t xbinsAQGCMTWZ[nBinAQGCMTWZ+1] = {0,400,600,900,1350,1600};
   const int nBinAQGCMWW = 5; Float_t xbinsAQGCMWW[nBinAQGCMWW+1] = {0,300,550, 750, 950,1200};
   const int nBinAQGCMWZ = 5; Float_t xbinsAQGCMWZ[nBinAQGCMWZ+1] = {0,400,750,1050,1250,1500};
 

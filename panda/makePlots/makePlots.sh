@@ -670,8 +670,11 @@ elif [ $NSEL == 'ssww' ] || [ $NSEL == 'sswwll' ] || [ $NSEL == 'sswwlx' ] || [ 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"BDT score","BIN","done_ana/histossww_'${YEAR}'_89'${fidAnaName}'.root","ssww_wwsel_bdt",0,'${YEAR}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
   fi
 
-  if [ $NSEL == 'sswwlx' ] || [ $NSEL == 'higgs' ] || [ $NSEL == 'sswwll' ]; then
+  if [ $NSEL == 'sswwlx' ] || [ $NSEL == 'sswwll' ]; then
   exit;
+  fi
+  if [ $NSEL == 'higgs' ]; then
+  export isBlinded=0;
   fi
 
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_0'${fidAnaName}'.root","ssww_wwsel_mjj",0,  '${YEAR}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
