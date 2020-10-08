@@ -29,7 +29,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
     scanName2 = "/home/ceballos/ana_area/ana_zh/scan2.root";
     scanName3 = "/home/ceballos/ana_area/ana_zh/scan3.root";
     xName = "B(h #rightarrow inv)";
-    textSize = 0.0310;
+    textSize = 0.0270;
   }
   else if(nsel == 2) {
     scanName0 = "/home/ceballos/ana_area/ana_znn/scan.root";
