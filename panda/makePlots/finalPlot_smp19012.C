@@ -13,7 +13,7 @@
 #include "CMS_lumi.C"
 #include "TRandom.h"
 #include "MitAnalysisRunII/panda/macros/9x/common.h"
-#include "StandardPlot.C"
+#include "StandardPlot_smp19012.C"
 #include "GoodStyle.C"
 
 double scaling[8] = {1,1,1,1,1,1,1,1};
@@ -74,7 +74,7 @@ void atributes(TH1D *histo, TString xtitle = "", TString ytitle = "Fraction", TS
   histo->SetMarkerStyle(kFullCircle);
 }
 
-void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString units = "", TString plotName = "histoWW_56.root", TString outputName = "njets",
+void finalPlot_smp19012(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString units = "", TString plotName = "histoWW_56.root", TString outputName = "njets",
                 bool isLogY = false, int year = 2017, TString higgsLabel = "", double lumi = 1.0, bool isBlind = false, TString extraLabel = "",
 		bool show2D = true, bool applyScaling = false,
 		TString mlfitResult = "", TString channelName = "", bool applyBBBBSF = false,
@@ -93,11 +93,11 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
 
   //gInterpreter->ExecuteMacro("MitAnalysisRunII/panda/makePlots/GoodStyle.C");
   GoodStyle();
-  //gROOT->LoadMacro("StandardPlot.C");
+  //gROOT->LoadMacro("StandardPlot_smp19012.C");
   gStyle->SetOptStat(0);
 
   TH1F* _hist[nPlotCategories];
-  StandardPlot myPlot;
+  StandardPlot_smp19012 myPlot;
   myPlot.setDoApplyBinWidth(doApplyBinWidth);
   myPlot.setLumi(lumi);
   myPlot.setLabel(XTitle);
