@@ -1417,7 +1417,7 @@ int year, int triggerCat, int mH = 125
   for(int ic=1; ic<nPlotCategories; ic++) if(histo_Baseline[ic]->GetSumOfWeights() < 0) histo_Baseline[ic]->Scale(0.0);
   for(int ic=0; ic<nPlotCategories; ic++) histo[allPlots-1][ic]->Add(histo_Baseline[ic]);
 
-  double qcdScaleTotal[2] = {1.005, 1.021}; // VBF, ggH
+  double qcdScaleTotal[2] = {1.005, 1.210}; // VBF, ggH
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || ic == kPlotNonPrompt || ic == kPlotPhotonE0 || ic == kPlotPhotonE1 || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -1917,7 +1917,7 @@ int year, int triggerCat, int mH = 125
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic != kPlotBSM && ic != kPlotSignal1) newcardShape << Form(" - ");
-    else                                     newcardShape << Form("%f  ", 1.02);
+    else                                     newcardShape << Form("%f  ", 1.03);
   }
   newcardShape << Form("\n");
 
