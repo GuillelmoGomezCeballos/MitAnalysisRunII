@@ -165,10 +165,14 @@ std::map<int, TString> plotNames={
 const double mass_el = 0.000510998928;
 const double mass_mu = 0.10566;
 
-double mcCorrection(int type, TString infileName, int year, int infileCat, double mjj, double mtg, int triggerCat){
+double mcCorrection(int type, TString infileName, int year, int infileCat, double mjj, double mtg, int triggerCat, int mH){
   double totalWeight = 1.0;
 
-  if(infileCat == kPlotBSM || infileCat == kPlotSignal1) {
+  if     ((infileCat == kPlotBSM || infileCat == kPlotSignal1) && mH == 120) {
+    if     (infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 48.58*0.1;
+    else if(infileName.Contains("125"))  totalWeight = totalWeight * 3.782*0.1;
+  }
+  else if(infileCat == kPlotBSM || infileCat == kPlotSignal1) {
     if     (infileName.Contains("VBF_HinvG")) totalWeight = totalWeight * 1.0;
     else if(infileName.Contains("DarkPhotonggH")) totalWeight = totalWeight * 45.20*0.05;
     else if(infileName.Contains("125"))  totalWeight = totalWeight * 3.92500*0.05;
