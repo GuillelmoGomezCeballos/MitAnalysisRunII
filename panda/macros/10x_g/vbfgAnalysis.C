@@ -77,6 +77,7 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotNonPrompt);
+    //infileName_.push_back(Form("/scratch5/bmaier/darkg/2018/vbfg_v_013_v21_jhep/Data.root")); infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -145,6 +146,7 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotData);
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                     infileCat_.push_back(kPlotNonPrompt);
+    //infileName_.push_back(Form("/scratch5/bmaier/darkg/2017/vbfg_v_012_v21_jhep/Data.root")); infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww_CP5.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -214,6 +216,7 @@ int year, int triggerCat, int mH = 125
 
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                 infileCat_.push_back(kPlotData);
     infileName_.push_back(Form("%sData.root" ,filesPath.Data()));                 infileCat_.push_back(kPlotNonPrompt);
+    //infileName_.push_back(Form("/scratch5/bmaier/darkg/2016/vbfg_v_009_v21_jhep/SinglePhoton.root")); infileCat_.push_back(kPlotNonPrompt);
 
     infileName_.push_back(Form("%sDiboson_ww.root" ,filesPath.Data()));           infileCat_.push_back(kPlotVV);
 
@@ -1131,9 +1134,9 @@ int year, int triggerCat, int mH = 125
 	if     (year == 2016) def = 3.60167797932 * TMath::Exp(-0.0508590637067*vPhoton.Pt())+0.164430014756;
 	else if(year == 2017) def = 6.54397693239 * TMath::Exp(-0.0521365327166*vPhoton.Pt())+0.245878324881;
 	else if(year == 2018) def = 7.17000000000 * TMath::Exp(-0.0525360000000*vPhoton.Pt())+0.271000000000;
-	//if     (year == 2016) def = 0.1 * (40873.226 * TMath::Exp(-0.150639*vPhoton.Pt())+0.206);
-	//else if(year == 2017) def = 6.54397693239 * TMath::Exp(-0.0521365327166*vPhoton.Pt())+0.245878324881;
-	//else if(year == 2018) def = 7.17000000000 * TMath::Exp(-0.0525360000000*vPhoton.Pt())+0.271000000000;
+	//if     (year == 2016) def = 0.1*(40873.226 * TMath::Exp(-0.150639*vPhoton.Pt())+0.206);
+	//else if(year == 2017) def = 0.3*(-22.070 * TMath::Exp(-0.000008*vPhoton.Pt())+22.346);
+	//else if(year == 2018) def = 0.9*(0.404 * TMath::Exp(-0.015103*vPhoton.Pt())+0.086);
 	totalWeight = totalWeight * def;
 	//double alt = 1.0;
 	//if     (year == 2016) alt = 0.456 * TMath::Exp(-0.022300*vPhoton.Pt())+0.047;
