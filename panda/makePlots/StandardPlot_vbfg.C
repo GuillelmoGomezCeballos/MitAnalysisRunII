@@ -373,10 +373,10 @@ class StandardPlot_vbfg {
             }
 
             if (gPad->GetLogy()) {
-                hstack->SetMaximum(1500 * theMax);
+                hstack->SetMaximum(30000 * theMax);
                 hstack->SetMinimum(TMath::Max(0.9 * theMin,0.001));
             } else {
-              hstack->SetMaximum(2.0 * theMax);
+              hstack->SetMaximum(2.3 * theMax);
             }
 
             if(_breakdown) {
