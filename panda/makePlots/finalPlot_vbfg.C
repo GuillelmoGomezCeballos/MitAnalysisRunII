@@ -244,7 +244,7 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     if(!_hist[ic]) continue;
     if(isBlind == true && ic == kPlotData) continue;
     if(applyScaling == true && ic != kPlotData && ic != kPlotBSM) _hist[ic]->Scale(scale);
-    if(_hist[ic]->GetSumOfWeights() > 0) myPlot.setMCHist(ic, _hist[ic]);
+    if(ic == kPlotData || _hist[ic]->GetSumOfWeights() > 0.00001) myPlot.setMCHist(ic, _hist[ic]);
   }
 
   myPlot.setOverlaid(false);
