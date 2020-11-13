@@ -104,7 +104,7 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   if(nsel!=2)scan0->Draw("LSAME");
   if(nsel!=2)scan3->Draw("LSAME");
 
-  TLegend* leg = new TLegend(0.2, 0.7, 0.4, 0.9);
+  TLegend* leg = new TLegend(0.20, 0.65, 0.40, 0.90);
   leg->SetBorderSize(    0);
   leg->SetFillColor (    0);
   leg->SetFillStyle (    0);
