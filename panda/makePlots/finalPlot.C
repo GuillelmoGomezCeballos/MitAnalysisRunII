@@ -130,12 +130,6 @@ void finalPlot(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TString
   else if(_hist[kPlotSignal3] && _hist[kPlotSignal3]->GetSumOfWeights() > 0) isVBS[0] = 1;
   if(_hist[kPlotEWKWZ] && _hist[kPlotEWKWZ]  ->GetSumOfWeights() > 0) isVBS[1] = 1;
 
-  if(outputName == "ssww_wzsel_aqgc_mt") {_hist[kPlotData]->SetBinContent(2,_hist[kPlotData]->GetBinContent(2)*2.3);}
-  if(outputName == "ssww_wzsel_aqgc_fullmtwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
-  if(outputName == "ssww_wzsel_aqgc_fullmwz") {_hist[kPlotData]->SetBinContent(3,_hist[kPlotData]->GetBinContent(3)*1.7);}
-  if(outputName.Contains("ssww_wzsel") && _hist[kPlotEWKSSWW]) {_hist[kPlotEWKSSWW]->Scale(0);}
-  //if(outputName.Contains("wz_")) {_hist[kPlotHiggs]->Scale(0);}
-
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));
