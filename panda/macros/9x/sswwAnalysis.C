@@ -2817,7 +2817,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
         if(isVBS[1]) sf_ewkcorrvv_unc = hWZ_KF_CMSUp->GetBinContent(hWZ_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)))/
                                         hWZ_KF_CMS  ->GetBinContent(hWZ_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)));
 
-        if(fidAna == 6 && (ic == kPlotSignal1 || ic == kPlotBSM)) sf_ewkcorrvv_unc = 1.07;
+        if(fidAna == 6 && (theCategory == kPlotSignal1 || theCategory == kPlotBSM)) sf_ewkcorrvv_unc = 1.07;
 
         if     (theCategory == kPlotData && dataCardSel >= 0){
           histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
