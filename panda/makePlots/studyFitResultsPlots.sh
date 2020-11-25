@@ -266,4 +266,8 @@ elif [ $NSEL == 'zhmt' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_1jBSM_'${YEAR}'.root","zh_1jsignal_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"1-jet signal category",1,'${APPLYSCALING}',"","")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBINStack","done_datacards/histoDatacard_zhmt_1jBSM_'${YEAR}'.root","zh_1jsignal_mt_stack",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"1-jet signal category",1,'${APPLYSCALING}',"","")';
 
+elif [ $NSEL == 'higgs' ]; then
+  export YEAR=2019;
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Bin","BIN","done_datacards/histoDatacard_hpp_hp_'${YEAR}'.root","datacard_hpp_hp",0,'${YEAR}',"H^{++}/H^{+}",1,0,"",1,0,"","")';
+
 fi
