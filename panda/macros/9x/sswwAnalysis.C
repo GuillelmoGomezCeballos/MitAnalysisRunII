@@ -25,6 +25,7 @@ const bool isPseudoData = false;
 const int includeBSMAQGC = 0;
 
 double syst_WZl[2] = {1.010, 1.012};
+double syst_fake[2] = {0.3, 0.0};
 
 // fidAna == 0 (SM), 1 (SM-altWZ), 2 (MJJ), 3 (MLL), 4 (AQGC), 5(long), 6(Higgs), 7 (PTL1), 8 (SM, EWK-INT-QCD WW), 9(lx-tt)
 
@@ -46,7 +47,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 
   double jetPtCut = 50;
   TString fidAnaName = "";
-  if     (fidAna == 6) {fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal); if(year == 2016) jetPtCut = 30.;}
+  if     (fidAna == 6) {fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal); if(year == 2016) jetPtCut = 30.; syst_fake[0] = 0.2; syst_fake[1] = 0.2;}
   else if(fidAna >= 1) fidAnaName = Form("_fiducial%d",fidAna);
 
   TString inputFolder = "/data/t3home000";
@@ -691,8 +692,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     histo_WZTauLUp		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_WZTauLUp"           , plotBaseNames[ic].Data()));
     histo_WZTauLDown		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_WZTauLDown"         , plotBaseNames[ic].Data()));
   }
-  TH1D *histo_FakeBoundingUp  [nYears][8];
-  TH1D *histo_FakeBoundingDown[nYears][8];
+  TH1D *histo_FakeBoundingUp  [nYears][10];
+  TH1D *histo_FakeBoundingDown[nYears][10];
   for(int ny=0; ny<nYears; ny++){
      histo_FakeBoundingUp  [ny][0] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeMP_%dUp"   , plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
      histo_FakeBoundingDown[ny][0] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeMP_%dDown" , plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
@@ -710,6 +711,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
      histo_FakeBoundingDown[ny][6] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeM3L_%dDown", plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
      histo_FakeBoundingUp  [ny][7] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeE3L_%dUp"  , plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
      histo_FakeBoundingDown[ny][7] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeE3L_%dDown", plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
+     histo_FakeBoundingUp  [ny][8] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeFLM_%dUp"  , plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
+     histo_FakeBoundingDown[ny][8] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeFLM_%dDown", plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
+     histo_FakeBoundingUp  [ny][9] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeFLE_%dUp"  , plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
+     histo_FakeBoundingDown[ny][9] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeFLE_%dDown", plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
   }
 
   // Begin MVA-weigths initialization
@@ -1467,7 +1472,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                               TMath::Abs(thePandaFlat.scale[3])+TMath::Abs(thePandaFlat.scale[4])+TMath::Abs(thePandaFlat.scale[5]))/6.0;
         if(maxQCDscale == 0) maxQCDscale = 1;
         for(int i=0; i<6; i++) theQCDScale[i] = TMath::Abs(thePandaFlat.scale[i])/maxQCDscale;
-        thePDFScale = 1.01+(gRandom->Uniform()-0.5)*0.01;
+
+        if     (fidAna == 6 && infileCat_[ifile] == kPlotBSM) thePDFScale = 1.026+(gRandom->Uniform()-0.5)*0.01;
+        else if(fidAna == 6 && infileCat_[ifile] == kPlotSignal1) thePDFScale = 1.021+(gRandom->Uniform()-0.5)*0.01;
+        else thePDFScale = 1.010+(gRandom->Uniform()-0.5)*0.01;
+
         bTagSyst[0] = thePandaFlat.sf_btag0BUp  /thePandaFlat.sf_btag0;
         bTagSyst[1] = thePandaFlat.sf_btag0BDown/thePandaFlat.sf_btag0;
         bTagSyst[2] = thePandaFlat.sf_btag0MUp  /thePandaFlat.sf_btag0;
@@ -2808,6 +2817,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
         if(isVBS[1]) sf_ewkcorrvv_unc = hWZ_KF_CMSUp->GetBinContent(hWZ_KF_CMSUp->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)))/
                                         hWZ_KF_CMS  ->GetBinContent(hWZ_KF_CMS  ->GetXaxis()->FindFixBin(TMath::Min(thePandaFlat.genMjj,2999.999f)));
 
+        if(fidAna == 6 && (ic == kPlotSignal1 || ic == kPlotBSM)) sf_ewkcorrvv_unc = 1.07;
+
         if     (theCategory == kPlotData && dataCardSel >= 0){
           histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
         }
@@ -2840,6 +2851,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                   histo_FakeBoundingUp  [ny][7]->Fill(MVAVar,totalWeight);
                   histo_FakeBoundingDown[ny][7]->Fill(MVAVar,totalWeight);
 		}
+                histo_FakeBoundingUp  [ny][8]->Fill(MVAVar,totalWeight);
+                histo_FakeBoundingDown[ny][8]->Fill(MVAVar,totalWeight);
+                histo_FakeBoundingUp  [ny][9]->Fill(MVAVar,totalWeight);
+                histo_FakeBoundingDown[ny][9]->Fill(MVAVar,totalWeight);
               } else {
                 histo_FakeBoundingUp  [ny][6]->Fill(MVAVar,totalWeight);
                 histo_FakeBoundingDown[ny][6]->Fill(MVAVar,totalWeight);
@@ -2854,10 +2869,14 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                   histo_FakeBoundingDown[ny][2]->Fill(MVAVar,totalWeight/(1.0+0.3*(fakeWeight[2])/totalFake));
                   histo_FakeBoundingUp  [ny][3]->Fill(MVAVar,totalWeight*(1.0+0.3*(fakeWeight[3])/totalFake));
                   histo_FakeBoundingDown[ny][3]->Fill(MVAVar,totalWeight/(1.0+0.3*(fakeWeight[3])/totalFake));
-                  histo_FakeBoundingUp  [ny][4]->Fill(MVAVar,totalWeight*(1.0+0.3*(fakeWeight[0]+fakeWeight[1])/totalFake));
-                  histo_FakeBoundingDown[ny][4]->Fill(MVAVar,totalWeight/(1.0+0.3*(fakeWeight[0]+fakeWeight[1])/totalFake));
-                  histo_FakeBoundingUp  [ny][5]->Fill(MVAVar,totalWeight*(1.0+0.3*(fakeWeight[2]+fakeWeight[3])/totalFake));
-                  histo_FakeBoundingDown[ny][5]->Fill(MVAVar,totalWeight/(1.0+0.3*(fakeWeight[2]+fakeWeight[3])/totalFake));
+                  histo_FakeBoundingUp  [ny][4]->Fill(MVAVar,totalWeight*(1.0+syst_fake[0]*(fakeWeight[0]+fakeWeight[1])/totalFake));
+                  histo_FakeBoundingDown[ny][4]->Fill(MVAVar,totalWeight/(1.0+syst_fake[0]*(fakeWeight[0]+fakeWeight[1])/totalFake));
+                  histo_FakeBoundingUp  [ny][5]->Fill(MVAVar,totalWeight*(1.0+syst_fake[0]*(fakeWeight[2]+fakeWeight[3])/totalFake));
+                  histo_FakeBoundingDown[ny][5]->Fill(MVAVar,totalWeight/(1.0+syst_fake[0]*(fakeWeight[2]+fakeWeight[3])/totalFake));
+                  histo_FakeBoundingUp  [ny][8]->Fill(MVAVar,totalWeight*(1.0+syst_fake[1]*(fakeWeight[0]+fakeWeight[1])/totalFake));
+                  histo_FakeBoundingDown[ny][8]->Fill(MVAVar,totalWeight/(1.0+syst_fake[1]*(fakeWeight[0]+fakeWeight[1])/totalFake));
+                  histo_FakeBoundingUp  [ny][9]->Fill(MVAVar,totalWeight*(1.0+syst_fake[1]*(fakeWeight[2]+fakeWeight[3])/totalFake));
+                  histo_FakeBoundingDown[ny][9]->Fill(MVAVar,totalWeight/(1.0+syst_fake[1]*(fakeWeight[2]+fakeWeight[3])/totalFake));
                 } else {
                   histo_FakeBoundingUp  [ny][0]->Fill(MVAVar,totalWeight);
                   histo_FakeBoundingDown[ny][0]->Fill(MVAVar,totalWeight);
@@ -2871,6 +2890,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
                   histo_FakeBoundingDown[ny][4]->Fill(MVAVar,totalWeight);
                   histo_FakeBoundingUp  [ny][5]->Fill(MVAVar,totalWeight);
                   histo_FakeBoundingDown[ny][5]->Fill(MVAVar,totalWeight);
+                  histo_FakeBoundingUp  [ny][8]->Fill(MVAVar,totalWeight);
+                  histo_FakeBoundingDown[ny][8]->Fill(MVAVar,totalWeight);
+                  histo_FakeBoundingUp  [ny][9]->Fill(MVAVar,totalWeight);
+                  histo_FakeBoundingDown[ny][9]->Fill(MVAVar,totalWeight);
 		}
 	      }
 	    }
@@ -3042,7 +3065,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_PUBoundingDown        [ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_PUBoundingUp[ic]->GetBinContent(nb)),0.0f));
       for(int ny=0; ny<nYears; ny++){
       if(ic == kPlotNonPrompt){
-        for(int nc=0; nc<8; nc++){
+        for(int nc=0; nc<10; nc++){
           histo_FakeBoundingUp  [ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingUp  [ny][nc]->GetBinContent(nb),0.0f));
           histo_FakeBoundingDown[ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingDown[ny][nc]->GetBinContent(nb),0.0f));
         }
@@ -3085,6 +3108,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());
       histo_EWKCorrVVUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVUp  [ic]->GetSumOfWeights());
       histo_EWKCorrVVDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVDown[ic]->GetSumOfWeights());
+    }
+    else if(fidAna == 6 && (ic == kPlotSignal1 || ic == kPlotBSM)) {
+      histo_QCDScaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp   [ic]->GetSumOfWeights());
+      histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());
     }
     else if(ic == kPlotZZ || ic == kPlotTVX || (ic == kPlotWZ && fidAna != 6)) {
       histo_QCDScaleUp     [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp	  [ic]->GetSumOfWeights());
@@ -3227,6 +3254,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       printf("uncertainties fakeM3LDown\n"); for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingDown[ny][6]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
       printf("uncertainties fakeE3LUp\n");   for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingUp  [ny][7]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
       printf("uncertainties fakeE3LDown\n"); for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingDown[ny][7]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+      printf("uncertainties fakeFLMUp\n");   for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingUp  [ny][8]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+      printf("uncertainties fakeFLMDown\n"); for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingDown[ny][8]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+      printf("uncertainties fakeFLEUp\n");   for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingUp  [ny][9]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+      printf("uncertainties fakeFLEDown\n"); for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[kPlotNonPrompt]->GetBinContent(i)>0)printf("%5.1f ",histo_FakeBoundingDown[ny][9]->GetBinContent(i)/histo_Baseline[kPlotNonPrompt]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
       printf("uncertainties BTAGBUp\n");
       for(unsigned ic=0; ic<nPlotCategories; ic++) {
 	if(ic == kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -3433,7 +3464,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     histo_WZTauLUp              [ic]->Write();
     histo_WZTauLDown	        [ic]->Write();
   }
-  for(unsigned ic=0; ic<8; ic++) {
+  for(unsigned ic=0; ic<10; ic++) {
     for(int ny=0; ny<nYears; ny++){
       histo_FakeBoundingUp  [ny][ic]->Write();
       histo_FakeBoundingDown[ny][ic]->Write();
@@ -3623,6 +3654,24 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
+  if(fidAna == 6){
+  newcardShape << Form("QCDscale_Hpp    lnN     ");
+  for (int ic=0; ic<nPlotCategories; ic++){
+    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    if(ic != kPlotBSM) newcardShape << Form("- ");
+    else               newcardShape << Form("%f ",1.005);
+  }
+  newcardShape << Form("\n");
+
+  newcardShape << Form("QCDscale_Hp    lnN     ");
+  for (int ic=0; ic<nPlotCategories; ic++){
+    if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+    if(ic != kPlotSignal1) newcardShape << Form("- ");
+    else                   newcardShape << Form("%f ",1.005);
+  }
+  newcardShape << Form("\n");
+  }
+
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic== kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     newcardShape << Form("QCDScale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
@@ -3707,6 +3756,23 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       else                     newcardShape << Form("- ");
     }
     newcardShape << Form("\n");
+    if(fidAna == 6){
+    newcardShape << Form("CMS_fakeFLM_%d  shape   ",year);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("1.0 ");
+      else                     newcardShape << Form("- ");
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("CMS_fakeFLE_%d  shape   ",year);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt) newcardShape << Form("1.0 ");
+      else                     newcardShape << Form("- ");
+    }
+    newcardShape << Form("\n");
+    }
   }
 
   newcardShape << Form("CMS_eff_m    shape     ");
@@ -4059,7 +4125,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	histo_WZTauLUp       [ic]->Write();
 	histo_WZTauLDown     [ic]->Write();
       }
-      for(unsigned ic=0; ic<8; ic++) {
+      for(unsigned ic=0; ic<10; ic++) {
         for(int ny=0; ny<nYears; ny++){
           histo_FakeBoundingUp  [ny][ic]->Write();
           histo_FakeBoundingDown[ny][ic]->Write();
