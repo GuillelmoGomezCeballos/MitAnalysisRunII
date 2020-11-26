@@ -82,6 +82,8 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qqZH125inv
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 WpWp_EWK_QCD
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 WpWp_EWK
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 WpWp_QCD
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 WpWp_EWK_powheg
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 WpWp_EWK_vbfnlo
 #PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 SingleMuon           
 #PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 SingleElectron     
 #PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 MuonEG       
