@@ -219,24 +219,30 @@ elif [ $NSEL == 'vbfg' ]; then
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,'${isBlinded}',"Z#gamma CR",1,'${APPLYSCALING}')';
 
 elif [ $NSEL == 'zhmt' ]; then
+  sed -i 's/writeExtraText = false/writeExtraText = true/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/extraText   = "Preliminary"/extraText   = "Supplementary"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  touch MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C
   export YEAR=2016;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2017;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2018;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2019;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat3L_'${YEAR}'.root","zh_3l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"3-lepton control region",1,'${APPLYSCALING}',"","")';
 
   export YEAR=2016;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2017;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2018;
-  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
   export YEAR=2019;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
-
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"Emulated m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_cat4L_'${YEAR}'.root","zh_4l_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"4-lepton control region",1,'${APPLYSCALING}',"","")';
+  sed -i 's/writeExtraText = true/writeExtraText = false/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/extraText   = "Supplementary"/extraText   = "Preliminary"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  touch MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C
+exit;
   export YEAR=2016;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
   export YEAR=2017;
