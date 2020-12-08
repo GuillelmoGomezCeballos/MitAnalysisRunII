@@ -598,7 +598,7 @@ elif [ $NSEL == 'ssww' ] || [ $NSEL == 'sswwll' ] || [ $NSEL == 'sswwlx' ] || [ 
     fi
   fi
   if [ $NSEL == 'higgs' ]; then
-    export legendBSM="H^{++}/H^{+}";
+    export legendBSM="m_{H_{5}} = 500 GeV, s_{H} = 1";
     export mlfitResult="done_ana/../ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root";
     export fidAnaName="_fiducial6_mH500";
     export channelName="SSWW_2019"; 

@@ -616,9 +616,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
 
   TH1D *histo_Baseline[nPlotCategories];
-  TH1D *histo_QCDScaleBounding[nPlotCategories][6];
-  TH1D *histo_QCDScaleUp[nPlotCategories];
-  TH1D *histo_QCDScaleDown[nPlotCategories];
+  TH1D *histo_QCDscaleBounding[nPlotCategories][6];
+  TH1D *histo_QCDscaleUp[nPlotCategories];
+  TH1D *histo_QCDscaleDown[nPlotCategories];
   TH1D *histo_PDFBoundingUp[nPlotCategories];
   TH1D *histo_PDFBoundingDown[nPlotCategories];
   TH1D *histo_LepEffMBoundingUp[nPlotCategories];
@@ -653,12 +653,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   TH1D *histo_WZTauLDown[nPlotCategories];
   
   for(unsigned ic=kPlotData; ic!=nPlotCategories; ic++) {
-    for(int i=0; i<6; i++)  histo_QCDScaleBounding[ic][i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_%d_QCDScaleBounding",plotBaseNames[ic].Data(),i));
+    for(int i=0; i<6; i++)  histo_QCDscaleBounding[ic][i] = (TH1D*)histo_MVA->Clone(Form("histo_%s_%d_QCDscaleBounding",plotBaseNames[ic].Data(),i));
     histo_Baseline              [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s"                    , plotBaseNames[ic].Data()));
-    histo_QCDScaleUp            [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_QCDScale_%s_ACCEPTUp"         , plotBaseNames[ic].Data(), plotBaseNames[ic].Data()));
-    histo_QCDScaleDown          [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_QCDScale_%s_ACCEPTDown"       , plotBaseNames[ic].Data(), plotBaseNames[ic].Data()));
-    histo_PDFBoundingUp 	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_PDFUp"              , plotBaseNames[ic].Data()));
-    histo_PDFBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_PDFDown"            , plotBaseNames[ic].Data()));
+    histo_QCDscaleUp            [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_QCDscale_%s_ACCEPTUp"         , plotBaseNames[ic].Data(), plotBaseNames[ic].Data()));
+    histo_QCDscaleDown          [ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_QCDscale_%s_ACCEPTDown"       , plotBaseNames[ic].Data(), plotBaseNames[ic].Data()));
+    histo_PDFBoundingUp 	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_pdf_qqbarUp"        , plotBaseNames[ic].Data()));
+    histo_PDFBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_pdf_qqbarDown"      , plotBaseNames[ic].Data()));
     histo_LepEffMBoundingUp	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_mUp"        , plotBaseNames[ic].Data()));
     histo_LepEffMBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_mDown"      , plotBaseNames[ic].Data()));
     histo_LepEffEBoundingUp	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_eff_eUp"        , plotBaseNames[ic].Data()));
@@ -666,14 +666,14 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     histo_PUBoundingUp		[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_puUp"           , plotBaseNames[ic].Data()));
     histo_PUBoundingDown	[ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_puDown"         , plotBaseNames[ic].Data()));
     for(int ny=0; ny<nYears; ny++){
-    histo_BTAGBBoundingUp    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btagb_%dUp"     , plotBaseNames[ic].Data(),2016+ny));
-    histo_BTAGBBoundingDown  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btagb_%dDown"   , plotBaseNames[ic].Data(),2016+ny));
-    histo_BTAGLBoundingUp    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btagl_%dUp"     , plotBaseNames[ic].Data(),2016+ny));
-    histo_BTAGLBoundingDown  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btagl_%dDown"   , plotBaseNames[ic].Data(),2016+ny));
-    histo_JESBoundingUp      [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jes_%dUp"	   , plotBaseNames[ic].Data(),2016+ny));
-    histo_JESBoundingDown    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jes_%dDown"	   , plotBaseNames[ic].Data(),2016+ny));
-    histo_JERBoundingUp      [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jer_%dUp"	   , plotBaseNames[ic].Data(),2016+ny));
-    histo_JERBoundingDown    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_jer_%dDown"	   , plotBaseNames[ic].Data(),2016+ny));
+    histo_BTAGBBoundingUp    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btag_heavy_%dUp"  , plotBaseNames[ic].Data(),2016+ny));
+    histo_BTAGBBoundingDown  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btag_heavy_%dDown", plotBaseNames[ic].Data(),2016+ny));
+    histo_BTAGLBoundingUp    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btag_light_%dUp"  , plotBaseNames[ic].Data(),2016+ny));
+    histo_BTAGLBoundingDown  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_btag_light_%dDown", plotBaseNames[ic].Data(),2016+ny));
+    histo_JESBoundingUp      [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_scale_j_%dUp"   , plotBaseNames[ic].Data(),2016+ny));
+    histo_JESBoundingDown    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_scale_j_%dDown" , plotBaseNames[ic].Data(),2016+ny));
+    histo_JERBoundingUp      [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_res_j_%dUp"     , plotBaseNames[ic].Data(),2016+ny));
+    histo_JERBoundingDown    [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_res_j_%dDown"   , plotBaseNames[ic].Data(),2016+ny));
     histo_PreFireBoundingUp  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dUp"   , plotBaseNames[ic].Data(),2016+ny));
     histo_PreFireBoundingDown[ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_prefire_%dDown" , plotBaseNames[ic].Data(),2016+ny));
     histo_TriggerBoundingUp  [ny][ic] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_trigger_%dUp"   , plotBaseNames[ic].Data(),2016+ny));
@@ -1464,14 +1464,14 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 					thePandaFlat.rw_fs1_7p5, thePandaFlat.rw_fs1_10, thePandaFlat.rw_fs1_15, thePandaFlat.rw_fs1_20, thePandaFlat.rw_fs1_25, 
 					thePandaFlat.rw_fs1_30, thePandaFlat.rw_fs1_33, thePandaFlat.rw_fs1_35};
       double totalWeight = 1.0; double puWeight = 1.0; double puWeightUp = 1.0; double puWeightDown = 1.0; double effWSUnc = 1.0; double sf_l1PrefireE = 1.0;
-      double theQCDScale[6] = {1,1,1,1,1,1}; double thePDFScale = 1.0; double bTagSyst[4] = {1,1,1,1};
+      double theQCDscale[6] = {1,1,1,1,1,1}; double thePDFScale = 1.0; double bTagSyst[4] = {1,1,1,1};
       double triggerWeights[2] = {1.0, 0.0};double fakeWeight[4] = {0,0,0,0}; bool isVBS[2] = {false, false};
       if(theCategory != kPlotData){
         // Avoid QCD scale weights that are anomalous high
         double maxQCDscale = (TMath::Abs(thePandaFlat.scale[0])+TMath::Abs(thePandaFlat.scale[1])+TMath::Abs(thePandaFlat.scale[2])+
                               TMath::Abs(thePandaFlat.scale[3])+TMath::Abs(thePandaFlat.scale[4])+TMath::Abs(thePandaFlat.scale[5]))/6.0;
         if(maxQCDscale == 0) maxQCDscale = 1;
-        for(int i=0; i<6; i++) theQCDScale[i] = TMath::Abs(thePandaFlat.scale[i])/maxQCDscale;
+        for(int i=0; i<6; i++) theQCDscale[i] = TMath::Abs(thePandaFlat.scale[i])/maxQCDscale;
 
         if     (fidAna == 6 && infileCat_[ifile] == kPlotBSM) thePDFScale = 1.026+(gRandom->Uniform()-0.5)*0.01;
         else if(fidAna == 6 && infileCat_[ifile] == kPlotSignal1) thePDFScale = 1.021+(gRandom->Uniform()-0.5)*0.01;
@@ -2900,12 +2900,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	  }
 	  if(dataCardSel >= 0) {
 	    histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
-	    histo_QCDScaleBounding[theCategory][0]->Fill(MVAVar,totalWeight*theQCDScale[0]);
-	    histo_QCDScaleBounding[theCategory][1]->Fill(MVAVar,totalWeight*theQCDScale[1]);
-	    histo_QCDScaleBounding[theCategory][2]->Fill(MVAVar,totalWeight*theQCDScale[2]);
-	    histo_QCDScaleBounding[theCategory][3]->Fill(MVAVar,totalWeight*theQCDScale[3]);
-	    histo_QCDScaleBounding[theCategory][4]->Fill(MVAVar,totalWeight*theQCDScale[4]);
-	    histo_QCDScaleBounding[theCategory][5]->Fill(MVAVar,totalWeight*theQCDScale[5]);
+	    histo_QCDscaleBounding[theCategory][0]->Fill(MVAVar,totalWeight*theQCDscale[0]);
+	    histo_QCDscaleBounding[theCategory][1]->Fill(MVAVar,totalWeight*theQCDscale[1]);
+	    histo_QCDscaleBounding[theCategory][2]->Fill(MVAVar,totalWeight*theQCDscale[2]);
+	    histo_QCDscaleBounding[theCategory][3]->Fill(MVAVar,totalWeight*theQCDscale[3]);
+	    histo_QCDscaleBounding[theCategory][4]->Fill(MVAVar,totalWeight*theQCDscale[4]);
+	    histo_QCDscaleBounding[theCategory][5]->Fill(MVAVar,totalWeight*theQCDscale[5]);
 	    histo_PDFBoundingUp[theCategory]  ->Fill(MVAVar,totalWeight*thePDFScale);
 	    histo_PDFBoundingDown[theCategory]->Fill(MVAVar,totalWeight/thePDFScale);
             histo_LepEffMBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*muSFUnc); histo_LepEffEBoundingUp  [theCategory]->Fill(MVAVar,totalWeight*elSFUnc);
@@ -3032,28 +3032,28 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       }
 
       // compute QCD scale uncertainties bin-by-bin
-      double diffQCDScale[6] = {
-       TMath::Abs(histo_QCDScaleBounding[ic][0]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
-       TMath::Abs(histo_QCDScaleBounding[ic][1]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
-       TMath::Abs(histo_QCDScaleBounding[ic][2]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
-       TMath::Abs(histo_QCDScaleBounding[ic][3]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
-       TMath::Abs(histo_QCDScaleBounding[ic][4]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
-       TMath::Abs(histo_QCDScaleBounding[ic][5]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb))};
+      double diffQCDscale[6] = {
+       TMath::Abs(histo_QCDscaleBounding[ic][0]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
+       TMath::Abs(histo_QCDscaleBounding[ic][1]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
+       TMath::Abs(histo_QCDscaleBounding[ic][2]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
+       TMath::Abs(histo_QCDscaleBounding[ic][3]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
+       TMath::Abs(histo_QCDscaleBounding[ic][4]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb)),
+       TMath::Abs(histo_QCDscaleBounding[ic][5]->GetBinContent(nb)-histo_Baseline[ic]->GetBinContent(nb))};
 
-      double systQCDScale = diffQCDScale[0];
+      double systQCDscale = diffQCDscale[0];
       for(int nqcd=1; nqcd<6; nqcd++) {
-        if(diffQCDScale[nqcd] > systQCDScale) systQCDScale = diffQCDScale[nqcd];
+        if(diffQCDscale[nqcd] > systQCDscale) systQCDscale = diffQCDscale[nqcd];
       }
 
       if(histo_Baseline[ic]->GetBinContent(nb) > 0) 
-        systQCDScale = 1.0+systQCDScale/histo_Baseline[ic]->GetBinContent(nb);
-      else systQCDScale = 1;
+        systQCDscale = 1.0+systQCDscale/histo_Baseline[ic]->GetBinContent(nb);
+      else systQCDscale = 1;
 
-      histo_QCDScaleUp  [ic]->SetBinContent(nb, histo_Baseline[ic]->GetBinContent(nb)*systQCDScale);
-      histo_QCDScaleDown[ic]->SetBinContent(nb, histo_Baseline[ic]->GetBinContent(nb)/systQCDScale);
+      histo_QCDscaleUp  [ic]->SetBinContent(nb, histo_Baseline[ic]->GetBinContent(nb)*systQCDscale);
+      histo_QCDscaleDown[ic]->SetBinContent(nb, histo_Baseline[ic]->GetBinContent(nb)/systQCDscale);
 
-      histo_QCDScaleUp  	  [ic]->SetBinContent(nb, TMath::Max((float)histo_QCDScaleUp		[ic]->GetBinContent(nb),0.0f));
-      histo_QCDScaleDown	  [ic]->SetBinContent(nb, TMath::Max((float)histo_QCDScaleDown  	[ic]->GetBinContent(nb),0.0f));
+      histo_QCDscaleUp  	  [ic]->SetBinContent(nb, TMath::Max((float)histo_QCDscaleUp		[ic]->GetBinContent(nb),0.0f));
+      histo_QCDscaleDown	  [ic]->SetBinContent(nb, TMath::Max((float)histo_QCDscaleDown  	[ic]->GetBinContent(nb),0.0f));
       histo_PDFBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PDFBoundingUp 	[ic]->GetBinContent(nb),0.0f));
       histo_PDFBoundingDown	  [ic]->SetBinContent(nb, TMath::Max((float)histo_PDFBoundingDown	[ic]->GetBinContent(nb),0.0f));
       histo_LepEffMBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_LepEffMBoundingUp	[ic]->GetBinContent(nb),0.0f));
@@ -3104,18 +3104,18 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     histo_PUBoundingDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingDown[ic]->GetSumOfWeights());
     if     ((fidAna == 1 || fidAna == 2 || fidAna == 3 || fidAna == 5 || fidAna == 7 || fidAna == 8 || fidAna == 9) && (ic == kPlotEWKWZ || ic == kPlotEWKSSWW || ic == kPlotQCDSSWW || ic == kPlotqqWW || ic == kPlotTop || ic == kPlotDY || ic == kPlotggWW ||
        ic == kPlotSignal0 || ic == kPlotSignal1 || ic == kPlotSignal2 || ic == kPlotSignal3 || ic == kPlotBSM)) {
-      histo_QCDScaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp   [ic]->GetSumOfWeights());
-      histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());
+      histo_QCDscaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleUp   [ic]->GetSumOfWeights());
+      histo_QCDscaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleDown [ic]->GetSumOfWeights());
       histo_EWKCorrVVUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVUp  [ic]->GetSumOfWeights());
       histo_EWKCorrVVDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVDown[ic]->GetSumOfWeights());
     }
     else if(fidAna == 6 && (ic == kPlotSignal1 || ic == kPlotBSM)) {
-      histo_QCDScaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp   [ic]->GetSumOfWeights());
-      histo_QCDScaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown [ic]->GetSumOfWeights());
+      histo_QCDscaleUp   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleUp   [ic]->GetSumOfWeights());
+      histo_QCDscaleDown [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleDown [ic]->GetSumOfWeights());
     }
     else if(ic == kPlotZZ || ic == kPlotTVX || (ic == kPlotWZ && fidAna != 6)) {
-      histo_QCDScaleUp     [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp	  [ic]->GetSumOfWeights());
-      histo_QCDScaleDown   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown   [ic]->GetSumOfWeights());
+      histo_QCDscaleUp     [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleUp	  [ic]->GetSumOfWeights());
+      histo_QCDscaleDown   [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDscaleDown   [ic]->GetSumOfWeights());
       histo_EWKCorrVVUp    [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVUp    [ic]->GetSumOfWeights());
       histo_EWKCorrVVDown  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKCorrVVDown  [ic]->GetSumOfWeights());
       histo_EWKqqZZCorrUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_EWKqqZZCorrUp  [ic]->GetSumOfWeights());
@@ -3171,17 +3171,17 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
          printf("%10s: ",plotBaseNames[ic].Data());
         for(int i=1; i<=histo_MVA->GetNbinsX(); i++) printf("%6.2f ",histo_Baseline[ic]->GetBinContent(i)); printf("\n");
     }
-    printf("uncertainties QCDSCALEUp\n");
+    printf("uncertainties QCDscaleUp\n");
     for(unsigned ic=0; ic<nPlotCategories; ic++) {
       if(ic == kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
          printf("%10s: ",plotBaseNames[ic].Data());
-        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_QCDScaleUp[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_QCDscaleUp[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
     }
-    printf("uncertainties QCDSCALEDown\n");
+    printf("uncertainties QCDscaleDown\n");
     for(unsigned ic=0; ic<nPlotCategories; ic++) {
       if(ic == kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
          printf("%10s: ",plotBaseNames[ic].Data());
-        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_QCDScaleDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
+        for(int i=1; i<=histo_MVA->GetNbinsX(); i++) {if(histo_Baseline[ic]->GetBinContent(i)>0)printf("%5.1f ",histo_QCDscaleDown[ic]->GetBinContent(i)/histo_Baseline[ic]->GetBinContent(i)*100);else printf("100.0 ");} printf("\n");
     }
 
     printf("uncertainties PDFUp\n");
@@ -3427,8 +3427,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     if(ic != kPlotData && histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     histo_Baseline		[ic]->Write();
     if(ic == kPlotData) continue;
-    histo_QCDScaleUp		[ic]->Write();
-    histo_QCDScaleDown  	[ic]->Write();
+    histo_QCDscaleUp		[ic]->Write();
+    histo_QCDscaleDown  	[ic]->Write();
     histo_PDFBoundingUp 	[ic]->Write();
     histo_PDFBoundingDown	[ic]->Write();
     histo_LepEffMBoundingUp	[ic]->Write();
@@ -3543,7 +3543,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_Factor    lnN     ");
+    newcardShape << Form("lumi_13TeV_XY    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3551,7 +3551,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_Length    lnN     ");
+    newcardShape << Form("lumi_13TeV_LS    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3559,7 +3559,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_Deflec    lnN     ");
+    newcardShape << Form("lumi_13TeV_BBD    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3567,7 +3567,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_DynBet    lnN     ");
+    newcardShape << Form("lumi_13TeV_DB    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3575,7 +3575,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_BeamCu    lnN     ");
+    newcardShape << Form("lumi_13TeV_BCC    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3583,7 +3583,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("lumi_13TeV_Ghosts    lnN     ");
+    newcardShape << Form("lumi_13TeV_GS    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
       if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3593,7 +3593,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 
   }
 
-  newcardShape << Form("CMS_momres_m    lnN     ");
+  newcardShape << Form("CMS_scale_m    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3601,7 +3601,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_momres_e    lnN     ");
+  newcardShape << Form("CMS_scale_e    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3674,7 +3674,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic== kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    newcardShape << Form("QCDScale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
+    newcardShape << Form("QCDscale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
     for(unsigned ic2=0; ic2<nPlotCategories; ic2++) {
       if(ic2 == kPlotData || histo_Baseline[ic2]->GetSumOfWeights() <= 0) continue;
       if(ic==ic2) newcardShape << Form("1.0  ");
@@ -3683,7 +3683,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
     newcardShape << Form("\n");
   }
 
-  newcardShape << Form("PDF    shape     ");
+  newcardShape << Form("pdf_qqbar    shape     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3807,7 +3807,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_btagb_%d    shape     ",year);
+  newcardShape << Form("CMS_btag_heavy_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3815,7 +3815,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_btagl_%d    shape     ",year);
+  newcardShape << Form("CMS_btag_light_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt) newcardShape << Form("- ");
@@ -3823,7 +3823,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_jes_%d    shape     ",year);
+  newcardShape << Form("CMS_scale_j_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt || ic == kPlotDY) newcardShape << Form("- ");
@@ -3831,7 +3831,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_jer_%d    shape     ",year);
+  newcardShape << Form("CMS_res_j_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     if(ic == kPlotNonPrompt || ic == kPlotDY) newcardShape << Form("- ");
@@ -3888,8 +3888,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   }
 
   if(fidAna == 4){
-    TH1D *histo_dim8_QCDScaleUp[2];
-    TH1D *histo_dim8_QCDScaleDown[2];
+    TH1D *histo_dim8_QCDscaleUp[2];
+    TH1D *histo_dim8_QCDscaleDown[2];
     TH1D *histo_dim8_PDFBoundingUp[2];
     TH1D *histo_dim8_PDFBoundingDown[2];
     TH1D *histo_dim8_LepEffMBoundingUp[2];
@@ -3926,10 +3926,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       int iref = kPlotEWKSSWW_dim8;
       if(nAQGCcat == 1) iref = kPlotEWKWZ_dim8;
 
-      histo_dim8_QCDScaleUp          [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_QCDScale_%s_ACCEPTUp"  , plotBaseNames[iref].Data(), plotBaseNames[iref].Data()));
-      histo_dim8_QCDScaleDown        [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_QCDScale_%s_ACCEPTDown", plotBaseNames[iref].Data(), plotBaseNames[iref].Data()));
-      histo_dim8_PDFBoundingUp 	     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_PDFUp"		     , plotBaseNames[iref].Data()));
-      histo_dim8_PDFBoundingDown     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_PDFDown"  	     , plotBaseNames[iref].Data()));
+      histo_dim8_QCDscaleUp          [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_QCDscale_%s_ACCEPTUp"  , plotBaseNames[iref].Data(), plotBaseNames[iref].Data()));
+      histo_dim8_QCDscaleDown        [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_QCDscale_%s_ACCEPTDown", plotBaseNames[iref].Data(), plotBaseNames[iref].Data()));
+      histo_dim8_PDFBoundingUp       [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_pdf_qqbarUp"           , plotBaseNames[iref].Data()));
+      histo_dim8_PDFBoundingDown     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_pdf_qqbarDown"         , plotBaseNames[iref].Data()));
       histo_dim8_LepEffMBoundingUp   [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_eff_mUp"	     , plotBaseNames[iref].Data()));
       histo_dim8_LepEffMBoundingDown [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_eff_mDown"	     , plotBaseNames[iref].Data()));
       histo_dim8_LepEffEBoundingUp   [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_eff_eUp"	     , plotBaseNames[iref].Data()));
@@ -3937,14 +3937,14 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_dim8_PUBoundingUp	     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_puUp" 	     , plotBaseNames[iref].Data()));
       histo_dim8_PUBoundingDown      [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_puDown"	     , plotBaseNames[iref].Data()));
       for(int ny=0; ny<nYears; ny++){
-      histo_dim8_BTAGBBoundingUp    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btagb_%dUp"     , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_BTAGBBoundingDown  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btagb_%dDown"   , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_BTAGLBoundingUp    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btagl_%dUp"     , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_BTAGLBoundingDown  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btagl_%dDown"   , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_JESBoundingUp      [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_jes_%dUp"       , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_JESBoundingDown    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_jes_%dDown"     , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_JERBoundingUp      [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_jer_%dUp"       , plotBaseNames[iref].Data(),2016+ny));
-      histo_dim8_JERBoundingDown    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_jer_%dDown"     , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_BTAGBBoundingUp    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btag_heavy_%dUp"     , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_BTAGBBoundingDown  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btag_heavy_%dDown"   , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_BTAGLBoundingUp    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btag_light_%dUp"     , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_BTAGLBoundingDown  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_btag_light_%dDown"   , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_JESBoundingUp      [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_scale_j_%dUp"   , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_JESBoundingDown    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_scale_j_%dDown" , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_JERBoundingUp      [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_res_j_%dUp"     , plotBaseNames[iref].Data(),2016+ny));
+      histo_dim8_JERBoundingDown    [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_res_j_%dDown"   , plotBaseNames[iref].Data(),2016+ny));
       histo_dim8_PreFireBoundingUp  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_prefire_%dUp"   , plotBaseNames[iref].Data(),2016+ny));
       histo_dim8_PreFireBoundingDown[ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_prefire_%dDown" , plotBaseNames[iref].Data(),2016+ny));
       histo_dim8_TriggerBoundingUp  [ny][nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_CMS_trigger_%dUp"   , plotBaseNames[iref].Data(),2016+ny));
@@ -3963,8 +3963,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_dim8_WZTauLUp	     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_WZTauLUp"	          , plotBaseNames[iref].Data()));
       histo_dim8_WZTauLDown	     [nAQGCcat] = (TH1D*)histo_MVA->Clone(Form("histo_dim8_%s_WZTauLDown"	  , plotBaseNames[iref].Data()));
 
-      histo_dim8_QCDScaleUp             [nAQGCcat]->Add(histo_QCDScaleUp	     [iref]); histo_dim8_QCDScaleUp		[nAQGCcat]->Divide(histo_Baseline[iref]);
-      histo_dim8_QCDScaleDown           [nAQGCcat]->Add(histo_QCDScaleDown	     [iref]); histo_dim8_QCDScaleDown		[nAQGCcat]->Divide(histo_Baseline[iref]);
+      histo_dim8_QCDscaleUp             [nAQGCcat]->Add(histo_QCDscaleUp	     [iref]); histo_dim8_QCDscaleUp		[nAQGCcat]->Divide(histo_Baseline[iref]);
+      histo_dim8_QCDscaleDown           [nAQGCcat]->Add(histo_QCDscaleDown	     [iref]); histo_dim8_QCDscaleDown		[nAQGCcat]->Divide(histo_Baseline[iref]);
       histo_dim8_PDFBoundingUp          [nAQGCcat]->Add(histo_PDFBoundingUp  	     [iref]); histo_dim8_PDFBoundingUp	        [nAQGCcat]->Divide(histo_Baseline[iref]);
       histo_dim8_PDFBoundingDown        [nAQGCcat]->Add(histo_PDFBoundingDown	     [iref]); histo_dim8_PDFBoundingDown	[nAQGCcat]->Divide(histo_Baseline[iref]);
       histo_dim8_LepEffMBoundingUp      [nAQGCcat]->Add(histo_LepEffMBoundingUp	     [iref]); histo_dim8_LepEffMBoundingUp	[nAQGCcat]->Divide(histo_Baseline[iref]);
@@ -4039,8 +4039,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	  double aqgcNorm = aqgcNorm = histoAQGC[nAQGCcat]->GetSumOfWeights()/histo_Baseline[iref]->GetSumOfWeights();
 	  histo_Baseline[iref]->Reset(); 
 	  histo_Baseline[iref]->Add(histoAQGC[nAQGCcat]);
-	  histo_QCDScaleUp             [iref]->Scale(0);  histo_QCDScaleUp	       [iref]->Add(histo_Baseline[iref]); histo_QCDScaleUp	       [iref]->Multiply(histo_dim8_QCDScaleUp		  [nAQGCcat]);
-	  histo_QCDScaleDown  	       [iref]->Scale(0);  histo_QCDScaleDown	       [iref]->Add(histo_Baseline[iref]); histo_QCDScaleDown	       [iref]->Multiply(histo_dim8_QCDScaleDown 	  [nAQGCcat]);
+	  histo_QCDscaleUp             [iref]->Scale(0);  histo_QCDscaleUp	       [iref]->Add(histo_Baseline[iref]); histo_QCDscaleUp	       [iref]->Multiply(histo_dim8_QCDscaleUp		  [nAQGCcat]);
+	  histo_QCDscaleDown  	       [iref]->Scale(0);  histo_QCDscaleDown	       [iref]->Add(histo_Baseline[iref]); histo_QCDscaleDown	       [iref]->Multiply(histo_dim8_QCDscaleDown 	  [nAQGCcat]);
 	  histo_PDFBoundingUp 	       [iref]->Scale(0);  histo_PDFBoundingUp	       [iref]->Add(histo_Baseline[iref]); histo_PDFBoundingUp	       [iref]->Multiply(histo_dim8_PDFBoundingUp	  [nAQGCcat]);
 	  histo_PDFBoundingDown	       [iref]->Scale(0);  histo_PDFBoundingDown        [iref]->Add(histo_Baseline[iref]); histo_PDFBoundingDown        [iref]->Multiply(histo_dim8_PDFBoundingDown	  [nAQGCcat]);
 	  histo_LepEffMBoundingUp      [iref]->Scale(0);  histo_LepEffMBoundingUp      [iref]->Add(histo_Baseline[iref]); histo_LepEffMBoundingUp      [iref]->Multiply(histo_dim8_LepEffMBoundingUp	  [nAQGCcat]);
@@ -4088,8 +4088,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	if(ic == kPlotEWKWZ_dim8 && isZeroYield[1] == true) continue;
 	histo_Baseline		[ic]->Write();
 	if(ic == kPlotData) continue;
-	histo_QCDScaleUp         [ic]->Write();
-	histo_QCDScaleDown  	 [ic]->Write();
+	histo_QCDscaleUp         [ic]->Write();
+	histo_QCDscaleDown  	 [ic]->Write();
 	histo_PDFBoundingUp 	 [ic]->Write();
 	histo_PDFBoundingDown	 [ic]->Write();
 	histo_LepEffMBoundingUp	 [ic]->Write();

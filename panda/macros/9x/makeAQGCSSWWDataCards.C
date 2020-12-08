@@ -98,7 +98,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_momres_m    lnN     ");
+  newcardShape << Form("CMS_scale_m    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -107,7 +107,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_momres_e    lnN     ");
+  newcardShape << Form("CMS_scale_e    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -182,7 +182,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(!histo_Baseline[ic]) continue;
     if(ic== kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    newcardShape << Form("QCDScale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
+    newcardShape << Form("QCDscale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
     for(unsigned ic2=0; ic2<nPlotCategories; ic2++) {
       if(!histo_Baseline[ic2]) continue;
       if(ic2 == kPlotData || histo_Baseline[ic2]->GetSumOfWeights() <= 0) continue;
@@ -192,7 +192,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
       newcardShape << Form("\n");
   }
 
-  newcardShape << Form("PDF    shape     ");
+  newcardShape << Form("pdf_qqbar    shape     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -273,7 +273,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_btagb_%d    shape     ",year);
+  newcardShape << Form("CMS_btag_heavy_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -282,7 +282,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_btagl_%d    shape     ",year);
+  newcardShape << Form("CMS_btag_light_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -291,7 +291,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_jes_%d    shape     ",year);
+  newcardShape << Form("CMS_scale_j_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -300,7 +300,7 @@ void makeAQGCSSWWDataCards(TString baseFolder = ".", TString outputLimits = "ssw
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_jer_%d    shape     ",year);
+  newcardShape << Form("CMS_res_j_%d    shape     ",year);
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;

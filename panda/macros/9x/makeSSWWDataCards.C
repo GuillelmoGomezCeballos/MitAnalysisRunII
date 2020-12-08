@@ -25,10 +25,6 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   bool splitLumi = false;
   if(fidAna == 6) splitLumi = true;
 
-  double qcdScaleTotal[2] = {0.035, 0.231};
-  double pdfTotal[2] = {0.016, 0.051};
-  double syst_WZl[2] = {1.010, 1.012};
-
   TFile* infile = new TFile(outputLimits,"read");
 
   TH1D *histo_Baseline[nPlotCategories];
@@ -121,7 +117,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
         lumiV[0]/totalLumiV * (lumiE_Factor[0]-1.0) +
 	lumiV[1]/totalLumiV * (lumiE_Factor[1]-1.0) +
 	lumiV[2]/totalLumiV * (lumiE_Factor[2]-1.0);
-    newcardShape << Form("lumi_13TeV_Factor    lnN");
+    newcardShape << Form("lumi_13TeV_XY    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -134,7 +130,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
         lumiV[0]/totalLumiV * (lumiE_Length[0]-1.0) +
 	lumiV[1]/totalLumiV * (lumiE_Length[1]-1.0) +
 	lumiV[2]/totalLumiV * (lumiE_Length[2]-1.0);
-    newcardShape << Form("lumi_13TeV_Length    lnN");
+    newcardShape << Form("lumi_13TeV_LS    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -147,7 +143,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
         lumiV[0]/totalLumiV * (lumiE_Deflec[0]-1.0) +
 	lumiV[1]/totalLumiV * (lumiE_Deflec[1]-1.0) +
 	lumiV[2]/totalLumiV * (lumiE_Deflec[2]-1.0);
-    newcardShape << Form("lumi_13TeV_Deflec    lnN");
+    newcardShape << Form("lumi_13TeV_BBD    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -160,7 +156,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
        lumiV[0]/totalLumiV * (lumiE_DynBet[0]-1.0) +
        lumiV[1]/totalLumiV * (lumiE_DynBet[1]-1.0) +
        lumiV[2]/totalLumiV * (lumiE_DynBet[2]-1.0);
-    newcardShape << Form("lumi_13TeV_DynBet    lnN");
+    newcardShape << Form("lumi_13TeV_DB    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -173,7 +169,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
         lumiV[0]/totalLumiV * (lumiE_BeamCu[0]-1.0) +
 	lumiV[1]/totalLumiV * (lumiE_BeamCu[1]-1.0) +
 	lumiV[2]/totalLumiV * (lumiE_BeamCu[2]-1.0);
-    newcardShape << Form("lumi_13TeV_BeamCu    lnN");
+    newcardShape << Form("lumi_13TeV_BCC    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -186,7 +182,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
         lumiV[0]/totalLumiV * (lumiE_Ghosts[0]-1.0) +
 	lumiV[1]/totalLumiV * (lumiE_Ghosts[1]-1.0) +
 	lumiV[2]/totalLumiV * (lumiE_Ghosts[2]-1.0);
-    newcardShape << Form("lumi_13TeV_Ghosts    lnN");
+    newcardShape << Form("lumi_13TeV_GS    lnN");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -197,7 +193,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
 
   }
 
-  newcardShape << Form("CMS_momres_m    lnN     ");
+  newcardShape << Form("CMS_scale_m    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -206,7 +202,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   }
   newcardShape << Form("\n");
 
-  newcardShape << Form("CMS_momres_e    lnN     ");
+  newcardShape << Form("CMS_scale_e    lnN     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -289,7 +285,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(!histo_Baseline[ic]) continue;
     if(ic== kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-    newcardShape << Form("QCDScale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
+    newcardShape << Form("QCDscale_%s_ACCEPT    shape   ",plotBaseNames[ic].Data());
     for(unsigned ic2=0; ic2<nPlotCategories; ic2++) {
       if(!histo_Baseline[ic2]) continue;
       if(ic2 == kPlotData || histo_Baseline[ic2]->GetSumOfWeights() <= 0) continue;
@@ -299,7 +295,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
     newcardShape << Form("\n");
   }
 
-  newcardShape << Form("PDF    shape     ");
+  newcardShape << Form("pdf_qqbar    shape     ");
   for (int ic=0; ic<nPlotCategories; ic++){
     if(!histo_Baseline[ic]) continue;
     if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -430,7 +426,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
       }
     }
 
-    newcardShape << Form("CMS_btagb_%d    shape     ",ny);
+    newcardShape << Form("CMS_btag_heavy_%d    shape     ",ny);
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -439,7 +435,7 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("CMS_btagl_%d    shape     ",ny);
+    newcardShape << Form("CMS_btag_light_%d    shape     ",ny);
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -448,7 +444,16 @@ void makeSSWWDataCards(TString outputLimits = "ssww_comb_input.root", int fidAna
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("CMS_jes_%d	shape	  ",ny);
+    newcardShape << Form("CMS_scale_j_%d	shape	  ",ny);
+    for (int ic=0; ic<nPlotCategories; ic++){
+      if(!histo_Baseline[ic]) continue;
+      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+      if(ic == kPlotNonPrompt || ic == kPlotDY) newcardShape << Form("- ");
+      else					newcardShape << Form("1.0 ");
+    }
+    newcardShape << Form("\n");
+
+    newcardShape << Form("CMS_res_j_%d	shape	  ",ny);
     for (int ic=0; ic<nPlotCategories; ic++){
       if(!histo_Baseline[ic]) continue;
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
