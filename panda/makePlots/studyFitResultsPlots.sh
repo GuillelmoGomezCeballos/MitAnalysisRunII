@@ -274,6 +274,18 @@ exit;
 
 elif [ $NSEL == 'higgs' ]; then
   export YEAR=2019;
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot.C+'(0,1,"Bin","BIN","done_datacards/histoDatacard_hpp_hp_'${YEAR}'.root","datacard_hpp_hp",0,'${YEAR}',"H^{++}/H^{+}",1,0,"",1,0,"","")';
+  export isNeverBlinded=0;
+  export legendBSM="H^{++}(500)#rightarrowW^{+}W^{+}";
+  export legendBSM2="H^{+}(500)#rightarrowW^{+}Z";
+  export mlfitResult="done_ana/../ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root";
+  export fidAnaName="_fiducial6_mH500";
+  export channelName="SSWW_2019"; 
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"Bin",       "BIN",           "done_datacards/histoDatacard_hpp_hp_'${YEAR}'.root",  "ssww_datacardhiggs",0,       '${YEAR}',"'${legendBSM}'",1,0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"","",0,"","'${legendBSM2}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{T}^{WW}","GeVBIN",        "done_ana/histossww_'${YEAR}'_135'${fidAnaName}'.root","ssww_wwsel_higgs_fullmtww",0,'${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{T}^{WZ}","GeVBIN",        "done_ana/histossww_'${YEAR}'_138'${fidAnaName}'.root","ssww_wzsel_higgs_fullmtwz",0,'${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{jj}"    ,"GeVBINBinWidth","done_ana/histossww_'${YEAR}'_0'${fidAnaName}'.root",  "ssww_wwsel_mjj",0,           '${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,2,"m_{jj}"    ,"GeVBINBinWidth","done_ana/histossww_'${YEAR}'_4'${fidAnaName}'.root",  "ssww_wzsel_mjj",0,           '${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
+
 
 fi

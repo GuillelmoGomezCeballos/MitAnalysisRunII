@@ -335,12 +335,12 @@ root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(40, "done_ana
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
 
-echo "***************HIGGS BTAG CR*****"
+echo "***************HIGGS WZ CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(41, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
 
-echo "***************HIGGS ZZ CR*****"
+echo "***************HIGGS BTAG CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(42, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
@@ -350,7 +350,7 @@ root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(43, "done_ana
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;
 
-echo "***************HIGGS WZ CR*****"
+echo "***************HIGGS ZZ CR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(44, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
 rm -f studyFitResults*.txt;

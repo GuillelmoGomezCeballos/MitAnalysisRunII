@@ -106,20 +106,20 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   else if(nsel == 40){ // higgs WW SR
     for(int i=32; i<58; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 41){ // higgs btagged CR
+  else if(nsel == 41){ // higgs WZ CR
     for(int i=0; i<32; i++) excludeBins[i] = i+1;
-    for(int i=36; i<58; i++) excludeBins[i] = i+1;
+    for(int i=46; i<58; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 42){ // higgs ZZ CR
-    for(int i=0; i<36; i++) excludeBins[i] = i+1;
-    for(int i=40; i<58; i++) excludeBins[i] = i+1;
+  else if(nsel == 42){ // higgs btagged CR
+    for(int i=0; i<46; i++) excludeBins[i] = i+1;
+    for(int i=50; i<58; i++) excludeBins[i] = i+1;
   }
   else if(nsel == 43){ // higgs WZb CR
-    for(int i=0; i<40; i++) excludeBins[i] = i+1;
-    for(int i=44; i<58; i++) excludeBins[i] = i+1;
+    for(int i=0; i<50; i++) excludeBins[i] = i+1;
+    for(int i=54; i<58; i++) excludeBins[i] = i+1;
   }
-  else if(nsel == 44){ // higgs WZ SR
-    for(int i=0; i<44; i++) excludeBins[i] = i+1;
+  else if(nsel == 44){ // higgs ZZ SR
+    for(int i=0; i<54; i++) excludeBins[i] = i+1;
   }
   else if(nsel == 99){ // no region to exclude
   }
@@ -136,6 +136,9 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   ofstream newcardShape;
   newcardShape.open(outputLimitsCard);
 
+  int isType = 0;
+  if(plotName.Contains("fiducial6")) isType = 1;
+
   for(int ic=0; ic<nPlotCategories; ic++){
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
     _histPostFit[ic] = (TH1F*)_hist[ic]->Clone(Form("histoPostFit%d",ic));
@@ -150,7 +153,7 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
 	  for(int nb=0; nb<allExcludeBins; nb++) if(i == excludeBins[nb]) binToExclude = true;
 	  if(binToExclude == true) continue;
 	  countUsedBins++;
-	  if      (ic == kPlotBSM){
+	  if      (ic == kPlotBSM || (isType == 1 && ic == kPlotSignal1)){
 	    _histPostFit[ic]->SetBinContent(countUsedBins,((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinContent(i));
 	    _histPostFit[ic]->SetBinError  (countUsedBins,((TH1F*)mlfit->Get(Form("shapes_prefit/%s/%s",channelName.Data(),plotBaseNames[ic].Data())))->GetBinError  (i));
 	  }
@@ -199,7 +202,7 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
       sum[4] = sum[4] +  _hist[ic]->GetBinContent(i)*SF_yieldSB[ic];
       sum[5] = sum[5] + TMath::Power(_hist[ic]->GetBinError(i)*SF_yieldSB[ic],2);
     }
-    if(ic != kPlotBSM) {
+    if(!(ic == kPlotBSM || (isType == 1 && ic == kPlotSignal1))) {
       totalStaUnc[0] = totalStaUnc[0] + sum[1];
       totalStaUnc[1] = totalStaUnc[1] + sum[3];
       totalStaUnc[2] = totalStaUnc[2] + sum[5];
@@ -216,7 +219,7 @@ void studyFitResults(int nsel = 0,  TString plotName = "done_ana/histoZHG_mH125_
   TFile* outFilePlotsNote = new TFile(output,"recreate");
   outFilePlotsNote->cd();
   double totBck = 0;
-  for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM) totBck = totBck + _histPostFit[i]->GetSumOfWeights();
+  for(int i=1; i<nPlotCategories; i++) if(!(i == kPlotBSM || (isType == 1 && i == kPlotSignal1))) totBck = totBck + _histPostFit[i]->GetSumOfWeights();
   printf("(Datacard) %7.1f vs. %7.1f ",_histPostFit[0]->GetSumOfWeights(),totBck);
   printf("(");
   for(int i=1; i<nPlotCategories; i++) printf("%7.1f ",_histPostFit[i]->GetSumOfWeights());
