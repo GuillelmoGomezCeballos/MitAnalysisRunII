@@ -327,7 +327,7 @@ elif [ $NSEL == 'higgs' ]; then
 echo "***************HIGGS WW SR*****"
 root -l -q -b MitAnalysisRunII/panda/makePlots/studyFitResults.C+'(99, "done_ana/histossww_2019_154_fiducial6_mH500_onlydata.root", "ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root", "SSWW_2019")';
 python MitAnalysisRunII/panda/makePlots/studyFitResults.py;
-mv histoDatacard_99.root done_datacards/histoDatacard_hpp_hp_2019.root;
+mv histoDatacard_99.root done_datacards/histoDatacard_hpp_hp_fiducial6_mH500_2019.root;
 rm -f studyFitResults*.txt;
 
 echo "***************HIGGS WW SR*****"
