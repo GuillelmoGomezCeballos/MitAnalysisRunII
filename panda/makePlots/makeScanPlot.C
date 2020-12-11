@@ -154,11 +154,11 @@ void makeScanPlot(int nsel = 0, TString outputName = "likscan"){
   }
   else {
     TPaveText *pt0 = new TPaveText(0.41, 0.77, 0.8, 0.85, "NDCNB");
-    pt0->AddText("#sigma_{Z}^{Observed} = 3036^{#plus 177}_{#minus 166} fb");
+    pt0->AddText("#sigma_{Z}^{Observed} = 3000^{#plus 180}_{#minus 170} fb");
     pt0->SetTextSize(0.047);
     pt0->Draw();
     TPaveText *pt1 = new TPaveText(0.41, 0.69, 0.8, 0.77, "NDCNB");
-    pt1->AddText("#sigma_{Z}^{Expected} = 2725 #pm 441 fb");
+    pt1->AddText("#sigma_{Z}^{Expected} = 2700 #pm 440 fb");
     pt1->SetTextSize(0.047);
     pt1->Draw();
     CMS_lumi( c1, 2016, 11 );
