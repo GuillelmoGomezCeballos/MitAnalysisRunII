@@ -227,7 +227,8 @@ int year, TString WZName = "default"
   //delete fNPVFile;
 
   const float metCut = 70;
-  const int nBinMVA = 11; Float_t xbins[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 800};
+  const int nBinMVA = 11; Float_t xbinsMVA[nBinMVA+1] = {metCut, 100, 125, 150, 175, 200, 250, 300, 350, 400, 600, 800};
+  const int nBinHBB =  9; Float_t xbinsHBB[nBinHBB+1] = {0, 15, 30, 45, 60, 75, 150, 250, 400, 600};
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
@@ -246,11 +247,12 @@ int year, TString WZName = "default"
     else if(thePlot >= 78 && thePlot <= 78) {nBinPlot =  20; xminPlot = 25.0; xmaxPlot = 125.0;}
     else if(thePlot >= 79 && thePlot <= 79) {nBinPlot =  10; xminPlot =  0.0; xmaxPlot = 2.5;}
     else if(thePlot >= 80 && thePlot <= 80) {nBinPlot =  20; xminPlot =  0.0; xmaxPlot = 200;}
-    if(thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
-    else                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
+    if     (thePlot == allPlots-1)          for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbinsMVA);
+    else if(thePlot >= 65 && thePlot <= 69) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinHBB, xbinsHBB);
+    else                                    for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
 
-  TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbins); histo_MVA->Sumw2();
+  TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbinsMVA); histo_MVA->Sumw2();
 
   TH1D *histo_Baseline[nPlotCategories];
   TH1D *histo_QCDScaleBounding[nPlotCategories][6];
@@ -556,8 +558,7 @@ int year, TString WZName = "default"
         passSel[0] && passSel[1] && passSel[2] && passSel[3] && passSel[4]
       };
 
-      bool passZXLikeSel      = passWZSel && passNjets && passMET && passPTFrac && passDPhiZMET && passPTLL && passDRLL;
-      bool passZXLooseLikeSel = passWZSel && passNjets && passMET && passPTFrac && passDPhiZMET && passPTLL && passDRLL;
+      bool passZXLikeSel = passWZSel && passNjets && passMET && passPTFrac && passDPhiZMET && passPTLL && passDRLL;
 
       bool passSystCuts[nSystTypes] = {                   
       passWZSel && passNjetsUp   && passMETUp	&& passPTFracUp    && passDPhiZMETUp   && passPTLL && passDRLL,
@@ -639,7 +640,7 @@ int year, TString WZName = "default"
       if(passTopSel)         {histo[lepType+50][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,4.499),totalWeight);      histo[54][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,4.499),totalWeight);}
       if(passAllButOneSel[5]){histo[lepType+55][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNMBtags,4.499),totalWeight);histo[59][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNMBtags,4.499),totalWeight);}
       if(passZXLikeSel)      {histo[lepType+60][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),299.999),totalWeight);		  histo[64][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),299.999),totalWeight);}
-      if(passZXLooseLikeSel) {histo[lepType+65][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),299.999),totalWeight);		  histo[69][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),299.999),totalWeight);}
+      if(passWZSel)          {histo[lepType+65][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),xbinsHBB[nBinHBB]-0.0001),totalWeight); histo[69][theCategory]->Fill(TMath::Min(vMetZXLike.Pt(),xbinsHBB[nBinHBB]-0.0001),totalWeight);}
       if(passWZSel && passNjets && passMET) {histo[70][theCategory]->Fill(TMath::Abs(dilep.DeltaPhi(vMetZXLike)),totalWeight);}
       if(passWZSel && passNjets && passMET) {histo[71][theCategory]->Fill(TMath::Min(TMath::Abs(dilep.Pt()-vMetZXLike.Pt())/dilep.Pt(),0.999),totalWeight);}
       if(passWZSel && passNjets && passMET) {histo[72][theCategory]->Fill(TMath::Min(drll,2.99),totalWeight);}
@@ -652,7 +653,7 @@ int year, TString WZName = "default"
       if(passWZGSel) histo[79][theCategory]->Fill(TMath::Abs(vPhoton.Eta()),totalWeight*photonSF);
       if(passWZGSel) histo[80][theCategory]->Fill(TMath::Min((vWln+vPhoton).M(),199.999),totalWeight*photonSF);
 
-      double MVAVar = TMath::Min(vMetZXLike.Pt(),xbins[nBinMVA]-0.0001); double MVAVarUp = TMath::Min(vMetZXLikeUp.Pt(),xbins[nBinMVA]-0.0001); double MVAVarDown = TMath::Min(vMetZXLikeDown.Pt(),xbins[nBinMVA]-0.0001);
+      double MVAVar = TMath::Min(vMetZXLike.Pt(),xbinsMVA[nBinMVA]-0.0001); double MVAVarUp = TMath::Min(vMetZXLikeUp.Pt(),xbinsMVA[nBinMVA]-0.0001); double MVAVarDown = TMath::Min(vMetZXLikeDown.Pt(),xbinsMVA[nBinMVA]-0.0001);
       if(1){
 
         // Avoid QCD scale weights that are anomalous high
@@ -667,11 +668,11 @@ int year, TString WZName = "default"
 
 	if(theCategory == kPlotZZ) sf_corrwzzz_unc = 1.02 * sf_ewkcorrzz_unc * sf_ggcorrzz_unc;
 
-        if     (theCategory == kPlotData && passZXLooseLikeSel){
+        if     (theCategory == kPlotData && passZXLikeSel){
           histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
         }
         else if(theCategory != kPlotData){
-	  if(passZXLooseLikeSel) {
+	  if(passZXLikeSel) {
 	    histo_Baseline[theCategory]->Fill(MVAVar,totalWeight);
 	    histo_QCDScaleBounding[theCategory][0]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[0])/maxQCDscale);
 	    histo_QCDScaleBounding[theCategory][1]->Fill(MVAVar,totalWeight*TMath::Abs(thePandaFlat.scale[1])/maxQCDscale);
@@ -720,8 +721,8 @@ int year, TString WZName = "default"
               if(passSystCuts[JESUP])   histo_JESBoundingUp  [ny][theCategory]->Fill(MVAVarUp  ,totalWeight);
               if(passSystCuts[JESDOWN]) histo_JESBoundingDown[ny][theCategory]->Fill(MVAVarDown,totalWeight);
             } else {
-              if(passZXLooseLikeSel) histo_JESBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight);
-              if(passZXLooseLikeSel) histo_JESBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight);
+              if(passZXLikeSel) histo_JESBoundingUp  [ny][theCategory]->Fill(MVAVar,totalWeight);
+              if(passZXLikeSel) histo_JESBoundingDown[ny][theCategory]->Fill(MVAVar,totalWeight);
 	    }
 	  }
         }
