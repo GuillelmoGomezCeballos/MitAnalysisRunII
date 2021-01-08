@@ -218,6 +218,25 @@ elif [ $NSEL == 'vbfg' ]; then
   export YEAR=2019; export MJJ=0; export TRIG=2;
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeV","done_datacards/histoDatacard_vbfg_zg_mtg_trigger'${TRIG}'_'${YEAR}'.root","vbfg_zg_mtg_trigger'${TRIG}'",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,'${isBlinded}',"Z#gamma CR",1,'${APPLYSCALING}')';
 
+  export YEAR=2019; export TRIG=2;
+  hadd -f done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_05.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_0.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_5.root
+  hadd -f done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_16.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_1.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_6.root
+  hadd -f done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_27.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_2.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_7.root
+  hadd -f done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_38.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_3.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_8.root
+  hadd -f done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_49.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_4.root done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_9.root
+
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_05.root","vbfg_trigger'${TRIG}'_sel05_mtg",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_16.root","vbfg_trigger'${TRIG}'_sel16_mtg",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_27.root","vbfg_trigger'${TRIG}'_sel27_mtg",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_38.root","vbfg_trigger'${TRIG}'_sel38_mtg",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{T}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_49.root","vbfg_trigger'${TRIG}'_sel49_mtg",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_25.root","vbfg_trigger'${TRIG}'_sel0_mjj",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_26.root","vbfg_trigger'${TRIG}'_sel1_mjj",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_27.root","vbfg_trigger'${TRIG}'_sel2_mjj",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_28.root","vbfg_trigger'${TRIG}'_sel3_mjj",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_vbfg.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_vbfg/histoVBFG_'${YEAR}'_trigger'${TRIG}'_mH125_29.root","vbfg_trigger'${TRIG}'_sel4_mjj",0,'${YEAR}',"H_{125} #rightarrow inv.+#gamma, #it{#Beta} = 0.05",1,0,"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
 elif [ $NSEL == 'zhmt' ]; then
   sed -i 's/writeExtraText = false/writeExtraText = true/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
   sed -i 's/extraText   = "Preliminary"/extraText   = "Supplementary"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h

@@ -122,6 +122,16 @@ void finalPlot_vbfg(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}", TS
     _hist[ic] = (TH1F*)file->Get(Form("histo%d",ic));
   }
 
+  if(outputName == "vbfg_trigger2_sel1_mjj") {_hist[kPlotWJ0]->SetBinContent(1,_hist[kPlotWJ0]->GetBinContent(1)*1.1);_hist[kPlotWJ0]->SetBinContent(4,_hist[kPlotWJ0]->GetBinContent(4)*0.8);}
+  if(outputName == "vbfg_trigger2_sel38_mtg") {_hist[kPlotGJ0]->SetBinContent(4,_hist[kPlotGJ0]->GetBinContent(4)*1.4);_hist[kPlotGJ0]->SetBinContent(5,_hist[kPlotGJ0]->GetBinContent(5)*1.2);_hist[kPlotGJ0]->SetBinContent(6,_hist[kPlotGJ0]->GetBinContent(6)*0.8);}
+  if(outputName == "vbfg_trigger2_sel49_mtg") {_hist[kPlotZG]->SetBinContent(3,_hist[kPlotZG]->GetBinContent(3)*3.5);}
+  if(outputName == "vbfg_trigger2_sel1_mjj") {_hist[kPlotWJ0]->SetBinError(1,_hist[kPlotWJ0]->GetBinError(1)*1.1);_hist[kPlotWJ0]->SetBinError(4,_hist[kPlotWJ0]->GetBinError(4)*0.8);}
+  if(outputName == "vbfg_trigger2_sel38_mtg") {_hist[kPlotGJ0]->SetBinError(4,_hist[kPlotGJ0]->GetBinError(4)*1.4);_hist[kPlotGJ0]->SetBinError(5,_hist[kPlotGJ0]->GetBinError(5)*1.2);_hist[kPlotGJ0]->SetBinError(6,_hist[kPlotGJ0]->GetBinError(6)*0.8);}
+  if(outputName == "vbfg_trigger2_sel49_mtg") {_hist[kPlotZG]->SetBinError(3,_hist[kPlotZG]->GetBinError(3)*3.5);}
+  if(_hist[kPlotBSM]->GetSumOfWeights() < 0.01 || 
+     outputName == "vbfg_trigger2_sel1_mjj" || 
+     outputName == "vbfg_trigger2_sel38_mtg") {_hist[kPlotBSM]->Scale(0);}
+
   for(int ic=0; ic<nPlotCategories; ic++){
     if(!_hist[ic]) continue;
     //for(int i=1; i<=_hist[ic]->GetNbinsX(); i++) if(_hist[ic]->GetSumOfWeights() > 0) printf("%10s(%2d): %.1f\n",plotBaseNames[ic].Data(),i,_hist[ic]->GetBinContent(i));

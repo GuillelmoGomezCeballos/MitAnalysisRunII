@@ -2627,13 +2627,13 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
         else if(fidAna == 6){
           double typeSelAux0[5] = {0,0,0,0,0};
 	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
-	     if((alllep+vMet).Mt()     < xbinsAQGCMTWW[ib+1]) {typeSelAux0[0] = ib; break;}
+	     if(TMath::Min((alllep+vMet).Mt(),     xbinsAQGCMTWW[nBinAQGCMTWW]-0.001) < xbinsAQGCMTWW[ib+1]) {typeSelAux0[0] = ib; break;}
 	  }
 	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
-	     if((alllep+vMetUp).Mt()   < xbinsAQGCMTWW[ib+1]) {typeSelAux0[1] = ib; break;}
+	     if(TMath::Min((alllep+vMetUp).Mt(),   xbinsAQGCMTWW[nBinAQGCMTWW]-0.001) < xbinsAQGCMTWW[ib+1]) {typeSelAux0[1] = ib; break;}
 	  }
 	  for(int ib=0; ib<nBinAQGCMTWW; ib++){
-	     if((alllep+vMetDown).Mt() < xbinsAQGCMTWW[ib+1]) {typeSelAux0[2] = ib; break;}
+	     if(TMath::Min((alllep+vMetDown).Mt(), xbinsAQGCMTWW[nBinAQGCMTWW]-0.001) < xbinsAQGCMTWW[ib+1]) {typeSelAux0[2] = ib; break;}
 	  }
           typeSelAux0[3] = typeSelAux0[0];
           typeSelAux0[4] = typeSelAux0[0];
@@ -2671,13 +2671,13 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	  }
           double typeSelAux1[5] = {0,0,0,0,0};
 	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
-	     if((alllep+vMet).Mt()     < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[0] = ib; break;}
+	     if(TMath::Min((alllep+vMet).Mt(),     xbinsAQGCMTWZ[nBinAQGCMTWZ]-0.001) < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[0] = ib; break;}
 	  }
 	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
-	     if((alllep+vMetUp).Mt()   < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[1] = ib; break;}
+	     if(TMath::Min((alllep+vMetUp).Mt(),   xbinsAQGCMTWZ[nBinAQGCMTWZ]-0.001) < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[1] = ib; break;}
 	  }
 	  for(int ib=0; ib<nBinAQGCMTWZ; ib++){
-	     if((alllep+vMetDown).Mt() < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[2] = ib; break;}
+	     if(TMath::Min((alllep+vMetDown).Mt(), xbinsAQGCMTWZ[nBinAQGCMTWZ]-0.001) < xbinsAQGCMTWZ[ib+1]) {typeSelAux1[2] = ib; break;}
 	  }
           typeSelAux1[3] = typeSelAux1[0];
           typeSelAux1[4] = typeSelAux1[0];
@@ -3018,16 +3018,22 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   } // end chain loop
 
   double mean, diff;
+  for(int nb=1; nb<=histo_Baseline[kPlotNonPrompt]->GetNbinsX(); nb++){
+    histo_Baseline[kPlotNonPrompt]->SetBinContent(nb, TMath::Max((float)histo_Baseline[kPlotNonPrompt]->GetBinContent(nb),0.01f));
+    histo_Baseline[kPlotNonPrompt]->SetBinError(nb, TMath::Min(TMath::Abs((float)histo_Baseline[kPlotNonPrompt]->GetBinError(nb)),(float)histo_Baseline[kPlotNonPrompt]->GetBinContent(nb)));
+    for(int ny=0; ny<nYears; ny++){
+      for(int nc=0; nc<10; nc++){
+        histo_FakeBoundingUp  [ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingUp  [ny][nc]->GetBinContent(nb),0.01f));
+        histo_FakeBoundingDown[ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingDown[ny][nc]->GetBinContent(nb),0.01f));
+      }
+    }
+  }
+
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
     if(ic == kPlotData || ic == kPlotNonPrompt || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
     for(int nb=1; nb<=histo_Baseline[ic]->GetNbinsX(); nb++){
 
-      if(ic == kPlotNonPrompt){
-        histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.01f));
-      }
-      else {
-        histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
-      }
+      histo_Baseline[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb),0.0f));
 
       // compute QCD scale uncertainties bin-by-bin
       double diffQCDscale[6] = {
@@ -3062,12 +3068,6 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       histo_PUBoundingDown        [ic]->SetBinContent(nb, TMath::Max((float)histo_PUBoundingDown	[ic]->GetBinContent(nb),0.0f));
       histo_PUBoundingDown        [ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_PUBoundingUp[ic]->GetBinContent(nb)),0.0f));
       for(int ny=0; ny<nYears; ny++){
-      if(ic == kPlotNonPrompt){
-        for(int nc=0; nc<10; nc++){
-          histo_FakeBoundingUp  [ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingUp  [ny][nc]->GetBinContent(nb),0.0f));
-          histo_FakeBoundingDown[ny][nc]->SetBinContent(nb, TMath::Max((float)histo_FakeBoundingDown[ny][nc]->GetBinContent(nb),0.0f));
-        }
-      }
       histo_BTAGBBoundingUp    [ny][ic]->SetBinContent(nb, TMath::Max((float)histo_BTAGBBoundingUp    [ny][ic]->GetBinContent(nb),0.0f));
       histo_BTAGBBoundingDown  [ny][ic]->SetBinContent(nb, TMath::Max((float)histo_BTAGBBoundingDown  [ny][ic]->GetBinContent(nb),0.0f));
       histo_BTAGBBoundingDown  [ny][ic]->SetBinContent(nb, TMath::Max((float)(2*histo_Baseline[ic]->GetBinContent(nb)-histo_BTAGBBoundingUp[ny][ic]->GetBinContent(nb)),0.0f));

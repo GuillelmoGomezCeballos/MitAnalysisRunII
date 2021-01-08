@@ -373,7 +373,7 @@ class StandardPlot_hig20017 {
             }
 
             if (gPad->GetLogy()) {
-                hstack->SetMaximum(5000000 * theMax);
+                hstack->SetMaximum(50000000 * theMax);
                 hstack->SetMinimum(TMath::Max(0.9 * theMin,0.05));
             } else {
               hstack->SetMaximum(2.0 * theMax);
