@@ -1025,8 +1025,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       }
 
       // Making use of a more precise lepton efficiency uncertainty estimation
-      muSFUnc = lepSFUnc[0];
-      elSFUnc = lepSFUnc[1];
+      if(fidAna == 6){
+        muSFUnc = lepSFUnc[0];
+        elSFUnc = lepSFUnc[1];
+      }
 
       TLorentzVector vMet,vTrkMet,vMetUp,vMetDown;
       vTrkMet.SetPtEtaPhiM(thePandaFlat.trkmet,0.0,thePandaFlat.trkmetphi,0.0);
