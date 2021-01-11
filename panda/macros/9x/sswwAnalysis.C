@@ -349,6 +349,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   //infileName_.push_back(Form("%sWWjj_SS_lt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotBSM);
   //infileName_.push_back(Form("%sWWjj_SS_tt_%s.root"  ,filesPath.Data(),wwPath.Data())); infileCat_.push_back(kPlotBSM);
 
+  TFile *fLepton_SF_Unc = TFile::Open(Form("MitAnalysisRunII/data/90x/eff/lepton_SF_Unc.root"));
+  TH2D* mu_SF_Unc = (TH2D*)fLepton_SF_Unc->Get(Form("mu_SF_Unc")); mu_SF_Unc->SetDirectory(0);
+  TH2D* el_SF_Unc = (TH2D*)fLepton_SF_Unc->Get(Form("el_SF_Unc")); el_SF_Unc->SetDirectory(0);
+  fLepton_SF_Unc->Close();
+
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
   TH2D* histoFakeEffSelMediumEtaPt_e = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_0_1"); histoFakeEffSelMediumEtaPt_e->SetDirectory(0);
@@ -898,7 +903,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 
       vector<float>  looseLepPt,looseLepEta,looseLepPhi,looseLepSF,looseLepIso;
       vector<int> looseLepSelBit,looseLepPdgId,looseLepTripleCharge,looseLepMissingHits;
-      int ptSelCuts[3] = {0,0,0};
+      int ptSelCuts[3] = {0,0,0}; double lepSFUnc[2] = {1.0, 1.0};
       for(int i=0; i<thePandaFlat.nLooseMuon; i++){
         int nBinLepEtaCorr = histoLepEtaCorr->GetXaxis()->FindBin(TMath::Min((double)TMath::Abs(thePandaFlat.muonEta[i]),2.4999))-1;
         if(infileCat_[ifile]==kPlotData)
@@ -916,6 +921,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	if(looseLepPt[looseLepPt.size()-1] > 25) ptSelCuts[0]++;
 	if(looseLepPt[looseLepPt.size()-1] > 20) ptSelCuts[1]++;
 	if(looseLepPt[looseLepPt.size()-1] > 10) ptSelCuts[2]++;
+	double etal = TMath::Min(TMath::Max((double)thePandaFlat.muonEta[i],mu_SF_Unc->GetXaxis()->GetBinCenter(0)),mu_SF_Unc->GetXaxis()->GetBinCenter(mu_SF_Unc->GetNbinsX()));
+	double ptl  = TMath::Min(TMath::Max((double)thePandaFlat.muonPt[i] ,mu_SF_Unc->GetYaxis()->GetBinCenter(0)),mu_SF_Unc->GetYaxis()->GetBinCenter(mu_SF_Unc->GetNbinsY()));
+        int binXT = mu_SF_Unc->GetXaxis()->FindFixBin(etal);
+        int binYT = mu_SF_Unc->GetYaxis()->FindFixBin(ptl);
+	lepSFUnc[0] = lepSFUnc[0] * (1.0+mu_SF_Unc->GetBinContent(binXT,binYT));
       }
       for(int i=0; i<thePandaFlat.nLooseElectron; i++){
         int nBinLepEtaCorr = histoLepEtaCorr->GetXaxis()->FindBin(TMath::Min((double)TMath::Abs(thePandaFlat.electronEta[i]),2.4999))-1;
@@ -934,6 +944,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
 	if(looseLepPt[looseLepPt.size()-1] > 25) ptSelCuts[0]++;
 	if(looseLepPt[looseLepPt.size()-1] > 20) ptSelCuts[1]++;
 	if(looseLepPt[looseLepPt.size()-1] > 10) ptSelCuts[2]++;
+	double etal = TMath::Min(TMath::Max((double)thePandaFlat.electronEta[i],el_SF_Unc->GetXaxis()->GetBinCenter(0)),el_SF_Unc->GetXaxis()->GetBinCenter(el_SF_Unc->GetNbinsX()));
+	double ptl  = TMath::Min(TMath::Max((double)thePandaFlat.electronPt[i] ,el_SF_Unc->GetYaxis()->GetBinCenter(0)),el_SF_Unc->GetYaxis()->GetBinCenter(el_SF_Unc->GetNbinsY()));
+        int binXT = el_SF_Unc->GetXaxis()->FindFixBin(etal);
+        int binYT = el_SF_Unc->GetYaxis()->FindFixBin(ptl);
+	lepSFUnc[1] = lepSFUnc[1] * (1.0+el_SF_Unc->GetBinContent(binXT,binYT));
       }
 
       if((int)looseLepPt.size() != thePandaFlat.nLooseLep) printf("IMPOSSIBLE\n");
@@ -1008,6 +1023,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
         else if(nmu == 1 && nel == 3) {lepType = 3; muSFUnc = theLepSFUnc; elSFUnc = theLepSFUnc*theLepSFUnc*theLepSFUnc;}
         else {printf("Impossible lepton combination: %d %d %d %d\n",looseLepPdgId[0],looseLepPdgId[1],looseLepPdgId[2],looseLepPdgId[3]); continue;}
       }
+
+      // Making use of a more precise lepton efficiency uncertainty estimation
+      muSFUnc = lepSFUnc[0];
+      elSFUnc = lepSFUnc[1];
 
       TLorentzVector vMet,vTrkMet,vMetUp,vMetDown;
       vTrkMet.SetPtEtaPhiM(thePandaFlat.trkmet,0.0,thePandaFlat.trkmetphi,0.0);
