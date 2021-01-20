@@ -397,7 +397,7 @@ void finalPlot_hig20017(int nsel = 0, int ReBin = 1, TString XTitle = "N_{jets}"
       double diffUp   = U-double(N);
       double diffDown = double(N)-L;
       double pull = 1.0; double pullerr = 0.0;
-      if(hDataDivision->GetBinContent(i) && hTotalDivision->GetBinContent(i) > 0){
+      if(hDataDivision->GetBinContent(i) > 0 && hTotalDivision->GetBinContent(i) > 0){
         pull = (hDataDivision->GetBinContent(i)/hTotalDivision->GetBinContent(i));
 	pullerr = pull*(diffUp+diffDown)/2/hDataDivision->GetBinContent(i);
         g->SetPointEYlow (i-1, pull*diffDown/hDataDivision->GetBinContent(i));
