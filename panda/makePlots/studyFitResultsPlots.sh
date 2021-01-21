@@ -261,7 +261,7 @@ elif [ $NSEL == 'zhmt' ]; then
   sed -i 's/writeExtraText = true/writeExtraText = false/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
   sed -i 's/extraText   = "Supplementary"/extraText   = "Preliminary"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
   touch MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C
-exit;
+
   export YEAR=2016;
   #root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_exo19003.C+'(0,1,"m_{T}","GeVBIN","done_datacards/histoDatacard_zhmt_catEM_'${YEAR}'.root","zh_em_mt",1,'${YEAR}',"m_{H} = 1200 GeV, m_{a} = 300 GeV",'${sf_dy}','${isBlinded}',"e#mu category",1,'${APPLYSCALING}',"","")';
   export YEAR=2017;
