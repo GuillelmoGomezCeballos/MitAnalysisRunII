@@ -162,6 +162,7 @@ void skimmingAnalysis(int year, int specialMC = 0)
     infileName_.push_back(Form("qq_cH_WZ1000.root"));
     infileName_.push_back(Form("qq_cH_WZ1500.root"));
     infileName_.push_back(Form("qq_cH_WZ2000.root"));
+    infileName_.push_back(Form("qq_cH_WZ3000.root"));
     infileName_.push_back(Form("qq_cH_WW200.root"));
     infileName_.push_back(Form("qq_cH_WW300.root"));
     infileName_.push_back(Form("qq_cH_WW400.root"));
@@ -173,6 +174,7 @@ void skimmingAnalysis(int year, int specialMC = 0)
     infileName_.push_back(Form("qq_cH_WW1000.root"));
     infileName_.push_back(Form("qq_cH_WW1500.root"));
     infileName_.push_back(Form("qq_cH_WW2000.root"));
+    infileName_.push_back(Form("qq_cH_WW3000.root"));
   }
 
   for(UInt_t ifile=0; ifile<infileName_.size(); ifile++) {

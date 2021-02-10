@@ -294,13 +294,17 @@ elif [ $NSEL == 'zhmt' ]; then
 elif [ $NSEL == 'higgs' ]; then
   export YEAR=2019;
   export isNeverBlinded=0;
-  export legendBSM="H^{++}(500)#rightarrowW^{+}W^{+}";
-  export legendBSM2="H^{+}(500)#rightarrowW^{+}Z";
+  export legendBSM="H^{++}(500)#rightarrowW^{+}W^{+},S_{H}=1";
+  export legendBSM2="H^{+}(500)#rightarrowW^{+}Z,S_{H}=1";
   export mlfitResult="done_ana/../ana_higgs/fitDiagnosticsssww_comb_fiducial6_mH500_obs.root";
   export fidAnaName="_fiducial6_mH500";
   export channelName="SSWW_2019"; 
 
+  sed -i 's/SetMarkerSize(0.8)/SetMarkerSize(0.5)/' MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C
+  sed -i 's/SetMarkerSize(0.8)/SetMarkerSize(0.5)/' MitAnalysisRunII/panda/makePlots/StandardPlot_hig20017.C
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"Bin",       "BIN",           "done_datacards/histoDatacard_hpp_hp'${fidAnaName}'_'${YEAR}'.root",  "ssww_datacardhiggs",1,       '${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"","",0,"","'${legendBSM2}'")';
+  sed -i 's/SetMarkerSize(0.5)/SetMarkerSize(0.8)/' MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C
+  sed -i 's/SetMarkerSize(0.5)/SetMarkerSize(0.8)/' MitAnalysisRunII/panda/makePlots/StandardPlot_hig20017.C
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{T}^{WW}","GeVBIN",        "done_ana/histossww_'${YEAR}'_135'${fidAnaName}'.root","ssww_wwsel_higgs_fullmtww",0,'${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{T}^{WZ}","GeVBIN",        "done_ana/histossww_'${YEAR}'_138'${fidAnaName}'.root","ssww_wzsel_higgs_fullmtwz",0,'${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';
   root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_hig20017.C+'(0,1,"m_{jj}"    ,"GeVBINBinWidth","done_ana/histossww_'${YEAR}'_0'${fidAnaName}'.root",  "ssww_wwsel_mjj",0,           '${YEAR}',"'${legendBSM}'",1.0,'${isNeverBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'",0,"","'${legendBSM2}'")';

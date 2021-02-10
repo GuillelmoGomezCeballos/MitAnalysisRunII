@@ -192,8 +192,8 @@ class StandardPlot_smp19012 {
 	    for(int ic=0; ic<nPlotCategories; ic++) if(_hist[ic]) {hSum = (TH1D*)_hist[ic]->Clone(); break;}
 	    hSum->Rebin(rebin);
 	    hSum->Scale(0.0);
-            //for (int ic=0; ic<nPlotCategories; ic++) {
-            for (int ic=nPlotCategories-1; ic>=0; ic--) {
+            for (int ic=0; ic<nPlotCategories; ic++) {
+            //for (int ic=nPlotCategories-1; ic>=0; ic--) {
 
                 // in case the user doesn't set it
                 if( !_hist[ic] || ic == kPlotData) continue;

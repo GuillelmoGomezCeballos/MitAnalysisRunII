@@ -17,7 +17,7 @@
 
 Bool_t isBSMOverlaid = true;
 
-float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.45,0.45,0.45,0.45,0.45,0.45,0.45,0.45};
+float xPos[nPlotCategories] = {0.70,0.70,0.70,0.70,0.70,0.70,0.70,0.40,0.40,0.40,0.40,0.40,0.40,0.40,0.40};
 float yOff[nPlotCategories] = {   0,	1,   2,   3,   4,  5,   6,   0,   1,   2,   3,   4,   5,   6,   7};
 
 const Float_t _tsize   = 0.040;
@@ -373,7 +373,7 @@ class StandardPlot_hig20017 {
             }
 
             if (gPad->GetLogy()) {
-                hstack->SetMaximum(50000000 * theMax);
+                hstack->SetMaximum(1000000000 * theMax);
                 hstack->SetMinimum(TMath::Max(0.9 * theMin,0.05));
             } else {
               hstack->SetMaximum(2.0 * theMax);
@@ -412,10 +412,13 @@ class StandardPlot_hig20017 {
 
             for (int ic=0; ic<nPlotCategories; ic++) {
 	      if     (ic==kPlotData){
-	        if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "ep"); j++;}
+	        //if(_hist[ic] && _hist[ic]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[ic], plotNames[ic].Data(), "ep"); j++;}
                 if(plotSystErrorBars == true) {DrawLegendTG(xPos[j], 0.84 - yOff[j]*_yoffset,gsyst, "Bkg. unc.",  "f" ); j++;isThereSignal = true;}
               }
 	      else if(ic == kPlotBSM){
+	        if(_hist[kPlotData] && _hist[kPlotData]->GetSumOfWeights() > 0) { DrawLegend(xPos[j], 0.84 - yOff[j]*_yoffset, _hist[kPlotData], plotNames[kPlotData].Data(), "ep"); j++;}
+                //if(plotSystErrorBars == true) {DrawLegendTG(xPos[j], 0.84 - yOff[j]*_yoffset,gsyst, "Bkg. unc.",  "f" ); j++;isThereSignal = true;}
+
 	        double furtherXOffSet = 0.0;
 		if(higgsLabel.Contains("m_{H},m_{a}")) furtherXOffSet = -0.05;
 		if(higgsLabel.Contains("Z(ll)h_{125}")) furtherXOffSet = -0.05;

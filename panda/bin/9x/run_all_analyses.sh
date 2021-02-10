@@ -113,6 +113,30 @@ elif [ $NSEL == 61 ]; then
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',6,"wwframe",1,1000)' >& log_ssww_fid6_${YEAR}_1000 &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',6,"wwframe",1,1500)' >& log_ssww_fid6_${YEAR}_1500 &
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',6,"wwframe",1,2000)' >& log_ssww_fid6_${YEAR}_2000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',6,"wwframe",1,3000)' >& log_ssww_fid6_${YEAR}_3000 &
+
+elif [ $NSEL == 62 ]; then
+  root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",137.4)' >& log_ssww_hllhc_fid0_wwframe_${YEAR}_137  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",300)'   >& log_ssww_hllhc_fid0_wwframe_${YEAR}_300  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",500)'   >& log_ssww_hllhc_fid0_wwframe_${YEAR}_500  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",1000)'  >& log_ssww_hllhc_fid0_wwframe_${YEAR}_1000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",2000)'  >& log_ssww_hllhc_fid0_wwframe_${YEAR}_2000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',0,"wwframe",3000)'  >& log_ssww_hllhc_fid0_wwframe_${YEAR}_3000 &
+
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",137.4)' >& log_ssww_hllhc_fid5_wwframe_${YEAR}_137  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",300)'   >& log_ssww_hllhc_fid5_wwframe_${YEAR}_300  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",500)'   >& log_ssww_hllhc_fid5_wwframe_${YEAR}_500  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",1000)'  >& log_ssww_hllhc_fid5_wwframe_${YEAR}_1000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",2000)'  >& log_ssww_hllhc_fid5_wwframe_${YEAR}_2000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"wwframe",3000)'  >& log_ssww_hllhc_fid5_wwframe_${YEAR}_3000 &
+
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",137.4)' >& log_ssww_hllhc_fid5_new_${YEAR}_137  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",300)'   >& log_ssww_hllhc_fid5_new_${YEAR}_300  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",500)'   >& log_ssww_hllhc_fid5_new_${YEAR}_500  &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",1000)'  >& log_ssww_hllhc_fid5_new_${YEAR}_1000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",2000)'  >& log_ssww_hllhc_fid5_new_${YEAR}_2000 &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis_hllhc.C+'('${YEAR}',5,"new",3000)'  >& log_ssww_hllhc_fid5_new_${YEAR}_3000 &
 
 elif [ $NSEL == 7 ]; then
   root -q -l -b MitAnalysisRunII/panda/macros/9x/zhgAnalysis.C+

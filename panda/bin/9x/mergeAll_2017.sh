@@ -102,6 +102,7 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WZ900
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WZ1000
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WZ1500
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WZ2000
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WZ3000
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW200
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW300
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW400
@@ -113,6 +114,7 @@ PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW900
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW1000
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW1500
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW2000
+PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 qq_cH_WW3000
 
 elif [ $NSEL == 'specialmc' ]; then
 PandaAnalysis/T3/merging/merge.py --cfg leptonic_2017 ZH_ZToLL_HToGDarkG_M125
