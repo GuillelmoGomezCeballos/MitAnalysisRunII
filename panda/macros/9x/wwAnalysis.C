@@ -135,7 +135,7 @@ int year
   }
 
   //infileName_.clear();infileCat_.clear();
-  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); 	          infileCat_.push_back(kPlotqqWW);
+  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data()));                infileCat_.push_back(kPlotqqWW);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
@@ -203,9 +203,12 @@ int year
   fhDWWPtRatio_resumdown->SetDirectory(0);
   delete fWWPtRatio;
 
+  const int nBinGenWWPt = 11; Float_t xbinsGenWWPt[nBinGenWWPt+1] = {0,  10,   20,   30,   40,   50,   70,   100,    150,    200,    250,300};
+  const int nBinRecWWPt = 21; Float_t xbinsRecWWPt[nBinRecWWPt+1] = {0,5,10,15,20,25,30,35,40,45,50,60,70,85,100,125,150,175,200,225,250,300};
+
   const int nBinMVA = 12; Float_t xbins[nBinMVA+1] = {0, 1000, 2000, 3000, 4000,
                                                          5000, 6000, 7000, 8000,
-							 9000,10000,11000,12000,};
+							 9000,10000,11000,12000};
 
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
@@ -223,9 +226,12 @@ int year
     else if(thePlot >= 153 && thePlot <= 161) {nBinPlot =  90; xminPlot =  0.0; xmaxPlot = 180;}
     else if(thePlot >= 162 && thePlot <= 167) {nBinPlot = 300; xminPlot =  0.0; xmaxPlot = 300;}
     else if(thePlot >= 168 && thePlot <= 170) {nBinPlot =   6; xminPlot = -0.5; xmaxPlot = 5.5;}
-    if     (thePlot == allPlots-1) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
-    else                           for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
+    if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
+    else if(thePlot >= 162 && thePlot <= 167) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinRecWWPt, xbinsRecWWPt);
+    else                                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
+
+  TH2D* histo_GenWWPt_RecWWPt = new TH2D("histo_GenWWPt_RecWWPt", "histo_GenWWPt_RecWWPt",nBinGenWWPt,xbinsGenWWPt,nBinRecWWPt,xbinsRecWWPt);
 
   TH1D* histo_MVA = new TH1D("histo_MVA", "histo_MVA", nBinMVA, xbins); histo_MVA->Sumw2();
 
@@ -535,12 +541,11 @@ int year
             TLorentzVector vGen1,vGen2;
             vGen1.SetPtEtaPhiM(thePandaFlat.genLep1Pt,thePandaFlat.genLep1Eta,thePandaFlat.genLep1Phi,thePDGMass[0]);
             vGen2.SetPtEtaPhiM(thePandaFlat.genLep2Pt,thePandaFlat.genLep2Eta,thePandaFlat.genLep2Phi,thePDGMass[1]);
-	    TLorentzVector wwSystem = vGen1 + vGen2 + vMet;
-            Int_t nptwwbin[5] = {fhDWWPtRatio	       ->GetXaxis()->FindBin(TMath::Min(wwSystem.Pt(),499.999)),
-	                         fhDWWPtRatio_scaleup  ->GetXaxis()->FindBin(TMath::Min(wwSystem.Pt(),499.999)),
-	                         fhDWWPtRatio_scaledown->GetXaxis()->FindBin(TMath::Min(wwSystem.Pt(),499.999)),
-	                         fhDWWPtRatio_resumup  ->GetXaxis()->FindBin(TMath::Min(wwSystem.Pt(),499.999)),
-	                         fhDWWPtRatio_resumdown->GetXaxis()->FindBin(TMath::Min(wwSystem.Pt(),499.999))};
+            Int_t nptwwbin[5] = {fhDWWPtRatio	       ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
+	                         fhDWWPtRatio_scaleup  ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
+	                         fhDWWPtRatio_scaledown->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
+	                         fhDWWPtRatio_resumup  ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
+	                         fhDWWPtRatio_resumdown->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999))};
             thePtwwWeight[0] = fhDWWPtRatio          ->GetBinContent(nptwwbin[0]) * 1.020;
 	    thePtwwWeight[1] = fhDWWPtRatio_scaleup  ->GetBinContent(nptwwbin[1]);
 	    thePtwwWeight[2] = fhDWWPtRatio_scaledown->GetBinContent(nptwwbin[2]);
@@ -594,9 +599,11 @@ int year
       if(passTopSel)   histo[lepType+135][theCategory]->Fill(TMath::Min(vLoose[1].Pt(),199.999),totalWeight);
       if(passTopSel)   histo[lepType+144][theCategory]->Fill(TMath::Min(dilep.M(),199.999),totalWeight);
       if(passTopSel)   histo[lepType+153][theCategory]->Fill(TMath::Abs(vLoose[0].DeltaPhi(vMet))*180/TMath::Pi(),totalWeight);
-      if(passWWSel)    histo[lepTypeOri+162][theCategory]->Fill(TMath::Min(vWW.Pt(),299.999),totalWeight);
-      if(passTopSel)   histo[lepTypeOri+165][theCategory]->Fill(TMath::Min(vWW.Pt(),299.999),totalWeight);
+      if(passWWSel)    histo[lepTypeOri+162][theCategory]->Fill(TMath::Min(vWW.Pt(),xbinsRecWWPt[nBinRecWWPt]-0.001),totalWeight);
+      if(passTopSel)   histo[lepTypeOri+165][theCategory]->Fill(TMath::Min(vWW.Pt(),xbinsRecWWPt[nBinRecWWPt]-0.001),totalWeight);
       if(passZllSel)   histo[lepTypeOri+168][theCategory]->Fill(TMath::Min((double)thePandaFlat.nJot,5.4999),totalWeight);
+      if(passWWSel&&lepTypeOri==2&&(theCategory==kPlotqqWW||theCategory==kPlotggWW))
+        histo_GenWWPt_RecWWPt->Fill(TMath::Min((double)thePandaFlat.genBosonPt,xbinsGenWWPt[nBinGenWWPt]-0.001),TMath::Min((double)vWW.Pt(),xbinsRecWWPt[nBinRecWWPt]-0.001),totalWeight);
 
       if(lepTypeOri == 2){
         int typeSelAux = 0;
@@ -1215,5 +1222,10 @@ int year
     for(int np=0; np<nPlotCategories; np++) {histo[thePlot][np]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));histo[thePlot][np]->Write();}
     outFilePlotsNote->Close();
   }
+  sprintf(output,"histo_GenWWPt_RecWWPt_%d.root",year);
+  TFile* outFilePlotsNote = new TFile(output,"recreate");
+  outFilePlotsNote->cd();
+  histo_GenWWPt_RecWWPt->Write();
+  outFilePlotsNote->Close();
 
 }
