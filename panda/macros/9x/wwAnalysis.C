@@ -135,7 +135,7 @@ int year
   }
 
   //infileName_.clear();infileCat_.clear();
-  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data()));                infileCat_.push_back(kPlotqqWW);
+  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); 	       infileCat_.push_back(kPlotqqWW);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
@@ -541,11 +541,14 @@ int year
             TLorentzVector vGen1,vGen2;
             vGen1.SetPtEtaPhiM(thePandaFlat.genLep1Pt,thePandaFlat.genLep1Eta,thePandaFlat.genLep1Phi,thePDGMass[0]);
             vGen2.SetPtEtaPhiM(thePandaFlat.genLep2Pt,thePandaFlat.genLep2Eta,thePandaFlat.genLep2Phi,thePDGMass[1]);
-            Int_t nptwwbin[5] = {fhDWWPtRatio	       ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
-	                         fhDWWPtRatio_scaleup  ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
-	                         fhDWWPtRatio_scaledown->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
-	                         fhDWWPtRatio_resumup  ->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999)),
-	                         fhDWWPtRatio_resumdown->GetXaxis()->FindBin(TMath::Min((double)thePandaFlat.genBosonPt,499.999))};
+	    TLorentzVector wwSystem = vGen1 + vGen2 + vMet;
+	    double wwPt = wwSystem.Pt();
+	    if(year == 2016) wwPt = thePandaFlat.genBosonPt;
+            Int_t nptwwbin[5] = {fhDWWPtRatio	       ->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
+	                         fhDWWPtRatio_scaleup  ->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
+	                         fhDWWPtRatio_scaledown->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
+	                         fhDWWPtRatio_resumup  ->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
+	                         fhDWWPtRatio_resumdown->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999))};
             thePtwwWeight[0] = fhDWWPtRatio          ->GetBinContent(nptwwbin[0]) * 1.020;
 	    thePtwwWeight[1] = fhDWWPtRatio_scaleup  ->GetBinContent(nptwwbin[1]);
 	    thePtwwWeight[2] = fhDWWPtRatio_scaledown->GetBinContent(nptwwbin[2]);
