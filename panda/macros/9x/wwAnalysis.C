@@ -135,7 +135,7 @@ int year
   }
 
   //infileName_.clear();infileCat_.clear();
-  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); 	       infileCat_.push_back(kPlotqqWW);
+  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); 	     infileCat_.push_back(kPlotqqWW);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
@@ -542,8 +542,8 @@ int year
             vGen1.SetPtEtaPhiM(thePandaFlat.genLep1Pt,thePandaFlat.genLep1Eta,thePandaFlat.genLep1Phi,thePDGMass[0]);
             vGen2.SetPtEtaPhiM(thePandaFlat.genLep2Pt,thePandaFlat.genLep2Eta,thePandaFlat.genLep2Phi,thePDGMass[1]);
 	    TLorentzVector wwSystem = vGen1 + vGen2 + vMet;
-	    double wwPt = wwSystem.Pt();
-	    if(year == 2016) wwPt = thePandaFlat.genBosonPt;
+	    double wwPt = thePandaFlat.genBosonPt;
+	    if(wwPt < 0) {wwPt = wwSystem.Pt(); printf("wwPt < 0!\n");}
             Int_t nptwwbin[5] = {fhDWWPtRatio	       ->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
 	                         fhDWWPtRatio_scaleup  ->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
 	                         fhDWWPtRatio_scaledown->GetXaxis()->FindBin(TMath::Min((double)wwPt,499.999)),
