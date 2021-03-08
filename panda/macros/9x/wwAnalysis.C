@@ -135,7 +135,8 @@ int year
   }
 
   //infileName_.clear();infileCat_.clear();
-  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); 	     infileCat_.push_back(kPlotqqWW);
+  //infileName_.push_back(Form("%sqqWW.root" ,filesPath.Data())); infileCat_.push_back(kPlotqqWW);
+  //infileName_.push_back(Form("%sggWW.root" ,filesPath.Data())); infileCat_.push_back(kPlotggWW);
 
   TFile *fLepton_Fakes = TFile::Open(fLepton_FakesName.Data());
   TH2D* histoFakeEffSelMediumEtaPt_m = (TH2D*)fLepton_Fakes->Get("histoFakeEffSelEtaPt_2_0"); histoFakeEffSelMediumEtaPt_m->SetDirectory(0);
@@ -304,6 +305,15 @@ int year
     histo_NonPromptNormJetUp[nj]   = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_NonPromptNormJet%dcat_%dUp"  , plotBaseNames[kPlotNonPrompt].Data(),nj,year));
     histo_NonPromptNormJetDown[nj] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_NonPromptNormJet%dcat_%dDown", plotBaseNames[kPlotNonPrompt].Data(),nj,year));
   }
+
+  const int nBinWWMLL  = 4; Float_t xbinsWWMLL  [nBinWWMLL+1] = {12, 55, 90, 120, 150};
+  const int nBinWWDRLL = 3; Float_t xbinsWWDRLL [nBinWWDRLL+1] = {0.0, 0.8, 1.2, 2.0};
+  const int nBinWWMT   = 8; Float_t xbinsWWMT   [nBinWWMT+1] = {50, 70, 90, 110, 130, 150, 175, 200, 300};
+  const int nBinWWCOMB = nBinWWMLL*nBinWWDRLL*nBinWWMT; Float_t xbinsWWCOMB[nBinWWCOMB+1]; for(int i=0; i<=nBinWWCOMB; i++) xbinsWWCOMB[i] = i;
+  TH1D* histoWWMLL  = new TH1D(Form("histoWWMLL"),  Form("histoWWMLL"),  nBinWWMLL , xbinsWWMLL );
+  TH1D* histoWWDRLL = new TH1D(Form("histoWWDRLL"), Form("histoWWDRLL"), nBinWWDRLL, xbinsWWDRLL);
+  TH1D* histoWWMT   = new TH1D(Form("histoWWMT"),   Form("histoWWMT"),   nBinWWMT  , xbinsWWMT  );
+  TH1D* histoWWCOMB = new TH1D(Form("histoWWCOMB"), Form("histoWWCOMB"), nBinWWCOMB, xbinsWWCOMB);
 
   //*******************************************************
   // Chain Loop
@@ -582,6 +592,33 @@ int year
         else if(infileCat_[ifile] == kPlotData && countLeptonTight == idLep.size()-1) fakeSF = +1.0 * fakeSF; // single fake, data
         else printf("IMPOSSIBLE FAKE OPTION\n");
         totalWeight = totalWeight * fakeSF;
+      }
+
+      double deltaPhiAllleptonMet = TMath::Abs(dilep.DeltaPhi(vMet));
+      double mtWW = TMath::Sqrt(2.0*dilep.Pt()*vMet.Pt()*(1.0 - cos(deltaPhiAllleptonMet)));
+      if(passWWSel && (theCategory == kPlotqqWW || theCategory == kPlotggWW) && mtWW > 50){
+        double dphill = TMath::Abs(vLoose[0].DeltaPhi(vLoose[1]));
+        double detall = TMath::Abs(vLoose[0].Eta()-vLoose[1].Eta());
+        double drll = sqrt(dphill*dphill+detall*detall);
+	TLorentzVector vLTrailing = vLoose[0];
+	if(vLoose[1].Pt() < vLoose[0].Pt()) vLTrailing = vLoose[1];
+        double deltaPhiLMinMet = TMath::Abs(vLTrailing.DeltaPhi(vMet));
+        double mtLMinMet = TMath::Sqrt(2.0*vLTrailing.Pt()*vMet.Pt()*(1.0 - cos(deltaPhiLMinMet)));
+        double typeSelAux[3] = {0,0,0};
+	for(int ib=0; ib<nBinWWMLL; ib++){
+	   if(TMath::Min(dilep.M(),xbinsWWMLL[nBinWWMLL]-0.001) < xbinsWWMLL[ib+1]) {typeSelAux[0] = ib; break;}
+	}
+	for(int ib=0; ib<nBinWWDRLL; ib++){
+	   if(TMath::Min(drll,xbinsWWDRLL[nBinWWDRLL]-0.001) < xbinsWWDRLL[ib+1]) {typeSelAux[1] = ib; break;}
+	}
+	for(int ib=0; ib<nBinWWMT; ib++){
+	   if(TMath::Min(mtLMinMet,xbinsWWMT[nBinWWMT]-0.001) < xbinsWWMT[ib+1]) {typeSelAux[2] = ib; break;}
+	}
+	double combVar = typeSelAux[0] + nBinWWMLL*typeSelAux[1] + nBinWWMLL*nBinWWDRLL*typeSelAux[2];
+        histoWWMLL ->Fill(TMath::Min(dilep.M(),xbinsWWMLL[nBinWWMLL]-0.001),totalWeight);
+        histoWWDRLL->Fill(TMath::Min(drll,xbinsWWDRLL[nBinWWDRLL]-0.001),totalWeight);
+        histoWWMT  ->Fill(TMath::Min(mtLMinMet,xbinsWWMT[nBinWWMT]-0.001),totalWeight);
+        histoWWCOMB->Fill(combVar,totalWeight);
       }
 
       if(passNoMLLSel )histo[lepType+  0][theCategory]->Fill(TMath::Min(dilep.M(),199.999),totalWeight);
@@ -1226,9 +1263,18 @@ int year
     outFilePlotsNote->Close();
   }
   sprintf(output,"histo_GenWWPt_RecWWPt_%d.root",year);
-  TFile* outFilePlotsNote = new TFile(output,"recreate");
-  outFilePlotsNote->cd();
+  TFile* outFilePlotsNote0 = new TFile(output,"recreate");
+  outFilePlotsNote0->cd();
   histo_GenWWPt_RecWWPt->Write();
-  outFilePlotsNote->Close();
+  outFilePlotsNote0->Close();
+
+  sprintf(output,"histo_WWDM_%d.root",year);
+  TFile* outFilePlotsNote1 = new TFile(output,"recreate");
+  outFilePlotsNote1->cd();
+  histoWWMLL ->Write();
+  histoWWDRLL->Write();
+  histoWWMT  ->Write();
+  histoWWCOMB->Write();
+  outFilePlotsNote1->Close();
 
 }
