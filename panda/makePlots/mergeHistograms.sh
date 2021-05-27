@@ -26,6 +26,16 @@ do
   fi
 done
 
+elif [ $# == 1 ] && [ $1 == "ssww_hllhc" ]; then
+
+for i in `seq 0 200`;
+do
+  ls ana_ssww_hllhc/histossww_2016_${i}_fiducial0_l3000_wwframe.root ana_ssww_hllhc/histossww_2017_${i}_fiducial0_l3000_wwframe.root ana_ssww_hllhc/histossww_2018_${i}_fiducial0_l3000_wwframe.root >& /dev/null
+  if [ $? -eq 0 ]; then
+    hadd -f done_ana/histossww_2019_${i}_fiducial0_l3000_wwframe.root ana_ssww_hllhc/histossww_2016_${i}_fiducial0_l3000_wwframe.root ana_ssww_hllhc/histossww_2017_${i}_fiducial0_l3000_wwframe.root ana_ssww_hllhc/histossww_2018_${i}_fiducial0_l3000_wwframe.root
+  fi
+done
+
 elif [ $# == 1 ] && [ $1 == "ssww" ]; then
 
 for i in `seq 0 200`;

@@ -36,7 +36,7 @@ enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystType
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
 void sswwAnalysis_hllhc(
-int year, int fidAna = 0, TString wwPath = "wwframe", int lumi = 3000
+int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000
 ){
   bool useTwoBDTs = true; int mHVal = 0; TString WZName = "WZ3l_MG";
   int nTypeLepSel[2] = {-1, -1};
@@ -49,7 +49,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", int lumi = 3000
   double jetPtCut = 50;
   TString fidAnaName = "";
   if     (fidAna == 6) {fidAnaName = Form("_fiducial%d_mH%d",fidAna,mHVal); if(year == 2016) jetPtCut = 30.; syst_fake[0] = 0.2; syst_fake[1] = 0.2;}
-  else if(fidAna >= 0) fidAnaName = Form("_fiducial%d_l%d_%s",fidAna,lumi,wwPath.Data());
+  else if(fidAna >= 0) fidAnaName = Form("_fiducial%d_l%d_%s",fidAna,(int)lumi,wwPath.Data());
 
   TString inputFolder = "/data/t3home000";
 
@@ -1502,7 +1502,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", int lumi = 3000
         puWeightUp   = nPUScaleFactor(fhDPUUp,  thePandaFlat.pu);
         puWeightDown = nPUScaleFactor(fhDPUDown,thePandaFlat.pu);
 
-        sf_l1PrefireE = 1.0 + TMath::Abs(1.0 - thePandaFlat.sf_l1Prefire) * 0.2;
+        sf_l1PrefireE = 1.0; // + TMath::Abs(1.0 - thePandaFlat.sf_l1Prefire) * 0.2;
 
 	//double npvWeight = nPUScaleFactor(fhDNPV, thePandaFlat.npv);
 
@@ -3087,6 +3087,15 @@ int year, int fidAna = 0, TString wwPath = "wwframe", int lumi = 3000
       histo_PreFireBoundingDown[ny][ic]->SetBinContent(nb, TMath::Max((float)histo_PreFireBoundingDown[ny][ic]->GetBinContent(nb),0.0f));
       histo_TriggerBoundingUp  [ny][ic]->SetBinContent(nb, TMath::Max((float)histo_TriggerBoundingUp  [ny][ic]->GetBinContent(nb),0.0f));
       histo_TriggerBoundingDown[ny][ic]->SetBinContent(nb, TMath::Max((float)histo_TriggerBoundingDown[ny][ic]->GetBinContent(nb),0.0f));
+      // 1/2 reduction for JES and JER
+      float jesup   = 1 + (histo_JESBoundingUp  [ny][ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+      histo_JESBoundingUp  [ny][ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*jesup  ,0.0f));
+      float jesdown = 1 + (histo_JESBoundingDown[ny][ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+      histo_JESBoundingDown[ny][ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*jesdown,0.0f));
+      float jerup   = 1 + (histo_JERBoundingUp  [ny][ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+      histo_JERBoundingUp  [ny][ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*jerup  ,0.0f));
+      float jerdown = 1 + (histo_JERBoundingDown[ny][ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+      histo_JERBoundingDown[ny][ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*jerdown,0.0f));
       }
       histo_WSBoundingUp	  [ic]->SetBinContent(nb, TMath::Max((float)histo_WSBoundingUp	        [ic]->GetBinContent(nb),0.0f));
       histo_WSBoundingDown	  [ic]->SetBinContent(nb, TMath::Max((float)histo_WSBoundingDown	[ic]->GetBinContent(nb),0.0f));
