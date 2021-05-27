@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 export NSEL=$1;
