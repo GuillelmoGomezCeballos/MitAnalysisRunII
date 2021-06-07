@@ -1525,7 +1525,6 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000
 	if((infileCat_[ifile] == kPlotEWKWZ || infileCat_[ifile] == kPlotEWKWZ_dim8)
 	    && thePandaFlat.genMjj > 500) isVBS[1] = true;
 
-        if(!(fidAna == 6))                               {isVBS[0] = false; isVBS[1] = false;}
         if(infileName_[ifile].Contains("qq_cH") == true) {isVBS[0] = false; isVBS[1] = false;}
 
 	if(isVBS[0])
