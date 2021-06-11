@@ -1087,10 +1087,18 @@ elif [ $NSEL == 'ssww_hllhc' ]; then
   export legendBSM="";
   export YEAR2=3000;
 
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_smp19012.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_0'${fidAnaName}'.root","ssww_hllhc_wwsel_mjj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_smp19012.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_4'${fidAnaName}'.root","ssww_hllhc_wzsel_mjj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  sed -i 's/writeExtraText = false/writeExtraText = true/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/extraText   = "Preliminary"/extraText   = "Phase-2 Projection"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/lumiTextSize     = 0.6/lumiTextSize     = 0.45/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
 
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_smp19012.C+'(0,5,"#Delta#eta_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_15'${fidAnaName}'.root","ssww_hllhc_wwsel_ptj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
-  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_smp19012.C+'(0,5,"#Delta#eta_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_19'${fidAnaName}'.root","ssww_hllhc_wzsel_ptj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_ftr21001.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_0'${fidAnaName}'.root","ssww_hllhc_wwsel_mjj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_ftr21001.C+'(0,1,"m_{jj}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_4'${fidAnaName}'.root","ssww_hllhc_wzsel_mjj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_ftr21001.C+'(0,5,"p_{T}^{j}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_15'${fidAnaName}'.root","ssww_hllhc_wwsel_ptj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+  root -q -b -l MitAnalysisRunII/panda/makePlots/finalPlot_ftr21001.C+'(0,5,"p_{T}^{j}","GeVBINBinWidth","done_ana/histossww_'${YEAR}'_19'${fidAnaName}'.root","ssww_hllhc_wzsel_ptj",0,  '${YEAR2}',"'${legendBSM}'",1.0,'${isBlinded}',"",1,'${APPLYSCALING}',"'${mlfitResult}'","'${channelName}'")';
+
+  sed -i 's/writeExtraText = true/writeExtraText = false/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/extraText   = "Supplementary"/extraText   = "Preliminary"/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
+  sed -i 's/lumiTextSize     = 0.45/lumiTextSize     = 0.6/' MitAnalysisRunII/panda/makePlots/CMS_lumi.h
 
 fi

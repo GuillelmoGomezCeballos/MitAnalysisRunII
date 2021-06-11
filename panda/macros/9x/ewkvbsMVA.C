@@ -39,23 +39,30 @@ void ewkvbsMVA(
   factory = new TMVA::Factory("bdt", output_file, factoryOptions);
   TMVA::DataLoader *dataloader=new TMVA::DataLoader("MitEWKVBSAnalysis");
 
+  // EW WZ vs. QCD WZ
   TCut cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",trainTreeEventSplitStr.Data(),kPlotEWKWZ);
   TCut cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",trainTreeEventSplitStr.Data(),kPlotWZ);
   TCut cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",testTreeEventSplitStr.Data(), kPlotEWKWZ);
   TCut cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 3 && category==%d",testTreeEventSplitStr.Data(), kPlotWZ);
-  if     (nsel == 1){
+  if     (nsel == 1){ // WLWL vs. WTWX
     cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  trainTreeEventSplitStr.Data(),kPlotBSM);
     cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",trainTreeEventSplitStr.Data(),kPlotSignal1,kPlotSignal2);
     cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  testTreeEventSplitStr.Data(), kPlotBSM);
     cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",testTreeEventSplitStr.Data(), kPlotSignal1,kPlotSignal2);
   }
-  else if(nsel == 2){
+  else if(nsel == 2){ // WLWX vs. WTWT
     cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",trainTreeEventSplitStr.Data(),kPlotBSM,kPlotSignal1);
     cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  trainTreeEventSplitStr.Data(),kPlotSignal2);
     cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",testTreeEventSplitStr.Data(), kPlotBSM,kPlotSignal1);
     cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  testTreeEventSplitStr.Data(), kPlotSignal2);
   }
-  else if(nsel == 3){
+  else if(nsel == 3){ // WLWT vs. WLWL/WTWT
+    cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  trainTreeEventSplitStr.Data(),kPlotSignal1);
+    cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",trainTreeEventSplitStr.Data(),kPlotBSM,kPlotSignal2);
+    cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                  testTreeEventSplitStr.Data(), kPlotSignal1);
+    cutTestBkg     = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d)",testTreeEventSplitStr.Data(), kPlotBSM,kPlotSignal2);
+  }
+  else if(nsel == 4){ // EW WW vs. non-VBS
     cutTrainSignal = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d|| category==%d)",trainTreeEventSplitStr.Data(),kPlotSignal1,kPlotSignal2,kPlotBSM);
     cutTrainBkg    = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && category==%d",                                 trainTreeEventSplitStr.Data(),kPlotWS);
     cutTestSignal  = Form("%s && mvajetpt1 > 50 && mvajetpt2 > 50 && mvanlep == 2 && (category==%d || category==%d|| category==%d)",testTreeEventSplitStr.Data(), kPlotSignal1,kPlotSignal2,kPlotBSM);
@@ -68,7 +75,7 @@ void ewkvbsMVA(
   dataloader->SetWeightExpression("abs(weight)", "Signal");
   dataloader->SetWeightExpression("abs(weight)", "Background");
   
-  if(nsel == 1 || nsel == 2){
+  if(nsel == 1 || nsel == 2 || nsel == 3){
     dataloader->AddVariable("mvadphijj"  , "mvadphijj"  , "", 'F');
     dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');
     dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');
@@ -97,7 +104,7 @@ void ewkvbsMVA(
     //dataloader->AddVariable("mvalepeta2" , "mvalepeta2" , "", 'F');
     //dataloader->AddVariable("mvadrll"	 , "mvadrll"	, "", 'F');  
   }
-  else if(nsel == 3){
+  else if(nsel == 4){
     dataloader->AddVariable("mvadphijj"  , "mvadphijj"  , "", 'F');
     dataloader->AddVariable("mvajetpt1"  , "mvajetpt1"  , "", 'F');
     dataloader->AddVariable("mvajetpt2"  , "mvajetpt2"  , "", 'F');

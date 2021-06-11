@@ -35,7 +35,7 @@ double syst_fake[2] = {0.3, 0.0};
 enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystTypes};
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
-void sswwAnalysis_hllhc(
+void sswwAnalysis_hllhc_4d(
 int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double fakeScale = -1.0, double jetPtCut = -1.0
 ){
   bool useTwoBDTs = true; int mHVal = 0; TString WZName = "WZ3l_MG";
@@ -457,24 +457,22 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
     xbinsWWLXBDT[4] =  0.303;xbinsWWLXBDT[5] =  0.514;xbinsWWLXBDT[6] = 1.000;
   }
 */
-  const int nBinWWLXBDT = 5; Float_t xbinsWWLXBDT[nBinWWLXBDT+1] = {-1.000,-0.135, 0.174, 0.404, 0.600, 1.000}; // v6 prune default QCD+EW corr
+  const int nBinWWLXBDT0 = 5; Float_t xbinsWWLXBDT0[nBinWWLXBDT0+1] = {-1.000,-0.135, 0.174, 0.404, 0.600, 1.000};
+  const int nBinWWLXBDT1 = 5; Float_t xbinsWWLXBDT1[nBinWWLXBDT1+1] = {-1.000,-0.164, 0.066, 0.253, 0.439, 1.000};
+  const int nBinWWLXBDT2 = 5; Float_t xbinsWWLXBDT2[nBinWWLXBDT2+1] = {-1.000,-0.121, 0.062, 0.194, 0.321, 1.000};
   if(wwPath.Contains("wwframe") && fidAna == 5){ // wwframe
     printf("xbinsWWLXBDT fid5 for %s\n",wwPath.Data());
-    xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.119;xbinsWWLXBDT[2] =  0.166;xbinsWWLXBDT[3] = 0.358;
-    xbinsWWLXBDT[4] =  0.539;xbinsWWLXBDT[5] =  1.000;
-  }
+    xbinsWWLXBDT0[0] = -1.000;
+    xbinsWWLXBDT0[1] = -0.119;xbinsWWLXBDT0[2] =  0.166;xbinsWWLXBDT0[3] = 0.358;
+    xbinsWWLXBDT0[4] =  0.539;xbinsWWLXBDT0[5] =  1.000;
 
-  if(fidAna == 9){ // v13 default QCD+EW corr
-    xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.164;xbinsWWLXBDT[2] =  0.066;xbinsWWLXBDT[3] = 0.253;
-    xbinsWWLXBDT[4] =  0.439;xbinsWWLXBDT[5] =  1.000;
-  }
-  if(wwPath.Contains("wwframe") && fidAna == 9){ // wwframe
-    printf("xbinsWWLXBDT fid9 for %s\n",wwPath.Data());
-    xbinsWWLXBDT[0] = -1.000;
-    xbinsWWLXBDT[1] = -0.157;xbinsWWLXBDT[2] =  0.049;xbinsWWLXBDT[3] = 0.233;
-    xbinsWWLXBDT[4] =  0.466;xbinsWWLXBDT[5] =  1.000;
+    xbinsWWLXBDT1[0] = -1.000;
+    xbinsWWLXBDT1[1] = -0.157;xbinsWWLXBDT1[2] =  0.049;xbinsWWLXBDT1[3] = 0.233;
+    xbinsWWLXBDT1[4] =  0.466;xbinsWWLXBDT1[5] =  1.000;
+
+    xbinsWWLXBDT2[0] = -1.000;
+    xbinsWWLXBDT2[1] = -0.163;xbinsWWLXBDT2[2] =  0.007;xbinsWWLXBDT2[3] = 0.159;
+    xbinsWWLXBDT2[4] =  0.346;xbinsWWLXBDT2[5] =  1.000;
   }
 
   const int nBinWWWSBDT = 5; Float_t xbinsWWWSBDT[nBinWWWSBDT+1] = {-1.000,-0.193, 0.224, 0.543, 0.774, 1.000}; // 10var QCD+EW corr new
@@ -490,8 +488,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
   if     (fidAna == 0 || fidAna == 2 || fidAna == 3 || fidAna == 8) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinWZBDT;
   else if(fidAna == 1) nBinMVAAux = nBinMJJ*nBinMLL + 3*nBinMJJCR + nBinMJJ;
   else if(fidAna == 4) nBinMVAAux = 4*5 + 4 + 2 + 2*5;
-  else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
-  else if(useTwoBDTs == true  && (fidAna == 5 || fidAna == 9)) nBinMVAAux = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + 3*nBinMJJCR;
+  else if(useTwoBDTs == false && (fidAna == 5 || fidAna == 9)) nBinMVAAux =   nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + nBinMJJCR + 3*nBinMJJCR;
+  else if(useTwoBDTs == true  && (fidAna == 5 || fidAna == 9)) nBinMVAAux = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + nBinMJJCR + 3*nBinMJJCR;
   else if(fidAna == 6) nBinMVAAux = nBinMJJCR*nBinAQGCMTWW + 3*nBinMJJCR + 2*nBinAQGCMTWZ;
   else if(fidAna == 7) nBinMVAAux = nBinMJJCR*nBinPTL1 + 3*nBinMJJCR + nBinWZBDT;
   const int nBinMVA = nBinMVAAux; Float_t xbins[nBinMVA+1];
@@ -591,11 +589,11 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
     else if(thePlot >= 151 && thePlot <= 153) {nBinPlot = 2000; xminPlot = -1.0; xmaxPlot = 1.0;}
     if     (thePlot == allPlots-1)            for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMVA, xbins);
     else if(thePlot >=   0 && thePlot <=   4) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMJJ, xbinsMJJ);
-    else if(thePlot >=  52 && thePlot <=  53) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
+    else if(thePlot >=  52 && thePlot <=  53) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT2, xbinsWWLXBDT2);
     else if(thePlot >=  66 && thePlot <=  67) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinMLL, xbinsMLL);
     else if(thePlot >=  68 && thePlot <=  73) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPTL1, xbinsPTL1);
     else if(thePlot >=  77 && thePlot <=  77) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWZBDT, xbinsWZBDT);
-    else if(thePlot >=  89 && thePlot <=  90) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
+    else if(thePlot >=  89 && thePlot <=  90) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT2, xbinsWWLXBDT2);
     else if(thePlot >=  91 && thePlot <=  91) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWZBDT, xbinsWZBDT);
     else if(thePlot >= 134 && thePlot <= 134) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMLL, xbinsAQGCMLL);
     else if(thePlot >= 135 && thePlot <= 135) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTWW, xbinsAQGCMTWW);
@@ -604,7 +602,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
     else if(thePlot >= 138 && thePlot <= 138) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMTWZ, xbinsAQGCMTWZ);
     else if(thePlot >= 139 && thePlot <= 139) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinAQGCMWZ, xbinsAQGCMWZ);
     else if(thePlot >= 151 && thePlot <= 152) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWWSBDT, xbinsWWWSBDT);
-    else if(thePlot >= 153 && thePlot <= 153) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT, xbinsWWLXBDT);
+    else if(thePlot >= 153 && thePlot <= 153) for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinWWLXBDT2, xbinsWWLXBDT2);
     else                                      for(int i=0; i<nPlotCategories; i++) histo[thePlot][i] = new TH1D(Form("histo_%d_%d",thePlot,i), Form("histo_%d_%d",thePlot,i), nBinPlot, xminPlot, xmaxPlot);
   }
 
@@ -743,39 +741,64 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
   float mvazstar, mvazep1, mvazep2, mvazep3, mvamaxzep, mvaj1Zdr, mvaj2Zdr, mvapttot, mvasumpttot;
   float mvaleppt1, mvaleppt2, mvalepeta1, mvalepeta2, mvadphill, mvadrll, mvamll;
   float mvaWWInputs[21];
-  TString bdtWWLXWeights="";
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_26var.weights.xml"; // 26var, ptj50/50
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_25var.weights.xml"; // 25var, ptj50/50
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v1.weights.xml"; // 25var, ptj30/50
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v2.weights.xml"; // 25var, ptj50/50
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v3.weights.xml"; // 26var, ptj50/50
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v6.weights.xml"; // 25var, ptj50/50, other bkg. in training old-default
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v7.weights.xml"; // 25var, ptj30/50, multiclass
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_DNN.weights.xml"; // 25var, ptj50/50, multiclass, DNN
-  //bdtWWLXWeights="MitAnalysisRunII/BDT/ssww_SSWW/bdt_BDTG_v30GeV.weights.xml"; // 25var, ptj30/30, multiclass, BDT
-  bdtWWLXWeights=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_wlwl.weights.xml",wwPath.Data());
-  if(fidAna == 9){
-    bdtWWLXWeights=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_wlwx.weights.xml",wwPath.Data());
-  }
-  TString bdtWWWSWeights=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_nonvbs.weights.xml",wwPath.Data());
+  TString bdtWWLXWeights0=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_wlwl.weights.xml",wwPath.Data());
+  TString bdtWWLXWeights1=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_wlwx.weights.xml",wwPath.Data());
+  TString bdtWWLXWeights2=Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_wlwt.weights.xml",wwPath.Data());
+  TString bdtWWWSWeights =Form("MitAnalysisRunII/BDT/ssww_SSWW_%s/bdt_BDTG_v0_bdt_nonvbs.weights.xml",wwPath.Data());
 
-  TMVA::Reader *theReaderWWLX = new TMVA::Reader("Silent");
-  theReaderWWLX->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
-  theReaderWWLX->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
-  theReaderWWLX->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
-  theReaderWWLX->AddVariable("mvaWpt"	  ,&mvaWWInputs[ 3]);
-  theReaderWWLX->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
-  theReaderWWLX->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
-  theReaderWWLX->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
-  theReaderWWLX->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
-  theReaderWWLX->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
-  theReaderWWLX->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
-  theReaderWWLX->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
-  theReaderWWLX->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
-  theReaderWWLX->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
-  theReaderWWLX->AddVariable("mvamll"     ,&mvaWWInputs[13]);
-  theReaderWWLX->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
-  theReaderWWLX->BookMVA("BDT", bdtWWLXWeights.Data());
+  TMVA::Reader *theReaderWWLX0 = new TMVA::Reader("Silent");
+  theReaderWWLX0->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
+  theReaderWWLX0->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
+  theReaderWWLX0->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
+  theReaderWWLX0->AddVariable("mvaWpt"	   ,&mvaWWInputs[ 3]);
+  theReaderWWLX0->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
+  theReaderWWLX0->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  theReaderWWLX0->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
+  theReaderWWLX0->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
+  theReaderWWLX0->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  theReaderWWLX0->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
+  theReaderWWLX0->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
+  theReaderWWLX0->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
+  theReaderWWLX0->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
+  theReaderWWLX0->AddVariable("mvamll"     ,&mvaWWInputs[13]);
+  theReaderWWLX0->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
+  theReaderWWLX0->BookMVA("BDT", bdtWWLXWeights0.Data());
+
+  TMVA::Reader *theReaderWWLX1 = new TMVA::Reader("Silent");
+  theReaderWWLX1->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
+  theReaderWWLX1->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
+  theReaderWWLX1->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
+  theReaderWWLX1->AddVariable("mvaWpt"	   ,&mvaWWInputs[ 3]);
+  theReaderWWLX1->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
+  theReaderWWLX1->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  theReaderWWLX1->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
+  theReaderWWLX1->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
+  theReaderWWLX1->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  theReaderWWLX1->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
+  theReaderWWLX1->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
+  theReaderWWLX1->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
+  theReaderWWLX1->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
+  theReaderWWLX1->AddVariable("mvamll"     ,&mvaWWInputs[13]);
+  theReaderWWLX1->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
+  theReaderWWLX1->BookMVA("BDT", bdtWWLXWeights1.Data());
+
+  TMVA::Reader *theReaderWWLX2 = new TMVA::Reader("Silent");
+  theReaderWWLX2->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
+  theReaderWWLX2->AddVariable("mvajetpt1"  ,&mvaWWInputs[ 1]);
+  theReaderWWLX2->AddVariable("mvajetpt2"  ,&mvaWWInputs[ 2]);
+  theReaderWWLX2->AddVariable("mvaWpt"	   ,&mvaWWInputs[ 3]);
+  theReaderWWLX2->AddVariable("mvaZpt"     ,&mvaWWInputs[ 4]);
+  theReaderWWLX2->AddVariable("mvaVVmt"    ,&mvaWWInputs[ 5]);
+  theReaderWWLX2->AddVariable("mvazep1"    ,&mvaWWInputs[ 6]);
+  theReaderWWLX2->AddVariable("mvazep2"    ,&mvaWWInputs[ 7]);
+  theReaderWWLX2->AddVariable("mvaj1Zdr"   ,&mvaWWInputs[ 8]);
+  theReaderWWLX2->AddVariable("mvaj2Zdr"   ,&mvaWWInputs[ 9]);
+  theReaderWWLX2->AddVariable("mvaleppt1"  ,&mvaWWInputs[10]);
+  theReaderWWLX2->AddVariable("mvaleppt2"  ,&mvaWWInputs[11]);
+  theReaderWWLX2->AddVariable("mvadphill"  ,&mvaWWInputs[12]);
+  theReaderWWLX2->AddVariable("mvamll"     ,&mvaWWInputs[13]);
+  theReaderWWLX2->AddVariable("(mvaleppt1*mvaleppt2)/(mvajetpt1*mvajetpt2)" ,&mvaWWInputs[14]);
+  theReaderWWLX2->BookMVA("BDT", bdtWWLXWeights2.Data());
 
   TMVA::Reader *theReaderWWWS = new TMVA::Reader("Silent");
   theReaderWWWS->AddVariable("mvadphijj"  ,&mvaWWInputs[ 0]);
@@ -832,7 +855,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
   theReaderWZ->BookMVA("BDT", bdtWZWeights.Data());
   // End MVA-weigths initialization
 
-  printf("BDTWeights %s %s %s\n",bdtWWLXWeights.Data(),bdtWWWSWeights.Data(),bdtWZWeights.Data());
+  printf("BDTWeights %s %s %s %s\n",bdtWWLXWeights0.Data(),bdtWWLXWeights1.Data(),bdtWWWSWeights.Data(),bdtWZWeights.Data());
 
   //*******************************************************
   // Chain Loop
@@ -1652,8 +1675,10 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
         mvatree->Fill();
       }
 
-      double bdtWWLXValue[3] = {0.0,0.0,0.0}, bdtWWLXValueJESUp[3] = {0.0,0.0,0.0}, bdtWWLXValueJESDown[3] = {0.0,0.0,0.0}, bdtWWLXValueJERUp[3] = {0.0,0.0,0.0}, bdtWWLXValueJERDown[3] = {0.0,0.0,0.0};
-      double bdtWWWSValue[3] = {0.0,0.0,0.0}, bdtWWWSValueJESUp[3] = {0.0,0.0,0.0}, bdtWWWSValueJESDown[3] = {0.0,0.0,0.0}, bdtWWWSValueJERUp[3] = {0.0,0.0,0.0}, bdtWWWSValueJERDown[3] = {0.0,0.0,0.0};
+      double bdtWWLXValue0[3] = {0.0,0.0,0.0}, bdtWWLXValue0JESUp[3] = {0.0,0.0,0.0}, bdtWWLXValue0JESDown[3] = {0.0,0.0,0.0}, bdtWWLXValue0JERUp[3] = {0.0,0.0,0.0}, bdtWWLXValue0JERDown[3] = {0.0,0.0,0.0};
+      double bdtWWLXValue1[3] = {0.0,0.0,0.0}, bdtWWLXValue1JESUp[3] = {0.0,0.0,0.0}, bdtWWLXValue1JESDown[3] = {0.0,0.0,0.0}, bdtWWLXValue1JERUp[3] = {0.0,0.0,0.0}, bdtWWLXValue1JERDown[3] = {0.0,0.0,0.0};
+      double bdtWWLXValue2[3] = {0.0,0.0,0.0}, bdtWWLXValue2JESUp[3] = {0.0,0.0,0.0}, bdtWWLXValue2JESDown[3] = {0.0,0.0,0.0}, bdtWWLXValue2JERUp[3] = {0.0,0.0,0.0}, bdtWWLXValue2JERDown[3] = {0.0,0.0,0.0};
+      double bdtWWWSValue[3]  = {0.0,0.0,0.0}, bdtWWWSValueJESUp[3]  = {0.0,0.0,0.0}, bdtWWWSValueJESDown[3]  = {0.0,0.0,0.0}, bdtWWWSValueJERUp[3]  = {0.0,0.0,0.0}, bdtWWWSValueJERDown[3]  = {0.0,0.0,0.0};
       if(passWWSel || passBtagSel){
         mvaWWInputs[ 0] = (float)deltaPhiJJ;
 	mvaWWInputs[ 1] = (float)vJot1.Pt();
@@ -1670,7 +1695,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphill;
 	mvaWWInputs[13] = (float)(vZ1l1+vZ1l2).M();
 	mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1.Pt()*vJot2.Pt());
-        bdtWWLXValue[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJ;
         mvaWWInputs[16] = (float)deltaEtaJJ;
         mvaWWInputs[17] = (float)vJot1.Eta();
@@ -1699,7 +1726,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphill;
 	mvaWWInputs[13] = (float)(vZ1l1+vZ1l2).M();
 	mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESUp.Pt()*vJot2JESUp.Pt());
-        bdtWWLXValueJESUp[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0JESUp[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1JESUp[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2JESUp[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJESUp;
         mvaWWInputs[16] = (float)deltaEtaJJ;
         mvaWWInputs[17] = (float)vJot1JESUp.Eta();
@@ -1728,7 +1757,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphill;
 	mvaWWInputs[13] = (float)(vZ1l1+vZ1l2).M();
 	mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JESDown.Pt()*vJot2JESDown.Pt());
-        bdtWWLXValueJESDown[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0JESDown[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1JESDown[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2JESDown[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJESDown;
         mvaWWInputs[16] = (float)deltaEtaJJ;
         mvaWWInputs[17] = (float)vJot1JESDown.Eta();
@@ -1757,7 +1788,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphill;
 	mvaWWInputs[13] = (float)(vZ1l1+vZ1l2).M();
 	mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERUp.Pt()*vJot2JERUp.Pt());
-        bdtWWLXValueJERUp[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0JERUp[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1JERUp[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2JERUp[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJERUp;
         mvaWWInputs[16] = (float)deltaEtaJJ;
         mvaWWInputs[17] = (float)vJot1JERUp.Eta();
@@ -1786,7 +1819,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphill;
 	mvaWWInputs[13] = (float)(vZ1l1+vZ1l2).M();
 	mvaWWInputs[14] = (float)(vZ1l1.Pt()*vZ1l2.Pt())/(vJot1JERDown.Pt()*vJot2JERDown.Pt());
-        bdtWWLXValueJERDown[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0JERDown[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1JERDown[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2JERDown[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
         mvaWWInputs[15] = (float)massJJJERDown;
         mvaWWInputs[16] = (float)deltaEtaJJ;
         mvaWWInputs[17] = (float)vJot1JERDown.Eta();
@@ -1866,7 +1901,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 	mvaWWInputs[12] = (float)dphillAux;
 	mvaWWInputs[13] = (float)dilepAux.M();
 	mvaWWInputs[14] = (float)(vL1.Pt()*vL2.Pt())/(vJot1.Pt()*vJot2.Pt());
-        bdtWWLXValue[0] = TMath::Min(theReaderWWLX->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue0[0] = TMath::Min(theReaderWWLX0->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue1[0] = TMath::Min(theReaderWWLX1->EvaluateMVA("BDT"),0.999);
+        bdtWWLXValue2[0] = TMath::Min(theReaderWWLX2->EvaluateMVA("BDT"),0.999);
       }
 
       if(passEWKWZSelJESUp){
@@ -2045,8 +2082,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
       if(passEWKWZSel)       histo[47][theCategory]->Fill(TMath::Min(vvZep,0.999),totalWeight);
       if(passAllButOneSel[6])histo[lepType+ 48][theCategory]->Fill(TMath::Min((double)thePandaFlat.jetNMBtags,4.499),totalWeight);
       if(passAllButOneSel[7])histo[         51][theCategory]->Fill(TMath::Min((double)thePandaFlat.nTau,4.499),totalWeight);
-      if(passEWKWZSel)       histo[         52][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
-      if(passWZbSel)         histo[         53][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
+      if(passEWKWZSel)       histo[         52][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue2[0],0.999)),totalWeight);
+      if(passWZbSel)         histo[         53][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue2[0],0.999)),totalWeight);
       if(passPresel)         histo[         54][theCategory]->Fill(TMath::Min(massJJ,2499.999),totalWeight);
       if(passPresel)         histo[         55][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
       if(passPresel)         histo[         56][theCategory]->Fill(TMath::Min(maxLeptonZep,0.999),totalWeight);
@@ -2075,8 +2112,8 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
       if(passEWKWZSel)       histo[         78][theCategory]->Fill(TMath::Min(mtVV,499.999),totalWeight);
       if(passQCDSel >= 0)    histo[passQCDSel+79][theCategory]->Fill(massJJ,totalWeight);
       if(passQCDSel >= 0)    histo[passQCDSel+84][theCategory]->Fill(TMath::Min(deltaEtaJJ,7.999),totalWeight);
-      if(passWWSel)          histo[         89][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
-      if(passBtagSel)        histo[         90][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
+      if(passWWSel)          histo[         89][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue2[0],0.999)),totalWeight);
+      if(passBtagSel)        histo[         90][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue2[0],0.999)),totalWeight);
       if(passWZbSel)         histo[         91][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWZValue,0.999)),totalWeight);
       if(passEWKWZSel){
         histo[92][theCategory]->Fill(TMath::Abs(deltaPhiJJ),totalWeight);
@@ -2162,7 +2199,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
       }
       if(passWWSel)   histo[151][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
       if(passBtagSel) histo[152][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
-      if(passWWSel && bdtWWWSValue[0] > 0) histo[153][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
+      if(passWWSel && bdtWWWSValue[0] > 0) histo[153][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue2[0],0.999)),totalWeight);
 
       if((theCategory == kPlotData && (passWWSel || passEWKWZSel) && debug == 1) || debug == 2){
         printf("DATA %d %d %llu | %d %d | %d %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %f\n",
@@ -2497,21 +2534,53 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
 
 	}
         else if(fidAna == 5 || fidAna == 9){
-          double bdtWWLXValueBin[5] = {0,0,0,0,0};
-	  for(int ib=0; ib<nBinWWLXBDT; ib++){
-	     if(bdtWWLXValue[0]        < xbinsWWLXBDT[ib+1]) {bdtWWLXValueBin[0] = ib; break;}
+          double bdtWWLXValue0Bin[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinWWLXBDT0; ib++){
+	     if(bdtWWLXValue0[0]        < xbinsWWLXBDT0[ib+1]) {bdtWWLXValue0Bin[0] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinWWLXBDT; ib++){
-	     if(bdtWWLXValueJESUp[0]   < xbinsWWLXBDT[ib+1]) {bdtWWLXValueBin[1] = ib; break;}
+	  for(int ib=0; ib<nBinWWLXBDT0; ib++){
+	     if(bdtWWLXValue0JESUp[0]   < xbinsWWLXBDT0[ib+1]) {bdtWWLXValue0Bin[1] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinWWLXBDT; ib++){
-	     if(bdtWWLXValueJESDown[0] < xbinsWWLXBDT[ib+1]) {bdtWWLXValueBin[2] = ib; break;}
+	  for(int ib=0; ib<nBinWWLXBDT0; ib++){
+	     if(bdtWWLXValue0JESDown[0] < xbinsWWLXBDT0[ib+1]) {bdtWWLXValue0Bin[2] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinWWLXBDT; ib++){
-	     if(bdtWWLXValueJERUp[0]   < xbinsWWLXBDT[ib+1]) {bdtWWLXValueBin[3] = ib; break;}
+	  for(int ib=0; ib<nBinWWLXBDT0; ib++){
+	     if(bdtWWLXValue0JERUp[0]   < xbinsWWLXBDT0[ib+1]) {bdtWWLXValue0Bin[3] = ib; break;}
 	  }
-	  for(int ib=0; ib<nBinWWLXBDT; ib++){
-	     if(bdtWWLXValueJERDown[0] < xbinsWWLXBDT[ib+1]) {bdtWWLXValueBin[4] = ib; break;}
+	  for(int ib=0; ib<nBinWWLXBDT0; ib++){
+	     if(bdtWWLXValue0JERDown[0] < xbinsWWLXBDT0[ib+1]) {bdtWWLXValue0Bin[4] = ib; break;}
+	  }
+          double bdtWWLXValue1Bin[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinWWLXBDT1; ib++){
+	     if(bdtWWLXValue1[0]        < xbinsWWLXBDT1[ib+1]) {bdtWWLXValue1Bin[0] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT1; ib++){
+	     if(bdtWWLXValue1JESUp[0]   < xbinsWWLXBDT1[ib+1]) {bdtWWLXValue1Bin[1] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT1; ib++){
+	     if(bdtWWLXValue1JESDown[0] < xbinsWWLXBDT1[ib+1]) {bdtWWLXValue1Bin[2] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT1; ib++){
+	     if(bdtWWLXValue1JERUp[0]   < xbinsWWLXBDT1[ib+1]) {bdtWWLXValue1Bin[3] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT1; ib++){
+	     if(bdtWWLXValue1JERDown[0] < xbinsWWLXBDT1[ib+1]) {bdtWWLXValue1Bin[4] = ib; break;}
+	  }
+          double bdtWWLXValue2Bin[5] = {0,0,0,0,0};
+	  for(int ib=0; ib<nBinWWLXBDT2; ib++){
+	     if(bdtWWLXValue2[0]        < xbinsWWLXBDT2[ib+1]) {bdtWWLXValue2Bin[0] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT2; ib++){
+	     if(bdtWWLXValue2JESUp[0]   < xbinsWWLXBDT2[ib+1]) {bdtWWLXValue2Bin[1] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT2; ib++){
+	     if(bdtWWLXValue2JESDown[0] < xbinsWWLXBDT2[ib+1]) {bdtWWLXValue2Bin[2] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT2; ib++){
+	     if(bdtWWLXValue2JERUp[0]   < xbinsWWLXBDT2[ib+1]) {bdtWWLXValue2Bin[3] = ib; break;}
+	  }
+	  for(int ib=0; ib<nBinWWLXBDT2; ib++){
+	     if(bdtWWLXValue2JERDown[0] < xbinsWWLXBDT2[ib+1]) {bdtWWLXValue2Bin[4] = ib; break;}
 	  }
           double bdtWWWSValueBin[5] = {0,0,0,0,0};
 	  for(int ib=0; ib<nBinWWWSBDT; ib++){
@@ -2580,74 +2649,75 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
           typeSelAux3[4] = typeSelAux3[0];
           if(useTwoBDTs == false){
           int whichBin = 0;
-          if     (dataCardSel        == 0) MVAVar        = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinWWLXBDT +               typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSel        == 0) MVAVar        = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValue0Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSel        == 1) MVAVar        = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +               typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 2) MVAVar        = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 3) MVAVar        = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 4) MVAVar        = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 1;
-          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValue0Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +		    typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +	nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 2;
-          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJESDown == 0) MVAVarJESDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValue0Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +		    typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +	nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 3;
-          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJERUp   == 0) MVAVarJERUp   =typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValue0Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJERUp   == 1) MVAVarJERUp   =nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +		   typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 2) MVAVarJERUp   =nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 3) MVAVarJERUp   =nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 4) MVAVarJERUp   =nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 4;
-          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT +		 typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJERDown == 0) MVAVarJERDown = typeSelAux1CR[whichBin] + nBinMJJCR*bdtWWLXValue0Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +		    typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +	nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinMJJCR*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
           } else {
           int whichBin = 0;
-          if     (dataCardSel        == 0) MVAVar        = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];
-          else if(dataCardSel        == 1) MVAVar        = nBinWWWSBDT*nBinWWLXBDT +		   typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 2) MVAVar        = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 3) MVAVar        = nBinWWWSBDT*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSel        == 4) MVAVar        = nBinWWWSBDT*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSel        == 0) MVAVar        = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValue0Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSel        == 1) MVAVar        = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +               typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 2) MVAVar        = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 3) MVAVar        = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSel        == 4) MVAVar        = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+	  //printf("sss %d %d %d %d %d %d %d\n",dataCardSel,(int)MVAVar,(int)bdtWWWSValueBin[whichBin],(int)bdtWWLXValue0Bin[whichBin],(int)bdtWWLXValue1Bin[whichBin],(int)bdtWWLXValue2Bin[whichBin],(int)typeSelAux1CR[whichBin]);
 
           whichBin = 1;
-          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJESUp   == 0) MVAVarJESUp   = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValue0Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJESUp   == 1) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 	      typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 2) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 3) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESUp   == 4) MVAVarJESUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 2;
-          if     (dataCardSelJESDown == 0) MVAVarJESDown = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJESDown == 0) MVAVarJESDown = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValue0Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJESDown == 1) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 	      typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 2) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 3) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJESDown == 4) MVAVarJESDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 3;
-          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJERUp   == 0) MVAVarJERUp   = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValue0Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJERUp   == 1) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 	      typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 2) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 3) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERUp   == 4) MVAVarJERUp   = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
 
           whichBin = 4;
-          if     (dataCardSelJERDown == 0) MVAVarJERDown = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValueBin[whichBin];
-          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT +		   typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT +   nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT + 2*nBinMJJCR + typeSelAux1CR[whichBin];
-          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT + 3*nBinMJJCR + typeSelAux1CR[whichBin];
+          if     (dataCardSelJERDown == 0) MVAVarJERDown = bdtWWWSValueBin[whichBin] + nBinWWWSBDT*bdtWWLXValue0Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*bdtWWLXValue1Bin[whichBin] + nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*bdtWWLXValue2Bin[whichBin];
+          else if(dataCardSelJERDown == 1) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 	      typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 2) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 +   nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 3) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 2*nBinMJJCR + typeSelAux1CR[whichBin];
+          else if(dataCardSelJERDown == 4) MVAVarJERDown = nBinWWWSBDT*nBinWWLXBDT0*nBinWWLXBDT1*nBinWWLXBDT2 + 3*nBinMJJCR + typeSelAux1CR[whichBin];
           }
         }
         else if(fidAna == 6){
