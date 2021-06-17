@@ -36,7 +36,7 @@ enum systType                     {JESUP=0, JESDOWN,  JERUP,  JERDOWN, nSystType
 TString systTypeName[nSystTypes]= {"JESUP","JESDOWN","JERUP","JERDOWN"};
 
 void sswwAnalysis_hllhc_3d(
-int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double fakeScale = -1.0, double jetPtCut = -1.0
+int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double fakeScale = -1.0, double jetPtCut = -1.0, bool reductionTheory = false
 ){
   bool useTwoBDTs = true; int mHVal = 0; TString WZName = "WZ3l_MG";
   int nTypeLepSel[2] = {-1, -1};
@@ -3149,6 +3149,22 @@ int year, int fidAna = 0, TString wwPath = "wwframe", double lumi = 3000, double
       histo_WZTauHDown	          [ic]->SetBinContent(nb, TMath::Max((float)histo_WZTauHDown	        [ic]->GetBinContent(nb),0.0f));
       histo_WZTauLUp  	          [ic]->SetBinContent(nb, TMath::Max((float)histo_WZTauLUp              [ic]->GetBinContent(nb),0.0f));
       histo_WZTauLDown	          [ic]->SetBinContent(nb, TMath::Max((float)histo_WZTauLDown	        [ic]->GetBinContent(nb),0.0f));
+      if(reductionTheory == true){
+         float varup   = 1 + (histo_QCDscaleUp  [ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_QCDscaleUp  [ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*varup  ,0.0f));
+         float vardown = 1 + (histo_QCDscaleDown[ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_QCDscaleDown[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*vardown,0.0f));
+
+         varup   = 1 + (histo_EWKCorrVVUp  [ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_EWKCorrVVUp  [ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*varup  ,0.0f));
+         vardown = 1 + (histo_EWKCorrVVDown[ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_EWKCorrVVDown[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*vardown,0.0f));
+
+         varup   = 1 + (histo_PDFBoundingUp  [ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_PDFBoundingUp  [ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*varup  ,0.0f));
+         vardown = 1 + (histo_PDFBoundingDown[ic]->GetBinContent(nb)/histo_Baseline[ic]->GetBinContent(nb) - 1)*0.5;
+         histo_PDFBoundingDown[ic]->SetBinContent(nb, TMath::Max((float)histo_Baseline[ic]->GetBinContent(nb)*vardown,0.0f));
+      }
     }
     histo_PUBoundingUp	[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingUp  [ic]->GetSumOfWeights());
     histo_PUBoundingDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_PUBoundingDown[ic]->GetSumOfWeights());
