@@ -456,7 +456,7 @@ class StandardPlot_ftr21001 {
         void setUnits(const TString &s) { _units = s; }
         void setBreakdown(const bool &b = true) { _breakdown = b; }
         void addLabel(const std::string &s) {
-            _extraLabel = new TLatex(0.216, 0.75, TString(s));
+            _extraLabel = new TLatex(0.216, 0.70, TString(s));
             _extraLabel->SetNDC();
             _extraLabel->SetTextAlign(13);
             _extraLabel->SetTextFont(62);

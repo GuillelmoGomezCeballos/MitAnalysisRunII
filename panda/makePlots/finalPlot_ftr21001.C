@@ -23,7 +23,7 @@ double scaling[8] = {1,1,1,1,1,1,1,1};
 bool isLogSpecial = false;
 bool isLogX = false;
 bool printRatios = false;
-bool printYieldsBinByBin = true;
+bool printYieldsBinByBin = false;
 
 void eraselabel(TPad *p,Double_t h){
   p->cd();
