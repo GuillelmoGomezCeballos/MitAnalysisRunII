@@ -85,12 +85,13 @@ elif [ $NSEL == 6 ]; then
   root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+
   nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',0)' >& log_ssww_fid0_${YEAR} &
   if [ $# == 3 ] && [ $3 == 1 ]; then
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',1)' >& log_ssww_fid1_${YEAR} &
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',2)' >& log_ssww_fid2_${YEAR} &
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',3)' >& log_ssww_fid3_${YEAR} &
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',4)' >& log_ssww_fid4_${YEAR} &
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',7)' >& log_ssww_fid7_${YEAR} &
-  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',8)' >& log_ssww_fid8_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',1)'  >& log_ssww_fid1_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',2)'  >& log_ssww_fid2_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',3)'  >& log_ssww_fid3_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',4)'  >& log_ssww_fid4_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',7)'  >& log_ssww_fid7_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',8)'  >& log_ssww_fid8_${YEAR} &
+  nohup time root -q -l -b MitAnalysisRunII/panda/macros/9x/sswwAnalysis.C+'('${YEAR}',10)' >& log_ssww_fid10_${YEAR} &
   fi
 
 elif [ $NSEL == 60 ]; then
