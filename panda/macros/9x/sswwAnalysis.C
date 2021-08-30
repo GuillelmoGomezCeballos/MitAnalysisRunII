@@ -736,6 +736,9 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
      histo_FakeBoundingDown[ny][9] = (TH1D*)histo_MVA->Clone(Form("histo_%s_CMS_fakeFLE_%dDown", plotBaseNames[kPlotNonPrompt].Data(), 2016+ny));
   }
 
+  TH2D *hD2DBDT[nPlotCategories];
+  for(int i=0; i<nPlotCategories; i++) hD2DBDT[i] = new TH2D(Form("hD2DBDT_%d",i), Form("hD2DBDT_%d",i), nBinWWLXBDT, xbinsWWLXBDT, nBinWWWSBDT, xbinsWWWSBDT);
+
   // Begin MVA-weigths initialization
   int category, mvanlep;
   unsigned long long int  eventNum;
@@ -2175,6 +2178,7 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
       if(passWWSel)   histo[151][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
       if(passBtagSel) histo[152][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
       if(passWWSel && bdtWWWSValue[0] > 0) histo[153][theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),totalWeight);
+      if(passWWSel) hD2DBDT[theCategory]->Fill(TMath::Max(-0.999, TMath::Min(bdtWWLXValue[0],0.999)),TMath::Max(-0.999, TMath::Min(bdtWWWSValue[0],0.999)),totalWeight);
 
       if((theCategory == kPlotData && (passWWSel || passEWKWZSel) && debug == 1) || debug == 2){
         printf("DATA %d %d %llu | %d %d | %d %d -> %d %d %d %d %d %d %d %d %d | %.1f %.1f %.1f %.1f %.2f | %.1f %.1f %.1f %d | %.2f %.2f %.2f %.2f %.2f %.2f / %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %.2f %f\n",
@@ -3967,6 +3971,12 @@ int year, int fidAna = 0, TString wwPath = "wwframe", bool useTwoBDTs = true, in
   // Writing standard histograms
   char output[200];
   if(fidAna == 0 || fidAna == 5 || fidAna == 9 || fidAna == 6){
+    sprintf(output,"hD2DBDT_%d%s.root",year,fidAnaName.Data());
+    TFile* outFilePlotsNote = new TFile(output,"recreate");
+    outFilePlotsNote->cd();
+    for(int np=0; np<nPlotCategories; np++) {hD2DBDT[np]->SetNameTitle(Form("histo%d",np),Form("histo%d",np));hD2DBDT[np]->Write();}
+    outFilePlotsNote->Close();
+
     for(int thePlot=0; thePlot<allPlots; thePlot++){
       sprintf(output,"histossww_%d_%d%s.root",year,thePlot,fidAnaName.Data());
       TFile* outFilePlotsNote = new TFile(output,"recreate");
