@@ -67,10 +67,10 @@ void make2DBDTPlots(TString fileName = "/home/ceballos/ana_area/done_ana/hD2DBDT
   for(int np=0; np<nPlotCategories; np++) {hD2DBDT[np] = (TH2D*)(fFile->Get(Form("histo%d",np))); assert(hD2DBDT[np]); hD2DBDT[np]->SetDirectory(0);}    
   fFile->cd();
 
-  atributes(hD2DBDT[kPlotNonPrompt],"Signal BDT","Non-VBS BDT","");
-  atributes(hD2DBDT[kPlotSignal1]  ,"Signal BDT","Non-VBS BDT","");
-  atributes(hD2DBDT[kPlotSignal2]  ,"Signal BDT","Non-VBS BDT","");
-  atributes(hD2DBDT[kPlotSignal3]  ,"Signal BDT","Non-VBS BDT","");
+  atributes(hD2DBDT[kPlotNonPrompt],"LL BDT","Inclusive BDT","");
+  atributes(hD2DBDT[kPlotSignal1]  ,"LL BDT","Inclusive BDT","");
+  atributes(hD2DBDT[kPlotSignal2]  ,"LL BDT","Inclusive BDT","");
+  atributes(hD2DBDT[kPlotSignal3]  ,"LL BDT","Inclusive BDT","");
 
   TCanvas* c00 = new TCanvas("c00","c00",5,5,500,500);
   TCanvas* c01 = new TCanvas("c01","c01",5,5,500,500);
