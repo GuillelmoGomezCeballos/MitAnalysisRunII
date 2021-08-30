@@ -85,5 +85,5 @@ void make2DBDTPlots(TString fileName = "/home/ceballos/ana_area/done_ana/hD2DBDT
   outputName = Form("hD2DBDT_kPlotNonPrompt.%s",format.Data()); c00->SaveAs(outputName.Data());
   outputName = Form("hD2DBDT_kPlotSignal1.%s",format.Data());   c01->SaveAs(outputName.Data());
   outputName = Form("hD2DBDT_kPlotSignal2.%s",format.Data());   c02->SaveAs(outputName.Data());
-  outputName = Form("hD2DBDT_kPlotSignal2.%s",format.Data());   c03->SaveAs(outputName.Data());
+  outputName = Form("hD2DBDT_kPlotSignal3.%s",format.Data());   c03->SaveAs(outputName.Data());
 }
