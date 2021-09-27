@@ -12,7 +12,7 @@
 #include "TLorentzVector.h"
 
 #include "MitAnalysisRunII/panda/macros/9x/pandaFlat.C"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
+#include "MitAnalysisRunII/panda/macros/9x/common_zh.h"
 #include "MitAnalysisRunII/panda/macros/9x/applyCorrections.h"
 
 const bool isDEBUG = false;
@@ -135,8 +135,10 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
   }
 
   if     (whichBSMName == ""){
-    infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotBSM);
-    infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotBSM);
+    //infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotBSM);
+    //infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotBSM);
+    infileName_.push_back(Form("%sqqZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotqqZH);
+    infileName_.push_back(Form("%sggZH125inv.root" ,filesPath.Data())); 	 infileCat_.push_back(kPlotggZH);
   }
   else if(whichBSMName == "NoBSM"){
   }
@@ -616,7 +618,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
         if(infileCat_[ifile] == kPlotDY && year == 2018 && thePandaFlat.normalizedWeight < -0.05 && vMet.Pt() > 100) totalWeight = 0.0;
 	
-	if(infileCat_[ifile] == kPlotBSM && infileName_[ifile].Contains("qqZH") == true){
+	if((infileCat_[ifile] == kPlotBSM || infileCat_[ifile] == kPlotqqZH) && infileName_[ifile].Contains("qqZH") == true){
 	  sf_EWKZH     = thePandaFlat.sf_vh;
 	  sf_EWKZHUp   = thePandaFlat.sf_vhUp;
 	  sf_EWKZHDown = thePandaFlat.sf_vhDown;
@@ -859,9 +861,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
 
   if(whichBSMName != "" && whichBSMName != "NoBSM") whichBSMName = Form("Only%s",whichBSMName.Data());
 
-  double qcdScaleTotal[2] = {0.0345, 0.2200}; // use sigma(ZH) (0.0345) instead of sigma(qq->ZZ) (0.0055) and sigma(gg->ZH) (0.2200)
-  if(whichBSMName != "") {qcdScaleTotal[0] = 0.0; qcdScaleTotal[1] = 0.0;}
-  double pdfTotal[2] = {0.016, 0.051};
+  double qcdScaleTotal[3] = {0.0345, 0.0055, 0.2200}; // ZH, qqZH, ggZH
+  if(whichBSMName != "") {qcdScaleTotal[0] = 0.0; qcdScaleTotal[1] = 0.0; qcdScaleTotal[2] = 0.0;}
   double syst_WZl[2] = {1.010, 1.012};
 
   for(unsigned ic=0; ic<nPlotCategories; ic++) {
@@ -932,7 +933,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     if     (ic == kPlotBSM && whichBSMName != "") {
       // Do nothing
     }
-    else if(ic == kPlotWZ || ic == kPlotZZ || ic == kPlotBSM || ic == kPlotEM || ic == kPlotDY) {
+    else if(ic == kPlotWZ || ic == kPlotZZ || ic == kPlotBSM || ic == kPlotqqZH | ic == kPlotggZH || ic == kPlotEM || ic == kPlotDY) {
       histo_QCDScaleUp  [ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleUp  [ic]->GetSumOfWeights());
       histo_QCDScaleDown[ic]->Scale(histo_Baseline[ic]->GetSumOfWeights()/histo_QCDScaleDown[ic]->GetSumOfWeights());
     }
@@ -1237,8 +1238,10 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     newcardShape << Form("process  ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic != kPlotBSM) newcardShape << Form("%d  ", ic);
-      else               newcardShape << Form("%d  ", 0);
+      if     (ic == kPlotBSM)  newcardShape << Form("%d  ", 0);
+      else if(ic == kPlotqqZH) newcardShape << Form("%d  ", -1);
+      else if(ic == kPlotggZH) newcardShape << Form("%d  ", -2);
+      else                     newcardShape << Form("%d  ", ic);
     }
     newcardShape << Form("\n");
 
@@ -1273,8 +1276,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     newcardShape << Form("UEPS    lnN     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic != kPlotBSM) newcardShape << Form(" - ");
-      else               newcardShape << Form("%f  ", 1.02);
+      if(ic != kPlotBSM && ic != kPlotqqZH && ic != kPlotggZH) newcardShape << Form(" - ");
+      else                                                     newcardShape << Form("%f  ", 1.02);
     }
     newcardShape << Form("\n");
 
@@ -1326,8 +1329,8 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     newcardShape << Form("EWKZHCorr    shape     ");
     for (int ic=0; ic<nPlotCategories; ic++){
       if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic != kPlotBSM) newcardShape << Form("- ");
-      else	       newcardShape << Form("1.0 ");
+      if(ic != kPlotBSM && ic != kPlotqqZH) newcardShape << Form("- ");
+      else	                            newcardShape << Form("1.0 ");
     }
     newcardShape << Form("\n");
 
@@ -1347,13 +1350,35 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
     }
     newcardShape << Form("\n");
 
-    newcardShape << Form("QCDscaleTotal_ZH    lnN     ");
-    for (int ic=0; ic<nPlotCategories; ic++){
-      if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
-      if(ic != kPlotBSM) newcardShape << Form("- ");
-      else               newcardShape << Form("%f ",1.0+qcdScaleTotal[0]);
+    if(histo_Baseline[kPlotBSM]->GetSumOfWeights() > 0){
+      newcardShape << Form("QCDscaleTotal_ZH    lnN     ");
+      for (int ic=0; ic<nPlotCategories; ic++){
+        if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+        if(ic != kPlotBSM) newcardShape << Form("- ");
+        else               newcardShape << Form("%f ",1.0+qcdScaleTotal[0]);
+      }
+      newcardShape << Form("\n");
     }
-    newcardShape << Form("\n");
+
+    if(histo_Baseline[kPlotqqZH]->GetSumOfWeights() > 0){
+      newcardShape << Form("QCDscaleTotal_qqZH    lnN     ");
+      for (int ic=0; ic<nPlotCategories; ic++){
+        if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+        if(ic != kPlotqqZH) newcardShape << Form("- ");
+        else                newcardShape << Form("%f ",1.0+qcdScaleTotal[1]);
+      }
+      newcardShape << Form("\n");
+    }
+
+    if(histo_Baseline[kPlotggZH]->GetSumOfWeights() > 0){
+      newcardShape << Form("QCDscaleTotal_ggZH    lnN     ");
+      for (int ic=0; ic<nPlotCategories; ic++){
+        if(ic == kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
+        if(ic != kPlotggZH) newcardShape << Form("- ");
+        else                newcardShape << Form("%f ",1.0+qcdScaleTotal[2]);
+      }
+      newcardShape << Form("\n");
+    }
 
     for(unsigned ic=0; ic<nPlotCategories; ic++) {
       if(ic== kPlotData || histo_Baseline[ic]->GetSumOfWeights() <= 0) continue;
@@ -1462,7 +1487,7 @@ int year, int jetValue, TString whichBSMName = "", bool isBlinded = false
       TFile* outFilePlotsNote = new TFile(output,"recreate");
       outFilePlotsNote->cd();
       double totBck = 0;
-      for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM) totBck = totBck + histo[thePlot][i]->GetSumOfWeights();
+      for(int i=1; i<nPlotCategories; i++) if(i != kPlotBSM && i != kPlotqqZH && i != kPlotggZH) totBck = totBck + histo[thePlot][i]->GetSumOfWeights();
       printf("(%2d) %7.1f vs. %7.1f ",thePlot,histo[thePlot][0]->GetSumOfWeights(),totBck);
       printf("(");
       for(int i=1; i<nPlotCategories; i++) printf("%7.1f ",histo[thePlot][i]->GetSumOfWeights());
