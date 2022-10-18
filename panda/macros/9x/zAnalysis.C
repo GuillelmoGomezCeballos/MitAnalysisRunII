@@ -11,9 +11,10 @@
 #include "TRandom.h"
 #include "TLorentzVector.h"
 
-#include "MitAnalysisRunII/panda/macros/9x/pandaFlat.C"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
-#include "MitAnalysisRunII/panda/macros/9x/applyCorrections.h"
+#include "pandaFlat.C"
+#include "common.h"
+#include "applyCorrections.h"
+#include "helicity.h"
 
 const double mcPrescale = 1;
 
@@ -59,7 +60,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
   TString elephoSFPath = Form("MitAnalysisRunII/data/90x/eff/histoDY0LGSF_%d.root",year);
   TString trgSFPath = Form("MitAnalysisRunII/data/90x/trigger/histo_triggerEff_sel0_%d.root",year);
   if     (year == 2018){
-    filesPath = "/data/t3home000/ceballos/panda/v_006_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_006_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2018.root";
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2018.root";
 
@@ -91,7 +92,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     infileName_.push_back(Form("%sH125.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotHiggs);
   }
   else if(year == 2017) {
-    filesPath = "/data/t3home000/ceballos/panda/v_004_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_004_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2017.root";
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2017.root";
 
@@ -123,7 +124,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     infileName_.push_back(Form("%sH125.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotHiggs);
   }
   else if(year == 2016) {
-    filesPath = "/data/t3home000/ceballos/panda/v_002_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_002_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2016.root";
     photonSFPath = "MitAnalysisRunII/data/90x/eff/photon_scalefactors_2016.root";
 
@@ -214,7 +215,7 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
   int nBinPlot      = 200;
   double xminPlot   = 0.0;
   double xmaxPlot   = 200.0;
-  const int allPlots = 144;
+  const int allPlots = 168;
   TH1D* histo[allPlots][nPlotCategories];
   for(int thePlot=0; thePlot<allPlots; thePlot++){
     if     (thePlot >=  0 && thePlot <=  1) {nBinPlot = 120; xminPlot = 91.1876-15; xmaxPlot = 91.1876+15;}
@@ -249,6 +250,12 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
     else if(thePlot >=126 && thePlot <=126) {nBinPlot = 50; xminPlot = -5.0; xmaxPlot = 5.0;}
     else if(thePlot >=127 && thePlot <=127) {nBinPlot = 50; xminPlot = 30.0; xmaxPlot = 430;}
     else if(thePlot >=128 && thePlot <=143) {nBinPlot =100; xminPlot = 25.0; xmaxPlot = 125;}
+    else if(thePlot >=144 && thePlot <=149) {nBinPlot = 28; xminPlot = 150.0; xmaxPlot = 1550;}
+    else if(thePlot >=150 && thePlot <=152) {nBinPlot = 20; xminPlot = -3; xmaxPlot = 1;}
+    else if(thePlot >=153 && thePlot <=155) {nBinPlot = 30; xminPlot = 1.0; xmaxPlot = 31;}
+    else if(thePlot >=156 && thePlot <=158) {nBinPlot = 16; xminPlot = 50; xmaxPlot = 850;}
+    else if(thePlot >=159 && thePlot <=164) {nBinPlot = 12; xminPlot = 50; xmaxPlot = 650;}
+    else if(thePlot >=165 && thePlot <=167) {nBinPlot = 50; xminPlot = -5; xmaxPlot = 5;}
 
     if(isTopSel == true && (thePlot >= 0 && thePlot <= 5)) {nBinPlot = 200; xminPlot = 15.0; xmaxPlot = 55;}
 
@@ -768,6 +775,32 @@ void zAnalysis(int year, bool isTopSel = false, int whichDY = 0,  int debug = 0)
 	  }
 	} // mllg requirement
       } // photon id requirement
+
+      // EXO-like search
+      if(countLeptonTight == 2 && dilep.M() > 200 && vLoose[0].Pt() > 50 && vLoose[1].Pt() > 50){
+        if(thePandaFlat.nJot >= 1 && thePandaFlat.jotPt[0] > 50){
+          double HT = vLoose[0].Pt() + vLoose[1].Pt() + thePandaFlat.jotPt[0] + vMet.Pt();
+	  if(thePandaFlat.jetNBtags > 0) histo[lepType+144][theCategory]->Fill(TMath::Min(HT,1549.999),totalWeight);
+	  else                           histo[lepType+147][theCategory]->Fill(TMath::Min(HT,1549.999),totalWeight);
+
+	  if(thePandaFlat.jetNBtags == 0 && HT > 800) {
+            histo[lepType+156][theCategory]->Fill(TMath::Min((double)thePandaFlat.jotPt[0],849.999),totalWeight);
+            histo[lepType+159][theCategory]->Fill(TMath::Min((double)vLoose[0].Pt(),649.999),totalWeight);
+            histo[lepType+162][theCategory]->Fill(TMath::Min((double)vLoose[1].Pt(),649.999),totalWeight);
+            if(thePandaFlat.jotPt[0] < 200){
+              histo[lepType+165][theCategory]->Fill(thePandaFlat.jotEta[0],totalWeight);
+	    }
+          }
+        }
+	else if(fabs(vLoose[0].Eta()-vLoose[1].Eta()) < 3 && fabs(vLoose[0].Eta()+vLoose[1].Eta())/2. < 1.1){
+          double ZRecPhiStar = TMath::Log10(TMath::Max(TMath::Min(phi_star_eta(vLoose[0],vLoose[1],looseLepPdgId[0]),9.999),0.001001));
+	  histo[lepType+150][theCategory]->Fill(ZRecPhiStar,totalWeight);
+
+          double the_cos_theta_collins_soper = TMath::Min(fabs(cos_theta_collins_soper(vLoose[0],vLoose[1])),0.99999);
+	  double the_chi = (1.0+the_cos_theta_collins_soper)/(1.0-the_cos_theta_collins_soper);
+          histo[lepType+153][theCategory]->Fill(TMath::Min(the_chi,30.999),totalWeight);
+	}
+      }
 
       bool passSel = ((lepType != 2 && TMath::Abs(dilep.M()-91.1876) < 15) || (lepType == 2 && dilep.M() > 50 && thePandaFlat.jetNBtags > 0)) && vLoose[0].Pt() > 20 && vLoose[1].Pt() > 20;
       if     (isTopSel == true && lepType == 2) passSel = dilep.M() > 50 && vLoose[0].Pt() > 25 && vLoose[1].Pt() > 25 && mtW > 50 && thePandaFlat.nJet >= 1;

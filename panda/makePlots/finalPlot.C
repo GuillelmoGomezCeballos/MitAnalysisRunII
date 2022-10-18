@@ -12,7 +12,7 @@
 #include "TSystem.h"
 #include "CMS_lumi.C"
 #include "TRandom.h"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
+#include "../macros/9x/common.h"
 #include "StandardPlot.C"
 #include "GoodStyle.C"
 
