@@ -11,9 +11,9 @@
 #include <fstream>
 #include "TLorentzVector.h"
 
-#include "MitAnalysisRunII/panda/macros/9x/pandaFlat.C"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
-#include "MitAnalysisRunII/panda/macros/9x/applyCorrections.h"
+#include "pandaFlat.C"
+#include "common.h"
+#include "applyCorrections.h"
 
 const bool showSyst = true;
 const double mcPrescale = 1;
@@ -36,7 +36,7 @@ int year, TString WZName = "default"
   //else if(year == 2018) {whichYear = Y2018; nTypeLepSel[0] =  2; nTypeLepSel[1] = 0;}
   else {printf("Wrong year (%d)!\n",year); return;}
 
-  TString inputFolder = "/data/t3home000";
+  TString inputFolder = "/work/tier3";
   if(isDesk014 == true) inputFolder = "/local";
 
   //*******************************************************

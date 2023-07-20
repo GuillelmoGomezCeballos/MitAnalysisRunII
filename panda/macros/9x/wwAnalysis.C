@@ -11,9 +11,9 @@
 #include <fstream>
 #include "TLorentzVector.h"
 
-#include "MitAnalysisRunII/panda/macros/9x/pandaFlat.C"
-#include "MitAnalysisRunII/panda/macros/9x/common.h"
-#include "MitAnalysisRunII/panda/macros/9x/applyCorrections.h"
+#include "pandaFlat.C"
+#include "common.h"
+#include "applyCorrections.h"
 
 const double mcPrescale = 1;
 const bool usePureMC = false;
@@ -64,7 +64,7 @@ int year
   TString puPath;
   //TString npvPath = Form("MitAnalysisRunII/data/90x/pu/npvWeights_%d.root",year);
   if(year == 2018) {
-    filesPath = "/data/t3home000/ceballos/panda/v_006_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_006_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2018.root";
 
     infileName_.push_back(Form("%sdata.root",filesPath.Data()));  	         infileCat_.push_back(kPlotData);
@@ -85,7 +85,7 @@ int year
     infileName_.push_back(Form("%sH125.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotHiggs);
   }
   else if(year == 2017) {
-    filesPath = "/data/t3home000/ceballos/panda/v_004_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_004_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2017.root";
 
     infileName_.push_back(Form("%sdata.root",filesPath.Data()));  	         infileCat_.push_back(kPlotData);
@@ -106,7 +106,7 @@ int year
     infileName_.push_back(Form("%sH125.root" ,filesPath.Data())); 	         infileCat_.push_back(kPlotHiggs);
   }
   else if(year == 2016) {
-    filesPath = "/data/t3home000/ceballos/panda/v_002_0/";
+    filesPath = "/work/tier3/ceballos/panda/v_002_0/";
     puPath = "MitAnalysisRunII/data/90x/pu/puWeights_90x_2016.root";
 
     infileName_.push_back(Form("%sdata.root",filesPath.Data()));  	          infileCat_.push_back(kPlotData);
